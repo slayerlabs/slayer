@@ -1,6 +1,6 @@
 {
-  "now_ts": 1780659796.6812346,
-  "now": "2026-06-05 13:43:16",
+  "now_ts": 1780659977.031552,
+  "now": "2026-06-05 13:46:17",
   "started_ts": 1780598935.0,
   "deadline_ts": 1780678135.0,
   "max_hours": 22,
@@ -186,6 +186,6 @@
     "total_jobs": 10,
     "overall_pct": 100.0,
     "eta_secs": 0,
-    "projected_done_ts": 1780659797
+    "projected_done_ts": 1780659977
   }
 }

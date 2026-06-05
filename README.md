@@ -38,6 +38,12 @@ Pomiar Fazy 0 (baseline). Oba modele: 4-bit GGUF, ollama @ RTX 3090, determinist
 - Mierzymy **tylko publiczne, pobieralne, deterministyczne** zbiory. Zamknięte (EQ-Bench, CPTUB, PLCC) — [osobno](https://slayer.fabryka.ai/closed-benchmarks).
 - Korpusy treningowe przechodzą dekontaminację względem zbiorów testowych.
 
+## Strategia treningu — tańsza ścieżka vs Bielik
+
+Bielik-11B-v3 (raport techniczny) trenowano pełnym, kosztownym pipeline'em: Mistral 7B → Depth Up-Scaling → **CPT ~1.1T tokenów** → SFT (~20M instrukcji) → DPO/DPO-P (114k) → **GRPO/RLVR** (143k, weryfikatory matma/STEM-MCQ/tool-use). Tokenizera PL **nie rozszerzano**; pary preferencji generowano m.in. **DeepSeek-V3**.
+
+Nasza teza „super tanio + epsilon": **startujemy z Qwen3.5-9B** (bije Bielika 8:1 wg leaderboardu) → **pomijamy najdroższy etap (CPT)** → tani **QLoRA SFT + GRPO/RLVR z weryfikatorem MCQ**, celowany w jedyną oś Bielika (LLMzSzŁ) i prawo/administrację. Generowanie danych: DeepSeek (jak Bielik). Pełna metodyka: [/trening](https://slayer.fabryka.ai/trening).
+
 ## Reprodukcja
 
 Wymagania: [ollama](https://ollama.com), Python 3.10+, `pip install datasets huggingface_hub sacrebleu`.

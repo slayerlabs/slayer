@@ -4,3 +4,5 @@ __pycache__/
 results/*.tmp
 results/*.json.tmp
 .DS_Store
+slayer-data/
+.openrouter_key

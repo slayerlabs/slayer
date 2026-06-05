@@ -73,6 +73,30 @@
       <div class="cell"><div class="top"><span>wybór bazy</span><span class="ct">najtańsze</span></div><p>Start z mocniejszej bazy — stąd <a href="/leaderboard" style="color:var(--acc)">leaderboard</a>.</p></div></div>
   </div></section>
 
+  <section class="sec tight"><div class="inner">
+    <div class="ghead"><h2>Jak trenowano <em>Bielika</em></h2><span class="c">referencja · raport techniczny 11B v3</span></div>
+    <p class="muted" style="max-width:72ch;margin:0 0 20px">Pełny, kosztowny pipeline. My startujemy z mocniejszej bazy (Qwen3.5-9B) i <b style="color:var(--ink)">pomijamy najdroższy etap (CPT)</b> — to sedno „super tanio + epsilon".</p>
+    <div class="grid c2">
+      <div class="cell"><div class="n">BIELIK 11B v3 (referencja)</div>
+        <ul style="margin:8px 0 0;padding-left:18px;color:var(--mut);font-size:.94rem;line-height:1.7">
+          <li>Baza: Mistral 7B → <b>Depth Up-Scaling</b> do 11B; tokenizer Mistral (<b>bez rozszerzania PL</b>)</li>
+          <li><b>CPT ~1.1T tokenów</b> (54% PL/20% EN; akty prawne, orzeczenia, sejm, Wikipedia) + merging</li>
+          <li><b>SFT</b> ~20M instrukcji, instruction-masking, sample-packing</li>
+          <li><b>DPO + DPO-P</b> 114k par (pary gen. m.in. <b>DeepSeek-V3</b>)</li>
+          <li><b>GRPO + Dr.GRPO / RLVR</b> 143k zadań; weryfikatory: matma <code>\boxed</code>, <b>STEM MCQ</b>, tool-use</li>
+        </ul></div>
+      <div class="cell" style="border-left:3px solid var(--acc)"><div class="n">NASZA TAŃSZA ŚCIEŻKA</div>
+        <ul style="margin:8px 0 0;padding-left:18px;color:var(--mut);font-size:.94rem;line-height:1.7">
+          <li>Baza: <b>Qwen3.5-9B</b> — już bije Bielika 8:1 → <b>pomijamy CPT</b> (największy koszt)</li>
+          <li><b>QLoRA SFT</b> na kurowanych PL + arkuszach zawodowych (nie pełne 20M)</li>
+          <li><b>ORPO/DPO</b> na mniejszym, celowanym zbiorze par</li>
+          <li><b>GRPO/RLVR z weryfikatorem MCQ</b> — dokładnie dźwignia pod <b style="color:var(--ink)">LLMzSzŁ</b></li>
+          <li>Generowanie danych: <b>DeepSeek</b> (jak Bielik) — <a href="/datasety" style="color:var(--acc)">dane pod LLMzSzŁ</a></li>
+        </ul></div>
+    </div>
+    <div class="note"><p><b>Wniosek z raportu:</b> rozszerzanie tokenizera PL okazało się zbędne (Bielik go nie ruszał), a RLVR z weryfikatorem MCQ to sprawdzona dźwignia na egzaminy — zgodne z naszym planem.</p></div>
+  </div></section>
+
   <section class="sec tight alt"><div class="inner">
     <div class="ghead"><h2>Rekomendowana recepta</h2><span class="c">sekwencja, nie wszystko naraz</span></div>
     <div class="tl recipe">
