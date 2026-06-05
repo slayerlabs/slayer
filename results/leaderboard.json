@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-05 13:34",
+  "generated_at": "2026-06-05 13:43",
   "tally": {
     "Bielik-11B-v3.0-Instruct": 1,
     "Qwen3.5-9B": 8
@@ -681,7 +681,7 @@
       ],
       "winner": "Qwen3.5-9B",
       "margin": 4.9,
-      "runs": 3,
+      "runs": 4,
       "mean_across_runs": {
         "Bielik-11B-v3.0-Instruct": 89.4,
         "Qwen3.5-9B": 94.1
@@ -689,7 +689,8 @@
       "seeds": [
         42,
         43,
-        44
+        44,
+        45
       ]
     },
     {

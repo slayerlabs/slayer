@@ -1,6 +1,6 @@
 {
-  "now_ts": 1780659451.0394156,
-  "now": "2026-06-05 13:37:31",
+  "now_ts": 1780659796.6812346,
+  "now": "2026-06-05 13:43:16",
   "started_ts": 1780598935.0,
   "deadline_ts": 1780678135.0,
   "max_hours": 22,
@@ -58,15 +58,11 @@
     }
   ],
   "current": {
-    "label": "ARC-C EN (s45)",
-    "model": "Qwen3.5-9B",
-    "done": 200,
-    "total": 1172,
-    "pct": 17.1,
-    "secs": 43,
-    "rate_per_s": 4.65,
-    "eta_secs": 209,
-    "stage": ""
+    "label": "PoQuAD (1000+sędzia,s45)",
+    "pct": 0,
+    "done": 0,
+    "total": 0,
+    "eta_secs": null
   },
   "keep_warm": true,
   "hermes": "paused",
@@ -154,7 +150,7 @@
       "unit": "%",
       "metric": "accuracy (MCQ, exact letter) [EN regresja]",
       "n": 1172,
-      "runs": 3,
+      "runs": 4,
       "bielik": 89.2,
       "qwen": 94.1,
       "winner": "Qwen3.5-9B",
@@ -190,6 +186,6 @@
     "total_jobs": 10,
     "overall_pct": 100.0,
     "eta_secs": 0,
-    "projected_done_ts": 1780659451
+    "projected_done_ts": 1780659797
   }
 }
