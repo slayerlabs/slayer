@@ -27,6 +27,7 @@ VER_SYS = ("Oceniasz pytanie wielokrotnego wyboru. Czy wskazana odpowiedź jest 
 
 def chat(sysp, usr, maxt=600):
     body = {"model": MODEL, "temperature": 0.4, "max_tokens": maxt,
+            "reasoning": {"enabled": False},
             "messages": [{"role": "system", "content": sysp}, {"role": "user", "content": usr}]}
     req = urllib.request.Request(API, data=json.dumps(body).encode(),
                                  headers={"Content-Type": "application/json",
