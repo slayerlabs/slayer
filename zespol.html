@@ -8,7 +8,8 @@
   <link rel="stylesheet" href="/assets/lab.css">
   <style>
     .aud{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
-    .ac button{margin-top:auto;border:0;background:var(--ink);color:var(--bg);font:inherit;font-weight:600;font-size:.86rem;padding:8px 13px;cursor:pointer;transition:.15s}.ac button:hover{background:var(--acc);color:var(--acc-ink)}
+    .ac p{margin-bottom:16px}
+    .ac .btn{margin-top:auto;justify-content:center;height:42px;font-size:.8rem}
     .cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px;align-items:start}@media(max-width:820px){.cols{grid-template-columns:1fr}}
     form{display:grid;gap:16px}
     .roles{display:flex;flex-wrap:wrap;gap:8px}
@@ -33,10 +34,10 @@
   <section class="sec tight"><div class="inner">
     <div class="ghead"><h2>Dla kogo</h2></div>
     <div class="aud">
-      <div class="cell ac"><div class="n">RĘCE</div><h3 class="sm">Kontrybutorzy</h3><p>Kod, dane, ewaluacje, infra. Start od <a href="/zadania" style="color:var(--acc)">zadań</a>.</p><button data-role="Kontrybutor">Zapisz się →</button></div>
-      <div class="cell ac"><div class="n">NAUKA</div><h3 class="sm">Naukowcy</h3><p>Metodyka, ewaluacje, współautorstwo.</p><button data-role="Naukowiec/badania">Zapisz się →</button></div>
-      <div class="cell ac"><div class="n">RYNEK</div><h3 class="sm">Firmy</h3><p>Zgłoś use case (prawo, urzędy, branża), zostań early adopterem.</p><button data-role="Firma/use-case">Zgłoś use case →</button></div>
-      <div class="cell ac"><div class="n">COMPUTE</div><h3 class="sm">Fundatorzy</h3><p>Sfinansuj GPU (15–20k zł) albo daj kredyty.</p><button data-role="Fundator/compute">Wesprzyj →</button></div>
+      <div class="cell ac"><div class="n">RĘCE</div><h3 class="sm">Kontrybutorzy</h3><p>Kod, dane, ewaluacje, infra. Start od <a href="/zadania" style="color:var(--acc)">zadań</a>.</p><button class="btn btn-p" data-role="Kontrybutor">Zapisz się →</button></div>
+      <div class="cell ac"><div class="n">NAUKA</div><h3 class="sm">Naukowcy</h3><p>Metodyka, ewaluacje, współautorstwo.</p><button class="btn btn-p" data-role="Naukowiec/badania">Zapisz się →</button></div>
+      <div class="cell ac"><div class="n">RYNEK</div><h3 class="sm">Firmy</h3><p>Zgłoś use case (prawo, urzędy, branża), zostań early adopterem.</p><button class="btn btn-p" data-role="Firma/use-case">Zgłoś use case →</button></div>
+      <div class="cell ac"><div class="n">COMPUTE</div><h3 class="sm">Fundatorzy</h3><p>Sfinansuj GPU (15–20k zł) albo daj kredyty.</p><button class="btn btn-p" data-role="Fundator/compute">Wesprzyj →</button></div>
     </div>
   </div></section>
 
