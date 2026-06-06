@@ -7,7 +7,7 @@
   <meta name="description" content="Metodologia pomiaru: piątka startowa (LLMzSzŁ, PES, PoQuAD, Belebele, FLORES) + kontrola regresji EN. Publiczne, deterministyczne, liczone czysto — bez benchmaxxingu.">
   <link rel="stylesheet" href="/assets/lab.css">
   <style>
-    .board{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:clamp(16px,5vw,44px);margin:8px 0 4px;padding:24px clamp(16px,4vw,30px);border:1px solid var(--line);background:var(--panel);box-shadow:0 10px 30px rgba(26,22,12,.04)}
+    .board{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:clamp(16px,5vw,44px);margin:8px 0 4px;padding:24px clamp(16px,4vw,30px);border:1px solid var(--line);background:var(--panel);box-shadow:0 0 24px rgba(255,176,0,.08)}
     .team{text-align:center}.team .tg{font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}.team .nm{font-weight:600;font-size:clamp(1rem,2.2vw,1.35rem);margin-top:5px}
     .cnt{display:flex;align-items:baseline;gap:14px;font-family:var(--disp);font-weight:400;font-size:clamp(2.6rem,9vw,4.2rem)}
     .cnt .b{color:var(--acc)}.cnt .q{color:var(--mut)}.cnt .d{color:var(--dim)}
@@ -70,7 +70,7 @@
           const vb=val(b,NB),vq=val(b,NQ),u=b.benchmark==="flores"?"":"%",xb=b.winner===NB&&b.margin>0,xq=b.winner===NQ&&b.margin>0;
           if(cs[0]){cs[0].textContent=vb!=null?vb+u:"—";cs[0].style.color=xb?"var(--acc)":"";cs[0].style.fontWeight=xb?"600":"";}
           if(cs[1]){cs[1].textContent=vq!=null?vq+u:"—";cs[1].style.color=xq?"var(--acc)":"";cs[1].style.fontWeight=xq?"600":"";}
-          if(ver)ver.innerHTML=xb?`<span class="vb b">Bielik +${b.margin}</span>`:xq?`<span class="vb b">Qwen +${b.margin}</span>`:'<span class="vb pend">remis</span>';
+          if(ver)ver.innerHTML=xb?`<span class="vb b">Bielik +${b.margin}</span>`:xq?`<span class="vb q">Qwen +${b.margin}</span>`:'<span class="vb pend">remis</span>';
         });
       }).catch(()=>{});}
       upd();setInterval(upd,60000);

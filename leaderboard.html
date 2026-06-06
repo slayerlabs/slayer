@@ -10,12 +10,12 @@
   <link rel="stylesheet" href="/assets/lab.css">
   <style>
     .top{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap}
-    .top h1{margin:10px 0 0;font-family:var(--disp);font-size:clamp(1.9rem,4.4vw,3rem);font-weight:400;letter-spacing:-.015em}
+    .top h1{margin:10px 0 0;font-family:var(--disp);font-size:clamp(1.9rem,4.4vw,3rem);font-weight:400;letter-spacing:.02em;text-transform:uppercase}
     .upd{font-family:var(--mono);font-size:.76rem;color:var(--dim);margin:4px 0 0}
     .board{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:clamp(16px,5vw,48px);margin:24px 0;padding:24px clamp(16px,4vw,32px);border:1px solid var(--line);background:linear-gradient(180deg,var(--panel),var(--bg2))}
     .team{text-align:center}.team .tg{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}.team .nm{font-weight:500;font-size:clamp(1rem,2.2vw,1.4rem);margin-top:5px}
     .cnt{display:flex;align-items:baseline;gap:14px;font-family:var(--mono);font-weight:600;font-size:clamp(2.6rem,9vw,4.4rem);line-height:1}
-    .cnt .b{color:var(--acc)}.cnt .q{color:#9aa3b2}.cnt .d{color:var(--dim);font-weight:400}
+    .cnt .b{color:var(--acc)}.cnt .q{color:var(--mut)}.cnt .d{color:var(--dim);font-weight:400}
     .bfoot{grid-column:1/-1;border-top:1px solid var(--line2);margin-top:16px;padding-top:14px;text-align:center;font-family:var(--mono);font-size:.78rem;color:var(--mut)}.bfoot b{color:var(--acc)}
     @media(max-width:760px){.board{grid-template-columns:1fr;gap:16px}}
   </style>
@@ -48,7 +48,7 @@
     const v=(p,n)=>{const k=PRIMARY[p.benchmark]||"accuracy";const m=(p.models||[]).find(x=>x.display_name===n);return m?m[k]:null;};
     function render(d){
       const b=d.tally?.[NB]??0,q=d.tally?.[NQ]??0,SB=document.getElementById("sb"),SQ=document.getElementById("sq");
-      SB.textContent=b;SQ.textContent=q;SB.style.color=b>=q&&b>0?"var(--acc)":"";SQ.style.color=q>b?"var(--acc)":"#9aa3b2";
+      SB.textContent=b;SQ.textContent=q;SB.style.color=b>=q&&b>0?"var(--acc)":"";SQ.style.color=q>b?"var(--acc)":"var(--mut)";
       document.getElementById("updated").textContent="// aktualizacja: "+(d.generated_at||"—")+" · źródło: simp (RTX 3090)";
       document.getElementById("bfoot").innerHTML=`<b>${b} : ${q}</b> po ${(d.benchmarks||[]).length} benchmarkach`;
       const bs=d.benchmarks||[],c=document.getElementById("content");
