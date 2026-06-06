@@ -166,6 +166,12 @@ td.s .sub{display:block;font-family:var(--mono);font-size:.64rem;color:var(--dim
 .tl .st{display:inline-block;margin-top:6px;font-family:var(--mono);font-size:.68rem;padding:2px 9px;letter-spacing:.06em}
 .tl h3{margin:0 0 4px;font-family:var(--disp);font-size:1.08rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--ink)}
 .tl p{margin:0;color:var(--mut);font-size:.95rem;font-weight:300}
+/* bieżąca faza („teraz") i fazy planowane — język jak w lineage na /trening */
+.tl .ph.plan{opacity:.65}
+.tl .ph.now{background:linear-gradient(90deg,rgba(0,248,255,.05),transparent 70%)}
+.tl .ph.now .when{color:var(--acc)}
+.tl .ph.now .when::before{content:"";display:inline-block;width:8px;height:8px;margin-right:8px;background:var(--acc);box-shadow:0 0 8px var(--acc);animation:pl 2s ease infinite}
+.tl .ph.now h3{color:var(--acc)}
 @media(max-width:680px){.tl .ph{grid-template-columns:1fr;gap:6px}}
 
 /* forms */
@@ -204,6 +210,6 @@ textarea{min-height:74px;resize:vertical}
 }
 @media(prefers-reduced-motion:reduce){
   .scanbeam{display:none}
-  .live .d,.htag .dot{animation:none}
+  .live .d,.htag .dot,.tl .ph.now .when::before{animation:none}
   html{scroll-behavior:auto}
 }

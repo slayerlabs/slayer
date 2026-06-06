@@ -23,7 +23,10 @@
     .step{display:flex;align-items:center;gap:12px;padding:11px 14px;background:var(--bg);border:1px solid var(--line2)}
     .step .ic{width:22px;height:22px;display:grid;place-items:center;font-size:.74rem;font-weight:700;flex:none;font-family:var(--mono)}
     .step.done .ic{background:var(--acc);color:var(--acc-ink)}.step.running .ic{border:2px solid var(--acc);color:var(--acc);animation:sp 1.2s linear infinite}.step.queued .ic{background:var(--panel2);color:var(--dim)}.step.fail .ic{background:var(--alert);color:#fff}
+    .step.running{border-color:var(--line);background:linear-gradient(90deg,rgba(0,248,255,.06),var(--bg) 70%);box-shadow:0 0 14px rgba(0,248,255,.12)}
+    .step.running .nm{color:var(--acc)}.step.running .st{color:var(--acc)}
     @keyframes sp{to{transform:rotate(360deg)}}
+    @media(prefers-reduced-motion:reduce){.step.running .ic{animation:none}}
     .step .nm{font-weight:400}.step .st{margin-left:auto;font-family:var(--mono);font-size:.74rem;color:var(--dim)}.step.done .st{color:var(--acc)}
     .scoreline{display:flex;align-items:baseline;justify-content:center;gap:14px;font-family:var(--mono);font-weight:600;font-size:2.4rem;margin:6px 0}
     .scoreline .b{color:var(--acc)}.scoreline .q{color:var(--mut)}.scoreline .d{color:var(--dim);font-weight:400}
