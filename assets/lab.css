@@ -129,6 +129,7 @@ td{padding:14px 16px;border-top:1px solid var(--line2);vertical-align:top}
 tbody tr:hover td{background:var(--panel2)}
 td.s{text-align:center;font-family:var(--mono);font-weight:600;font-size:1.02rem;white-space:nowrap;color:var(--mut)}
 td.s.win{color:var(--acc);text-shadow:0 0 10px rgba(0,248,255,.5)}
+td.s.win.q{color:var(--sec);text-shadow:0 0 10px rgba(255,215,110,.5)}
 td.s .sub{display:block;font-family:var(--mono);font-size:.64rem;color:var(--dim);margin-top:3px}
 .dn{font-weight:600;color:var(--ink)}.dn a{color:var(--acc)}
 .ds{color:var(--dim);font-family:var(--mono);font-size:.72rem;margin-top:3px}

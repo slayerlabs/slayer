@@ -62,14 +62,14 @@
       const val=(b,n)=>{const k=PRIMARY[b.benchmark]||"accuracy";const m=(b.models||[]).find(x=>x.display_name===n);return m?m[k]:null;};
       function upd(){fetch("/results/leaderboard.json?ts="+Date.now()).then(r=>r.json()).then(d=>{
         const wb=d.tally?.[NB]??0,wq=d.tally?.[NQ]??0,$=i=>document.getElementById(i);
-        $("sb").textContent=wb;$("sq").textContent=wq;$("sb").style.color=wb>=wq&&wb>0?"var(--acc)":"";$("sq").style.color=wq>wb?"var(--acc)":"";
+        $("sb").textContent=wb;$("sq").textContent=wq;$("sb").style.color=wb>=wq&&wb>0?"var(--acc)":"";$("sq").style.color=wq>wb?"var(--sec)":"";
         $("sbfoot").innerHTML=`<b>${wb} : ${wq}</b> po ${(d.benchmarks||[]).length} benchmarkach (live · ${d.generated_at||""})`;
         const by={};(d.benchmarks||[]).forEach(b=>by[b.benchmark]=b);
         document.querySelectorAll("tr[data-bench]").forEach(tr=>{
           const b=by[tr.dataset.bench],cs=tr.querySelectorAll("td.score"),ver=tr.querySelector("td.verdict");if(!b)return;
           const vb=val(b,NB),vq=val(b,NQ),u=b.benchmark==="flores"?"":"%",xb=b.winner===NB&&b.margin>0,xq=b.winner===NQ&&b.margin>0;
           if(cs[0]){cs[0].textContent=vb!=null?vb+u:"—";cs[0].style.color=xb?"var(--acc)":"";cs[0].style.fontWeight=xb?"600":"";}
-          if(cs[1]){cs[1].textContent=vq!=null?vq+u:"—";cs[1].style.color=xq?"var(--acc)":"";cs[1].style.fontWeight=xq?"600":"";}
+          if(cs[1]){cs[1].textContent=vq!=null?vq+u:"—";cs[1].style.color=xq?"var(--sec)":"";cs[1].style.fontWeight=xq?"600":"";}
           if(ver)ver.innerHTML=xb?`<span class="vb b">Bielik +${b.margin}</span>`:xq?`<span class="vb q">Qwen +${b.margin}</span>`:'<span class="vb pend">remis</span>';
         });
       }).catch(()=>{});}

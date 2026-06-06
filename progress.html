@@ -6,7 +6,7 @@
   <title>Pomiar na żywo | Slayer</title>
   <meta name="description" content="Podgląd na żywo: autonomiczna kolejka benchmarków na simp (RTX 3090) z paskiem postępu, ETA i wynikami.">
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/lab.css">
   <style>
     .g2{display:grid;grid-template-columns:1.4fr 1fr;gap:14px;margin-bottom:14px}@media(max-width:780px){.g2{grid-template-columns:1fr}}
@@ -104,7 +104,7 @@
       const R=D.results||[];
       if(!R.length){$("reswrap").innerHTML='<div class="muted mono">pierwsze wyniki po ukończeniu benchmarków…</div>';}
       else{let rr="";for(const r of R){const wb=r.winner===NB&&r.margin>0,wq=r.winner===NQ&&r.margin>0,u=r.unit==="chrF"?"":"%";const verd=(r.bielik!=null&&r.qwen!=null)?(wb?`<span class="vb b">▲ Bielik +${r.margin}</span>`:wq?`<span class="vb q">Qwen +${r.margin}</span>`:'remis'):'—';
-        rr+=`<tr><td><div class="dn">${esc(r.label)}</div><div class="ds">${esc((r.metric||"").replace(" (MCQ, exact letter)",""))} · n=${r.n}${r.runs>1?" · "+r.runs+" runów":""}</div></td><td class="s ${wb?'win':''}">${r.bielik!=null?r.bielik+u:'—'}</td><td class="s ${wq?'win':''}">${r.qwen!=null?r.qwen+u:'—'}</td><td class="c">${verd}</td></tr>`;}
+        rr+=`<tr><td><div class="dn">${esc(r.label)}</div><div class="ds">${esc((r.metric||"").replace(" (MCQ, exact letter)",""))} · n=${r.n}${r.runs>1?" · "+r.runs+" runów":""}</div></td><td class="s ${wb?'win':''}">${r.bielik!=null?r.bielik+u:'—'}</td><td class="s ${wq?'win q':''}">${r.qwen!=null?r.qwen+u:'—'}</td><td class="c">${verd}</td></tr>`;}
         $("reswrap").innerHTML=`<div class="tbl"><table><thead><tr><th>Benchmark</th><th class="c">Bielik-11B-v3</th><th class="c">Qwen3.5-9B</th><th class="c">Wynik</th></tr></thead><tbody>${rr}</tbody></table></div>`;}
     }
     function load(){fetch("/results/status.json?ts="+Date.now()).then(r=>r.json()).then(d=>{D=d;at=Date.now()/1000;paint();$("foot").textContent="prawdziwe wartości · źródło: simp · stan z "+(d.now||"—")+" · publikacja co ~60 s";}).catch(()=>{$("phase").textContent="brak danych";});}
