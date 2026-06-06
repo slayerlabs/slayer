@@ -53,8 +53,14 @@
     var io=new IntersectionObserver(function(entries){
       entries.forEach(function(e){
         if(!e.isIntersecting) return;
-        e.target.classList.add("in");
-        io.unobserve(e.target);
+        var el=e.target;
+        el.classList.add("in");
+        io.unobserve(el);
+        /* po wejściu zdejmij opóźnienie kaskady — inaczej opóźniałoby hovery */
+        el.addEventListener("transitionend",function done(){
+          el.style.transitionDelay="";
+          el.removeEventListener("transitionend",done);
+        });
       });
     },{threshold:.12});
     var SEL=".hgrid > div:not(.panel) > *, .shead, .panel, .tbl, .tl, .note, .grid > *";
