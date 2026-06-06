@@ -6,3 +6,4 @@ results/*.json.tmp
 .DS_Store
 slayer-data/
 .openrouter_key
+.superpowers/

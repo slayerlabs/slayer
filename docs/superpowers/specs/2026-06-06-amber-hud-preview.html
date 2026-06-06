@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slayer — podgląd designu Amber HUD</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+:root{
+  --bg:#0b0700; --bg2:#120c03; --panel:#161003; --panel2:#1d1605;
+  --ink:#ffe8bd; --txt:#d8c9a4; --mut:#a8946a; --dim:#7a6a4a;
+  --line:rgba(255,176,0,.28); --line2:rgba(255,176,0,.12);
+  --acc:#ffb000; --acc-soft:rgba(255,176,0,.12);
+  --alert:#ff5a26; --alert-soft:rgba(255,90,38,.12);
+  --disp:"Share Tech Mono",monospace; --mono:"IBM Plex Mono",monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--txt);font-family:var(--mono);font-size:15.5px;line-height:1.66;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--acc);color:#0b0700}
+
+.kick{font-family:var(--disp);font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mut)}
+.kick::before{content:"> ";color:var(--acc)}
+
+/* ── nav ── */
+.nav{position:fixed;z-index:40;inset:0 0 auto 0;display:flex;align-items:center;justify-content:space-between;height:60px;padding:0 clamp(18px,4vw,48px);background:rgba(11,7,0,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.brand{display:inline-flex;align-items:center;gap:11px;font-family:var(--disp);font-size:1.05rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink)}
+.brand .mk{display:grid;place-items:center;width:26px;height:26px;background:var(--acc);color:#0b0700;font-weight:700;font-size:.85rem}
+.brand .sl{color:var(--acc)}
+.nlinks{display:flex;align-items:center;gap:clamp(12px,2.4vw,26px);font-family:var(--disp);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
+.nlinks a:hover{color:var(--acc);text-shadow:0 0 8px rgba(255,176,0,.6)}
+.nlinks a.active{color:var(--acc)}
+.nlinks a.active::before{content:"["}.nlinks a.active::after{content:"]"}
+.ncta{padding:7px 16px;background:var(--acc);color:#0b0700 !important;font-weight:700}
+.ncta:hover{background:#ffc94d;text-shadow:none !important}
+
+/* ── hero ── */
+.hero{position:relative;padding:140px clamp(18px,5vw,72px) 84px;overflow:hidden;
+  background:#0b0700 radial-gradient(ellipse at 30% -10%,rgba(255,176,0,.09),transparent 55%)}
+.hero::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(0deg,rgba(255,200,80,.035) 0 1px,transparent 1px 4px)}
+.scanbeam{position:absolute;left:0;right:0;top:0;height:120px;pointer-events:none;
+  background:linear-gradient(180deg,transparent,rgba(255,176,0,.05),transparent);animation:scan 7s linear infinite}
+@keyframes scan{0%{transform:translateY(-130px)}100%{transform:translateY(110vh)}}
+.hgrid{position:relative;z-index:1;width:min(1140px,100%);margin:0 auto;display:grid;grid-template-columns:minmax(0,1.18fr) minmax(0,.82fr);gap:clamp(30px,5vw,68px);align-items:center}
+@media(max-width:900px){.hgrid{grid-template-columns:1fr}}
+.htag{display:inline-flex;align-items:center;gap:10px;margin-bottom:22px}
+.htag .dot{width:8px;height:8px;background:var(--acc);box-shadow:0 0 8px rgba(255,176,0,.8);animation:pl 1.6s steps(2,start) infinite}
+@keyframes pl{0%,100%{opacity:1}50%{opacity:.2}}
+.hero h1{margin:0 0 22px;font-family:var(--disp);font-size:clamp(2.1rem,4.8vw,3.6rem);line-height:1.12;font-weight:400;letter-spacing:.01em;text-transform:uppercase;color:var(--ink);text-shadow:0 0 18px rgba(255,176,0,.25)}
+.hero h1 em{font-style:normal;color:var(--acc);text-shadow:0 0 14px rgba(255,176,0,.6)}
+.cursor{display:inline-block;width:.55em;height:1em;background:var(--acc);margin-left:6px;vertical-align:-.12em;animation:pl 1.1s steps(2,start) infinite}
+.lede{max-width:600px;margin:0 0 28px;color:var(--mut);font-size:clamp(.98rem,1.5vw,1.1rem)}
+.lede b{color:var(--txt);font-weight:600}
+.hmeta{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:30px;font-family:var(--disp);font-size:.76rem;letter-spacing:.06em;color:var(--dim)}
+.hmeta b{color:var(--acc)}
+.hmeta span::before{content:"[";color:var(--dim)}.hmeta span::after{content:"]";color:var(--dim)}
+
+.btn{display:inline-flex;align-items:center;gap:9px;height:46px;padding:0 22px;font-family:var(--disp);font-size:.88rem;letter-spacing:.1em;text-transform:uppercase;transition:.15s;cursor:pointer;border:1px solid transparent}
+.btn-p{background:var(--acc);color:#0b0700;font-weight:700;box-shadow:0 0 16px rgba(255,176,0,.35)}
+.btn-p:hover{background:#ffc94d;box-shadow:0 0 24px rgba(255,176,0,.55)}
+.btn-s{color:var(--acc);border-color:var(--line);background:var(--acc-soft)}
+.btn-s:hover{border-color:var(--acc);box-shadow:0 0 14px rgba(255,176,0,.3)}
+.cta-row{display:flex;flex-wrap:wrap;gap:14px}
+
+/* ── panel HUD ── */
+.panel{position:relative;background:rgba(22,16,3,.9);border:1px solid var(--line);box-shadow:0 0 24px rgba(255,176,0,.08)}
+.panel .cnr{position:absolute;width:13px;height:13px;pointer-events:none}
+.panel .cnr.tl{top:-2px;left:-2px;border-top:2px solid var(--acc);border-left:2px solid var(--acc)}
+.panel .cnr.tr{top:-2px;right:-2px;border-top:2px solid var(--acc);border-right:2px solid var(--acc)}
+.panel .cnr.bl{bottom:-2px;left:-2px;border-bottom:2px solid var(--acc);border-left:2px solid var(--acc)}
+.panel .cnr.br{bottom:-2px;right:-2px;border-bottom:2px solid var(--acc);border-right:2px solid var(--acc)}
+.panel-top{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px dashed var(--line);font-family:var(--disp);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+.panel-bd{padding:20px 18px}
+.live{display:inline-flex;align-items:center;gap:7px;font-family:var(--disp);font-size:.74rem;color:var(--alert);letter-spacing:.12em}
+.live .d{width:8px;height:8px;background:var(--alert);box-shadow:0 0 8px rgba(255,90,38,.8);animation:pl 1.6s steps(2,start) infinite}
+.scoreline{display:flex;align-items:baseline;justify-content:center;gap:16px;font-family:var(--disp);font-size:clamp(2.6rem,6vw,3.4rem);margin:6px 0 16px}
+.scoreline .b{color:var(--mut)}.scoreline .q{color:var(--acc);text-shadow:0 0 18px rgba(255,176,0,.6)}.scoreline .c{color:var(--dim)}
+.vs{display:flex;justify-content:space-between;gap:10px;font-family:var(--disp);font-size:.72rem;letter-spacing:.06em;color:var(--mut);text-transform:uppercase}
+.lab2{display:flex;justify-content:space-between;font-family:var(--disp);font-size:.74rem;color:var(--mut);margin:12px 0 5px}.lab2 .v{color:var(--ink)}
+.track{height:7px;background:rgba(255,176,0,.1);overflow:hidden}
+.track i{display:block;height:100%;background:var(--acc);box-shadow:0 0 10px rgba(255,176,0,.6);transition:width .8s ease}
+.track i.q{background:var(--alert);box-shadow:0 0 10px rgba(255,90,38,.5)}
+.pnote{margin:14px 0 0;font-size:.84rem;color:var(--mut)}.pnote a{color:var(--acc)}
+
+/* ── sekcje ── */
+.sec{padding:clamp(56px,7.5vw,104px) clamp(18px,5vw,72px);position:relative}
+.sec.alt{background:var(--bg2)}
+.inner{width:min(1140px,100%);margin:0 auto}
+.rule{border:0;border-top:1px dashed var(--line);margin:0}
+.shead{display:flex;align-items:flex-end;justify-content:space-between;gap:28px;flex-wrap:wrap;margin-bottom:38px}
+.shead h2{margin:14px 0 0;font-family:var(--disp);font-size:clamp(1.6rem,3.2vw,2.4rem);font-weight:400;letter-spacing:.02em;line-height:1.18;max-width:26ch;text-transform:uppercase;color:var(--ink)}
+.shead h2 em{font-style:normal;color:var(--acc);text-shadow:0 0 12px rgba(255,176,0,.5)}
+.shead p{max-width:44ch;color:var(--mut);margin:0;font-size:.96rem}
+
+.grid{display:grid;gap:14px}
+.grid.c3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:820px){.grid.c3{grid-template-columns:1fr}}
+.cell{position:relative;background:var(--panel);border:1px solid var(--line2);padding:24px;transition:.15s;display:flex;flex-direction:column}
+.cell::before,.cell::after{content:"";position:absolute;width:11px;height:11px;opacity:0;transition:.15s}
+.cell::before{top:-1px;left:-1px;border-top:2px solid var(--acc);border-left:2px solid var(--acc)}
+.cell::after{bottom:-1px;right:-1px;border-bottom:2px solid var(--acc);border-right:2px solid var(--acc)}
+.cell:hover{border-color:var(--line);transform:translateY(-2px);box-shadow:0 0 20px rgba(255,176,0,.12)}
+.cell:hover::before,.cell:hover::after{opacity:1}
+.cell .n{font-family:var(--disp);font-size:.72rem;color:var(--acc);letter-spacing:.16em}
+.cell .n::before{content:"// "}
+.cell h3{margin:12px 0 7px;font-family:var(--disp);font-size:1.2rem;font-weight:400;letter-spacing:.03em;text-transform:uppercase;color:var(--ink)}
+.cell p{margin:0;color:var(--mut);font-size:.92rem}
+
+/* ── tabela ── */
+.tbl{border:1px solid var(--line);overflow:hidden;background:var(--panel);overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.9rem}
+th{text-align:left;padding:13px 16px;font-family:var(--disp);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--acc);background:rgba(255,176,0,.06);border-bottom:1px solid var(--line)}
+td{padding:13px 16px;border-top:1px dashed var(--line2);vertical-align:top}
+tbody tr:hover td{background:var(--panel2)}
+td.s{text-align:center;font-family:var(--disp);font-size:1.05rem;white-space:nowrap;color:var(--mut)}
+td.s.win{color:var(--acc);text-shadow:0 0 10px rgba(255,176,0,.5)}
+.dn{font-weight:600;color:var(--ink)}
+.ds{color:var(--dim);font-family:var(--disp);font-size:.72rem;margin-top:3px}
+.vb{font-family:var(--disp);font-size:.74rem;padding:4px 10px;white-space:nowrap;display:inline-block;letter-spacing:.06em}
+.vb.b{color:var(--acc);background:var(--acc-soft);border:1px solid var(--line)}
+.vb.q{color:var(--alert);background:var(--alert-soft);border:1px solid rgba(255,90,38,.35)}
+
+/* ── footer ── */
+.foot{border-top:1px solid var(--line);padding:26px clamp(18px,5vw,72px);display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-family:var(--disp);font-size:.76rem;color:var(--dim);letter-spacing:.08em;background:#080500}
+.foot a{color:var(--mut)}.foot a:hover{color:var(--acc)}
+.foot .prompt::before{content:"slayer@lab:~$ ";color:var(--acc)}
+
+/* ── animacje wejścia ── */
+@media(prefers-reduced-motion:no-preference){
+  .rev{opacity:0;transform:translateY(12px);transition:opacity .55s ease,transform .55s ease}
+  .rev.in{opacity:1;transform:none}
+  .rev.d1{transition-delay:.12s}.rev.d2{transition-delay:.24s}.rev.d3{transition-delay:.36s}
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <a class="brand" href="#"><span class="mk">S</span>slayer<span class="sl">//</span>lab</a>
+  <nav class="nlinks">
+    <a href="#">kierunki</a><a href="#">trening</a><a href="#" class="active">leaderboard</a><a href="#">na żywo</a>
+    <a class="ncta" href="#">dołącz →</a>
+  </nav>
+</header>
+
+<div class="scanbeam"></div>
+
+<section class="hero">
+  <div class="hgrid">
+    <div>
+      <div class="htag rev in"><span class="dot"></span><span class="kick">OPEN LAB · SUWERENNE POLSKIE AI · 2026</span></div>
+      <h1 class="rev in d1">Tanio zreplikować <em>klasę</em> najlepszego — i pójść o <em>epsilon</em> dalej.<span class="cursor"></span></h1>
+      <p class="lede rev in d2">Teza badawcza: konkurencyjny polski model <b>11–14B</b> da się złożyć ułamkiem kosztu wielkich labów (<b>~15–20k zł</b>), nowoczesnymi metodami, w pełni <b>otwarcie i odtwarzalnie</b>.</p>
+      <div class="cta-row rev in d3"><a class="btn btn-p" href="#">Wyniki na żywo →</a><a class="btn btn-s" href="#">Dołącz do labu</a></div>
+      <div class="hmeta rev in d3"><span><b>11–14B</b> param</span><span><b>10</b> benchmarków</span><span><b>0</b> benchmaxx</span><span><b>RTX 3090</b> 4-bit</span></div>
+    </div>
+    <div class="panel rev in d2">
+      <i class="cnr tl"></i><i class="cnr tr"></i><i class="cnr bl"></i><i class="cnr br"></i>
+      <div class="panel-top"><span>leaderboard.json</span><span class="live"><span class="d"></span>LIVE</span></div>
+      <div class="panel-bd">
+        <div class="vs"><span>Bielik · ref.</span><span>Qwen3.5-9B · challenger</span></div>
+        <div class="scoreline"><span class="b">1</span><span class="c">:</span><span class="q">8</span></div>
+        <div class="lab2"><span>Bielik-11B-v3</span><span class="v">1 wins</span></div><div class="track"><i style="width:11%"></i></div>
+        <div class="lab2"><span>Qwen3.5-9B</span><span class="v">8 wins</span></div><div class="track"><i class="q" style="width:89%"></i></div>
+        <p class="pnote"><b style="color:var(--ink)">1 : 8</b> po 9 benchmarkach · <a href="#">szczegóły →</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section class="sec">
+  <div class="inner">
+    <div class="shead"><div><span class="kick">01 · teza</span><h2>Ile naprawdę kosztuje <em>konkurencyjny</em> polski model?</h2></div>
+      <p>Nikt nie zweryfikował tego publicznie. My to mierzymy — jawnie, od pomiaru po trening.</p></div>
+    <div class="grid c3">
+      <div class="cell"><div class="n">REPLIKACJA + ε</div><h3>Dogonić i ruszyć dalej</h3><p>Powtórzyć klasę najlepszego polskiego modelu nowoczesnymi metodami — i dołożyć epsilon tam, gdzie się da.</p></div>
+      <div class="cell"><div class="n">EFEKTYWNOŚĆ</div><h3>~15–20k zł</h3><p>Ułamek budżetu wielkich labów. Każda złotówka jawna, każdy run odtwarzalny.</p></div>
+      <div class="cell"><div class="n">DŹWIGNIA</div><h3>Specjalizacja</h3><p>Prawo i administracja — grounding i odmowa zamiast halucynacji.</p></div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section class="sec alt">
+  <div class="inner">
+    <div class="shead"><div><span class="kick">02 · wyniki</span><h2>Leaderboard — fragment</h2></div>
+      <p>Tak będzie wyglądać tabela wyników na podstronie /leaderboard.</p></div>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>Benchmark</th><th>Metryka</th><th style="text-align:center">Bielik-11B-v3</th><th style="text-align:center">Qwen3.5-9B</th><th>Wynik</th></tr></thead>
+        <tbody>
+          <tr><td><div class="dn">LLMzSzŁ</div><div class="ds">egz. państwowe PL</div></td><td>accuracy MCQ</td><td class="s win">61.1</td><td class="s">58.2</td><td><span class="vb b">BIELIK +2.9</span></td></tr>
+          <tr><td><div class="dn">Belebele (PL)</div><div class="ds">reading comprehension</div></td><td>accuracy MCQ</td><td class="s">86.3</td><td class="s win">89.4</td><td><span class="vb q">QWEN +3.1</span></td></tr>
+          <tr><td><div class="dn">MMLU (EN)</div><div class="ds">wiedza ogólna</div></td><td>accuracy MCQ</td><td class="s">67.2</td><td class="s win">77.1</td><td><span class="vb q">QWEN +9.9</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <span class="prompt">open polish LLM lab · 2026</span>
+  <span><a href="#">GitHub</a> · <a href="#">metodologia</a> · <a href="#">leaderboard</a> · <a href="#">dołącz</a></span>
+</footer>
+
+<script>
+// demo animacji wejścia — w finalnej wersji IntersectionObserver w site.js
+document.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('.rev').forEach(function(el){el.classList.remove('in')});
+  requestAnimationFrame(function(){requestAnimationFrame(function(){
+    document.querySelectorAll('.rev').forEach(function(el){el.classList.add('in')});
+  })});
+});
+</script>
+</body>
+</html>
