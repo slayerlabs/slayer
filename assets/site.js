@@ -58,7 +58,8 @@
         el.classList.add("in");
         io.unobserve(el);
         /* po wejściu zdejmij opóźnienie kaskady — inaczej opóźniałoby hovery */
-        el.addEventListener("transitionend",function done(){
+        el.addEventListener("transitionend",function done(ev){
+          if(ev.propertyName!=="opacity") return; /* czekaj na koniec pełnego fade-in (.55s) */
           el.style.transitionDelay="";
           el.classList.remove("rev","in"); /* element zostaje widoczny; wracają szybkie przejścia hoverów */
           el.removeEventListener("transitionend",done);
