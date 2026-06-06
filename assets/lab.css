@@ -191,6 +191,14 @@ textarea{min-height:74px;resize:vertical}
   /* animacje wejścia — klasy nadaje site.js (progressive enhancement: bez JS brak ukrywania) */
   .rev{opacity:0;transform:translateY(12px);transition:opacity .55s ease,transform .55s ease,border-color .15s ease,box-shadow .15s ease,background .15s ease,color .15s ease}
   .rev.in{opacity:1;transform:none}
+  /* dorysowywane ramki paneli: narożniki rosną, obramowanie się wyłania.
+     Stan docelowy = stan bazowy, więc zdjęcie klas po wejściu nie powoduje skoku. */
+  .panel .cnr{transition:width .45s ease .25s,height .45s ease .25s}
+  .panel.rev:not(.in) .cnr{width:0;height:0}
+  .panel.rev{transition:opacity .55s ease,transform .55s ease,border-color .6s ease .1s,box-shadow .15s ease,background .15s ease,color .15s ease}
+  .panel.rev:not(.in){border-color:transparent}
+  /* canvas „moving lines" w hero — wstrzykiwany przez site.js tylko bez reduced-motion */
+  .hero-fx{position:absolute;inset:0;z-index:0;pointer-events:none}
 }
 @media(prefers-reduced-motion:reduce){
   .scanbeam{display:none}
