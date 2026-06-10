@@ -1,7 +1,7 @@
 {
   "updated": "2026-06-10",
   "model": "Qwen3.5-27B (base) vs slayer-style ep3 (v1)",
-  "method": "Przegląd ręczny, nie regex. Przeczytałem 10 odpowiedzi base i zaznaczyłem błędy własną oceną językową: twarde błędy gramatyki/ortografii, kalki, nominalizację, szablon. Poniżej 5 najmocniejszych. Uczciwie zaznaczam też potknięcia v1.",
+  "method": "Przegląd ręczny, nie regex. Przeczytałem 10 odpowiedzi base i zaznaczyłem błędy własną oceną językową: rażące błędy gramatyczne i ortograficzne, kalki, nominalizację, szablon. Poniżej 5 najmocniejszych. Uczciwie zaznaczam też potknięcia v1.",
   "examples": [
     {
       "prompt": "Napisz komunikat dla aplikacji: logowanie się nie powiodło, użytkownik ma spróbować ponownie.",
@@ -9,7 +9,7 @@
       "base_html": "<mark class='h-tmpl'>Oto kilka</mark> propozycji komunikatu, w zależności od stylu Twojej aplikacji:<br><br><mark class='h-tmpl'>**</mark><mark class='h-tmpl'>Opcja 1</mark>: Standardowa i uprzejma (najbardziej uniwersalna)<mark class='h-tmpl'>**</mark><br><mark class='h-tmpl'>&gt;</mark> „Logowanie nie powiodło się. Spróbuj ponownie.”<br><br><mark class='h-tmpl'>**</mark><mark class='h-tmpl'>Opcja 2</mark>: Krótka<mark class='h-tmpl'>**</mark><br><mark class='h-tmpl'>&gt;</mark> „Błąd logowania. Spróbuj ponownie.”<br><br><span class='muted'>[…jeszcze Opcja 3, Opcja 4 i „Wskazówka UX” — 4 warianty + porada na jedno zdanie komunikatu]</span>",
       "ep3_html": "Logowanie nie powiodło się. Spróbuj ponownie.",
       "errors": [
-        { "q": "4 opcje + wskazówka UX", "k": "tmpl", "fix": "kalka „Here are a few options” — base produkuje katalog wariantów zamiast odpowiedzi. v1 daje jedno zdanie, o które proszono." }
+        { "q": "4 opcje + wskazówka UX", "k": "tmpl", "fix": "kalka „Here are a few options”: base produkuje katalog wariantów zamiast odpowiedzi. v1 daje jedno zdanie, o które proszono." }
       ]
     },
     {
@@ -19,7 +19,7 @@
       "errors": [
         { "q": "Bezpośrednie sprzedaż", "k": "err", "fix": "błąd rodzaju → „Bezpośrednia sprzedaż” (sprzedaż jest żeńska)." },
         { "q": "wydwanym", "k": "err", "fix": "literówka → „wydawanym”." },
-        { "q": "dolarze", "k": "calq", "fix": "waluta-kalka: model liczy w dolarach dla polskiego promptu. Po polsku „złotówce” — v1 sam to robi." }
+        { "q": "dolarze", "k": "calq", "fix": "waluta-kalka: model liczy w dolarach dla polskiego pytania. Po polsku „złotówce”, a v1 sam to robi." }
       ]
     },
     {
@@ -29,7 +29,7 @@
       "errors": [
         { "q": "Hipoza:", "k": "err", "fix": "literówka w nagłówku → „Hipoteza”." },
         { "q": "Co chcesz dowiedzieć się?", "k": "err", "fix": "zła rekcja i szyk → „Czego chcesz się dowiedzieć?” (dowiedzieć się + dopełniacz, „się” przed czasownikiem)." },
-        { "q": "v1: kontekstowy ankietę", "k": "err", "fix": "uczciwie — v1 też się myli: błąd rodzaju → „kontekstową ankietę”." }
+        { "q": "v1: kontekstowy ankietę", "k": "err", "fix": "uczciwie, v1 też się myli: błąd rodzaju, „kontekstową ankietę”." }
       ]
     },
     {
@@ -40,7 +40,7 @@
         { "q": "samodzielną rozwiązywanie", "k": "err", "fix": "błąd zgody → „samodzielne rozwiązywanie” (rzeczownik nijaki)." },
         { "q": "ludzki kapitał", "k": "calq", "fix": "kalka „human capital” + zły szyk → „kapitał ludzki”." },
         { "q": "Zostawia to ludziom do rozwiązania…", "k": "calq", "fix": "kalka „leaves it to humans to solve” → „dzięki temu ludzie zajmują się trudniejszymi sprawami”." },
-        { "q": "v1: szkolenie zespół / cięć", "k": "err", "fix": "uczciwie — v1 ma własne błędy: „szkol zespół”, „tnij i poprawiaj”." }
+        { "q": "v1: szkolenie zespół / cięć", "k": "err", "fix": "uczciwie, v1 ma własne błędy: „szkol zespół”, „tnij i poprawiaj”." }
       ]
     },
     {
@@ -50,7 +50,7 @@
       "ep3_html": "Szanowny Panie,<br><br>informacja zwrotna 360 stopni to narzędzie, w którym ocenie podlega Pan, a oceniają go wszyscy, z kim Pan regularnie współpracuje: bezpośredni podwładni, koledzy z zarządu, a czasem nawet klienci czy dostawcy. Do tego dochodzi samoocena.",
       "errors": [
         { "q": "Temat: …  Szanowny Panie/Szanowna Pani", "k": "tmpl", "fix": "szablon maila „Subject:” + slash, bo model nie wybiera adresata. Padło zadanie „wyjaśnij szefowi”, nie „napisz mail”." },
-        { "q": "(ang. 360-degree feedback)", "k": "calq", "fix": "glosa — tłumaczy z angielskiego i zostawia oryginał w nawiasie." },
+        { "q": "(ang. 360-degree feedback)", "k": "calq", "fix": "glosa, tłumaczy z angielskiego i zostawia oryginał w nawiasie." },
         { "q": "widok „z góry”", "k": "calq", "fix": "kalka „top-down view”." }
       ]
     }

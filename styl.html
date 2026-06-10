@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Styl — co base Qwen robi źle po polsku | Slayer</title>
-  <meta name="description" content="Ręczny przegląd outputów base Qwen3.5-27B po polsku: twarde błędy gramatyki (Hipoza, Bezpośrednie sprzedaż, samodzielną rozwiązywanie), kalki, liczenie w dolarach, szablon. Fine-tuned v1 obok. Bez regexu — przejrzane ręcznie.">
+  <title>Styl: co base Qwen robi źle po polsku · Slayer</title>
+  <meta name="description" content="Ręczny przegląd odpowiedzi base Qwen3.5-27B po polsku: rażące błędy gramatyczne (Hipoza, Bezpośrednie sprzedaż, samodzielną rozwiązywanie), kalki, liczenie w dolarach, szablon. Fine-tuned v1 obok. Bez regexu, przejrzane ręcznie.">
   <link rel="stylesheet" href="/assets/lab.css">
   <style>
     .phero{padding:104px clamp(18px,5vw,72px) 8px}
@@ -58,9 +58,9 @@
     <div class="inner">
       <span class="kick">01 · styl · v1 · przegląd ręczny</span>
       <h1>Co base Qwen robi <em>źle</em> po polsku.</h1>
-      <p class="lede">Przeczytałem odpowiedzi base Qwen3.5-27B i zaznaczyłem błędy ręcznie, nie regexem. Nie tylko szablon: <b>twarde błędy gramatyki i ortografii</b> („Hipoza", „Bezpośrednie sprzedaż", „samodzielną rozwiązywanie"), <b>kalki z angielskiego</b>, a nawet <b>liczenie w dolarach</b> dla polskiego promptu. Po lewej base z anotacjami, po prawej fine-tuned <b>v1</b>. Uczciwie zaznaczam też potknięcia v1.</p>
+      <p class="lede">Przeczytałem odpowiedzi base Qwen3.5-27B i zaznaczyłem błędy ręcznie, nie regexem. Nie chodzi tylko o szablon. Są <b>rażące błędy gramatyczne i ortograficzne</b> („Hipoza", „Bezpośrednie sprzedaż", „samodzielną rozwiązywanie"), <b>kalki z angielskiego</b>, a nawet <b>liczenie w dolarach</b> dla polskiego pytania. Po lewej base z zaznaczonymi błędami, po prawej fine-tuned <b>v1</b>. Uczciwie zaznaczam też potknięcia v1.</p>
       <div class="legend">
-        <span class="lg"><span class="sw err"></span>twardy błąd (gramatyka/ortografia)</span>
+        <span class="lg"><span class="sw err"></span>rażący błąd gramatyczny / ortograficzny</span>
         <span class="lg"><span class="sw tmpl"></span>szablon / markdown / kalka-otwarcia</span>
         <span class="lg"><span class="sw calq"></span>kalka z angielskiego</span>
         <span class="lg"><span class="sw ph"></span>placeholder</span>
@@ -73,7 +73,7 @@
 
   <div class="wniosek">
     <div class="box">
-      <b>Wniosek:</b> regex łapie myślniki i słowo „feedback". Ręczny przegląd wyłapuje to, co naprawdę boli: <b>błędy fleksyjne, literówki w nagłówkach, walutę po amerykańsku, składnię kalkowaną</b>. To nie jest tani efekt — to realna niepoprawna polszczyzna w „flagowym" modelu. v1 (styl-tuning) usuwa szablon i większość kalek, choć sam nie jest bez skazy (też to zaznaczam). Dane: <code>results/style_demo.json</code> — kurowane ręcznie, base Qwen3.5-27B vs <code>slayer-style ep3 (v1)</code>.
+      <b>Wniosek:</b> regex łapie tylko myślniki i słowo „feedback". Ręczny przegląd pokazuje więcej: błędy fleksyjne, literówki w nagłówkach, walutę liczoną w dolarach, kalkowaną składnię. To zwykłe błędy poprawnej polszczyzny w modelu, który uchodzi za jeden z lepszych. Fine-tuning v1 usuwa szablon i większość kalek, choć sam też się czasem myli, co zaznaczam. Dane: <code>results/style_demo.json</code>, dobrane i opisane ręcznie. Base Qwen3.5-27B vs <code>slayer-style ep3 (v1)</code>.
     </div>
   </div>
 
@@ -86,7 +86,7 @@
         return '<li><span class="dot '+(KIND[e.k]||'k-err')+'"></span><span><code>'+e.q+'</code> → '+e.fix+'</span></li>';
       }
       function card(e){
-        var en = e.en_html ? ('<div class="ex-en"><span class="enh">oryginał EN — z tego base kalkuje szablon</span>'+e.en_html+'</div>') : '';
+        var en = e.en_html ? ('<div class="ex-en"><span class="enh">oryginał EN, z którego base kalkuje szablon</span>'+e.en_html+'</div>') : '';
         var errs = (e.errors&&e.errors.length) ? ('<div class="errs"><div class="errs-h">błędy zaznaczone ręcznie ('+e.errors.length+')</div><ul>'+e.errors.map(errItem).join("")+'</ul></div>') : '';
         return '<article class="ex">'
           + '<div class="ex-task"><b>Zadanie:</b> '+e.prompt+'</div>'
