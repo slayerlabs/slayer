@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Team — Slayer</title>
+  <meta name="description" content="The people building Slayer — an open Polish language model initiative.">
+  <link rel="stylesheet" href="/assets/lab.css">
+  <style>
+    .phero { padding-top: 88px; padding-bottom: 32px; }
+    .sec.tight { padding-top: 28px; padding-bottom: 48px; }
+
+    .hero-lead {
+      font-size: clamp(1.05rem, 1.6vw, 1.22rem);
+      color: var(--mut);
+      max-width: 58ch;
+      line-height: 1.65;
+      margin-top: 20px;
+    }
+    .hero-lead em { color: var(--txt); font-style: italic; }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: clamp(12px, 2vw, 20px);
+      margin-top: 24px;
+    }
+
+    .member {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .av {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      border-radius: var(--rad);
+      background: var(--bg2);
+      border: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .av img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+    .av-init {
+      font-family: var(--serif);
+      font-size: 4.5rem;
+      font-weight: 300;
+      color: var(--acc);
+      opacity: .28;
+      letter-spacing: -.02em;
+      user-select: none;
+    }
+
+    .member-info {}
+    .member-title-label {
+      font-family: var(--mono);
+      font-size: .68rem;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+      color: var(--acc);
+      margin-bottom: 8px;
+    }
+    .member-name {
+      font-family: var(--serif);
+      font-size: clamp(1.7rem, 3vw, 2.2rem);
+      font-weight: 400;
+      letter-spacing: -.02em;
+      line-height: 1.05;
+      margin: 0 0 4px;
+    }
+    .member-specialty {
+      font-family: var(--mono);
+      font-size: .75rem;
+      color: var(--dim);
+      letter-spacing: .04em;
+      margin-bottom: 12px;
+    }
+    .member-bio {
+      font-size: .95rem;
+      color: var(--mut);
+      line-height: 1.65;
+      margin: 0;
+    }
+
+    /* CTA section */
+    .join-cta {
+      margin-top: clamp(56px, 8vw, 96px);
+      padding: clamp(36px, 5vw, 56px);
+      border: 1px solid var(--line);
+      border-radius: var(--rad);
+      background: var(--panel);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+    .join-cta h2 {
+      font-family: var(--serif);
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 400;
+      letter-spacing: -.015em;
+      margin: 0 0 8px;
+    }
+    .join-cta p {
+      margin: 0;
+      color: var(--mut);
+      font-size: .96rem;
+      max-width: 48ch;
+    }
+  </style>
+</head>
+<body>
+  <div id="site-nav"></div>
+
+  <section class="phero">
+    <div class="inner">
+      <span class="kick">Slayer Team</span>
+      <h1>The people<br>building <em>Slayer</em></h1>
+      <p class="hero-lead">
+        Polska inicjatywa open-source. Budujemy <em>suwerenny model językowy</em>
+        — od danych i treningu po ewaluacje i infrastrukturę.
+        Każda osoba tutaj dokłada realną cegiełkę do fundamentów.
+      </p>
+    </div>
+  </section>
+
+  <section class="sec tight">
+    <div class="inner">
+
+      <div class="team-grid">
+
+        <!-- Kacper Rafałski -->
+        <article class="member">
+          <div class="av">
+            <img src="/assets/team/kacper-wikiel.png" alt="Kacper Wikieł">
+          </div>
+          <div class="member-info">
+            <div class="member-title-label">Technical Team Member</div>
+            <h2 class="member-name">Kacper Wikieł</h2>
+            <div class="member-specialty">ML · Infrastructure</div>
+            <p class="member-bio">ML, infrastructure, and model optimization.</p>
+          </div>
+        </article>
+
+        <!-- Kamil Dzieniszewski -->
+        <article class="member">
+          <div class="av">
+            <img src="/assets/team/kamil-dzieniszewski.jpeg" alt="Kamil Dzieniszewski">
+          </div>
+          <div class="member-info">
+            <div class="member-title-label">Technical Team Member</div>
+            <h2 class="member-name">Kamil Dzieniszewski</h2>
+            <div class="member-specialty">Frontend · Product</div>
+            <p class="member-bio">Frontend, product experience, and developer workflows.</p>
+          </div>
+        </article>
+
+        <!-- Placeholder -->
+        <article class="member">
+          <a href="/zespol" style="display:block;text-decoration:none">
+            <div class="av" style="border-style:dashed;border-color:var(--line);background:transparent;transition:.18s">
+              <span style="font-size:2rem;color:var(--dim);line-height:1">+</span>
+            </div>
+          </a>
+          <div class="member-info">
+            <div class="member-title-label">Technical Team Member</div>
+            <h2 class="member-name" style="color:var(--dim)">Your name here</h2>
+            <div class="member-specialty">Your stack · Your domain</div>
+            <p class="member-bio"><a href="/zespol" style="color:var(--acc)">Join the team →</a></p>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- Join CTA -->
+      <div class="join-cta">
+        <div>
+          <h2>Join the Team</h2>
+          <p>Want to contribute to Slayer? Become a member and help build the future of open AI in Poland.</p>
+        </div>
+        <a class="btn btn-p" href="https://discord.gg/5YaDpSaE" target="_blank" rel="noopener">Become a member →</a>
+      </div>
+
+    </div>
+  </section>
+
+  <div id="site-foot"></div>
+  <script src="/assets/site.js"></script>
+</body>
+</html>
