@@ -75,7 +75,7 @@
 
   <section class="sec tight"><div class="inner">
     <div class="ghead"><h2>Jak trenowano <em>Bielika</em></h2><span class="c">referencja · raport techniczny 11B v3</span></div>
-    <p class="muted" style="max-width:72ch;margin:0 0 20px">Pełny, kosztowny pipeline. My startujemy z mocniejszej bazy (Qwen3.5-9B) i <b style="color:var(--ink)">pomijamy najdroższy etap (CPT)</b> — to sedno „super tanio + epsilon".</p>
+    <p class="muted" style="max-width:72ch;margin:0 0 20px">Pełny, kosztowny pipeline. My startujemy z mocniejszej bazy (Qwen3.5-27B) i <b style="color:var(--ink)">pomijamy najdroższy etap (CPT)</b> — to sedno „super tanio + epsilon".</p>
     <div class="grid c2">
       <div class="cell"><div class="n">BIELIK 11B v3 (referencja)</div>
         <ul style="margin:8px 0 0;padding-left:18px;color:var(--mut);font-size:.94rem;line-height:1.7">
@@ -87,7 +87,7 @@
         </ul></div>
       <div class="cell" style="border-left:3px solid var(--acc)"><div class="n">NASZA TAŃSZA ŚCIEŻKA</div>
         <ul style="margin:8px 0 0;padding-left:18px;color:var(--mut);font-size:.94rem;line-height:1.7">
-          <li>Baza: <b>Qwen3.5-9B</b> — już bije Bielika 8:1 → <b>pomijamy CPT</b> (największy koszt)</li>
+          <li>Baza: <b>Qwen3.5-27B</b> — bije Bielika już off-the-shelf → <b>pomijamy CPT</b> (największy koszt); 9B służy tylko do tanich iteracji</li>
           <li><b>QLoRA SFT</b> na kurowanych PL + arkuszach zawodowych (nie pełne 20M)</li>
           <li><b>ORPO/DPO</b> na mniejszym, celowanym zbiorze par</li>
           <li><b>GRPO/RLVR z weryfikatorem MCQ</b> — dokładnie dźwignia pod <b style="color:var(--ink)">LLMzSzŁ</b></li>
@@ -102,7 +102,7 @@
     <p class="muted" style="max-width:74ch;margin:0 0 18px">Zmierzyliśmy fertility na tej samej próbce Wikipedii (PL+EN). Tokenizer Qwena jest <b style="color:var(--ink)">~23% wydajniejszy na polskim</b> niż Bielika/Mistrala — tańszy inference i dłuższy efektywny kontekst (ważne dla długich pism). Przewagę dostajemy <b style="color:var(--ink)">za darmo, wyborem bazy</b>. Skrypt: <a href="https://github.com/slayerlabs/slayer/blob/main/bench/tokenizer_fertility.py" rel="noopener" style="color:var(--acc)">tokenizer_fertility.py</a>.</p>
     <div class="tbl"><table><thead><tr><th>Tokenizer</th><th class="c">vocab</th><th class="c">TpW&nbsp;PL ↓</th><th class="c">CpT&nbsp;PL ↑</th><th class="c">TpW&nbsp;EN</th><th class="c">PL/EN</th></tr></thead><tbody>
       <tr><td class="dn">Gemma-2-9B</td><td class="s">256k</td><td class="s">2.244</td><td class="s">3.31</td><td class="s">1.340</td><td class="s">1.68</td></tr>
-      <tr><td class="dn">Qwen3.5-9B <span class="chip acc">nasza baza</span></td><td class="s">248k</td><td class="s win">2.357</td><td class="s">3.15</td><td class="s">1.385</td><td class="s">1.70</td></tr>
+      <tr><td class="dn">Qwen3.5 (9B/27B) <span class="chip acc">nasza baza: 27B</span></td><td class="s">248k</td><td class="s win">2.357</td><td class="s">3.15</td><td class="s">1.385</td><td class="s">1.70</td></tr>
       <tr><td class="dn">Llama-3.1-8B</td><td class="s">128k</td><td class="s">2.743</td><td class="s">2.71</td><td class="s">1.343</td><td class="s">2.04</td></tr>
       <tr><td><div class="dn">Bielik-11B-v3 = Mistral-7B</div><div class="ds">Bielik zostawił tokenizer Mistrala (32k)</div></td><td class="s">32k</td><td class="s">3.060</td><td class="s">2.43</td><td class="s">1.544</td><td class="s">1.98</td></tr>
     </tbody></table></div>
