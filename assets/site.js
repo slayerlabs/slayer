@@ -11,8 +11,7 @@
     ["/datasety","datasety"],
     ["/leaderboard","leaderboard"],
     ["/progress","na żywo"],
-    ["/zespol","eksperci"],
-    ["/team","team"]
+    ["/team","zespół"]
   ];
   var nav = '<header class="nav">'
     + '<a class="brand" href="/"><span class="mk">S</span>slayer<span class="sl">·</span>lab</a>'
@@ -33,5 +32,17 @@
     var n=document.getElementById("site-nav"); if(n) n.outerHTML=nav;
     var f=document.getElementById("site-foot"); if(f) f.outerHTML=foot;
   }
-  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",inject); else inject();
+
+  // Vercel Web Analytics + Speed Insights (static-site: inject the scripts, no npm build needed).
+  function analytics(){
+    var h=location.hostname;
+    if(h==="localhost"||h==="127.0.0.1") return;            // skip local dev
+    window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};
+    ["/_vercel/insights/script.js","/_vercel/speed-insights/script.js"].forEach(function(src){
+      var s=document.createElement("script"); s.defer=true; s.src=src; document.head.appendChild(s);
+    });
+  }
+
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",function(){inject();analytics();});
+  else { inject(); analytics(); }
 })();
