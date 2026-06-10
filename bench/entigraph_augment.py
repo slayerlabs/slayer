@@ -70,7 +70,18 @@ PL_PAT = re.compile(
     r"Podkarpaci|Kaszub|G[oó]ral|Mazur|Warmi|Kujaw|piastows|jagiello[ńn]s|PRL|Solidarno[śs][ćc])",
     re.I)
 
+SRC_FILE = os.environ.get("SRC_FILE", "")  # lokalny korpus JSONL {"text","title"} zamiast Wikipedii
+
 def passages(skip_titles=()):
+    if SRC_FILE:
+        for ln in open(SRC_FILE, encoding="utf-8"):
+            try: r = json.loads(ln)
+            except Exception: continue
+            txt, title = (r.get("text") or "").strip(), r.get("title", "")
+            if title in skip_titles or not (300 <= len(txt) <= 2000) or contaminated(txt):
+                continue
+            yield txt, title
+        return
     from datasets import load_dataset
     ds = load_dataset("wikimedia/wikipedia", "20231101.pl", split="train", streaming=True)
     for r in ds:
