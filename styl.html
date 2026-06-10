@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Styl — „AI-polski" bazy to angielski przetłumaczony | Slayer</title>
+  <meta name="description" content="Domyślny 'polski' Qwen3.5-27B to angielska STRUKTURA z polskimi słowami (translationese). Styl-tuning v1 łamie szablon i pisze natywną polszczyznę. Podświetlone issues, base vs v1.">
+  <link rel="stylesheet" href="/assets/lab.css">
+  <style>
+    .phero{padding:104px clamp(18px,5vw,72px) 8px}
+    .phero .inner{width:min(1040px,100%);margin:0 auto}
+    .phero h1{font-family:var(--serif);font-weight:400;letter-spacing:-.02em;line-height:1.04;font-size:clamp(2.2rem,5vw,3.5rem);margin:14px 0 18px;color:var(--ink)}
+    .phero h1 em{font-style:italic;color:var(--acc)}
+    .phero .lede{max-width:64ch;color:var(--mut);font-size:clamp(1.04rem,1.6vw,1.2rem);line-height:1.55}
+    .phero .lede b{color:var(--ink);font-weight:600}
+    .legend{display:flex;flex-wrap:wrap;gap:10px 18px;margin:26px 0 4px;font-family:var(--mono);font-size:.78rem;color:var(--mut);align-items:center}
+    .legend .lg{display:inline-flex;align-items:center;gap:7px}
+    .legend .sw{width:14px;height:14px;border-radius:3px;display:inline-block}
+    .sw.s{background:#f4d98a}.sw.p{background:#eec3b8}.sw.t{background:var(--acc)}
+    .sd{width:min(1040px,100%);margin:0 auto;padding:8px clamp(18px,5vw,72px) 40px}
+    .ex{border:1px solid var(--line);border-radius:13px;background:var(--panel);box-shadow:0 10px 30px rgba(26,22,12,.04);padding:0;margin:22px 0;overflow:hidden}
+    .ex-task{padding:14px clamp(16px,3vw,24px);background:rgba(26,22,12,.035);border-bottom:1px solid var(--line);font-size:.95rem;color:var(--ink)}
+    .ex-task b{font-weight:600;color:var(--acc)}
+    .ex-grid{display:grid;grid-template-columns:1fr 1fr;gap:0}
+    .ex-grid.single{grid-template-columns:1fr}
+    .col{padding:16px clamp(16px,3vw,24px)}
+    .col+.col{border-left:1px solid var(--line)}
+    .col-h{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);margin-bottom:10px}
+    .col-h span{text-transform:none;letter-spacing:0;color:var(--mut)}
+    .col-b{font-size:.86rem;line-height:1.62;color:var(--mut);white-space:normal;word-break:break-word}
+    .col-b.en{color:var(--dim)}
+    mark{background:none;color:inherit;padding:.5px 1px;border-radius:2px}
+    mark.h-s{background:#f4d98a;color:#3a3320}
+    mark.h-p{background:#eec3b8;color:#5a2b1f}
+    .ep3{border-top:2px solid var(--acc);background:var(--acc-soft);padding:16px clamp(16px,3vw,24px)}
+    .ep3-h{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--acc-d);margin-bottom:9px;font-weight:600}
+    .ep3-b{font-family:var(--serif);font-size:1.02rem;line-height:1.55;color:var(--ink)}
+    .more{display:block;margin:6px auto 0;font-family:var(--mono);font-size:.82rem;color:var(--acc);background:none;border:1px solid var(--line);border-radius:8px;padding:11px 20px;cursor:pointer}
+    .more:hover{background:var(--acc-soft)}
+    .hidden{display:none}
+    .wniosek{width:min(1040px,100%);margin:0 auto 64px;padding:0 clamp(18px,5vw,72px)}
+    .wniosek .box{border-left:3px solid var(--acc);background:var(--panel);border-radius:0 10px 10px 0;padding:20px 24px;color:var(--mut);font-size:.98rem;line-height:1.6}
+    .wniosek .box b{color:var(--ink)}
+    @media(max-width:760px){.ex-grid{grid-template-columns:1fr}.col+.col{border-left:0;border-top:1px solid var(--line)}}
+  </style>
+</head>
+<body>
+  <div id="site-nav"></div>
+
+  <section class="phero">
+    <div class="inner">
+      <span class="kick">01 · styl · v1 (de-translationese)</span>
+      <h1>„AI-polski" bazy to <em>angielski przetłumaczony</em>.</h1>
+      <p class="lede">Qwen3.5-27B daje <b>ten sam angielski szablon w obu językach</b>: nagłówki markdown, „Here are a few options" = „Oto kilka propozycji", <code>Option 1</code> = <code>Opcja 1</code>, placeholdery <code>[Boss's Name]</code> = <code>[Imię]</code>. To angielska <b>struktura</b> z polskimi słowami. Styl-tuning <b>v1</b> łamie szablon i pisze natywną polszczyznę — krótko, bez listy opcji, bez kalki.</p>
+      <div class="legend">
+        <span class="lg"><span class="sw s"></span>szablon: markdown / kalki-otwarcia</span>
+        <span class="lg"><span class="sw p"></span>placeholdery</span>
+        <span class="lg"><span class="sw t"></span>v1 — natywny polski</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="sd" id="sd-list"><p style="color:var(--mut);font-family:var(--mono);font-size:.85rem">wczytuję przykłady…</p></div>
+
+  <div class="wniosek">
+    <div class="box">
+      <b>Wniosek:</b> domyślny „polski" modelu to angielska STRUKTURA z polskimi słowami (translationese). Styl-tuning v1 uczy modelu <b>myślenia po polsku, nie tłumaczenia z angielskiego</b>. To jest wartość v1 — nie liczba na benchmarku (v1 celuje w styl, nie KLEJ), tylko jakość wyjścia. Dane: <code>results/style_demo.json</code> · porównanie base (Qwen3.5-27B) vs <code>slayer-style ep3</code>.
+    </div>
+  </div>
+
+  <div id="site-foot"></div>
+  <script src="/assets/site.js"></script>
+  <script>
+    (function(){
+      function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+      function hl(s){
+        var t=esc(s);
+        t=t.replace(/(\[[^\]\n]{1,40}\])/g,'<mark class="h-p">$1</mark>');                 // placeholdery
+        t=t.replace(/(^|\n)(\s*)(&gt;)(\s)/g,'$1$2<mark class="h-s">$3</mark>$4');           // blockquote >
+        t=t.replace(/(\*\*|#{1,6}(?=\s))/g,'<mark class="h-s">$1</mark>');                   // markdown bold + naglowki
+        t=t.replace(/\b(Here are|Oto kilka|Option\s\d+|Opcja\s\d+|Subject:|Temat:)/gi,'<mark class="h-s">$1</mark>'); // kalki-otwarcia
+        return t.replace(/\n/g,"<br>");
+      }
+      function card(e,i){
+        var en = e.en ? ('<div class="col"><div class="col-h">BASE · angielski</div><div class="col-b en">'+hl(e.en)+'</div></div>') : '';
+        var single = e.en ? '' : ' single';
+        return '<article class="ex'+(i>=4?' hidden ex-extra':'')+'">'
+          + '<div class="ex-task"><b>Zadanie:</b> '+esc(e.prompt)+'</div>'
+          + '<div class="ex-grid'+single+'">'+en
+          + '<div class="col"><div class="col-h">BASE · polski <span>(ten sam szablon, przetłumaczony)</span></div><div class="col-b">'+hl(e.pl_base)+'</div></div>'
+          + '</div>'
+          + '<div class="ep3"><div class="ep3-h">v1 · styl-tuning — natywny polski, nie szablon</div><div class="ep3-b">'+hl(e.ep3)+'</div></div>'
+          + '</article>';
+      }
+      fetch("/results/style_demo.json?ts="+Date.now()).then(function(r){return r.json();}).then(function(d){
+        var list=document.getElementById("sd-list");
+        var html=d.examples.map(card).join("");
+        var extra=d.examples.length-4;
+        if(extra>0) html+='<button class="more" id="sd-more">pokaż pozostałe '+extra+' przykłady ↓</button>';
+        list.innerHTML=html;
+        var btn=document.getElementById("sd-more");
+        if(btn) btn.addEventListener("click",function(){
+          document.querySelectorAll(".ex-extra").forEach(function(el){el.classList.remove("hidden");});
+          btn.remove();
+        });
+      }).catch(function(){
+        document.getElementById("sd-list").innerHTML='<p style="color:var(--mut)">Nie udało się wczytać przykładów.</p>';
+      });
+    })();
+  </script>
+</body>
+</html>

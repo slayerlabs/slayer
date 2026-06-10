@@ -6,6 +6,7 @@
     ["/propozycja","propozycja v3"],
     ["/kierunki","kierunki"],
     ["/trening","trening"],
+    ["/styl","styl"],
     ["/eksperymenty","log"],
     ["/zadania","zadania"],
     ["/datasety","datasety"],
