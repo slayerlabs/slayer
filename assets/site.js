@@ -11,7 +11,8 @@
     ["/datasety","datasety"],
     ["/leaderboard","leaderboard"],
     ["/progress","na żywo"],
-    ["/zespol","eksperci"]
+    ["/zespol","eksperci"],
+    ["/team","team"]
   ];
   var nav = '<header class="nav">'
     + '<a class="brand" href="/"><span class="mk">S</span>slayer<span class="sl">·</span>lab</a>'
