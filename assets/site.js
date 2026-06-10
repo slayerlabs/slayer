@@ -9,6 +9,7 @@
     ["/zadania","zadania"],
     ["/datasety","datasety"],
     ["/leaderboard","leaderboard"],
+    ["/team","team"],
     ["/progress","na żywo"]
   ];
   var nav = '<header class="nav">'
