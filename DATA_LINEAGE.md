@@ -35,6 +35,14 @@ touched these splits, our v2 did).
 **Measured (our harness, greedy, enable_thinking=False, n=200):** v2 macro 87.83 vs base 81.83.
 Real, but inflated by the train-split layer — **not a defensible leaderboard claim.**
 
+### v2 — addendum (2026-06-11): style-holdout leak
+Decon audit (`bench/decon_audit.py`, 8-gram verbatim vs all eval files) found that
+`train_v2_mix.jsonl` contains **85 prompts identical to `style/holdout_v1.jsonl`** (the style-eval
+held-out set). v2's style win-rates vs the holdout are therefore inflated too. **v1 is unaffected:**
+`train_v1.jsonl` / `train_v1_openjudge.jsonl` have **0 overlap** with the holdout (verified).
+All v3 layers are audited with `decon_audit.py` before mixing; the re-judged style file used in v3
+is the holdout-disjoint `style_pl_sft_v3_openjudge_disjoint.jsonl` (503 = 588 minus 85).
+
 ## v3 — `slayer-v3` (PLANNED)  🎯 CLEAN
 **Rule:** benchmark train splits → **held-out dev validation ONLY**, never in training.
 **Mix (target):**
