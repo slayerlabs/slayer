@@ -28,6 +28,7 @@ REPORT = "results/train_v3_mix_report.json"
 
 LAYERS = {
     "distill": ["slayer-data/distill/distill_pl.clean.jsonl"],
+    "bielik_distill": ["slayer-data/external/bielik_distill_10k.verified.jsonl"],
     "human_pl": ["slayer-data/v3/human_pl_aya.clean.jsonl",
                  "slayer-data/v3/human_pl_oasst2.jsonl",
                  "slayer-data/style/style_pl_sft_v3_openjudge_disjoint.jsonl"],
@@ -69,7 +70,9 @@ def load_layer(paths):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--distill-share", type=float, default=0.60)
+    ap.add_argument("--distill-share", type=float, default=0.50)
+    ap.add_argument("--bielik-share", type=float, default=0.15,
+                    help="zweryfikowana destylacja z Bielika (fakty=ok wg otwartego sędziego)")
     ap.add_argument("--human-share", type=float, default=0.15)
     ap.add_argument("--en-share", type=float, default=0.20)
     ap.add_argument("--seed", type=int, default=42)
@@ -88,6 +91,7 @@ def main():
     n_d = len(pools["distill"])
     total = int(n_d / a.distill_share)
     targets = {"distill": n_d,
+               "bielik_distill": int(total * a.bielik_share),
                "human_pl": int(total * a.human_share),
                "en_retention": int(total * a.en_share)}
 
