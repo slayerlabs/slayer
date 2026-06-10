@@ -19,7 +19,7 @@
       "errors": [
         { "q": "Bezpośrednie sprzedaż", "k": "err", "fix": "błąd rodzaju → „Bezpośrednia sprzedaż” (sprzedaż jest żeńska)." },
         { "q": "wydwanym", "k": "err", "fix": "literówka → „wydawanym”." },
-        { "q": "dolarze", "k": "calq", "fix": "waluta-kalka: model liczy w dolarach dla polskiego pytania. Po polsku „złotówce”, a v1 sam to robi." }
+        { "q": "dolarze", "k": "calq", "fix": "waluta-kalka: model liczy w dolarach przy polskim poleceniu. Po polsku „złotówce”, a v1 sam to robi." }
       ]
     },
     {
