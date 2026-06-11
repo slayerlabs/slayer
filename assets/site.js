@@ -12,6 +12,7 @@
     ["/zadania","zadania"],
     ["/datasety","datasety"],
     ["/wiedza","wiedza"],
+    ["/v3","v3"],
     ["/leaderboard","leaderboard"],
     ["/progress","na żywo"],
     ["/team","zespół"]
