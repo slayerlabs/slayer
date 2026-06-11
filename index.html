@@ -19,11 +19,13 @@
       repeating-linear-gradient(0deg,transparent 0 56px,rgba(222,202,154,.055) 56px 57px);
       -webkit-mask-image:radial-gradient(ellipse 82% 72% at 58% 22%,#000 0%,transparent 76%);
       mask-image:radial-gradient(ellipse 82% 72% at 58% 22%,#000 0%,transparent 76%)}
-    .hgrid{position:relative;z-index:1;width:min(var(--max),100%);margin:0 auto;display:grid;grid-template-columns:minmax(0,1.16fr) minmax(0,.84fr);gap:clamp(34px,5vw,76px);align-items:end;min-height:76vh;padding-bottom:clamp(54px,7vw,84px)}
-    .hgrid > div:first-child{align-self:center}
-    /* księga pomiarów: zsunięta na dół hero + szkło, żeby obraz pracowni był widoczny nad nią i prześwitywał */
-    .hgrid .panel{background:rgba(11,10,7,.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-color:rgba(222,202,154,.16)}
-    @media(max-width:940px){.hgrid{grid-template-columns:1fr;min-height:0;align-items:start}.hgrid .panel{background:var(--panel);backdrop-filter:none}}
+    /* hero jednoszpaltowy: prawa strona w całości dla obrazu pracowni */
+    .hgrid{position:relative;z-index:1;width:min(var(--max),100%);margin:0 auto;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);align-items:center;min-height:72vh;padding-bottom:clamp(54px,7vw,84px)}
+    @media(max-width:940px){.hgrid{grid-template-columns:1fr;min-height:0}}
+    /* księga pomiarów pod hero: wpisy w dwóch kolumnach */
+    .loggrid{display:grid;grid-template-columns:1fr 1fr;gap:0 34px;padding:6px 18px 8px}
+    @media(max-width:820px){.loggrid{grid-template-columns:1fr}}
+    .loggrid .logrow:nth-child(2){border-top:0}
     .htag{display:inline-flex;align-items:center;gap:10px;margin-bottom:26px}
     .htag .dot{width:7px;height:7px;border-radius:50%;background:var(--acc);animation:pl 2s infinite}
     .hero h1{margin:0 0 24px;font-family:var(--serif);font-size:clamp(3rem,6.8vw,5.9rem);line-height:.96;font-weight:360;letter-spacing:-.018em;color:var(--ink);max-width:10.6ch;text-wrap:balance;text-shadow:0 18px 70px rgba(0,0,0,.55)}
@@ -92,9 +94,22 @@
           <a class="btn btn-s" href="https://discord.gg/HnTkVR4c5T" rel="noopener" target="_blank">wejście do labu</a>
         </div>
       </div>
+    </div>
+    <div class="stats rv d5" style="margin:0 calc(clamp(18px,5vw,72px) * -1)">
+      <div class="inner">
+        <div class="stat"><div class="v" id="st-bench">10</div><div class="k">osi ewaluacji</div></div>
+        <div class="stat"><div class="v">24<span class="ac">k</span></div><div class="k">rekordów z widocznym rodowodem</div></div>
+        <div class="stat"><div class="v">100<span class="ac">%</span></div><div class="k">claimów z held-out</div></div>
+        <div class="stat"><div class="v">~18<span class="ac">k zł</span></div><div class="k">koszt wpisany w wynik</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec tight">
+    <div class="inner">
       <div class="panel rv d4">
         <div class="panel-top"><span class="loghead">księga pomiarów</span><span class="live"><span class="d"></span>NA ŻYWO</span></div>
-        <div class="panel-bd" style="padding:8px 16px 10px">
+        <div class="panel-bd loggrid">
           <a class="logrow" href="/eksperymenty">
             <span class="dt">2026-06</span>
             <span class="what"><b>slayer-style-27b</b>: smak odpowiedzi bez amnezji<span class="sub">LLMzSzŁ 65.0 vs baza 58.5 (likelihood, n=400)</span></span>
@@ -115,16 +130,8 @@
             <span class="what"><b>arena</b>: ślepe porównania modeli PL<span class="sub">oceniaj odpowiedzi bez etykiet</span></span>
             <span class="go">wejdź →</span>
           </a>
-          <p class="pnote" id="l-note" style="padding:10px 2px 6px;margin:0;border-top:1px solid var(--line2)">wczytuję pomiary…</p>
         </div>
-      </div>
-    </div>
-    <div class="stats rv d5" style="margin:0 calc(clamp(18px,5vw,72px) * -1)">
-      <div class="inner">
-        <div class="stat"><div class="v" id="st-bench">10</div><div class="k">osi ewaluacji</div></div>
-        <div class="stat"><div class="v">24<span class="ac">k</span></div><div class="k">rekordów z widocznym rodowodem</div></div>
-        <div class="stat"><div class="v">100<span class="ac">%</span></div><div class="k">claimów z held-out</div></div>
-        <div class="stat"><div class="v">~18<span class="ac">k zł</span></div><div class="k">koszt wpisany w wynik</div></div>
+        <p class="pnote" id="l-note" style="padding:12px 18px;margin:0;border-top:1px solid var(--line2)">wczytuję pomiary…</p>
       </div>
     </div>
   </section>
