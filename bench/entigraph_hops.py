@@ -78,8 +78,14 @@ def build_graph(min_mentions=1):
     for ln in open(SRC, encoding="utf-8"):
         r = json.loads(ln)
         arts[r["title"]] = r["paras"]
+    # poza grafem: daty, lata, miesiące, dni tygodnia (krawędź przez kalendarz to nie relacja wiedzy)
+    CAL = re.compile(r"^(\d{1,4}( (p\.n\.e\.|n\.e\.))?|\d{1,2} (styczni|luteg|marc|kwietni|maj|czerwc|"
+                     r"lipc|sierpni|wrześni|październik|listopad|grudni)\w*|stycze[ńn]|luty|marzec|"
+                     r"kwiecie[ńn]|maj|czerwiec|lipiec|sierpie[ńn]|wrzesie[ńn]|październik|listopad|"
+                     r"grudzie[ńn]|poniedziałek|wtorek|środa|czwartek|piątek|sobota|niedziela)$", re.I)
     titles = {norm_title(t): t for t in arts
-              if 4 <= len(t) <= 60 and "(" not in t and t.count(" ") <= 5}
+              if 4 <= len(t) <= 60 and "(" not in t and t.count(" ") <= 5
+              and not CAL.match(t.strip())}
     # indeks: pierwsze słowo tytułu -> tytuły (przyspieszenie wyszukiwania)
     by_first = defaultdict(list)
     for nt, t in titles.items():
@@ -95,6 +101,18 @@ def build_graph(min_mentions=1):
                         continue
                     if b_title not in edges[a_title]:
                         edges[a_title][b_title] = i
+    # odetnij huby (Polska, Warszawa itp.): węzeł o stopniu wejściowym > 0.1% artykułów
+    indeg = defaultdict(int)
+    for a in edges:
+        for b in edges[a]:
+            indeg[b] += 1
+    hub_cap = max(len(arts) // 1000, 200)
+    hubs = {b for b, d in indeg.items() if d > hub_cap}
+    for a in edges:
+        for b in list(edges[a]):
+            if b in hubs:
+                del edges[a][b]
+    print(f"[hops] odcięte huby (in-degree > {hub_cap}): {len(hubs)}", flush=True)
     return arts, edges
 
 
