@@ -19,8 +19,11 @@
       repeating-linear-gradient(0deg,transparent 0 56px,rgba(222,202,154,.055) 56px 57px);
       -webkit-mask-image:radial-gradient(ellipse 82% 72% at 58% 22%,#000 0%,transparent 76%);
       mask-image:radial-gradient(ellipse 82% 72% at 58% 22%,#000 0%,transparent 76%)}
-    .hgrid{position:relative;z-index:1;width:min(var(--max),100%);margin:0 auto;display:grid;grid-template-columns:minmax(0,1.16fr) minmax(0,.84fr);gap:clamp(34px,5vw,76px);align-items:start;padding-bottom:clamp(54px,7vw,84px)}
-    @media(max-width:940px){.hgrid{grid-template-columns:1fr}}
+    .hgrid{position:relative;z-index:1;width:min(var(--max),100%);margin:0 auto;display:grid;grid-template-columns:minmax(0,1.16fr) minmax(0,.84fr);gap:clamp(34px,5vw,76px);align-items:end;min-height:76vh;padding-bottom:clamp(54px,7vw,84px)}
+    .hgrid > div:first-child{align-self:center}
+    /* księga pomiarów: zsunięta na dół hero + szkło, żeby obraz pracowni był widoczny nad nią i prześwitywał */
+    .hgrid .panel{background:rgba(11,10,7,.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-color:rgba(222,202,154,.16)}
+    @media(max-width:940px){.hgrid{grid-template-columns:1fr;min-height:0;align-items:start}.hgrid .panel{background:var(--panel);backdrop-filter:none}}
     .htag{display:inline-flex;align-items:center;gap:10px;margin-bottom:26px}
     .htag .dot{width:7px;height:7px;border-radius:50%;background:var(--acc);animation:pl 2s infinite}
     .hero h1{margin:0 0 24px;font-family:var(--serif);font-size:clamp(3rem,6.8vw,5.9rem);line-height:.96;font-weight:360;letter-spacing:-.018em;color:var(--ink);max-width:10.6ch;text-wrap:balance;text-shadow:0 18px 70px rgba(0,0,0,.55)}
