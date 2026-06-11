@@ -64,7 +64,8 @@ BRIDGE_SYS = ("Jesteś autorem rzetelnych polskich tekstów encyklopedycznych. D
               "Nie zmyślaj, nie dodawaj wiedzy spoza fragmentów. Naturalna polszczyzna, bez markdownu.")
 HOPQA_SYS = ("Na podstawie WYŁĄCZNIE dwóch fragmentów ułóż 3 pytania wielokrokowe, których odpowiedź "
              "wymaga POŁĄCZENIA faktu z fragmentu 1 i faktu z fragmentu 2 (przez wspólną encję), wraz "
-             "z wyczerpującymi odpowiedziami. Pytania samodzielne (pełne nazwy, bez 'fragment/tekst'). "
+             "z wyczerpującymi odpowiedziami. Pytania i odpowiedzi SAMODZIELNE: pełne nazwy, ZERO "
+             "odwołań do 'fragmentu/tekstu' także w odpowiedziach. "
              "Format: 'Pytanie: ...\\nOdpowiedź: ...' Nie zmyślaj.")
 
 
