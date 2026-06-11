@@ -37,6 +37,11 @@
       </div>
       <div id="content"></div>
       <div class="note"><p class="muted" id="note" style="margin:0;font-size:.9rem"></p></div>
+
+      <div style="margin-top:clamp(44px,6vw,70px)">
+        <div class="ghead"><h2>Macierz: benchmarki × modele</h2><span class="c">sekcje rozdzielone per protokół — liczb między sekcjami nie porównujemy</span></div>
+        <div id="matrix" class="muted mono">wczytuję macierz…</div>
+      </div>
     </div>
   </div>
   <div id="site-foot"></div>
@@ -65,6 +70,28 @@
     }
     function load(){fetch("/results/leaderboard.json?ts="+Date.now()).then(r=>r.json()).then(render).catch(()=>{document.getElementById("content").innerHTML='<div class="tbl"><div style="padding:40px;text-align:center" class="muted mono">brak danych — odśwież</div></div>';});}
     load();setInterval(load,45000);
+
+    function renderMatrix(m){
+      const el=document.getElementById("matrix");
+      el.classList.remove("muted","mono");
+      el.innerHTML=(m.sections||[]).map(s=>{
+        const head=`<tr><th>benchmark</th>${s.cols.map(c=>`<th class="c">${c}</th>`).join("")}</tr>`;
+        const body=s.rows.map(r=>{
+          const max=Math.max(...r.vals.filter(x=>x!=null));
+          const tds=r.vals.map(x=>`<td class="s ${x!=null&&x===max?'win':''}">${x!=null?x:'<span class="dim">wkrótce</span>'}</td>`).join("");
+          return `<tr><td><div class="dn">${r.name}</div></td>${tds}</tr>`;
+        }).join("");
+        return `<div style="margin:26px 0">
+          <div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:8px">
+            <h3 style="margin:0;font-family:var(--serif);font-weight:400;font-size:1.3rem">${s.title}</h3>
+            <span class="mono dim" style="font-size:.7rem;letter-spacing:.04em">${s.protocol}</span>
+          </div>
+          <div class="tbl"><table><thead>${head}</thead><tbody>${body}</tbody></table></div>
+          ${s.note?`<p class="muted" style="font-size:.84rem;margin:8px 2px 0">${s.note}</p>`:""}
+        </div>`;
+      }).join("")+`<p class="mono dim" style="font-size:.7rem">stan: ${m.updated} · złote pole = najlepszy w wierszu (w obrębie protokołu)</p>`;
+    }
+    fetch("/results/matrix.json?ts="+Date.now()).then(r=>r.json()).then(renderMatrix).catch(()=>{document.getElementById("matrix").textContent="brak macierzy (results/matrix.json)";});
   </script>
 </body>
 </html>
