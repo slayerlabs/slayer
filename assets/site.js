@@ -8,25 +8,27 @@
     ["/trening","trening"],
     ["/styl","styl"],
     ["/eksperymenty","log"],
+    ["/rules","rules"],
     ["/zadania","zadania"],
     ["/datasety","datasety"],
+    ["/wiedza","wiedza"],
     ["/leaderboard","leaderboard"],
     ["/progress","na żywo"],
     ["/team","zespół"]
   ];
   var nav = '<header class="nav">'
-    + '<a class="brand" href="/"><span class="mk">S</span>slayer<span class="sl">·</span>lab</a>'
+    + '<a class="brand" href="/"><span class="mk">S</span>slayer<span class="sl">·</span>protocol</a>'
     + '<nav class="nlinks">'
     + LINKS.map(function(l){
         var active = (P===l[0]) ? " active" : "";
         return '<a class="'+active.trim()+'" href="'+l[0]+'">'+l[1]+'</a>';
       }).join("")
-    + '<a class="ncta" href="https://discord.com/invite/5YaDpSaE" rel="noopener" target="_blank">Discord →</a>'
+    + '<a class="ncta" href="https://discord.gg/9R3RZwjPSp" rel="noopener" target="_blank">wejście →</a>'
     + '</nav></header>';
 
   var foot = '<footer class="foot">'
-    + '<span>SLAYER — open polish LLM lab · 2026</span>'
-    + '<span><a href="https://github.com/slayerlabs" rel="noopener">GitHub</a> · <a href="/benchmarks">metodologia</a> · <a href="/leaderboard">leaderboard</a> · <a href="/roadmap">roadmap</a> · <a href="/team">zespół</a> · <a href="/zespol">dołącz</a></span>'
+    + '<span>SLAYER — applied research lab · Polish LLMs · 2026</span>'
+    + '<span><a href="https://github.com/slayerlabs" rel="noopener">GitHub</a> · <a href="/benchmarks">protokoły</a> · <a href="/leaderboard">pomiary</a> · <a href="/rules">rules</a> · <a href="/roadmap">roadmap</a> · <a href="/team">zespół</a> · <a href="/zespol">wejście</a></span>'
     + '</footer>';
 
   function inject(){
