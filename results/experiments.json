@@ -3,34 +3,112 @@
   "note": "Uczciwy log eksperymentów Slayer. Każdy wpis: co trenowane, na czym, z jakim wynikiem. Kontaminacja benchmarkowa oznaczona jawnie.",
   "experiments": [
     {
+      "id": "bielik-distill-verify",
+      "date": "2026-06-11",
+      "name": "weryfikacja zewn. bielik-distill-10k",
+      "base": "—",
+      "method": "sędzia per rekord (otwarty Qwen3.5-122B): fakty + polszczyzna",
+      "n_examples": 9769,
+      "data": {
+        "surowe": 10304,
+        "po kuracji": 9769,
+        "verified (fakty ok)": 4091
+      },
+      "status": "clean",
+      "eval": {
+        "harness": "verify_external_sft.py",
+        "tasks": {
+          "powazne błędy": 4940,
+          "fakty ok": 4094,
+          "drobne": 732
+        }
+      },
+      "note": "51% surowej destylacji z 11B na pytaniach o długi ogon to konfabulacje (zmyślone daty OSP, nieistniejące idiomy). Do miksu v3 weszła wyłącznie frakcja verified (374 ex). Wniosek: zewnętrzne SFT wiedzy bez weryfikatora per item truje model.",
+      "data_hf": null
+    },
+    {
+      "id": "entigraph-10m",
+      "date": "2026-06-11",
+      "name": "EntiGraph PL-focus — korpus wiedzy 10M tok",
+      "base": "—",
+      "method": "synthetic CPT data: relacje encji + parafrazy + streszczenia + QA (×~10 na fakt), teacher deepseek-flash",
+      "n_examples": 92202,
+      "data": {
+        "relation": 46713,
+        "paraphrase": 15149,
+        "summary": 15177,
+        "qa": 15163
+      },
+      "status": "clean",
+      "eval": {
+        "harness": "decon_audit 8-gram: 43 kolizje wycięte (0.047%)"
+      },
+      "note": "~100k faktów z 6.5k artykułów o Polsce. Inżynieria throughput: 8 sekwencyjnych wywołań/chunk -> 3 zbiorcze + rolling window 256 workerów = 430 -> 13 000 tok/s (30x). Koszt ~$4. Drugi korpus (ZPE, materiał egzaminacyjny 64k akapitów) w generacji.",
+      "log_note": "slayer-data/knowledge/entigraph_pl_focus.clean.jsonl (shardy w repo datasets)"
+    },
+    {
+      "id": "entigraph-hops",
+      "date": "2026-06-11",
+      "name": "graf encji — wiedza kompozycyjna (pilot 2-hop)",
+      "base": "—",
+      "method": "graf co-mention 274k węzłów / 2M krawędzi; ścieżki A→B→C -> akapity pomostowe + wielohopowe QA",
+      "n_examples": 1999,
+      "data": {
+        "bridge": 992,
+        "hop_qa": 971
+      },
+      "status": "clean",
+      "eval": {
+        "harness": "decon_audit + czyszczenie ścieżek"
+      },
+      "note": "Pilot złapał pułapkę grafu: 53% ścieżek szło przez węzły-daty (absurdy typu piłkarz↔ceny gazu przez wspólną datę). Fix: daty poza grafem + odcięcie hubów po in-degree. Po fixie ścieżki sensowne (Szkotowo→Jan Kostka→pochówek w Lisewie).",
+      "log_note": "bench/entigraph_hops.py"
+    },
+    {
+      "id": "v3-mix",
+      "date": "2026-06-11",
+      "name": "train_v3 — czysty miks SFT",
+      "base": "Qwen3.5-27B (planowany trening)",
+      "method": "assembler z bramkami: forbidden-sources, audyt verbatim, dedup, filtr myślników, balans per źródło",
+      "n_examples": 2239,
+      "data": {
+        "distill własny": 1022,
+        "bielik_verified": 374,
+        "human_pl": 344,
+        "en_retention": 499
+      },
+      "status": "clean",
+      "eval": {
+        "harness": "raport: results/train_v3_mix_report.json"
+      },
+      "note": "Zero train/test splitów benchmarków. Audyt wykrył i usunął wyciek 85 promptów holdoutu stylu (obecny w miksie v2; v1 czysty: 0 wspólnych). Szczegóły miksu: /v3.",
+      "log_note": "trening jeszcze nie wystartował — najpierw pilot CPT + probe"
+    },
+    {
       "id": "knowledge-probe-v1",
       "date": "2026-06-11",
       "name": "knowledge_probe_v1 — długi ogon wiedzy o Polsce (smoke)",
-      "base": null,
+      "base": "—",
       "method": "71 pytań closed-book z korpusu EntiGraph (38 polonica / 33 ogólne), sędzia: otwarty Qwen3.5-122B vs gold ugruntowany w źródle",
       "status": "clean",
       "eval": {
         "harness": "bench/knowledge_probe.py, temp 0, ollama Q4 (Bielik, Qwen9B) + API bf16 (Qwen27B)",
-        "results": {
-          "Bielik-11B-v3": {
-            "polonica": 28.9,
-            "ogolne": 39.4,
-            "all": 33.8
-          },
-          "Qwen3.5-9B": {
-            "polonica": 18.4,
-            "ogolne": 30.3,
-            "all": 23.9
-          },
-          "Qwen3.5-27B": {
-            "polonica": 15.8,
-            "ogolne": 33.3,
-            "all": 23.9
-          }
+        "tasks": {
+          "Bielik polonica": 28.9,
+          "Qwen9B polonica": 18.4,
+          "Qwen27B polonica": 15.8,
+          "Bielik ogólne": 39.4,
+          "Qwen9B ogólne": 30.3,
+          "Qwen27B ogólne": 33.3
         }
       },
       "note": "Długi ogon (regionalia, lokalne fakty) leży u wszystkich: 16-29%. Bielik najlepszy (CPT 1.1T PL częściowo kupił ogon), baza 27B najsłabsza na polonica przy dobrej wiedzy ogólnej. Wniosek: CPT na zmultiplikowanym syntetycznie ogonie (EntiGraph 10M) ma ~85% przestrzeni do odzyskania; cel po CPT: >28.9 na polonica. n=71 to smoke: różnica Bielik vs 27B na polonica (13pp, n=38) jeszcze nieistotna statystycznie; potwierdzenie na probe 300-500 + drugi niezależny sędzia. Itemy probe = held-out (exclusion list z treningu CPT).",
-      "artifacts": "results/knowledge_probe_v1.json; probe prywatnie (datasets/data/eval)"
+      "artifacts": "results/knowledge_probe_v1.json; probe prywatnie (datasets/data/eval)",
+      "n_examples": 71,
+      "data": {
+        "polonica": 38,
+        "ogolne": 33
+      }
     },
     {
       "id": "v2",
