@@ -12,7 +12,7 @@ Gwarancje: ZERO train/test splitów benchmarków; dedup vs runs/test_atoms.txt
 (ostatnia linia obrony, warstwy już deduplikowane); dedup między warstwami;
 filtr myślników na odpowiedziach; raport per źródło.
 
-Out: slayer-data/v3/train_v3.jsonl + results/train_v3_mix_report.json
+Out: slayer-data/v3/train_v3.jsonl + public/results/train_v3_mix_report.json
 Usage: python3 bench/build_v3_mix.py [--distill-share 0.60] [--seed 42]
 """
 import argparse
@@ -24,7 +24,7 @@ from collections import Counter
 
 ATOMS_F = "runs/test_atoms.txt"
 OUT = "slayer-data/v3/train_v3.jsonl"
-REPORT = "results/train_v3_mix_report.json"
+REPORT = "public/results/train_v3_mix_report.json"
 
 LAYERS = {
     "distill": ["slayer-data/distill/distill_pl.clean.jsonl"],
