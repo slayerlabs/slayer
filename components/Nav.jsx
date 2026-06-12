@@ -22,6 +22,7 @@ const GROUPS = [
       ["/styl", "styl"],
       ["/zadania", "zadania"],
       ["/wiedza", "wiedza (CPT)"],
+      ["/bielik-dane", "dane Bielika (analiza)"],
     ],
   },
   {
@@ -33,6 +34,7 @@ const GROUPS = [
       ["/closed-benchmarks", "benchmarki zamknięte"],
       ["/progress", "pomiar na żywo"],
       ["/eksperymenty", "log eksperymentów"],
+      ["/bielik-benchmarki", "Bielik v3 (porównanie)"],
     ],
   },
   {
