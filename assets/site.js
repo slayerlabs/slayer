@@ -11,6 +11,7 @@
     ["/rules","rules"],
     ["/zadania","zadania"],
     ["/datasety","datasety"],
+    ["/bielik-dane","dane bielika"],
     ["/wiedza","wiedza"],
     ["/v3","v3"],
     ["/leaderboard","leaderboard"],
