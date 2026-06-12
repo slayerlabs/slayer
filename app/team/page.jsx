@@ -174,8 +174,8 @@ export default function Team() {
             </article>
           </div>
 
-          <div className="advisors-head" style={{ marginTop: "clamp(56px, 8vw, 96px)" }}>
-            <span className="kick">advisors · rada</span>
+          <div className="advisors-head" style={{ marginTop: "clamp(56px, 8vw, 96px)", paddingTop: "clamp(40px, 6vw, 64px)", borderTop: "1px solid var(--line)" }}>
+            <span className="kick">advisors · rada · spoza core teamu</span>
             <h2 style={{ fontFamily: "var(--serif)", fontWeight: 400, letterSpacing: "-.02em", fontSize: "clamp(1.7rem, 3vw, 2.2rem)", margin: "10px 0 0" }}>Doradcy</h2>
             <p className="hero-lead" style={{ marginTop: 12 }}>Wsparcie merytoryczne: research, ewaluacja, kierunek modeli.</p>
           </div>
