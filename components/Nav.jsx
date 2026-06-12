@@ -36,13 +36,6 @@ const GROUPS = [
     ],
   },
   {
-    label: "bielik",
-    links: [
-      ["/bielik-dane", "dane treningowe"],
-      ["/bielik-benchmarki", "benchmarki v3"],
-    ],
-  },
-  {
     label: "zespół",
     links: [
       ["/team", "zespół"],
