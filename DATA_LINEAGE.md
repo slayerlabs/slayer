@@ -46,7 +46,7 @@ is the holdout-disjoint `style_pl_sft_v3_openjudge_disjoint.jsonl` (503 = 588 mi
 ## v3 — `slayer-v3` (PLANNED)  🎯 CLEAN
 **Rule:** benchmark train splits → **held-out dev validation ONLY**, never in training.
 **Mix (target):**
-1. **Distillation ~50–60%** — diverse PL prompts (law/code/writing/QA), answers generated *in Polish from scratch* (no translationese), Bielik as PL-language teacher where fleksja matters.
+1. **Distillation ~50–60%** — diverse PL prompts (law/code/writing/QA), answers generated *in Polish from scratch* (no translationese), teacher deepseek-v4-pro only. **Bielik dropped as teacher (2026-06-12):** judge found serious factual errors in 50.6% of its raw distill outputs; the 10k corpus lives in `slayer-data/external/` as a Bielik-knowledge analysis asset only (see README there).
 2. **Human PL ~15–20%** — PLLuM organic instructions (pending HF/license check), Aya-PL, OASST-PL + our re-judged style.
 3. **EN retention ~15–20%** — Tulu 3 / Olmo 3 (Dolci) SFT subset (reasoning/code/IF) to prevent capability loss.
 4. **DPO** at the end — on-policy pairs from our own model, judged by teacher.

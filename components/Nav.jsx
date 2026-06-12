@@ -10,6 +10,8 @@ const LINKS = [
   ["/rules", "rules"],
   ["/zadania", "zadania"],
   ["/datasety", "datasety"],
+  ["/bielik-dane", "dane bielika"],
+  ["/bielik-benchmarki", "benchmarki bielika"],
   ["/wiedza", "wiedza"],
   ["/v3", "v3"],
   ["/leaderboard", "leaderboard"],

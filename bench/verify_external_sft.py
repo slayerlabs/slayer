@@ -18,13 +18,31 @@ from concurrent.futures import ThreadPoolExecutor
 
 API = "https://openrouter.ai/api/v1/chat/completions"
 JUDGE = os.environ.get("VERIFY_JUDGE", "qwen/qwen3.5-122b-a10b")
-KEY = open(os.path.expanduser("~/.openrouter_key")).read().strip()
+if re.search(r"anthropic|claude|openai/(?!gpt-oss)", JUDGE, re.I):
+    raise SystemExit(f"VERIFY_JUDGE={JUDGE} łamie regułę provenance (sędzia musi być otwarty, "
+                     f"zero Anthropic/OpenAI) — patrz teacher-decision.")
+KEY = os.environ.get("OPENROUTER_API_KEY") or (
+    open(os.path.expanduser("~/.openrouter_key")).read().strip()
+    if os.path.exists(os.path.expanduser("~/.openrouter_key")) else "")
+if not KEY:
+    raise SystemExit("BRAK klucza: OPENROUTER_API_KEY albo ~/.openrouter_key")
 
-SYS = ("Jesteś surowym weryfikatorem faktów i polszczyzny. Oceń odpowiedź asystenta: "
+SYS_FACTS = ("Jesteś surowym weryfikatorem faktów i polszczyzny. Oceń odpowiedź asystenta: "
        "(1) FAKTY: poprawne / drobne błędy / poważne błędy (zmyślenia, błędne daty, nieistniejące "
        "pojęcia, urwana odpowiedź); (2) POLSZCZYZNA: naturalna / sztuczna. Jeśli nie możesz "
        "zweryfikować bardzo niszowego faktu, a odpowiedź podaje szczegóły z dużą pewnością, oceń 'powazne'. "
        "Zwróć WYŁĄCZNIE JSON: {\"fakty\":\"ok|drobne|powazne\",\"jezyk\":\"ok|sztuczny\",\"uwaga\":\"<=10 słów\"}")
+
+# Tryb dla danych o treści WYMYŚLONEJ (klasyfikacja/NER/parafraza na fikcyjnych tekstach):
+# oceniamy poprawność WYKONANIA zadania względem podanej treści, nie zgodność fikcji ze światem.
+SYS_GROUNDED = ("Jesteś surowym weryfikatorem jakości polskich danych instrukcyjnych. Treść zadania "
+       "może być FIKCYJNA/wymyślona — to dopuszczalne i NIE jest błędem. Oceń: "
+       "(1) FAKTY: czy odpowiedź POPRAWNIE wykonuje polecenie względem PODANEJ treści "
+       "(etykieta/encje/parafraza/uzasadnienie zgodne z treścią; zgodności ze światem rzeczywistym "
+       "wymagaj tylko tam, gdzie odpowiedź twierdzi fakty o świecie): poprawnie='ok', drobne "
+       "usterki='drobne', błędna/urwana odpowiedź='powazne'; (2) POLSZCZYZNA: naturalna / sztuczna. "
+       "Zwróć WYŁĄCZNIE JSON: {\"fakty\":\"ok|drobne|powazne\",\"jezyk\":\"ok|sztuczny\",\"uwaga\":\"<=10 słów\"}")
+SYS = SYS_FACTS
 
 
 def hid(r):
@@ -52,7 +70,12 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("inp"); ap.add_argument("out")
     ap.add_argument("--workers", type=int, default=24)
+    ap.add_argument("--grounded", action="store_true",
+                    help="treść wymyślona (klasyfikacja/NER): oceniaj wykonanie zadania, nie fakty o świecie")
     a = ap.parse_args()
+    global SYS
+    if a.grounded:
+        SYS = SYS_GROUNDED
     verd_f = a.out + ".verdicts.jsonl"
     done = {}
     if os.path.exists(verd_f):

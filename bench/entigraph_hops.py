@@ -28,14 +28,20 @@ OUT = "slayer-data/knowledge/entigraph_hops.jsonl"
 ATOMS_F = "runs/test_atoms.txt"
 API = "https://openrouter.ai/api/v1/chat/completions"
 TEACHER = os.environ.get("GEN_MODEL", "deepseek/deepseek-v4-flash")
+if re.search(r"anthropic|claude|openai/(?!gpt-oss)", TEACHER, re.I):
+    raise SystemExit(f"GEN_MODEL={TEACHER} łamie regułę provenance (zero Anthropic/OpenAI).")
 WORKERS = int(os.environ.get("GEN_WORKERS", "64"))
-KEY = open(os.path.expanduser("~/.openrouter_key")).read().strip()
+KEY = os.environ.get("OPENROUTER_API_KEY") or (
+    open(os.path.expanduser("~/.openrouter_key")).read().strip()
+    if os.path.exists(os.path.expanduser("~/.openrouter_key")) else "")
+if not KEY:
+    raise SystemExit("BRAK klucza: OPENROUTER_API_KEY albo ~/.openrouter_key")
 
 _norm = lambda s: " ".join(str(s).lower().split())
 _atoms = []
 if os.path.exists(ATOMS_F):
     _atoms = [t.strip() for t in open(ATOMS_F, encoding="utf-8")]
-    _atoms = [t for t in _atoms if 20 <= len(t) <= 200]
+    _atoms = [t for t in _atoms if len(t) >= 20]  # BEZ górnego capu
 
 
 def contaminated(s):
@@ -117,11 +123,11 @@ def build_graph(min_mentions=1):
     return arts, edges
 
 
-def sample_paths(arts, edges, n, rng):
+def sample_paths(arts, edges, n, rng, done_paths=frozenset()):
     paths = []
     a_list = [a for a in edges if len(edges[a]) >= 1]
     tries = 0
-    seen = set()
+    seen = set(done_paths)  # ścieżki już przerobione (resume) — nie losujemy ich drugi raz
     while len(paths) < n and tries < n * 60:
         tries += 1
         a = rng.choice(a_list)
@@ -167,15 +173,21 @@ def main():
     n_edges = sum(len(v) for v in edges.values())
     print(f"[hops] artykułów: {len(arts)}, węzłów z krawędziami: {len(edges)}, krawędzi: {n_edges}", flush=True)
 
-    done = 0
+    done, done_paths = 0, set()
     if os.path.exists(OUT):
-        done = sum(1 for _ in open(OUT))
-        print(f"[hops] resume: {done} doków", flush=True)
+        for ln in open(OUT, encoding="utf-8"):
+            done += 1
+            try:
+                done_paths.add(tuple(json.loads(ln).get("path") or ()))
+            except Exception:
+                pass
+        print(f"[hops] resume: {done} doków, {len(done_paths)} przerobionych ścieżek", flush=True)
     need_paths = max((a.target_docs - done) // 2 + 10, 0)
-    paths = sample_paths(arts, edges, need_paths, rng)
+    # done_paths w seen: ten sam seed nie wylosuje drugi raz już opłaconych ścieżek
+    paths = sample_paths(arts, edges, need_paths, rng, done_paths)
     print(f"[hops] ścieżek 2-hop do przerobienia: {len(paths)}", flush=True)
 
-    ndoc, t0 = done, time.time()
+    ndoc, t0, fut_fail = done, time.time(), 0
     with open(OUT, "a", encoding="utf-8") as f, ThreadPoolExecutor(max_workers=WORKERS) as ex:
         pending = set()
         it = iter(paths)
@@ -194,6 +206,7 @@ def main():
                 try:
                     docs = fut.result()
                 except Exception:
+                    fut_fail += 1
                     continue
                 for d in docs:
                     f.write(json.dumps(d, ensure_ascii=False) + "\n")
@@ -202,6 +215,8 @@ def main():
             if ndoc % 200 < 4:
                 print(f"  {ndoc}/{a.target_docs} doków ({(ndoc-done)/max(time.time()-t0,1):.1f}/s)", flush=True)
     print(f"[hops] DONE {ndoc} doków -> {OUT}", flush=True)
+    if fut_fail:
+        print(f"[hops] !!! {fut_fail} nieudanych tasków (ciche straty generacji)", flush=True)
 
 
 if __name__ == "__main__":

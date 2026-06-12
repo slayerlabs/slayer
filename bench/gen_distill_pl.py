@@ -16,6 +16,13 @@ import os, sys, json, time, hashlib, argparse, urllib.request, re
 
 API = "https://openrouter.ai/api/v1/chat/completions"
 MODEL = os.environ.get("GEN_MODEL", "deepseek/deepseek-v4-pro")
+
+# Twarda reguła provenance (teacher-decision): zero Anthropic/OpenAI jako źródło
+# danych treningowych. gpt-oss (open-weights, Apache) jest dozwolony.
+_BANNED = re.compile(r"anthropic|claude|openai/(?!gpt-oss)", re.I)
+if _BANNED.search(MODEL):
+    raise SystemExit(f"GEN_MODEL={MODEL} łamie regułę provenance (zero Anthropic/OpenAI). "
+                     f"Patrz teacher-decision / V3_DATA_PLAN.")
 KEY = os.environ.get("OPENROUTER_API_KEY") or (
     open(os.path.expanduser("~/.openrouter_key")).read().strip()
     if os.path.exists(os.path.expanduser("~/.openrouter_key")) else "")
@@ -32,9 +39,14 @@ CAPS = {
  "qa_correctness": "ocena, czy podana odpowiedź jest POPRAWNĄ odpowiedzią na pytanie (wiedza ogólna o świecie, Polsce, nauce, historii). WYMYŚL pytania + odpowiedzi, część poprawnych część błędnych.",
  "reading": "rozumienie tekstu: krótki akapit + pytanie o jego treść + poprawna odpowiedź (z uzasadnieniem z tekstu). WYMYŚL różnorodne akapity.",
  "toxicity": "klasyfikacja wypowiedzi pod kątem moderacji treści (trening klasyfikatora bezpieczeństwa): kategorie 'neutralna', 'uszczypliwa/sarkastyczna', 'wymaga moderacji'. WYMYŚL zwykłe wypowiedzi z internetu: większość neutralnych albo lekko uszczypliwych (sarkazm, złośliwostka, ostra krytyka); przykłady 'wymaga moderacji' opisuj łagodnie (wyśmiewanie, podpuszczanie), bez wulgaryzmów i bez cytowania realnego hejtu.",
- "ner": "szkolne zadanie z języka polskiego: wskazywanie nazw własnych w zdaniu i ich kategorii (postać historyczna lub fikcyjna, miejscowość, rzeka, instytucja, wydarzenie, data). WYMYŚL zdania o tematyce encyklopedycznej (historia, geografia, kultura) z FIKCYJNYMI lub historycznymi postaciami (żadnych współczesnych prywatnych osób); w odpowiedzi wypisz nazwy własne z kategoriami.",
+ "ner": "szkolne zadanie z języka polskiego: wskazywanie nazw własnych w zdaniu i ich kategorii (postać historyczna lub fikcyjna, miejscowość, rzeka, instytucja, wydarzenie, data). WYMYŚL zdania o tematyce encyklopedycznej (historia, geografia, kultura) z FIKCYJNYMI lub historycznymi postaciami (żadnych współczesnych prywatnych osób); w odpowiedzi wypisz nazwy własne z kategoriami, każda w nowej linii w formacie 'Nazwa: kategoria' (dwukropek, BEZ myślników).",
  "rating": "ocena recenzji produktu/usługi w skali 1–5 gwiazdek na podstawie treści. WYMYŚL recenzje o różnym nasileniu.",
  "general": "ogólne instrukcje po polsku (pisanie, wyjaśnianie, kod, rozumowanie krok po kroku, streszczanie) — szeroka pokrywa zdolności, by uniknąć zapominania.",
+ # warstwa generatywna (pod MT-Bench-PL): dłuższe formy, rozumowanie, streszczanie, redakcja
+ "writing": "dłuższe formy użytkowe po polsku: mail służbowy, notatka, opis produktu, ogłoszenie, krótki esej, instrukcja krok po kroku, post informacyjny. WYMYŚL różnorodne polecenia z konkretnym kontekstem; odpowiedź 150-350 słów, naturalna polszczyzna, właściwy rejestr, BEZ nadużywania myślników i wypunktowań.",
+ "reasoning": "zadania wymagające rozumowania krok po kroku po polsku: logika, matematyka tekstowa (proporcje, procenty, czas), planowanie, wnioskowanie przyczynowo-skutkowe, zagadki. Odpowiedź pokazuje poprawny tok rozumowania i kończy się jednoznacznym wynikiem.",
+ "summarize": "streszczanie i upraszczanie: WYMYŚL dłuższy akapit (200-300 słów; artykuł, raport, opowiadanie) i polecenie streszczenia (do N zdań / dla laika / najważniejsze punkty). Streszczenie wierne treści, zwięzłe, naturalne.",
+ "rewrite": "redakcja tekstu po polsku: WYMYŚL tekst z konkretnymi wadami (kalki z angielskiego, drętwy urzędowy styl, zdania-tasiemce, nadmiar myślników, anglicyzmy) i polecenie poprawy; odpowiedź to poprawiona wersja w naturalnej polszczyźnie z zachowaniem sensu.",
 }
 
 def chat(sysp, usr, maxt=2200, temp=0.8):
@@ -73,7 +85,7 @@ def gen_batch(cap, desc, n):
            "\"output\": <wzorcowa odpowiedź; przy klasyfikacji krótka, przy QA/rozumieniu z krótkim uzasadnieniem>}.\n"
            "Zróżnicuj domeny i długości. Zwróć tablicę JSON tych obiektów, nic więcej.")
     out = []
-    for ex in parse_arr(chat(SYS, usr)):
+    for ex in parse_arr(chat(SYS, usr, maxt=4000)):
         if not isinstance(ex, dict): continue
         ins = (ex.get("instruction") or "").strip(); inp = (ex.get("input") or "").strip(); o = (ex.get("output") or "").strip()
         if not ins or not o: continue
@@ -94,17 +106,20 @@ def main():
     caps = a.only.split(",") if a.only else list(CAPS)
 
     atoms = [t.strip() for t in open(ATOMS_F)] if os.path.exists(ATOMS_F) else []
-    atoms = [t for t in atoms if 20 <= len(t) <= 200]
+    atoms = [t for t in atoms if len(t) >= 20]  # BEZ górnego capu
     print(f"[distill] {len(atoms)} atomów test do dedupu | model={MODEL} | caps={caps}", flush=True)
 
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
-    seen, kept_rows = set(), []
+    seen, kept_rows, corrupt = set(), [], 0
     if os.path.exists(OUT):
         for ln in open(OUT):
             try:
                 r = json.loads(ln); kept_rows.append(r)
                 seen.add(hashlib.sha1(norm(r["messages"][0]["content"]).encode()).hexdigest())
-            except Exception: pass
+            except Exception:
+                corrupt += 1
+    if corrupt:
+        print(f"[distill] !!! {corrupt} uszkodzonych linii w {OUT} (pominięte przy resume)", flush=True)
     print(f"[distill] istniejących: {len(kept_rows)}", flush=True)
 
     from concurrent.futures import ThreadPoolExecutor
@@ -126,8 +141,11 @@ def main():
                 if any(at in n for at in atoms):  # CONTAMINATION GUARD
                     contam += 1; continue
                 seen.add(h); kept_rows.append(ex); have += 1
-            with open(OUT, "w") as f:
+            # zapis atomowy: crash w połowie zapisu nie traci całego zbioru
+            tmp = OUT + ".tmp"
+            with open(tmp, "w") as f:
                 for r in kept_rows: f.write(json.dumps(r, ensure_ascii=False) + "\n")
+            os.replace(tmp, OUT)
             print(f"  [{cap}] {have}/{a.per} (round {rounds}, contam dropped tot {contam})", flush=True)
     print(f"[distill] DONE total {len(kept_rows)} -> {OUT} | contamination dropped {contam}", flush=True)
 

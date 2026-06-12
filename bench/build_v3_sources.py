@@ -34,12 +34,13 @@ def load_atoms():
     if not os.path.exists(ATOMS_F):
         return []
     atoms = [t.strip() for t in open(ATOMS_F, encoding="utf-8")]
-    return [t for t in atoms if 20 <= len(t) <= 200]
+    return [t for t in atoms if len(t) >= 20]  # BEZ górnego capu (długie pasaże PSC/belebele)
 
 
-def dash_rate(text):
-    words = max(len(text.split()), 1)
-    return (text.count("—") + text.count("–")) / words * 100
+def dash_overuse(text):
+    """AI-tell: NADUŻYCIE myślników (>=2 przy wysokiej częstości), nie pojedynczy myślnik."""
+    n = text.count("—") + text.count("–")
+    return n >= 2 and n / max(len(text.split()), 1) * 100 > 1.5
 
 
 PL_RE = re.compile(r"[ąćęłńóśźż]", re.I)
@@ -50,7 +51,7 @@ def ok_pl(user, assistant):
         return False
     if not PL_RE.search(user + assistant):
         return False
-    if dash_rate(assistant) > 1.5:
+    if dash_overuse(assistant):
         return False
     return True
 
@@ -138,6 +139,7 @@ def build_tulu(atoms, seen, target, scan):
     ds = ds.shuffle(seed=42, buffer_size=10_000)
     rng = random.Random(42)
     pool = []
+    accepted = 0
     for i, ex in enumerate(ds):
         if i >= scan:
             break
@@ -154,13 +156,16 @@ def build_tulu(atoms, seen, target, scan):
         row = {"messages": [{"role": "user", "content": u},
                             {"role": "assistant", "content": a}],
                "source": "tulu3_" + src.split("/")[-1][:40]}
-        # reservoir
-        if len(pool) < target * 3:
+        # reservoir (algorytm R): indeks po ZAAKCEPTOWANYCH wierszach, nie po surowym
+        # strumieniu — inaczej próbka jest obciążona ku początkowi strumienia
+        k = target * 3
+        accepted += 1
+        if len(pool) < k:
             pool.append(row)
         else:
-            j = rng.randrange(i + 1)
-            if j < target * 3:
-                pool[j % (target * 3)] = row
+            j = rng.randrange(accepted)
+            if j < k:
+                pool[j] = row
     # cap per źródło, żeby jeden podzbiór nie zdominował
     by = {}
     rng.shuffle(pool)

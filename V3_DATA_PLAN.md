@@ -19,13 +19,18 @@ EN-retention is fully solved (both odc-by, commercial-OK) → no forgetting risk
 
 **PLLuM: DROPPED entirely.** Two reasons: (1) the instruction data was never released (models only), and
 (2) model quality is reportedly weak — so distilling from it would mean learning from a weaker teacher.
-No PLLuM data, no PLLuM distillation. Teacher stays **deepseek-v4-pro** + **Bielik** (PL fleksja only).
+No PLLuM data, no PLLuM distillation. Teacher stays **deepseek-v4-pro**.
+
+**Bielik as teacher: DROPPED too (2026-06-12).** Same logic as PLLuM: weak teacher. Open judge found
+`fakty: powazne` in 50.6% of raw Bielik-11B distill outputs; 78% of the sampled layer was long-tail
+factual QA. The 10k corpus is retained in `slayer-data/external/` purely as a **Bielik-knowledge
+benchmark/analysis asset** (see README there), never as training data.
 
 ## Target mix (buildable today)
 
 | layer | share | what |
 |---|---|---|
-| **Distillation** | ~60% | diverse PL prompts (law/code/writing/QA/reasoning) → answers **generated in PL from scratch** (deepseek-v4-pro teacher + open Qwen3.5 judge); Bielik as PL-fleksja teacher where Western models break inflection. NO translation. |
+| **Distillation** | ~60% | diverse PL prompts (law/code/writing/QA/reasoning) → answers **generated in PL from scratch** (deepseek-v4-pro teacher + open Qwen3.5 judge). NO translation. NO Bielik (weak teacher, dropped). |
 | **Human PL** | ~15% | Aya-PL (native templated) + OASST2-PL + our re-judged style (`style_pl_sft_v3*`) |
 | **EN retention** | ~20% | Tulu 3 / Dolci subset (reasoning, code, IF) |
 | **DPO** | ~5% / post-SFT | on-policy pairs from our own model, teacher-judged (`style_pl_pref_v2` as seed) |

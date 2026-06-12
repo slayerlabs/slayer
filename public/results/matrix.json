@@ -1,9 +1,10 @@
 {
-  "updated": "2026-06-11",
-  "comment": "Macierz benchmarki x modele. Sekcje rozdzielone PER PROTOKÓŁ — liczb między sekcjami nie wolno porównywać (likelihood != generacja != harness KLEJ). Tylko agregaty.",
+  "updated": "2026-06-12",
+  "comment": "Macierz benchmarki x modele. Sekcje rozdzielone PER PROTOKÓŁ — liczb między sekcjami nie wolno porównywać (likelihood != generacja != harness KLEJ). Tylko agregaty. Pole official_for = do jakiego claimu publicznego wolno używać tej sekcji; jeden oficjalny numer na claim, otagowany trybem.",
   "sections": [
     {
       "title": "LLMzSzŁ — likelihood (protokół paperowy)",
+      "official_for": "porownania-vs-bielik-paper",
       "protocol": "answer log-likelihood, n=400, seed 42, HF transformers; identyczna próbka dla wszystkich",
       "cols": ["Bielik-11B-v3", "Qwen3.5-9B", "Qwen3.5-27B (baza)", "slayer v1", "slayer v3"],
       "rows": [
@@ -13,6 +14,7 @@
     },
     {
       "title": "Suita generatywna (ollama, Q4)",
+      "official_for": "realna-jakosc-generacji-produkt",
       "protocol": "generacja + exact match / sędzia LLM / chrF; pełne lub duże n; seed 42; oba modele ten sam backend",
       "cols": ["Bielik-11B-v3", "Qwen3.5-9B"],
       "rows": [
@@ -30,7 +32,8 @@
     },
     {
       "title": "KLEJ / Open-PL — 6 zadań",
-      "protocol": "klasyfikacja/MCQ; UWAGA: Bielik @temp 0.2, Qwen @0.7 (nie matched — liczby Qwenów zapewne zaniżone)",
+      "official_for": "klej-open-pl-klasyfikacja",
+      "protocol": "klasyfikacja/MCQ; każdy model na SWOIM rekomendowanym samplingu: Bielik @temp 0.2 (default), Qwen @0.7 (default) — porównanie uczciwe (real-world defaults), nie handicap",
       "cols": ["Bielik-7B", "Bielik-11B", "Qwen-27B (baza)", "slayer v1"],
       "rows": [
         {"name": "polish_psc (1078)", "vals": [91.93, 83.77, 85.25, 86.55]},
@@ -45,6 +48,7 @@
     },
     {
       "title": "Knowledge probe — długi ogon wiedzy o Polsce",
+      "official_for": "dlugi-ogon-wiedzy-pl",
       "protocol": "71 pytań closed-book z korpusu EntiGraph (held-out); sędzia: otwarty Qwen3.5-122B vs gold; temp 0",
       "cols": ["Bielik-11B-v3", "Qwen3.5-9B", "Qwen3.5-27B (baza)"],
       "rows": [

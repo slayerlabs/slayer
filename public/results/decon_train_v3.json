@@ -1,0 +1,24 @@
+{
+  "ts": "2026-06-12T14:00:41",
+  "ngram": 8,
+  "index_size": 468809,
+  "excl_hashes": 100,
+  "eval_sources": {
+    "runs/test_atoms.txt": 304937,
+    "slayer-data/polknowledge/bench.jsonl": 876,
+    "slayer-data/knowledge/probe_v1.jsonl": 438,
+    "slayer-data/mcq_heldout.jsonl": 633,
+    "slayer-data/mcq_test.jsonl": 414,
+    "slayer-data/style/holdout_v1.jsonl": 19783,
+    "/Users/kacper/.cache/huggingface/hub/datasets--amu-cai--llmzszl-dataset/snapshots/9c11d52a415147f1e2c44038a9d4d4155f064e1a/llmzszl-test.jsonl": 141728
+  },
+  "results": [
+    {
+      "file": "slayer-data/v3/train_v3.jsonl",
+      "records": 2233,
+      "verbatim_hits": 0,
+      "rate_pct": 0.0,
+      "samples": []
+    }
+  ]
+}

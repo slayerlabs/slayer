@@ -118,6 +118,8 @@ const MEMBERS = [
   { img: "/assets/team/piotr-nalepa.webp", name: "Piotr Nalepa", specialty: "Fullstack · Narzędzia developerskie", bio: "Fullstack, zarządzanie projektem i tworzenie narzędzi dla developerów." },
   { img: "/assets/team/piotr-rozek.jpeg", name: "Piotr Rożek", specialty: "Python · Fizyka", bio: "Fizyk z wykształcenia, Python developer, człowiek renesansu." },
   { img: "/assets/team/piotr-styla.webp", name: "Piotr Styła", specialty: "Rekrutacja · Agenci LLM", bio: "Za dnia rekrutuje i onboarduje talenty, po zmroku LLM Slayer: buduje zespoły agentów (call center dla branży medycznej) oraz aplikacje webowe i na Androida. AGH." },
+  { img: "/assets/team/bartlomiej-boczylo.jpg", name: "Bartłomiej Boczyło", specialty: "ML · Frontend", bio: "Student II roku inżynierii AI. Frontend dev, rozwija się w ML/DL, CV, NLP, RL i modelach generatywnych. Stack: Python, TensorFlow, PyTorch, MLOps." },
+  { img: "/assets/team/kuba6.jpg", name: "Kuba", specialty: "AI Engineer · Fullstack", bio: "Fizyk-teoretyk z wykształcenia. AI Engineer w projekcie onkologicznym (CV), ostatnie 2 lata w GenAI i agentach. Chce trenować LLM, robi datasety i benchmarki." },
 ];
 
 export default function Team() {

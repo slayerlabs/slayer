@@ -94,7 +94,7 @@ def main():
     queries = [q.strip() for q in a.queries.split(",") if q.strip()] or DEFAULT_QUERIES
 
     atoms = [t.strip() for t in open(ATOMS_F, encoding="utf-8")] if os.path.exists(ATOMS_F) else []
-    atoms = [t for t in atoms if 20 <= len(t) <= 200]
+    atoms = [t for t in atoms if len(t) >= 20]  # BEZ górnego capu
     norm = lambda s: " ".join(s.lower().split())
 
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
