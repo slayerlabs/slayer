@@ -1,7 +1,7 @@
 export const metadata = {
   title: "Kierunki modelu | Slayer",
   description:
-    "Lista kierunków dla modelu: prawniczy, medyczny, agentowy, administracja, RAG, edukacyjny i więcej — gdzie polski model ma realny moat.",
+    "Lista kierunków dla modelu: prawniczy, medyczny, agentowy, administracja, RAG, edukacyjny i więcej. Gdzie polski model ma realny moat.",
 };
 
 const css = `.moat{font-family:var(--mono);font-size:.64rem;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:5px}.moat.h{color:var(--acc);background:var(--acc-soft);border:1px solid rgba(199,148,72,.32)}.moat.m{color:var(--ink);background:var(--panel2);border:1px solid var(--line)}.moat.l{color:var(--dim);background:var(--panel2);border:1px solid var(--line2)}`;
@@ -23,7 +23,7 @@ export default function Kierunki() {
           <div className="cell"><div className="top"><span className="moat h">moat wysoki</span></div><h3 className="sm">Prawniczy</h3><p>Analiza umów, pisma, orzecznictwo, przepisy (KC/KPC/KK).</p><div className="meta"><div><span className="k">dane</span> ISAP, SAOS, wzory pism</div><div><span className="k">eval</span> legal QA + reasoning</div></div></div>
           <div className="cell"><div className="top"><span className="moat h">moat wysoki</span></div><h3 className="sm">Medyczny</h3><p>Wsparcie kliniczne, PES/LEK, streszczanie dokumentacji.</p><div className="meta"><div><span className="k">dane</span> egzaminy PES/LEK, ChPL</div><div><span className="k">eval</span> PES leaderboard</div></div></div>
           <div className="cell"><div className="top"><span className="moat h">moat wysoki</span></div><h3 className="sm">Finansowo-podatkowy</h3><p>Interpretacje podatkowe, faktury, JPK, KPiR.</p><div className="meta"><div><span className="k">dane</span> interpretacje KIS, ustawy</div><div><span className="k">eval</span> QA + dokładność liczb</div></div></div>
-          <div className="cell"><div className="top"><span className="moat h">moat wysoki</span></div><h3 className="sm">Administracja publiczna</h3><p>ZUS, US, urzędy, wnioski. „Urzędowy&quot; na ludzki.</p><div className="meta"><div><span className="k">dane</span> gov.pl, druki, ePUAP</div><div><span className="k">eval</span> benchmark biurokracji</div></div></div>
+          <div className="cell"><div className="top"><span className="moat h">moat wysoki</span></div><h3 className="sm">Administracja publiczna</h3><p>ZUS, US, urzędy, wnioski. Przekład „urzędowego&rdquo; na ludzki.</p><div className="meta"><div><span className="k">dane</span> gov.pl, druki, ePUAP</div><div><span className="k">eval</span> benchmark biurokracji</div></div></div>
         </div>
         <div className="ghead"><h2>Zdolności horyzontalne</h2><span className="c">przekrojowe · moat niższy</span></div>
         <div className="grid auto-lg">

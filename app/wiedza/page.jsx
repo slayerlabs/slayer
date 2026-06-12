@@ -100,7 +100,7 @@ export default function Wiedza() {
           <div className="src">results/knowledge_probe_v1.json · itemy probe = held-out (exclusion list z treningu) · n=71, różnica Bielik↔27B na polonica jeszcze nieistotna statystycznie (potwierdzenie: probe 300–500 + drugi sędzia)</div>
         </div>
         <div className="note"><p><b>Odczyt:</b> długi ogon leży u wszystkich (16–29%). Bielik prowadzi: jego 1.1T CPT częściowo
-        kupiło ogon. Nasza baza 27B ma najlepszą wiedzę ogólną (transfer z EN/ZH) i najsłabszą lokalną — bo faktów
+        kupiło ogon. Nasza baza 27B ma najlepszą wiedzę ogólną (transfer z EN/ZH) i najsłabszą lokalną: faktów
         o eksporcie piwa z Mławy nie ma w żadnym nie-polskim korpusie. Tej luki nie da się przetransferować; można ją tylko wstrzyknąć.</p></div>
       </div></section>
 
@@ -140,9 +140,9 @@ export default function Wiedza() {
             <text className="lbl" x="640" y="54" textAnchor="end">~100% jądra</text>
             {/* adnotacja Bielik CPT */}
             <line className="gridl" x1="90" y1="232" x2="730" y2="232" strokeDasharray="4 4" />
-            <text className="lbl" x="726" y="226" textAnchor="end">poziom Bielika na probe (28.9% ogona) — cel minimum po pierwszym CPT</text>
+            <text className="lbl" x="726" y="226" textAnchor="end">poziom Bielika na probe (28.9% ogona): cel minimum po pierwszym CPT</text>
           </svg>
-          <div className="src">kształt krzywej = hipoteza H1 (log-liniowość, EntiGraph); pozycje punktów 50M+ to prognoza do zmierzenia, nie wynik · pełne jądro ≈ $2k generacji + $0.7–1.5k treningu — mieści się w tezie „model za 15–20k zł&quot;</div>
+          <div className="src">kształt krzywej = hipoteza H1 (log-liniowość, EntiGraph); pozycje punktów 50M+ to prognoza do zmierzenia, nie wynik · pełne jądro ≈ $2k generacji + $0.7–1.5k treningu, czyli mieści się w tezie „model za 15–20k zł&quot;</div>
         </div>
       </div></section>
 

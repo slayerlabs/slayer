@@ -10,7 +10,7 @@ export default function BielikBenchmarki() {
       <section className="phero"><div className="inner">
           <span className="kick">wyniki · źródło zewnętrzne</span>
           <h1>Bielik v3 — <em>wszystkie benchmarki</em></h1>
-          <p>Komplet ewaluacji <strong style={{ color: "var(--txt)" }}>Bielik-11B-v3.0-Instruct</strong> z dedykowanego raportu technicznego v3 (<a href="https://arxiv.org/abs/2601.11579" rel="noopener">arXiv:2601.11579</a>, wersja wstępna) — 9 zestawów, plus uczciwe porównanie z <strong style={{ color: "var(--txt)" }}>Qwen3.6-27B</strong>. Na czym trenowano model → <a href="/bielik-dane" style={{ color: "var(--acc)", fontWeight: "500" }}>/bielik-dane</a>.</p>
+          <p>Komplet ewaluacji <strong style={{ color: "var(--txt)" }}>Bielik-11B-v3.0-Instruct</strong> z dedykowanego raportu technicznego v3 (<a href="https://arxiv.org/abs/2601.11579" rel="noopener">arXiv:2601.11579</a>, wersja wstępna) — 9 zestawów, plus uczciwe porównanie z <strong style={{ color: "var(--txt)" }}>Qwen3.6-27B</strong>. Na czym trenowano model: <a href="/bielik-dane" style={{ color: "var(--acc)", fontWeight: "500" }}>/bielik-dane</a>.</p>
         </div></section>
 
         <section className="sec tight"><div className="inner">

@@ -40,9 +40,9 @@ export default function BenchExplorer() {
           <a className="btn btn-p" href="/bench-explorer/nowy">+ zgłoś benchmark</a>
         </div>
         <p className="muted" style={{ maxWidth: "72ch", marginTop: 12, fontSize: ".94rem" }}>
-          Jedno źródło prawdy: <code>data/benchmarks.json</code>. Wyniki modeli dochodzą z{" "}
+          Jedno źródło prawdy: <code>data/benchmarks.json</code>. Wyniki modeli pochodzą z{" "}
           <a href="/leaderboard" style={{ color: "var(--acc)" }}>leaderboardu</a> (złączenie po id).
-          Zgłoszenia przechodzą review jako pull request — status <b style={{ color: "var(--ink)" }}>draft</b> do czasu weryfikacji.
+          Zgłoszenia przechodzą review jako pull request: status <b style={{ color: "var(--ink)" }}>draft</b> do czasu weryfikacji.
         </p>
         <Explorer />
       </div>

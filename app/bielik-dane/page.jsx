@@ -81,7 +81,7 @@ export default function BielikDane() {
           <div className="tbl"><table><tbody>
             <tr><td className="dn">Deduplikacja</td><td>na poziomie zbioru i dokumentu (ogranicza memoryzację)</td></tr>
             <tr><td className="dn">Filtr jakości</td><td>własny klasyfikator — odsiewa treści niskiej jakości, wulgarne, seksualne, spam</td></tr>
-            <tr><td className="dn">Model guardrail</td><td>mały dedykowany model: self-harm, hate, treści seksualne, przestępcze, wulgaryzmy → wycięte</td></tr>
+            <tr><td className="dn">Model guardrail</td><td>mały dedykowany model wycina: self-harm, hate, treści seksualne, przestępcze, wulgaryzmy</td></tr>
             <tr><td className="dn">Anonimizacja PII</td><td>obowiązkowy krok: telefony, e-maile, URL-e, PESEL</td></tr>
             <tr><td className="dn">TDM / opt-out</td><td>kontrola robots.txt, meta-tagów i ToS; <b>usuwanie wsteczne</b> przy późniejszym zastrzeżeniu praw</td></tr>
             <tr><td className="dn">Code of Practice (GPAI)</td><td>nie jest formalnym sygnatariuszem; deklaruje zgodność „w duchu”</td></tr>

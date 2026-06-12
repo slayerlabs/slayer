@@ -29,8 +29,8 @@ export default function NowyBenchmark() {
         <span className="kick"><span className="ac">ZGŁOSZENIE</span> — nowy benchmark · review przez PR</span>
         <h1>Zgłoś benchmark do katalogu</h1>
         <p className="muted" style={{ maxWidth: "72ch", marginTop: 12, fontSize: ".94rem" }}>
-          Wypełnij pola — podgląd JSON aktualizuje się na żywo. Zgłoszenie trafia jako plik do{" "}
-          <code>public/data/submissions/</code> przez pull request; review odbywa się w PR. Zasada „benchmark = blocklista i miara&quot; obowiązuje:
+          Wypełnij pola, podgląd JSON aktualizuje się na żywo. Zgłoszenie trafia jako plik do{" "}
+          <code>public/data/submissions/</code> przez pull request; review odbywa się w PR. Zasada „benchmark = blocklista i miara&rdquo; obowiązuje:
           zgłaszamy tylko zbiory z publicznie dostępnym test-setem (inaczej trafi do <a href="/closed-benchmarks" style={{ color: "var(--acc)" }}>zamkniętych</a>).
         </p>
         <SubmitForm />

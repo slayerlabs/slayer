@@ -24,7 +24,7 @@ export default function Benchmarks() {
       <section className="phero"><div className="inner">
         <span className="kick">metodologia · piątka startowa</span>
         <h1>Jak <em>mierzymy</em>, żeby wynik znaczył</h1>
-        <p>Publiczne zbiory, deterministycznie, przez lm-eval-harness. „Wyżej = lepiej&quot;. Wszystko liczone czysto — <strong style={{ color: "var(--txt)" }}>bez inspekcji itemów, bez benchmaxxingu</strong>. Pełna tablica na żywo: <a href="/leaderboard">/leaderboard</a>.</p>
+        <p>Publiczne zbiory, deterministycznie, przez lm-eval-harness. „Wyżej = lepiej&quot;. Wszystko liczone czysto: <strong style={{ color: "var(--txt)" }}>bez inspekcji itemów, bez benchmaxxingu</strong>. Pełna tablica na żywo: <a href="/leaderboard">/leaderboard</a>.</p>
       </div></section>
 
       <section className="sec tight"><div className="inner">
@@ -39,7 +39,7 @@ export default function Benchmarks() {
         <div className="ghead"><h2>Zasady pomiaru</h2></div>
         <div className="grid auto">
           <div className="cell"><div className="n">RÓWNE WARUNKI</div><h3 className="sm">Ten sam harness</h3><p>Identyczny tryb, few-shot i szablon promptu dla obu modeli.</p></div>
-          <div className="cell"><div className="n">CZYSTOŚĆ</div><h3 className="sm">Tylko liczymy</h3><p>Bez inspekcji pojedynczych itemów — agregaty. Zero benchmaxxingu.</p></div>
+          <div className="cell"><div className="n">CZYSTOŚĆ</div><h3 className="sm">Tylko liczymy</h3><p>Bez inspekcji pojedynczych itemów: tylko agregaty. Zero benchmaxxingu.</p></div>
           <div className="cell"><div className="n">REGRESJA</div><h3 className="sm">Pod kontrolą</h3><p>Belebele (PL/EN) i FLORES pilnują, by zysk na PL nie zjadł angielskiego.</p></div>
           <div className="cell"><div className="n">ODTWARZALNOŚĆ</div><h3 className="sm">Publiczny kod</h3><p>Skrypty, configi i wersje datasetów do repo. Każdy wynik da się powtórzyć.</p></div>
         </div>

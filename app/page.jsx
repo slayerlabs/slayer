@@ -213,7 +213,7 @@ export default function Home() {
         <div className="inner narrow" style={{ textAlign: "center" }}>
           <span className="kick">dołącz</span>
           <h2 className="serif" style={{ fontSize: "clamp(2.1rem,4.2vw,3.1rem)", fontWeight: 400, letterSpacing: "-.015em", margin: "14px 0 14px" }}>Wejdź, jeśli chcesz mierzyć.</h2>
-          <p className="muted" style={{ maxWidth: "54ch", margin: "0 auto 26px", fontSize: "1.06rem" }}>Kontrybutorzy, naukowcy, firmy z use case&apos;ami i fundatorzy compute. Publiczny zapis, od razu widać, kto już jest.</p>
+          <p className="muted" style={{ maxWidth: "54ch", margin: "0 auto 26px", fontSize: "1.06rem" }}>Kontrybutorzy, naukowcy, firmy z use case&apos;ami i fundatorzy compute. Publiczny zapis: od razu widać, kto już jest.</p>
           <div className="cta-row" style={{ justifyContent: "center" }}><a className="btn btn-p" href="https://discord.gg/HnTkVR4c5T" rel="noopener" target="_blank">wejście do labu →</a><a className="btn btn-s" href="/zespol">zapisz się</a></div>
         </div>
       </section>

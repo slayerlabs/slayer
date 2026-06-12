@@ -56,7 +56,7 @@ export default function Propozycja() {
             <table>
               <thead><tr><th>faza</th><th>metoda</th><th>co daje</th><th>adapter</th></tr></thead>
               <tbody>
-                <tr><td><b>1. CPT (wiedza)</b></td><td>continued pretraining (next-token) na czystym korpusie PL: Wiki PL, Wolne Lektury, książki, akademickie + EntiGraph synthetic; replay 20-30% przeciw zapominaniu</td><td><b>wiedza o Polsce</b></td><td>full-FT lub <b>high-rank</b> (r=128-256), <b>nie cienki DoRA</b></td></tr>
+                <tr><td><b>1. CPT (wiedza)</b></td><td>continued pretraining (next-token) na czystym korpusie PL: Wiki PL, Wolne Lektury, książki, akademickie + EntiGraph synthetic; replay 20–30% przeciw zapominaniu</td><td><b>wiedza o Polsce</b></td><td>full-FT lub <b>high-rank</b> (r=128–256), <b>nie cienki DoRA</b></td></tr>
                 <tr><td>2. SFT (umiejętności)</td><td>dystylacja zdolności</td><td><i>jak</i> użyć wiedzy (zadania)</td><td>DoRA OK</td></tr>
                 <tr><td>3. DPO</td><td>on-policy, sędzia otwarty</td><td>preferencje/styl</td><td>DoRA OK</td></tr>
               </tbody>
@@ -80,12 +80,12 @@ export default function Propozycja() {
             <span className="kick">faza 1 · CPT — jak dodać wiedzę o Polsce</span>
             <h2>Pre-training (continued) na czystym korpusie PL</h2>
             <div className="two">
-              <div className="mini"><h3>1 · korpus</h3><p>Wikipedia PL (CC-BY-SA), Wolne Lektury (PD), Wikibooks/Wikisource, książki open-access, skrypty akademickie (pod LLMzSzŁ). Dodajemy do Qwen → kilka–kilkadziesiąt GB wystarczy (Dadas miał 135 GB od zera).</p></div>
+              <div className="mini"><h3>1 · korpus</h3><p>Wikipedia PL (CC-BY-SA), Wolne Lektury (PD), Wikibooks/Wikisource, książki open-access, skrypty akademickie (pod LLMzSzŁ). Dodajemy do Qwen: kilka–kilkadziesiąt GB wystarczy (Dadas miał 135 GB od zera).</p></div>
               <div className="mini"><h3>2 · przygotowanie</h3><p>dedup (MinHash) → filtr jakości (boilerplate) → <b>dedup vs 17 707 atomów test</b> → tokenizacja.</p></div>
-              <div className="mini"><h3>3 · CPT (Ibrahim 2024)</h3><p>causal LM ze startu z Qwen3.5-27B, <b>full-FT bf16</b> (8×H100 FSDP + activation ckpt — mieści się). <b>Re-warm LR do ~1e-5</b> (nie pretrainingowe 3e-4), cosine. <b>Replay 30-40%</b> (EN/kod/matma) — błąd = 100% PL → piękna polszczyzna, głupszy model.</p></div>
-              <div className="mini"><h3>4 · miks korpusu</h3><p><b>60-70% PL</b> (SpeakLeash przefiltrowany + FineWeb-2 PL + Wiki PL + prawo/orzecznictwo) + <b>30-40% replay</b>. Albo EntiGraph synthetic (Yang 2024): encje → warianty → rozlewa wiedzę, sample-efficient.</p></div>
+              <div className="mini"><h3>3 · CPT (Ibrahim 2024)</h3><p>causal LM ze startu z Qwen3.5-27B, <b>full-FT bf16</b> (8×H100 FSDP + activation ckpt — mieści się). <b>Re-warm LR do ~1e-5</b> (nie pretrainingowe 3e-4), cosine. <b>Replay 30–40%</b> (EN/kod/matma); błąd = 100% PL → piękna polszczyzna, głupszy model.</p></div>
+              <div className="mini"><h3>4 · miks korpusu</h3><p><b>60–70% PL</b> (SpeakLeash przefiltrowany + FineWeb-2 PL + Wiki PL + prawo/orzecznictwo) + <b>30–40% replay</b>. Albo EntiGraph synthetic (Yang 2024): encje → warianty → rozlewa wiedzę, sample-efficient.</p></div>
             </div>
-            <p className="lead" style={{ fontSize: ".88rem", marginTop: 12 }}><b>Wykonalność / budżet (~$80k):</b> full-FT 27B bf16 ≈ 430-450 GB stanów → mieści się na 8×H100 (640 GB) z FSDP, bez QLoRA. ~20k tok/s @40% MFU → 10B tok ≈ 5-6 dni ≈ $5-6k. <b>CPT 30-40B tok ≈ $18-25k</b> + SFT $3-5k + bufor na ablacje $10-15k → starcza na <b>2-3 podejścia z ewalem między nimi</b>, nie jeden heroiczny run.</p>
+            <p className="lead" style={{ fontSize: ".88rem", marginTop: 12 }}><b>Wykonalność / budżet (~$80k):</b> full-FT 27B bf16 ≈ 430–450 GB stanów → mieści się na 8×H100 (640 GB) z FSDP, bez QLoRA. ~20k tok/s @40% MFU → 10B tok ≈ 5–6 dni ≈ $5–6k. <b>CPT 30–40B tok ≈ $18–25k</b> + SFT $3–5k + bufor na ablacje $10–15k → starcza na <b>2–3 podejścia z ewalem między nimi</b>, nie jeden heroiczny run.</p>
             <p className="lead" style={{ fontSize: ".84rem", marginTop: 8 }}><b>Dyscyplina:</b> pipeline (tokenizacja/packing/miks/resume) dopracować na <b>4×3090</b>; H100 wynajmować dopiero na właściwe runy z gotowym configiem. Capacity blocks na konkretne okna, checkpoint co godzinę na S3.</p>
           </div>
 
@@ -130,11 +130,11 @@ export default function Propozycja() {
             <span className="kick">05 · otwarte pytania — tu chcemy waszego głosu</span>
             <ol className="q">
               <li><b>CPT: raw czy EntiGraph?</b> — surowy continued-pretraining na korpusie, czy syntetyczny (EntiGraph, sample-efficient), czy mix?</li>
-              <li><b>CPT: full-FT vs high-rank?</b> — pełny fine-tune 27B (drogo, najlepiej dla wiedzy) czy high-rank QLoRA (r=128-256, tańszy kompromis)?</li>
+              <li><b>CPT: full-FT vs high-rank?</b> — pełny fine-tune 27B (drogo, najlepiej dla wiedzy) czy high-rank QLoRA (r=128–256, tańszy kompromis)?</li>
               <li><b>Źródła korpusu wiedzy</b> — Wiki PL + Wolne Lektury wystarczą, czy CCNet-PL / domeny (prawo, medycyna, akademickie pod LLMzSzŁ/PES)?</li>
               <li><b>Waga warstw</b> — ile CPT vs SFT vs DPO?</li>
               <li><b>Sonda regresji</b> — jakie zdolności PL pilnować poza KLEJ? Co was boli w polskich modelach?</li>
-              <li><b>Baza</b> — Qwen3.5-27B, czy też linia 11-14B (tańsza, bliżej Bielika)?</li>
+              <li><b>Baza</b> — Qwen3.5-27B, czy też linia 11–14B (tańsza, bliżej Bielika)?</li>
             </ol>
           </div>
 

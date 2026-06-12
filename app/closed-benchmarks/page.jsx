@@ -19,7 +19,7 @@ export default function ClosedBenchmarks() {
       <section className="sec tight"><div className="inner">
         <div className="ghead"><h2>Trzy benchmarki bez otwartych danych</h2><span className="c">czego nie da się zmierzyć i czemu</span></div>
         <div className="grid auto-lg">
-          <div className="cell cl"><div className="top"><span>zamknięty</span></div><h3 className="sm">Polish EQ-Bench</h3><div className="dm">Inteligencja emocjonalna.</div><p className="rs"><b>Dlaczego nie mierzymy:</b> brak publicznego zbioru pytań — zamknięty leaderboard, zestaw testowy held-out. Nie odtworzymy wyniku.</p><div className="tags"><span className="chip">EQ score</span><span className="chip">PL</span><span className="chip">zbiór: niepubliczny</span></div></div>
+          <div className="cell cl"><div className="top"><span>zamknięty</span></div><h3 className="sm">Polish EQ-Bench</h3><div className="dm">Inteligencja emocjonalna.</div><p className="rs"><b>Dlaczego nie mierzymy:</b> brak publicznego zbioru pytań: zamknięty leaderboard, zestaw testowy held-out. Nie odtworzymy wyniku.</p><div className="tags"><span className="chip">EQ score</span><span className="chip">PL</span><span className="chip">zbiór: niepubliczny</span></div></div>
           <div className="cell cl"><div className="top"><span>zamknięty</span></div><h3 className="sm">CPTUB</h3><div className="dm">Pragmatyka, implikatury, podchwytliwe pytania.</div><p className="rs"><b>Dlaczego nie mierzymy:</b> istnieje jako przestrzeń-leaderboard, ale bez pobieralnego datasetu. Nie powtórzymy ewaluacji na równych warunkach.</p><div className="tags"><span className="chip">accuracy</span><span className="chip">PL</span><span className="chip"><a href="https://huggingface.co/spaces/speakleash/cptu_bench" rel="noopener" style={{ color: "var(--acc)" }}>leaderboard</a></span></div></div>
           <div className="cell cl"><div className="top"><span>zamknięty</span></div><h3 className="sm">PLCC</h3><div className="dm">Kompetencja kulturowo-językowa.</div><p className="rs"><b>Dlaczego nie mierzymy:</b> publiczne są jedynie <b>przykłady</b>; pełny zestaw 600 pytań trzymany prywatnie (anty-kontaminacja). Bez całości brak rzetelnego wyniku.</p><div className="tags"><span className="chip">accuracy</span><span className="chip">PL</span><span className="chip"><a href="https://huggingface.co/spaces/sdadas/plcc" rel="noopener" style={{ color: "var(--acc)" }}>leaderboard</a></span></div></div>
         </div>
@@ -32,7 +32,7 @@ export default function ClosedBenchmarks() {
           <div className="cell"><h3 className="sm">Równe warunki</h3><p>Porównanie ma sens tylko, gdy oba modele przechodzą identyczny, jawny test.</p></div>
           <div className="cell"><h3 className="sm">Otwarci na zmianę</h3><p>Gdy któryś zbiór zostanie udostępniony — przenosimy go na <a href="/leaderboard" style={{ color: "var(--acc)" }}>leaderboard</a> i mierzymy.</p></div>
         </div>
-        <div className="note"><p><b>Masz dostęp do tych danych?</b> Jeśli możesz legalnie udostępnić zbiór testowy lub harness, <a href="/zespol" style={{ color: "var(--acc)" }}>odezwij się →</a></p></div>
+        <div className="note"><p><b>Masz dostęp do tych danych?</b> Jeśli możesz legalnie udostępnić zbiór testowy lub harness, <a href="/zespol" style={{ color: "var(--acc)" }}>odezwij się</a></p></div>
       </div></section>
     </>
   );

@@ -76,7 +76,7 @@ export default function Trening() {
         <div className="grid c2">
           <div className="cell"><div className="n">BIELIK 11B v3 (referencja)</div>
             <ul style={{ margin: "8px 0 0", paddingLeft: 18, color: "var(--mut)", fontSize: ".94rem", lineHeight: 1.7 }}>
-              <li>Baza: Mistral 7B → <b>Depth Up-Scaling</b> do 11B; tokenizer Mistral (<b>bez rozszerzania PL</b>)</li>
+              <li>Baza: Mistral 7B, <b>Depth Up-Scaling</b> do 11B; tokenizer Mistral (<b>bez rozszerzania PL</b>)</li>
               <li><b>CPT ~1.1T tokenów</b> (54% PL/20% EN; akty prawne, orzeczenia, sejm, Wikipedia) + merging</li>
               <li><b>SFT</b> ~20M instrukcji, instruction-masking, sample-packing</li>
               <li><b>DPO + DPO-P</b> 114k par (pary gen. m.in. <b>DeepSeek-V3</b>)</li>

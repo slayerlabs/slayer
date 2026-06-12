@@ -21,7 +21,7 @@ export default function Datasety() {
           <tr><td><div className="dn"><a href="https://huggingface.co/datasets/clarin-pl/poquad" rel="noopener">PoQuAD</a></div><div className="ds">SQuAD 2.0, natywnie PL, no-answer</div></td><td>grounding / refusal</td><td>F1 + sędzia-LLM</td><td>~52 000</td><td><span className="chip acc">CC-BY-4.0</span></td></tr>
           <tr><td><div className="dn"><a href="https://huggingface.co/datasets/facebook/belebele" rel="noopener">Belebele (PL)</a></div><div className="ds">reading comprehension</div></td><td>rozumienie</td><td>accuracy MCQ</td><td>900</td><td><span className="chip acc">CC-BY-SA</span></td></tr>
           <tr><td><div className="dn"><a href="https://huggingface.co/datasets/CohereForAI/include-base-44" rel="noopener">INCLUDE-44 (PL)</a></div><div className="ds">wiedza kulturowo-regionalna</div></td><td>wiedza PL</td><td>accuracy MCQ</td><td>config PL</td><td><span className="chip acc">publiczny</span></td></tr>
-          <tr><td><div className="dn"><a href="https://huggingface.co/datasets/openlanguagedata/flores_plus" rel="noopener">FLORES-200 (PL)</a></div><div className="ds">tłumaczenie PL↔</div></td><td>regresja generacji</td><td>BLEU / chrF</td><td>1 012</td><td><span className="chip blue">gated · dostęp</span></td></tr>
+          <tr><td><div className="dn"><a href="https://huggingface.co/datasets/openlanguagedata/flores_plus" rel="noopener">FLORES-200 (PL)</a></div><div className="ds">tłumaczenie PL↔inne</div></td><td>regresja generacji</td><td>BLEU / chrF</td><td>1 012</td><td><span className="chip blue">gated · dostęp</span></td></tr>
         </tbody></table></div>
 
         <div className="ghead"><h2>Ewaluacja — kontrola regresji (EN)</h2><span className="c">czy angielski/rozumowanie nie spadły</span></div>
@@ -55,7 +55,7 @@ export default function Datasety() {
 
       <section className="sec tight alt"><div className="inner">
         <div className="ghead"><h2>Dane pod <em>LLMzSzŁ</em></h2><span className="c">jedyna oś, gdzie Bielik wygrywa — i nasz target</span></div>
-        <p className="muted" style={{ maxWidth: "70ch", margin: "0 0 22px" }}>LLMzSzŁ to w przewadze <b style={{ color: "var(--ink)" }}>egzaminy zawodowe</b> (przepisy branżowe, BHP, prawo) → „wygrać LLMzSzŁ&quot; pokrywa się z naszą specjalizacją prawno-urzędową. Wszystko niezależne od test-splitu, dekontaminowane.</p>
+        <p className="muted" style={{ maxWidth: "70ch", margin: "0 0 22px" }}>LLMzSzŁ to w przewadze <b style={{ color: "var(--ink)" }}>egzaminy zawodowe</b> (przepisy branżowe, BHP, prawo), więc „wygrać LLMzSzŁ&quot; pokrywa się z naszą specjalizacją prawno-urzędową. Wszystko niezależne od test-splitu, dekontaminowane.</p>
 
         <div className="ghead"><h2 style={{ fontSize: "1.3rem" }}>A · Najwyższa dźwignia</h2><span className="c">on-target</span></div>
         <div className="tbl"><table><thead><tr><th>Źródło</th><th>Co buduje</th><th>Status</th></tr></thead><tbody>
@@ -71,7 +71,7 @@ export default function Datasety() {
 
         <div className="ghead"><h2 style={{ fontSize: "1.3rem" }}>C · Format MCQ + rozumowanie</h2><span className="c">to test wielokrotnego wyboru</span></div>
         <div className="grid auto">
-          <div className="cell"><div className="n">SYNTETYCZNE</div><h3 className="sm">Polskie MCQ z korpusów</h3><p>Generowane z Wikipedia/ISAP (Evol/Magpie) + weryfikacja → uczy „odpowiedz literą&quot; i szerokości.</p></div>
+          <div className="cell"><div className="n">SYNTETYCZNE</div><h3 className="sm">Polskie MCQ z korpusów</h3><p>Generowane z Wikipedia/ISAP (Evol/Magpie) z weryfikacją; uczy „odpowiedz literą&quot; i szerokości.</p></div>
           <div className="cell"><div className="n">CoT</div><h3 className="sm">Distylacja rozumowania PL</h3><p>Łańcuchy myślenia z mocnego nauczyciela na trudniejsze pozycje.</p></div>
           <div className="cell"><div className="n">RLVR</div><h3 className="sm">GRPO na polskich MCQ</h3><p>Nagroda = poprawna litera → optymalizuje dokładnie to, co mierzy LLMzSzŁ, czysto.</p></div>
         </div>

@@ -39,21 +39,21 @@ const LEVELS = [
     dostajesz: ["narzędzia, modele, playground", "kanał feedbackowy i early access do buildów", "możliwość proponowania use-case'ów"],
     oczekiwanie: ["raportujesz jakość: gdzie model się wywala", "przykłady promptów, porażek, edge-case'ów"],
     dalejLabel: "dalej, gdy",
-    dalej: ["3-5 użytecznych feedbacków z konkretami", "aktywność bez chaotycznego spamu"],
+    dalej: ["3–5 użytecznych feedbacków z konkretami", "aktywność bez chaotycznego spamu"],
   },
   {
     no: "03", name: "Contributor", cel: "dokłada małe, mierzalne cegły",
     dostajesz: ["rolę, kanały robocze, zadania z backlogu", "publiczny credit w changelogu i README", "opcjonalnie bounty"],
     oczekiwanie: ["dane, evale, kod, research notes albo onboarding innych", "kończenie małych zadań, komunikacja async, brak ego-dramy"],
     dalejLabel: "dalej, gdy",
-    dalej: ["2-3 zaakceptowane contribution", "powtarzalność zamiast jednorazowego zrywu"],
+    dalej: ["2–3 zaakceptowane contribution", "powtarzalność zamiast jednorazowego zrywu"],
   },
   {
     no: "04", name: "Operator / Builder", cel: "człowiek, któremu można dać fragment systemu",
     dostajesz: ["ownership małego obszaru (eval suite, pipeline danych, harness, docs, inference…)", "prywatniejsze kanały robocze i mini-projekt", "priorytet przy bounty i płatnej współpracy"],
-    oczekiwanie: ["dowozisz co tydzień i sam rozbijasz problem na taski", "raportujesz status, przyciągasz 1-2 kolejnych ludzi"],
+    oczekiwanie: ["dowozisz co tydzień i sam rozbijasz problem na taski", "raportujesz status, przyciągasz 1–2 kolejnych ludzi"],
     dalejLabel: "dalej, gdy",
-    dalej: ["zamknięty projekt z widocznym artefaktem", "powtarzalna praca przez 3-4 tygodnie"],
+    dalej: ["zamknięty projekt z widocznym artefaktem", "powtarzalna praca przez 3–4 tygodnie"],
   },
   {
     no: "05", name: "Research Fellow", cel: "semi-core, prowadzi eksperymenty",
@@ -67,7 +67,7 @@ const LEVELS = [
     dostajesz: ["merge i review rights w wybranym repo", "realny wpływ na roadmapę, strategiczne calle", "ścieżkę revenue / bounty / kontraktów"],
     oczekiwanie: ["review contribution, utrzymywanie standardów", "zamykanie pętli, projektowanie procesów, bycie filtrem jakości"],
     dalejLabel: "dalej, gdy",
-    dalej: ["dowozi 2-3 miesiące, inni chcą z nim pracować", "umie powiedzieć „nie” i ma techniczny smak"],
+    dalej: ["dowozi 2–3 miesiące, inni chcą z nim pracować", "umie powiedzieć „nie” i ma techniczny smak"],
   },
   {
     no: "07", name: "Core Team", cel: "buduje instytucję, nie tylko robi taski",
@@ -128,9 +128,9 @@ export default function Drabina() {
       <section className="sec tight"><div className="inner">
         <div className="ghead"><h2>Onboarding: pierwsze 7 dni</h2><span className="c">od wejścia do pierwszego artefaktu</span></div>
         <div className="grid c3">
-          <div className="cell"><div className="top"><span>krok 1-3</span></div><h3 className="sm">Wejdź i wybierz ścieżkę</h3><p>Dołącz na Discorda, przeczytaj &quot;Start Here&quot;, wybierz: data / evals / code / research / community.</p></div>
-          <div className="cell"><div className="top"><span>krok 4-5</span></div><h3 className="sm">Zrób starter task</h3><p>Jeden mały task z quest boardu. Dostajesz feedback od reviewera w ciągu paru dni.</p></div>
-          <div className="cell"><div className="top"><span>krok 6-7</span></div><h3 className="sm">Dowiezione = Contributor</h3><p>Zaakceptowany artefakt to rola Contributor, kanały robocze i kolejne taski z backlogu.</p></div>
+          <div className="cell"><div className="top"><span>krok 1–3</span></div><h3 className="sm">Wejdź i wybierz ścieżkę</h3><p>Dołącz na Discorda, przeczytaj &quot;Start Here&quot;, wybierz: data / evals / code / research / community.</p></div>
+          <div className="cell"><div className="top"><span>krok 4–5</span></div><h3 className="sm">Zrób starter task</h3><p>Jeden mały task z quest boardu. Dostajesz feedback od reviewera w ciągu paru dni.</p></div>
+          <div className="cell"><div className="top"><span>krok 6–7</span></div><h3 className="sm">Dowiezione = Contributor</h3><p>Zaakceptowany artefakt to rola Contributor, kanały robocze i kolejne taski z backlogu.</p></div>
         </div>
         <div className="grid c2" style={{ marginTop: 26 }}>
           <div className="cell"><div className="top"><span>przykładowe starter taski</span></div>
