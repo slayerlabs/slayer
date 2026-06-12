@@ -1,0 +1,37 @@
+# Slayer — DAILY run config. Edit during the day, then: python3 pipeline/run_daily.py
+# RULE: never list a benchmark train split here. build_mix dedups the mix against all test splits.
+base_model: Qwen/Qwen3.5-27B
+version_prefix: slayer-v3          # model repo -> {hf_user}/slayer-v3-YYYYMMDD
+hf_user: kacperwikiel
+push: true                        # push model + dataset + manifest + eval to PRIVATE HF
+seed: 42
+
+# DATA MIX — local jsonl in `messages` format; cap = max examples sampled per source.
+# Kanoniczny miks buduje bench/build_v3_mix.py (z bramką decon) -> v3/train_v3.jsonl;
+# ścieżki niżej = te same warstwy źródłowe (zsynchronizowane 2026-06-12).
+mix:
+  - {name: distill_pl,   path: slayer-data/distill/distill_pl.verified.jsonl,             cap: 1500}  # layer 1 (po sędzi!)
+  - {name: aya_pl,       path: slayer-data/v3/human_pl_aya.clean.jsonl,                   cap: 400}   # layer 2
+  - {name: oasst_pl,     path: slayer-data/v3/human_pl_oasst2.jsonl,                      cap: 300}   # layer 2
+  - {name: style,        path: slayer-data/style/style_pl_sft_v3_openjudge_disjoint.jsonl, cap: 700}  # layer 2 (rozłączny z holdoutem)
+  - {name: en_retention, path: slayer-data/v3/en_retention_tulu3.clean.jsonl,            cap: 500}   # layer 3
+
+# HELD-OUT eval only — never trained on; build_mix dedups the mix vs these test splits
+eval_tasks: psc,ppc,dyk,belebele,8tags,polemo2_in
+eval_n: 200
+eval_bs: 4
+
+# training (DoRA) — passed as env to bench/sft_style_qlora.py
+train:
+  USE_DORA: 1
+  LORA_R: 16
+  LORA_ALPHA: 32
+  QUANT: bf16
+  LR: 5e-5
+  EPOCHS: 2
+  MAX_LEN: 1024
+  BATCH: 4
+  GRAD_ACCUM: 8
+  EVAL_FRAC: 0.12
+  EVAL_STEPS: 30
+  EARLY_STOP_PATIENCE: 2

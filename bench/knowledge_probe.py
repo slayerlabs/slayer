@@ -8,6 +8,8 @@ w źródle. Wynik: accuracy per model i per warstwa. Tylko agregaty.
 CZYSTOŚĆ: wylosowane doki QA zapisują się do exclusion list
 (slayer-data/knowledge/probe_v1.excluded_hashes.txt) i MUSZĄ być wykluczone z CPT,
 żeby probe mierzył wiedzę z relacji/parafraz, nie pamięć itemu.
+EGZEKUCJA: bench/decon_audit.py czyta tę listę i flaguje rekordy o sha1(text)
+z listy jako trafienia (typ probe_excluded) — bramka decon = wymuszenie.
 
 Backendy: ollama (np. tunel na simp) i OpenRouter. Konfiguracja w MODELS.
 
@@ -31,7 +33,11 @@ PROBE_F = "slayer-data/knowledge/probe_v1.jsonl"
 EXCL_F = "slayer-data/knowledge/probe_v1.excluded_hashes.txt"
 OUT = "results/knowledge_probe_v1.json"
 OLLAMA = os.environ.get("OLLAMA_URL", "http://127.0.0.1:11435")
-OR_KEY = open(os.path.expanduser("~/.openrouter_key")).read().strip()
+OR_KEY = os.environ.get("OPENROUTER_API_KEY") or (
+    open(os.path.expanduser("~/.openrouter_key")).read().strip()
+    if os.path.exists(os.path.expanduser("~/.openrouter_key")) else "")
+if not OR_KEY:
+    raise SystemExit("BRAK klucza: OPENROUTER_API_KEY albo ~/.openrouter_key")
 JUDGE = "qwen/qwen3.5-122b-a10b"
 
 MODELS = {

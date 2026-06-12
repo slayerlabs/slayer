@@ -7,20 +7,26 @@ re-expresses the chunk's knowledge many ways. The union is a much larger synthet
 closed-book-QA value scales ~log-linearly with synthetic tokens (EntiGraph). Output = plain-text
 docs for QLoRA continued-pretraining (the knowledge adapter), NOT chat/SFT.
 
-Provenance: generation by the OPEN teacher (deepseek-v4-pro, MIT). No Anthropic/OpenAI. No per-item
-judge (this is unsupervised CPT text; faithfulness is enforced by grounding the prompt in the source).
+Provenance: generation by an OPEN teacher via GEN_MODEL (default deepseek-v4-pro; the bulk corpora
+on disk were generated with deepseek-v4-flash — per-row lineage in the "gen_model" field is the
+source of truth, not this docstring). No Anthropic/OpenAI. No per-item judge (this is unsupervised
+CPT text; faithfulness is enforced by grounding the prompt in the source — spot-check a sample with
+verify_external_sft-style judging before scaling up).
 
 Usage: entigraph_augment.py [target_M_tokens] [out.jsonl]
 Env: OPENROUTER_API_KEY/~/.openrouter_key; GEN_MODEL, GEN_WORKERS.
 """
-import json, re, sys, os, time
+import hashlib, json, re, sys, os, time
 from concurrent.futures import ThreadPoolExecutor
 import urllib.request
 
 API = "https://openrouter.ai/api/v1/chat/completions"
 TEACHER = os.environ.get("GEN_MODEL", "deepseek/deepseek-v4-pro")
+if re.search(r"anthropic|claude|openai/(?!gpt-oss)", TEACHER, re.I):
+    raise SystemExit(f"GEN_MODEL={TEACHER} łamie regułę provenance (zero Anthropic/OpenAI).")
 KEY = os.environ.get("OPENROUTER_API_KEY") or (open(os.path.expanduser("~/.openrouter_key")).read().strip()
         if os.path.exists(os.path.expanduser("~/.openrouter_key")) else "")
+ERRS = {"chat_fail": 0, "future_fail": 0}  # widoczność cichych strat generacji
 WORKERS = int(os.environ.get("GEN_WORKERS", "10"))
 TARGET_TOKENS = (float(sys.argv[1]) if len(sys.argv) > 1 else 5.0) * 1_000_000   # default 5M (smoke)
 OUT = sys.argv[2] if len(sys.argv) > 2 else "slayer-data/knowledge/entigraph_pl.jsonl"
@@ -37,7 +43,9 @@ def chat(sysp, usr, maxt=1200, temp=0.7):
             with urllib.request.urlopen(req, timeout=180) as r:
                 return re.sub(r"<think>.*?</think>", "", json.loads(r.read())["choices"][0]["message"]["content"], flags=re.S).strip()
         except Exception:
-            if a == 3: return ""
+            if a == 3:
+                ERRS["chat_fail"] += 1
+                return ""
             time.sleep(3)
 
 REL_SYS = ("Jesteś autorem rzetelnych polskich tekstów encyklopedycznych. Z podanego fragmentu: "
@@ -57,7 +65,7 @@ ATOMS_F = "runs/test_atoms.txt"
 _atoms = []
 if os.path.exists(ATOMS_F):
     _atoms = [t.strip() for t in open(ATOMS_F, encoding="utf-8")]
-    _atoms = [t for t in _atoms if 20 <= len(t) <= 200]
+    _atoms = [t for t in _atoms if len(t) >= 20]  # BEZ górnego capu
 _norm = lambda s: " ".join(str(s).lower().split())
 def contaminated(s):
     n = _norm(s)
@@ -74,13 +82,19 @@ PL_PAT = re.compile(
 
 SRC_FILE = os.environ.get("SRC_FILE", "")  # lokalny korpus JSONL {"text","title"} zamiast Wikipedii
 
-def passages(skip_titles=()):
+_sha = lambda s: hashlib.sha1(s.encode()).hexdigest()
+
+
+def passages(done_shas=frozenset(), legacy_titles=frozenset()):
+    """Resume per AKAPIT (src_sha), nie per tytuł — tytuł ma wiele akapitów i skip
+    po tytule gubił resztę. legacy_titles: stare rekordy bez src_sha (skip po tytule)."""
     if SRC_FILE:
         for ln in open(SRC_FILE, encoding="utf-8"):
             try: r = json.loads(ln)
             except Exception: continue
             txt, title = (r.get("text") or "").strip(), r.get("title", "")
-            if title in skip_titles or not (300 <= len(txt) <= 2000) or contaminated(txt):
+            if _sha(txt) in done_shas or title in legacy_titles \
+                    or not (300 <= len(txt) <= 2000) or contaminated(txt):
                 continue
             yield txt, title
         return
@@ -89,14 +103,14 @@ def passages(skip_titles=()):
     for r in ds:
         txt = (r.get("text") or "").strip()
         title = r.get("title", "")
-        if title in skip_titles:
+        if title in legacy_titles:
             continue
         if PL_FOCUS and not PL_PAT.search(title + " " + txt[:800]):
             continue
         # take a few substantial paragraphs per article
         paras = [p.strip() for p in txt.split("\n") if 400 <= len(p.strip()) <= 1800]
         for p in paras[:3]:
-            if contaminated(p):  # źródło pokrywa się z testem -> wypada
+            if _sha(p) in done_shas or contaminated(p):
                 continue
             yield p, title
 
@@ -116,22 +130,28 @@ def explode(item):
         if len(t) > 40: out.append((t, "paraphrase" if m[i] == "PARAFRAZA" else "summary"))
     qa = chat(QA_SYS, usr, maxt=1300)
     if len(qa) > 60: out.append((qa, "qa"))
-    return [{"text": t, "kind": k, "source_title": title, "gen_model": TEACHER}
+    return [{"text": t, "kind": k, "source_title": title, "src_sha": _sha(para),
+             "gen_model": TEACHER}
             for t, k in out if not contaminated(t)]
 
 def main():
     if not KEY: print("BRAK klucza OpenRouter"); sys.exit(1)
     os.makedirs(os.path.dirname(OUT) or ".", exist_ok=True)
     from collections import Counter
-    kinds = Counter(); tok = 0; ndoc = 0; done_titles = set()
-    if os.path.exists(OUT):  # resume: doliczamy istniejące, pomijamy przerobione artykuły
+    kinds = Counter(); tok = 0; ndoc = 0; done_shas = set(); legacy_titles = set()
+    if os.path.exists(OUT):  # resume: doliczamy istniejące, pomijamy przerobione AKAPITY
         for ln in open(OUT, encoding="utf-8"):
             try: d = json.loads(ln)
             except Exception: continue
             tok += approx_tokens(d.get("text", "")); ndoc += 1
-            kinds[d.get("kind", "?")] += 1; done_titles.add(d.get("source_title", ""))
-        print(f"  resume: {ndoc} docs / ~{tok/1e6:.2f}M tok / {len(done_titles)} artykułów", flush=True)
-    src = passages(done_titles); t0 = time.time(); tok0 = tok
+            kinds[d.get("kind", "?")] += 1
+            if d.get("src_sha"):
+                done_shas.add(d["src_sha"])
+            else:  # stare rekordy bez src_sha: skip po tytule (zachowanie historyczne)
+                legacy_titles.add(d.get("source_title", ""))
+        print(f"  resume: {ndoc} docs / ~{tok/1e6:.2f}M tok / "
+              f"{len(done_shas)} akapitów + {len(legacy_titles)} tytułów legacy", flush=True)
+    src = passages(done_shas, legacy_titles); t0 = time.time(); tok0 = tok
     print(f"EntiGraph augment -> target ~{TARGET_TOKENS/1e6:.0f}M tokens | teacher={TEACHER} | {WORKERS} workers", flush=True)
     from concurrent.futures import FIRST_COMPLETED, wait
     last_report = 0
@@ -147,7 +167,9 @@ def main():
             done, pending = wait(pending, return_when=FIRST_COMPLETED)
             for fut in done:
                 try: docs = fut.result()
-                except Exception: continue
+                except Exception:
+                    ERRS["future_fail"] += 1
+                    continue
                 for d in docs:
                     f.write(json.dumps(d, ensure_ascii=False) + "\n")
                     tok += approx_tokens(d["text"]); ndoc += 1; kinds[d["kind"]] += 1
@@ -158,6 +180,8 @@ def main():
                 print(f"  ~{tok/1e6:.2f}M tok / {ndoc} docs ({rate:.0f} tok/s marginalnie, {time.time()-t0:.0f}s) {dict(kinds)}", flush=True)
     print(f"\nDONE ~{tok/1e6:.2f}M tokens, {ndoc} synthetic docs -> {OUT}", flush=True)
     print(f"  kinds: {dict(kinds)}", flush=True)
+    if any(ERRS.values()):
+        print(f"  !!! straty generacji: {ERRS} (nieudane wywołania teachera / taski)", flush=True)
 
 if __name__ == "__main__":
     main()

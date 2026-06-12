@@ -1,5 +1,32 @@
 # Slayer v3 — Data Pipeline Audit (2026-06-12)
 
+> **FIX PASS (same day, „fix all issues"):** wszystkie pozycje CRITICAL i MAJOR oraz większość MINOR
+> naprawione. Stan po naprawach:
+> - **Bramka decon obowiązkowa** w `build_v3_mix.py` (exit != 0 blokuje); indeks rozszerzony o pełny
+>   test LLMzSzŁ z HF (141,7k shingli), `probe_v1.jsonl`, exclusion list sondy (100 hashy, typ
+>   `probe_excluded`), pliki `external/` i `knowledge/`; historia audytów w
+>   `results/decon_audit_history.jsonl`; niesparsowalne linie skanowane jako surowy tekst.
+> - **Cap 200 znaków usunięty** ze wszystkich 6 konsumentów atomów (pełne 17,7k atomów).
+> - **Warstwa distill po sędzi otwartym**: `distill_pl.verified.jsonl` (1139/1249 ok; 91 powazne,
+>   19 drobne odrzucone — 10% warstwy miało poważne błędy faktów, vs 50.6% u Bielika).
+> - **Egzekucja exclusion list sondy działa**: pierwsze uruchomienie zdjęło 118 rekordów
+>   z `entigraph_pl_focus.clean.jsonl` (92,084 po czyszczeniu) — sonda wiedzy znów miarodajna.
+> - Udziały miksu liczone PO filtrach; brak pliku warstwy = twardy błąd; styl wydzielony jako
+>   osobna warstwa (uczciwe etykiety); `make_test_atoms.py` nie zapisuje częściowego pliku.
+> - `make_style_disjoint.py` (nowy): reprodukcja pliku disjoint zweryfikowana 1:1, potem zaostrzona
+>   (prompt+odpowiedź vs cały holdout, slim rekordy bez meta) -> 502 rekordy.
+> - Naprawione: reservoir Tulu3 (kod; dane nie regenerowane), zapis atomowy w `gen_distill_pl.py`,
+>   allowlist provenance (blokada Anthropic/OpenAI w GEN_MODEL/VERIFY_JUDGE), liczniki cichych strat
+>   w EntiGraph, resume per akapit (`src_sha`) w `entigraph_augment.py`, resume bez dublowania
+>   ścieżek w `entigraph_hops.py`, fallback kluczy na env, ścieżki w `pipeline/daily.yaml`,
+>   3 urwane rekordy Tulu usunięte, NER przegenerowany (format „Nazwa: kategoria", sędzia
+>   `--grounded` dla treści fikcyjnych: 67 verified vs 44).
+> - **Finalny miks: `train_v3.jsonl` = 1,771 ex** (distill 63.2% / en 21.1% / human_pl 10.5% /
+>   styl 5.2%), bramka decon: CZYSTY.
+> - **Nadal otwarte:** trener CPT + replay mix (nie istnieją), spot-check wierności flash w EntiGraph,
+>   golds sondy bez niezależnego weryfikatora, dump wiki 2023-11, regeneracja Tulu poprawionym
+>   reservoirem (opcjonalna).
+
 Audit of the v3 dataset creation process: build/gen code, actual artifacts on disk, CPT layer.
 Method: 3 parallel audit passes (code, data, CPT/status). Bench purity respected (no eval items inspected, aggregates only).
 
