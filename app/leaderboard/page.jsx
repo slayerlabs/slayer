@@ -24,11 +24,14 @@ export default function Leaderboard() {
       <style>{css}</style>
       <div className="inner">
         <div className="top">
-          <div><span className="kick"><span className="ac">LEADERBOARD</span> — bielik vs qwen3.5-9b</span><h1>Wyniki na żywo</h1></div>
+          <div><span className="kick"><span className="ac">LEADERBOARD</span> — natywność + benchmarki zewnętrzne</span><h1>Wyniki na żywo</h1></div>
           <span className="live"><span className="d"></span>LIVE · AUTO-SYNC</span>
         </div>
-        <LeaderboardLive />
         <PolNativeBoard />
+        <div style={{ marginTop: 48, paddingTop: 8, borderTop: "1px solid var(--line2)" }}>
+          <span className="kick"><span className="ac">BENCHMARKI ZEWNĘTRZNE</span> — Bielik-11B-v3 vs Qwen3.5-9B</span>
+        </div>
+        <LeaderboardLive />
       </div>
     </div>
   );
