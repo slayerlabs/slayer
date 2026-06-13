@@ -1,0 +1,60 @@
+{
+  "bench": "polnative_v1",
+  "data": "slayer-data/polnative/polnative_v1.jsonl",
+  "n": 111,
+  "judge": "qwen/qwen3.5-122b-a10b",
+  "skala": "pass=1, mixed=0.5, fail=0; wynik 0-100",
+  "note": "eval_only; itemy w prywatnym repo slayer-datasets, nie trenować",
+  "results": {
+    "bielik": {
+      "backend": "ollama",
+      "tag": "hf.co/speakleash/Bielik-11B-v3.0-Instruct-GGUF:Q4_K_M",
+      "temp": 0.2,
+      "score": {
+        "all": 79.7,
+        "dom:EQ": 56.2,
+        "dom:fleksja": 83.3,
+        "dom:frazeologia": 100.0,
+        "dom:kalibracja": 30.0,
+        "dom:leksyka": 70.0,
+        "dom:literatura": 90.6,
+        "dom:naturalnosc": 64.3,
+        "dom:ortografia": 77.3,
+        "dom:realia": 100.0,
+        "dom:rejestr": 87.5,
+        "dom:skladnia": 79.2,
+        "tryb:auto": 91.4,
+        "tryb:judge": 59.8
+      },
+      "n": 111,
+      "n_scored": 111,
+      "empty_answers": 0,
+      "judge_errors": 0
+    },
+    "qwen27b": {
+      "backend": "openrouter",
+      "tag": "qwen/qwen3.5-27b",
+      "temp": 0.7,
+      "score": {
+        "all": 58.6,
+        "dom:EQ": 62.5,
+        "dom:fleksja": 55.6,
+        "dom:frazeologia": 68.2,
+        "dom:kalibracja": 40.0,
+        "dom:leksyka": 85.0,
+        "dom:literatura": 15.6,
+        "dom:naturalnosc": 42.9,
+        "dom:ortografia": 68.2,
+        "dom:realia": 88.9,
+        "dom:rejestr": 62.5,
+        "dom:skladnia": 70.8,
+        "tryb:auto": 60.7,
+        "tryb:judge": 54.9
+      },
+      "n": 111,
+      "n_scored": 111,
+      "empty_answers": 0,
+      "judge_errors": 0
+    }
+  }
+}
