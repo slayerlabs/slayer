@@ -30,7 +30,7 @@ export default function V3() {
       <style>{css}</style>
       <section className="phero"><div className="inner">
         <span className="kick">propozycja · linia v3 · czysta z konstrukcji</span>
-        <h1>v3: <em>miks danych</em> bez długu</h1>
+        <h1>v3: czysty <em>miks danych</em></h1>
         <p>v2 nauczyło nas, jak wygląda skażenie train-splitami; v3 jest czyste z konstrukcji: benchmarki są
         wyłącznie miarą i blocklistą, każda warstwa przechodzi audyt verbatim, a wszystko, co weszło do treningu,
         da się wskazać co do rekordu. Claim publiczny: tylko held-out, 5-shot.</p>
