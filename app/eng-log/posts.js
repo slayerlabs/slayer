@@ -1,6 +1,14 @@
-// Engineer's log — notatki z treningu Slayera.
+// Engineering log — notatki z treningu Slayera.
 // Nowy wpis = nowy obiekt na POCZĄTKU tablicy. Body w markdown-lite:
 // "## " nagłówek, "- " lista, ``` blok kodu, **bold**, `code`, [tekst](url), puste linie dzielą akapity.
+// Numer wpisu (LOG 001…) liczy się z pozycji w tablicy: najstarszy = 001.
+
+export const AUTHOR = "Kacper Wikieł";
+
+export function entryNo(index) {
+  // index w tablicy POSTS (0 = najnowszy) -> numer logu (najstarszy = 001)
+  return String(POSTS.length - index).padStart(3, "0");
+}
 
 export const POSTS = [
   {

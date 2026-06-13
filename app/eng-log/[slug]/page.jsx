@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { POSTS } from "../posts";
+import { POSTS, AUTHOR, entryNo } from "../posts";
 import { MdLite } from "../md";
 
 export function generateStaticParams() {
@@ -10,44 +10,77 @@ export async function generateMetadata({ params }) {
   const { slug } = await params;
   const post = POSTS.find((p) => p.slug === slug);
   if (!post) return {};
-  return { title: `${post.title} | Eng log | Slayer`, description: post.lead };
+  return {
+    title: `${post.title} | Engineering log | Slayer`,
+    description: post.lead,
+    authors: [{ name: AUTHOR }],
+  };
 }
 
 const css = `
-  .crumb{font-family:var(--mono);font-size:.76rem}.crumb a{color:var(--acc);text-decoration:none}
-  article h1{font-family:var(--serif);font-weight:400;font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.015em;margin:12px 0 8px;max-width:26ch}
-  .post-meta{display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-family:var(--mono);font-size:.74rem;color:var(--dim);margin-bottom:26px}
-  .post-tag{padding:2px 8px;border-radius:4px;background:rgba(255,255,255,.04);border:1px solid var(--line)}
-  .lead{font-family:var(--serif);font-size:1.15rem;line-height:1.6;color:var(--mut);max-width:68ch;border-left:2px solid var(--acc);padding-left:16px;margin:0 0 26px}
+  .crumb{font-family:var(--mono);font-size:.74rem;letter-spacing:.08em}.crumb a{color:var(--acc);text-decoration:none}
+  .stamp{border:1px solid var(--line2);border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.01)),var(--panel);padding:18px 22px;margin:14px 0 30px}
+  .stamp-row{display:flex;justify-content:space-between;align-items:baseline;gap:14px;flex-wrap:wrap;font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;color:var(--dim)}
+  .stamp-row .id{color:var(--acc)}
+  .stamp-rule{border:0;border-top:1px solid var(--line2);margin:12px 0}
+  .stamp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px 26px;font-family:var(--mono);font-size:.74rem}
+  .stamp-grid .k{display:block;font-size:.64rem;letter-spacing:.14em;color:var(--dim);margin-bottom:3px}
+  .stamp-grid .v{color:var(--txt)}
+  .stamp-grid .v.tags{display:flex;gap:6px;flex-wrap:wrap}
+  .stamp-tag{font-size:.66rem;letter-spacing:.06em;padding:1px 7px;border-radius:3px;background:rgba(255,255,255,.04);border:1px solid var(--line);color:var(--mut);text-transform:uppercase}
+  article h1{font-family:var(--serif);font-weight:400;font-size:clamp(1.9rem,4.2vw,2.8rem);letter-spacing:-.015em;line-height:1.15;margin:0 0 18px;max-width:28ch}
+  .lead{font-family:var(--serif);font-size:1.18rem;line-height:1.6;color:var(--mut);max-width:66ch;border-left:2px solid var(--acc);padding-left:16px;margin:0 0 30px}
   .body{max-width:72ch}
-  .body h2{font-family:var(--serif);font-weight:400;font-size:1.5rem;color:var(--ink);margin:34px 0 10px;letter-spacing:-.01em}
-  .body p{color:var(--mut);font-size:.95rem;line-height:1.65;margin:0 0 14px}
-  .body ul{margin:0 0 14px;padding-left:20px;display:grid;gap:7px}
-  .body li{color:var(--mut);font-size:.95rem;line-height:1.55}
+  .body h2{font-family:var(--mono);font-weight:600;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--acc);margin:38px 0 12px;padding-top:14px;border-top:1px solid var(--line2)}
+  .body p{color:var(--mut);font-size:.96rem;line-height:1.7;margin:0 0 14px}
+  .body ul{margin:0 0 14px;padding-left:20px;display:grid;gap:8px}
+  .body li{color:var(--mut);font-size:.95rem;line-height:1.6}
   .body b{color:var(--ink);font-weight:600}
   .body a{color:var(--acc)}
   .body code{font-family:var(--mono);font-size:.84em;background:rgba(255,255,255,.05);border:1px solid var(--line2);border-radius:4px;padding:1px 5px}
   .body pre{background:rgba(0,0,0,.32);border:1px solid var(--line2);border-radius:8px;padding:14px 16px;overflow-x:auto;margin:0 0 14px}
   .body pre code{background:none;border:none;padding:0;font-size:.78rem;line-height:1.5;color:var(--txt);white-space:pre}
+  .eof{margin-top:44px;display:flex;align-items:center;gap:14px;font-family:var(--mono);font-size:.68rem;letter-spacing:.16em;color:var(--dim)}
+  .eof::before,.eof::after{content:"";flex:1;border-top:1px solid var(--line2)}
+  .sig{margin-top:18px;text-align:right}
+  .sig .name{font-family:var(--serif);font-style:italic;font-size:1.1rem;color:var(--ink)}
+  .sig .role{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;color:var(--dim);margin-top:2px}
 `;
 
 export default async function Post({ params }) {
   const { slug } = await params;
-  const post = POSTS.find((p) => p.slug === slug);
-  if (!post) notFound();
+  const idx = POSTS.findIndex((p) => p.slug === slug);
+  if (idx === -1) notFound();
+  const post = POSTS[idx];
+  const no = entryNo(idx);
   return (
     <div className="sec page-top">
       <style>{css}</style>
       <div className="inner">
-        <span className="crumb"><a href="/eng-log">← eng log</a></span>
+        <span className="crumb"><a href="/eng-log">← ENGINEERING LOG</a></span>
+
+        <div className="stamp">
+          <div className="stamp-row">
+            <span className="id">SLAYER PROTOCOL · ENGINEERING LOG</span>
+            <span>WPIS {no}</span>
+          </div>
+          <hr className="stamp-rule" />
+          <div className="stamp-grid">
+            <div><span className="k">DATA</span><span className="v">{post.date}</span></div>
+            <div><span className="k">AUTOR</span><span className="v">{post.author || AUTHOR}</span></div>
+            <div><span className="k">TAGI</span><span className="v tags">{post.tags.map((t) => <span className="stamp-tag" key={t}>{t}</span>)}</span></div>
+          </div>
+        </div>
+
         <article>
           <h1>{post.title}</h1>
-          <div className="post-meta">
-            <span>{post.date}</span>
-            {post.tags.map((t) => <span className="post-tag" key={t}>{t}</span>)}
-          </div>
           <p className="lead">{post.lead}</p>
           <div className="body"><MdLite src={post.body} /></div>
+          <div className="eof">KONIEC WPISU · LOG {no} · SLAYER PROTOCOL</div>
+          <div className="sig">
+            <div className="name">— {post.author || AUTHOR}</div>
+            <div className="role">SLAYER LAB · {post.date}</div>
+          </div>
         </article>
       </div>
     </div>
