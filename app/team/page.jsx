@@ -124,6 +124,7 @@ const MEMBERS = [
 
 const ADVISORS = [
   { img: "/assets/team/juliusz-straszynski.jpeg", name: "dr Juliusz Straszyński", specialty: "ML Research · LLM", bio: "Doktor, Senior ML Researcher w RTB House. Wcześniej ML Engineer w Google (zespół Gemini Code Assist) i Senior AI Developer w Huawei.", link: "https://ludzie.nauka.gov.pl/ln/profiles/sCrgLf1YSOK/publications/fa141c33-cc8e-4fb9-b197-b44259c8832f" },
+  { img: "/assets/team/piotr-senkus.jpg", name: "dr hab. inż. Piotr Senkus", specialty: "Zarządzanie · AI w procesach", bio: "Doktor habilitowany, adiunkt na Wydziale Zarządzania Uniwersytetu Warszawskiego. 15+ lat praktyki i nauki w AI oraz zarządzaniu procesami biznesowymi. Współzałożyciel BPM Competence Center, laureat US Presidential Lifetime Achievement Award.", link: "https://scholar.google.pl/citations?user=Z6y2kAUAAAAJ&hl=pl" },
 ];
 
 export default function Team() {
