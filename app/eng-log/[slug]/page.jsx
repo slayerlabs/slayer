@@ -35,6 +35,10 @@ const css = `
   .body p{color:var(--mut);font-size:.96rem;line-height:1.7;margin:0 0 14px}
   .body ul{margin:0 0 14px;padding-left:20px;display:grid;gap:8px}
   .body li{color:var(--mut);font-size:.95rem;line-height:1.6}
+  .body ol{list-style:none;counter-reset:item;margin:0 0 14px;padding:0;display:grid;gap:12px}
+  .body ol li{counter-increment:item;position:relative;padding-left:46px}
+  .body ol li::before{content:counter(item,decimal-leading-zero);position:absolute;left:0;top:2px;font-family:var(--mono);font-weight:600;font-size:.82rem;color:var(--acc)}
+  .body ol li::after{content:"";position:absolute;left:26px;top:6px;bottom:4px;border-left:1px solid var(--line2)}
   .body b{color:var(--ink);font-weight:600}
   .body a{color:var(--acc)}
   .body code{font-family:var(--mono);font-size:.84em;background:rgba(255,255,255,.05);border:1px solid var(--line2);border-radius:4px;padding:1px 5px}

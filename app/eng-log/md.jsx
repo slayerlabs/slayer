@@ -20,9 +20,12 @@ function inline(text, keyBase) {
 export function MdLite({ src }) {
   const lines = src.split("\n");
   const blocks = [];
-  let para = [], list = null, code = null;
+  let para = [], list = null, olist = null, code = null;
   const flushPara = () => { if (para.length) { blocks.push({ t: "p", v: para.join(" ") }); para = []; } };
-  const flushList = () => { if (list) { blocks.push({ t: "ul", v: list }); list = null; } };
+  const flushList = () => {
+    if (list) { blocks.push({ t: "ul", v: list }); list = null; }
+    if (olist) { blocks.push({ t: "ol", v: olist }); olist = null; }
+  };
 
   for (const raw of lines) {
     const line = raw.replace(/\s+$/, "");
@@ -33,7 +36,15 @@ export function MdLite({ src }) {
     }
     if (line.startsWith("```")) { flushPara(); flushList(); code = []; continue; }
     if (line.startsWith("## ")) { flushPara(); flushList(); blocks.push({ t: "h2", v: line.slice(3) }); continue; }
-    if (line.startsWith("- ")) { flushPara(); (list = list || []).push(line.slice(2)); continue; }
+    if (line.startsWith("- ")) { flushPara(); if (olist) flushList(); (list = list || []).push(line.slice(2)); continue; }
+    const om = line.match(/^\d+\.\s+(.*)$/);
+    if (om) { flushPara(); if (list) flushList(); (olist = olist || []).push(om[1]); continue; }
+    // kontynuacja pozycji listy (wcięta linia po "1. " albo "- ")
+    if ((list || olist) && line.startsWith("  ") && line.trim()) {
+      const target = olist || list;
+      target[target.length - 1] += " " + line.trim();
+      continue;
+    }
     if (!line.trim()) { flushPara(); flushList(); continue; }
     para.push(line.trim());
   }
@@ -46,6 +57,7 @@ export function MdLite({ src }) {
         if (b.t === "h2") return <h2 key={i}>{inline(b.v, `h${i}`)}</h2>;
         if (b.t === "code") return <pre key={i}><code>{b.v}</code></pre>;
         if (b.t === "ul") return <ul key={i}>{b.v.map((li, j) => <li key={j}>{inline(li, `l${i}-${j}`)}</li>)}</ul>;
+        if (b.t === "ol") return <ol key={i}>{b.v.map((li, j) => <li key={j}>{inline(li, `o${i}-${j}`)}</li>)}</ol>;
         return <p key={i}>{inline(b.v, `p${i}`)}</p>;
       })}
     </>
