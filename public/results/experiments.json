@@ -1,7 +1,33 @@
 {
- "updated": "2026-06-14",
+ "updated": "2026-06-15",
  "note": "Uczciwy log eksperymentów Slayer. Każdy wpis: co trenowane, na czym, z jakim wynikiem. Kontaminacja benchmarkowa oznaczona jawnie.",
  "experiments": [
+  {
+   "id": "harness-binary-artifact",
+   "date": "2026-06-15",
+   "name": "Diagnoza: „przegrana” na CBD/DYK/GSM8K to bug harnessu, nie modelu",
+   "base": "Qwen3.5-27B (base/v3/v4) vs Bielik-11B-v2.3",
+   "method": "pełna macierz 4 modeli (bench_runner, n=100) + probe scoringu: TAK/NIE vs YES/NO, sum vs per-token vs kalibracja kontekstowa, accuracy vs F1",
+   "status": "clean",
+   "plots": [
+    { "src": "/results/plots/matrix.png", "cap": "Pełna macierz: base / v3 / v4(cal λ0.3) / Bielik, jeden protokół (n=100). Czerwień u Bielika = poniżej naszej bazy. UWAGA: psc/dyk/cbd zniekształcone artefaktem scoringu (patrz niżej), gsm8k uciętym thinkingiem — to nie wiedza." }
+   ],
+   "eval": {
+    "harness": "bench_runner.py n=100 (screening) + probe kalibracji n=100 na base, seed 42",
+    "tasks": {
+     "Gdzie Bielik bije nas (n=100)": "CBD, DYK, PolEmo-in, +GSM8K (i PSC remis)",
+     "Z tego realna przewaga": "tylko PolEmo-in — reszta to artefakty pomiaru",
+     "TAK/NIE — długość tokenów (zmierzone)": "TAK=1 token, NIE=2 tokeny; Tak/Nie=1/1, YES/NO=1/1 (tylko WIELKIE TAK/NIE są asymetryczne)",
+     "CBD base — sum logprob (none)": "acc=60 F1=35, predTAK=51/100 (gold TAK=11) — bias ku 1-tokenowemu TAK",
+     "CBD base — per-token (mean)": "acc=89 F1=15 — POZORNY fix: to baseline większościowy (89% NIE), F1 pada",
+     "CBD base — kalibracja kontekstowa + any-lang": "acc=75 F1=44 — realny sygnał (predTAK=34)",
+     "Ucieczka do angielskiego (YES/NO)": "0/100 — model ZAWSZE preferuje polskie TAK/NIE; hipoteza języka obalona",
+     "GSM8K base": "20 (nierealne dla Qwen 27B) — thinking ucięty przy max_new=512, parser nie dożywa do '####'"
+    }
+   },
+   "log_note": "Trwa: re-score DYK/PSC + pełny rerun 4 modeli z poprawnym scoringiem (kalibracja + F1 wg KLEJ) i większym budżetem tokenów GSM8K. Macierz powyżej zostanie podmieniona na wersję po naprawie.",
+   "note": "Pytanie wyjściowe: „czemu mamy fuckup na CBD/DYK?”. Odpowiedź: to DWA różne bugi harnessu, nie modelu. (1) CBD/DYK/PSC są scorowane LIKELIHOODEM (nie generacją) — porównujemy sumę logprobów ' TAK' vs ' NIE'. Ale ' TAK'=1 token, ' NIE'=2 tokeny, a scorer sumuje (nie uśrednia) → wbudowany bias ku TAK. Gold jest w 82–89% NIE, więc model „przewiduje” TAK 51–64 razy i accuracy się sypie — DOKŁADNIE proporcjonalnie do niezbalansowania (CBD 89%NIE→najgorzej). Przejście na per-token (mean) to PUŁAPKA: zwija się do samego NIE = baseline większościowy (CBD acc=89 ale F1=15). Prawdziwy fix: kalibracja kontekstowa (odjęcie logprobu etykiety na pustym promptcie) + metryka F1 (oficjalna w KLEJ), stosowane JEDNAKOWO do wszystkich modeli (anti-benchmaxxing). Po kalibracji base wraca do sensownego F1=44. (2) Hipoteza „model woli angielskie YES/NO” obalona twardo: EN-leak=0/100 — przy scoringu likelihood model zawsze stawia na polskie TAK/NIE. (3) GSM8K to osobny bug — generacja z uciętym thinkingiem (max_new=512), base=20 jest nierealne; fix = większy budżet tokenów + format-aware extraction. Wniosek: z 5 „przegranych” z Bielikiem realna jest tylko PolEmo-in; reszta to harness. Reguła: każda poprawka pomiaru idzie na wszystkie modele naraz, nigdy per-model."
+  },
   {
    "id": "v4-faza0",
    "date": "2026-06-14",
@@ -40,7 +66,7 @@
      "LLMzSzŁ (nasz pomiar): Bielik vs Slayer v3": "56.0 vs 66.8"
     }
    },
-   "note": "Jak SpeakLeash robi Bielika. Pretrening 198 mld tok (Megatron, 256x GH200, 8 dni) — stąd polska wiedza ze słabej bazy Mistral. SFT 16-20 mln instrukcji (skala, nie LIMA; weighted CE, adaptive LR, masking, packing). Alignment: DPO to główna dźwignia PL — SFT sam +8% PL, SFT+DPO +16% PL. Pipeline preferencji: dedup LSH/cosine/minhash, generacja, ocena metamodelem, filtr (odrzuć margines <2, max<5), DPO-P. Korpus Spichlerz 2.8 TB pobieralny pakietem speakleash; mix instrukcyjny/DPO Bielika NIE jest publiczny. Wniosek: mamy mocniejszą bazę (Qwen3.5-27B), wiedzą już bijemy (66.8 vs 56.0); brak nam DPO + szerokiego pokrycia SFT, NIE replikujemy ich CPT. UWAGA: Open PL LLM Leaderboard nie jest reprodukowalny -> budujemy własny proxy 5-shot. Szczegóły: BIELIK_RECIPE_NOTES.md."
+   "note": "Jak SpeakLeash robi Bielika. Pretrening 198 mld tok (Megatron, 256x GH200, 8 dni) — stąd polska wiedza ze słabej bazy Mistral. SFT 16-20 mln instrukcji (skala, nie LIMA; weighted CE, adaptive LR, masking, packing). Alignment: DPO to główna dźwignia PL — SFT sam +8% PL, SFT+DPO +16% PL. Pipeline preferencji: dedup LSH/cosine/minhash, generacja, ocena metamodelem, filtr (odrzuć margines <2, max<5), DPO-P. Korpusy SpeakLeash/Spichlerz są dostępne przez pakiet speakleash/dashboard, ale rozmiaru nie podajemy bez aktualnego publicznego źródła; mix instrukcyjny/DPO Bielika NIE jest publiczny. Wniosek: mamy mocniejszą bazę (Qwen3.5-27B), wiedzą już bijemy (66.8 vs 56.0); brak nam DPO + szerokiego pokrycia SFT, NIE replikujemy ich CPT. UWAGA: zamknięty leaderboard nie jest dev setem -> budujemy własny proxy 5-shot. Szczegóły: BIELIK_RECIPE_NOTES.md."
   },
   {
    "id": "v3-trained",
