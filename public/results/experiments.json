@@ -9,7 +9,10 @@
    "base": "Qwen3.5-27B",
    "method": "λ-merge: base + 0.30·(v3−base), interpolacja wag (DoRA-safe) — bez treningu",
    "status": "clean",
-   "plot": "/results/plots/v4.png",
+   "plots": [
+    { "src": "/results/plots/matrix.png", "cap": "Macierz benchmarków: base vs v3 vs v4 (kolor = Δ vs base, best-of metoda per zadanie). v4/Bielik dochodzą w miarę liczenia." },
+    { "src": "/results/plots/v4.png", "cap": "Porównanie base / v3 / cal-l030 — cel (LLMzSzŁ) i kalibracja (CDSC-E) + frontier λ." }
+   ],
    "eval": {
     "harness": "klej_eval.py CDSC-E likelihood n=200 + bench_llmzszl_likelihood.py n=400, seed 42",
     "tasks": {

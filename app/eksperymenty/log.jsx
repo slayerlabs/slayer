@@ -1,44 +1,7 @@
 // Server component (no "use client"): rendered statically at build so crawlers get full HTML.
 const SRCLABEL = { style: "styl", klej_train_split: "KLEJ train", klej_synth: "KLEJ synth", replay: "replay", distill_pl: "destylacja PL", aya_pl: "Aya-PL", oasst_pl: "OASST-PL", en_retention: "EN retencja" };
 
-function Chart({ cv }) {
-  if (!cv || ((!cv.train || !cv.train.length) && (!cv.eval || !cv.eval.length))) return null;
-  const W = 520, H = 130, pl = 34, pr = 8, pt = 10, pb = 18;
-  const all = [...(cv.train || []), ...(cv.eval || [])];
-  const xs = all.map((p) => p[0]), ys = all.map((p) => p[1]);
-  let x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys);
-  if (y1 === y0) { y1 += 0.05; y0 -= 0.05; }
-  if (x1 === x0) x1 = x0 + 1;
-  const sx = (s) => pl + ((s - x0) / (x1 - x0)) * (W - pl - pr);
-  const sy = (v) => pt + (1 - (v - y0) / (y1 - y0)) * (H - pt - pb);
-  const path = (pts) => pts.map((p, i) => (i ? "L" : "M") + sx(p[0]).toFixed(1) + " " + sy(p[1]).toFixed(1)).join(" ");
-  return (
-    <>
-      <div className="secline">krzywa loss</div>
-      <div className="chartwrap">
-        <svg viewBox={`0 0 ${W} ${H}`} className="chart" preserveAspectRatio="none">
-          <line x1={pl} y1={sy(y1).toFixed(1)} x2={W - pr} y2={sy(y1).toFixed(1)} className="grid" />
-          <line x1={pl} y1={sy(y0).toFixed(1)} x2={W - pr} y2={sy(y0).toFixed(1)} className="grid" />
-          <text x="2" y={(sy(y1) + 3).toFixed(1)} className="ax">{y1.toFixed(2)}</text>
-          <text x="2" y={(sy(y0) + 3).toFixed(1)} className="ax">{y0.toFixed(2)}</text>
-          {cv.train && cv.train.length ? <path d={path(cv.train)} className="ltrain" /> : null}
-          {cv.eval && cv.eval.length ? (
-            <>
-              <path d={path(cv.eval)} className="leval" />
-              {cv.eval.map((p, i) => <circle key={i} cx={sx(p[0]).toFixed(1)} cy={sy(p[1]).toFixed(1)} r="2.8" className="deval" />)}
-            </>
-          ) : null}
-          <text x={pl} y={H - 4} className="ax">step {x0}</text>
-          <text x={W - pr} y={H - 4} className="ax" textAnchor="end">{x1}</text>
-        </svg>
-        <div className="leg">
-          {cv.train && cv.train.length ? <span className="lg t">train loss</span> : null}
-          {cv.eval && cv.eval.length ? <span className="lg e">eval loss</span> : null}
-        </div>
-      </div>
-    </>
-  );
-}
+// (Usunięty inline-SVG Chart — krzywe loss są teraz wyłącznie matplotlib PNG via x.plot.)
 
 function Card({ x }) {
   const clean = x.status === "clean";
@@ -93,8 +56,6 @@ function Card({ x }) {
             <div className="secline">krzywa loss</div>
             <img className="lossimg" src={x.plot} alt={`loss curve ${x.name}`} loading="lazy" />
           </>
-        ) : x.curves ? (
-          <Chart cv={x.curves} />
         ) : null}
         {Array.isArray(x.plots) && x.plots.length ? (
           <>
