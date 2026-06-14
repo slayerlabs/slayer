@@ -1,7 +1,26 @@
 {
- "updated": "2026-06-13",
+ "updated": "2026-06-14",
  "note": "Uczciwy log eksperymentów Slayer. Każdy wpis: co trenowane, na czym, z jakim wynikiem. Kontaminacja benchmarkowa oznaczona jawnie.",
  "experiments": [
+  {
+   "id": "v4-faza0",
+   "date": "2026-06-14",
+   "name": "V4 Faza 0 — pomiar (likelihood) + kalibracja λ (cal-l030)",
+   "base": "Qwen3.5-27B",
+   "method": "λ-merge: base + 0.30·(v3−base), interpolacja wag (DoRA-safe) — bez treningu",
+   "status": "clean",
+   "plot": "/results/plots/v4.png",
+   "eval": {
+    "harness": "klej_eval.py CDSC-E likelihood n=200 + bench_llmzszl_likelihood.py n=400, seed 42",
+    "tasks": {
+     "LLMzSzŁ (n=400): base / v3 / cal-l030": "63.5 / 66.8 / 63.5",
+     "CDSC-E likelihood (n=200): base / v3 / cal-l030": "87.5 / 81.5 / 83.5",
+     "CDSC-E v3: generacja vs likelihood": "64.5 → 81.5 (czyli −22.5 → −6.0)"
+    }
+   },
+   "log_note": "Trwa pełny screen base vs v3 vs cal-l030: KLEJ ×12 (likelihood) + LLMzSzŁ + EN-retention (ARC-C, MMLU, Belebele-EN, GSM8K). Runner bierze model z HF/katalogu, sampling n=100, zapis przyrostowy + watchdog.",
+   "note": "Faza 0 V4 to diagnoza i kalibracja, nie nowy trening. (1) „Katastrofa” CDSC-E v3 była w ~3/4 artefaktem POMIARU: generacja+parser dawały 64.5, ale likelihood (scoring etykiet) daje 81.5 — realny spadek to −6.0, nie −22.5. Wniosek operacyjny: zadania klasyfikacyjne mierzymy likelihood. (2) v3 to realny zysk na celu (LLMzSzŁ +3.3) bez szerokiej regresji KLEJ — makro płaskie, sentyment +9/+7.5. (3) Próba naprawy przez merge wag λ=0.30 (cal-l030) wyglądała świetnie na n=200 (CDSC 82 / LLMzSzŁ 66.5), ale twardy rerun n=400 pokazał, że oddała CAŁY zysk celu (LLMzSzŁ 63.5 = baza), zostawiając −4 na CDSC. Mała próbka skłamała. Wniosek: decyzje o release wyłącznie na n≥400; przy niskim λ koszt CDSC rośnie szybciej niż zysk LLMzSzŁ, więc post-hoc merge nie da gate-clean wygranej — prawdziwy fix to trening anti-collapse (q/v only, niższy lr, hard-neutral NLI + KL-to-base). Reguła V4: zero benchmark train splitów jako paliwa, też KLEJ."
+  },
   {
    "id": "v3-trained",
    "date": "2026-06-13",
@@ -25,6 +44,7 @@
     "DoRA": "r16/α32",
     "early-stop": "12% holdout / patience 2"
    },
+   "plot": "/results/plots/v3.png",
    "curves": {
     "train": [
      [

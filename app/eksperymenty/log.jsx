@@ -95,9 +95,9 @@ function Card({ x }) {
             <div className="secline">krzywa loss</div>
             <img className="lossimg" src={x.plot} alt={`loss curve ${x.name}`} loading="lazy" />
           </>
-        ) : (
+        ) : x.curves ? (
           <Chart cv={x.curves} />
-        )}
+        ) : null}
         {x.early_stop ? <div className="xp-es">⏹ {x.early_stop}</div> : null}
         {x.log_note ? <div className="muted mono" style={{ fontSize: ".72rem" }}>{x.log_note}</div> : null}
         {ev.tasks && (
