@@ -1,6 +1,4 @@
-"use client";
-import { useEffect, useState } from "react";
-
+// Server component (no "use client"): rendered statically at build so crawlers get full HTML.
 const SRCLABEL = { style: "styl", klej_train_split: "KLEJ train", klej_synth: "KLEJ synth", replay: "replay", distill_pl: "destylacja PL", aya_pl: "Aya-PL", oasst_pl: "OASST-PL", en_retention: "EN retencja" };
 
 function Chart({ cv }) {
@@ -98,6 +96,19 @@ function Card({ x }) {
         ) : x.curves ? (
           <Chart cv={x.curves} />
         ) : null}
+        {Array.isArray(x.plots) && x.plots.length ? (
+          <>
+            <div className="secline">wykresy</div>
+            <div className="gallery">
+              {x.plots.map((p, i) => (
+                <figure key={i} className="gfig">
+                  <img className="gimg" src={p.src} alt={p.cap || x.name} loading="lazy" />
+                  {p.cap ? <figcaption>{p.cap}</figcaption> : null}
+                </figure>
+              ))}
+            </div>
+          </>
+        ) : null}
         {x.early_stop ? <div className="xp-es">⏹ {x.early_stop}</div> : null}
         {x.log_note ? <div className="muted mono" style={{ fontSize: ".72rem" }}>{x.log_note}</div> : null}
         {ev.tasks && (
@@ -115,21 +126,13 @@ function Card({ x }) {
   );
 }
 
-export default function ExperimentLog() {
-  const [d, setD] = useState(null);
-  const [err, setErr] = useState(false);
-  useEffect(() => {
-    fetch("/results/experiments.json?ts=" + Date.now())
-      .then((r) => r.json())
-      .then(setD)
-      .catch(() => setErr(true));
-  }, []);
-  const xs = d ? (d.experiments || []).slice().sort((a, b) => (b.date || "").localeCompare(a.date || "")) : [];
+export default function ExperimentLog({ d }) {
+  const xs = (d?.experiments || []).slice().sort((a, b) => (b.date || "").localeCompare(a.date || ""));
   return (
     <>
       <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 16, flexWrap: "wrap" }}>
         <div><span className="kick"><span className="ac">LOG</span> — eksperymenty · co · na czym · z jakim wynikiem</span><h1>Log eksperymentów</h1></div>
-        <span className="live"><span className="d"></span><span>{d ? "zaktualizowano " + (d.updated || "—") : "—"}</span></span>
+        <span className="live"><span className="d"></span><span>{"zaktualizowano " + (d?.updated || "—")}</span></span>
       </div>
 
       <div className="banner">
@@ -139,13 +142,11 @@ export default function ExperimentLog() {
       </div>
 
       <div className="log">
-        {err && <div className="muted mono" style={{ marginTop: 20 }}>brak danych (results/experiments.json)</div>}
-        {!err && !d && <div className="muted mono" style={{ marginTop: 20 }}>wczytuję log…</div>}
-        {d && (xs.length ? xs.map((x) => <Card key={x.name + x.date} x={x} />) : <div className="muted mono">brak eksperymentów</div>)}
+        {xs.length ? xs.map((x) => <Card key={x.name + x.date} x={x} />) : <div className="muted mono">brak eksperymentów</div>}
       </div>
 
       <p className="muted mono" style={{ textAlign: "center", fontSize: ".78rem", marginTop: 22 }}>
-        {d ? xs.length + " eksperymentów · log auto-aktualizowany przez pipeline (pipeline/run_daily.py)" : "—"}
+        {xs.length + " eksperymentów · log auto-aktualizowany przez pipeline (pipeline/run_daily.py)"}
       </p>
     </>
   );

@@ -1,4 +1,16 @@
+import fs from "node:fs";
+import path from "node:path";
 import ExperimentLog from "./log";
+
+// Read at build → fully static HTML (crawlable). Pipeline pushes experiments.json → Vercel rebuild.
+function loadExperiments() {
+  try {
+    const p = path.join(process.cwd(), "public/results/experiments.json");
+    return JSON.parse(fs.readFileSync(p, "utf-8"));
+  } catch {
+    return { experiments: [], updated: "—" };
+  }
+}
 
 export const metadata = {
   title: "Log eksperymentów | Slayer",
@@ -46,14 +58,19 @@ const css = `
     .dspill{align-self:flex-start;font-family:var(--mono);font-size:.76rem;padding:5px 11px;border-radius:6px;background:var(--acc-soft);border:1px solid rgba(199,148,72,.25);color:var(--acc);text-decoration:none}
     .dspill:hover{background:rgba(199,148,72,.16)}
     .dsdesc{font-size:.86rem;color:var(--mut);line-height:1.5}
+    .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px;margin-top:4px}
+    .gfig{margin:0}
+    .gimg{width:100%;border:1px solid var(--line2);border-radius:8px;display:block;background:#f6f3ec}
+    .gfig figcaption{font-family:var(--mono);font-size:.7rem;color:var(--dim);margin-top:4px;line-height:1.4}
 `;
 
 export default function Eksperymenty() {
+  const d = loadExperiments();
   return (
     <div className="sec page-top">
       <style>{css}</style>
       <div className="inner">
-        <ExperimentLog />
+        <ExperimentLog d={d} />
       </div>
     </div>
   );
