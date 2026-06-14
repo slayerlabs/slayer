@@ -25,6 +25,24 @@
    "note": "Faza 0 V4 to diagnoza i kalibracja, nie nowy trening. (1) „Katastrofa” CDSC-E v3 była w ~3/4 artefaktem POMIARU: generacja+parser dawały 64.5, ale likelihood (scoring etykiet) daje 81.5 — realny spadek to −6.0, nie −22.5. Wniosek operacyjny: zadania klasyfikacyjne mierzymy likelihood. (2) v3 to realny zysk na celu (LLMzSzŁ +3.3) bez szerokiej regresji KLEJ — makro płaskie, sentyment +9/+7.5. (3) Próba naprawy przez merge wag λ=0.30 (cal-l030) wyglądała świetnie na n=200 (CDSC 82 / LLMzSzŁ 66.5), ale twardy rerun n=400 pokazał, że oddała CAŁY zysk celu (LLMzSzŁ 63.5 = baza), zostawiając −4 na CDSC. Mała próbka skłamała. Wniosek: decyzje o release wyłącznie na n≥400; przy niskim λ koszt CDSC rośnie szybciej niż zysk LLMzSzŁ, więc post-hoc merge nie da gate-clean wygranej — prawdziwy fix to trening anti-collapse (q/v only, niższy lr, hard-neutral NLI + KL-to-base). Reguła V4: zero benchmark train splitów jako paliwa, też KLEJ."
   },
   {
+   "id": "bielik-recon",
+   "date": "2026-06-14",
+   "name": "recon Bielik — receptura konkurenta (prez. R. Kinas, SpeakLeash)",
+   "base": "Mistral 7B/11B (up-scaling) + 198 mld tok CPT",
+   "method": "analiza publicznej prezentacji",
+   "n_examples": 0,
+   "status": "clean",
+   "eval": {
+    "harness": "Bielik 11B v2.3 — wyniki raportowane przez SpeakLeash",
+    "tasks": {
+     "MT-Bench-PL": "8.56",
+     "EQ-Bench-PL": "70.86",
+     "LLMzSzŁ (nasz pomiar): Bielik vs Slayer v3": "56.0 vs 66.8"
+    }
+   },
+   "note": "Jak SpeakLeash robi Bielika. Pretrening 198 mld tok (Megatron, 256x GH200, 8 dni) — stąd polska wiedza ze słabej bazy Mistral. SFT 16-20 mln instrukcji (skala, nie LIMA; weighted CE, adaptive LR, masking, packing). Alignment: DPO to główna dźwignia PL — SFT sam +8% PL, SFT+DPO +16% PL. Pipeline preferencji: dedup LSH/cosine/minhash, generacja, ocena metamodelem, filtr (odrzuć margines <2, max<5), DPO-P. Korpus Spichlerz 2.8 TB pobieralny pakietem speakleash; mix instrukcyjny/DPO Bielika NIE jest publiczny. Wniosek: mamy mocniejszą bazę (Qwen3.5-27B), wiedzą już bijemy (66.8 vs 56.0); brak nam DPO + szerokiego pokrycia SFT, NIE replikujemy ich CPT. UWAGA: Open PL LLM Leaderboard nie jest reprodukowalny -> budujemy własny proxy 5-shot. Szczegóły: BIELIK_RECIPE_NOTES.md."
+  },
+  {
    "id": "v3-trained",
    "date": "2026-06-13",
    "name": "slayer-v3 — trening + pierwszy wynik LLMzSzŁ",
