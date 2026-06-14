@@ -17,7 +17,7 @@ export const POSTS = [
     title: "V4 Faza 0: regresja CDSC-E była głównie artefaktem pomiaru, a kalibracja λ to pułapka małej próbki",
     tags: ["v4", "faza0", "likelihood", "kalibracja", "EN-retention", "gate"],
     lead:
-      "Domknięcie wątku z v3. Po policzeniu wszystkiego na H100: „katastrofalny" spadek CDSC-E był w ~3/4 artefaktem trybu pomiaru (generacja + parser), a nie uszkodzeniem wag. v3 to realny zysk na celu (LLMzSzŁ +3.3, makro KLEJ płaskie). Próba „naprawy" przez merge wag λ=0.3 wyglądała świetnie na n=200 i wywróciła się na n=400 — oddała cały zysk. Wnioski: mierzyć likelihood, decydować na n≥400, prawdziwy fix to trening anti-collapse, nie mieszanie wag.",
+      "Domknięcie wątku z v3. Po policzeniu wszystkiego na H100: katastrofalny spadek CDSC-E był w ~3/4 artefaktem trybu pomiaru (generacja + parser), a nie uszkodzeniem wag. v3 to realny zysk na celu (LLMzSzŁ +3.3, makro KLEJ płaskie). Próba naprawy przez merge wag λ=0.3 wyglądała świetnie na n=200 i wywróciła się na n=400 — oddała cały zysk. Wnioski: mierzyć likelihood, decydować na n≥400, prawdziwy fix to trening anti-collapse, nie mieszanie wag.",
     body: `
 ## Wniosek w jednym zdaniu
 
