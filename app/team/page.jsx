@@ -120,6 +120,7 @@ const MEMBERS = [
   { img: "/assets/team/piotr-styla.webp", name: "Piotr Styła", specialty: "Rekrutacja · Agenci LLM", bio: "Za dnia rekrutuje i onboarduje talenty, po zmroku LLM Slayer: buduje zespoły agentów (call center dla branży medycznej) oraz aplikacje webowe i na Androida. AGH." },
   { img: "/assets/team/bartlomiej-boczylo.jpg", name: "Bartłomiej Boczyło", specialty: "ML · Frontend", bio: "Student II roku inżynierii AI. Frontend dev, rozwija się w ML/DL, CV, NLP, RL i modelach generatywnych. Stack: Python, TensorFlow, PyTorch, MLOps." },
   { img: "/assets/team/kuba6.jpg", name: "Kuba", specialty: "AI Engineer · Fullstack", bio: "Fizyk-teoretyk z wykształcenia. AI Engineer w projekcie onkologicznym (CV), ostatnie 2 lata w GenAI i agentach. Chce trenować LLM, robi datasety i benchmarki." },
+  { img: "/assets/team/lizzy.jpg", name: "Elżbieta Dawidek (Lizzy)", specialty: "Antropolog · Logopeda · AAC", bio: "Bada sposoby budowania języka. Projektuje zadania diagnostyczne dla modeli językowych, sprawdzające polską fleksję, przypadki i rozumienie relacji w zdaniu. Wykładowca akademicki Uniwersytet DSW Ideis." },
 ];
 
 const ADVISORS = [
@@ -149,7 +150,11 @@ export default function Team() {
             {MEMBERS.map((m) => (
               <article className="member" key={m.name}>
                 <div className="av">
-                  <img src={m.img} alt={m.name} />
+                  {m.img ? (
+                    <img src={m.img} alt={m.name} />
+                  ) : (
+                    <span className="av-init">{m.name.charAt(0)}</span>
+                  )}
                 </div>
                 <div className="member-info">
                   <div className="member-title-label">Member of Technical Staff</div>
