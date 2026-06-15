@@ -121,6 +121,7 @@ const MEMBERS = [
   { img: "/assets/team/bartlomiej-boczylo.jpg", name: "Bartłomiej Boczyło", specialty: "ML · Frontend", bio: "Student II roku inżynierii AI. Frontend dev, rozwija się w ML/DL, CV, NLP, RL i modelach generatywnych. Stack: Python, TensorFlow, PyTorch, MLOps." },
   { img: "/assets/team/kuba6.jpg", name: "Kuba", specialty: "AI Engineer · Fullstack", bio: "Fizyk-teoretyk z wykształcenia. AI Engineer w projekcie onkologicznym (CV), ostatnie 2 lata w GenAI i agentach. Chce trenować LLM, robi datasety i benchmarki." },
   { img: "/assets/team/lizzy.jpg", name: "Elżbieta Dawidek (Lizzy)", specialty: "Antropolog · Logopeda · AAC", bio: "Bada sposoby budowania języka. Projektuje zadania diagnostyczne dla modeli językowych, sprawdzające polską fleksję, przypadki i rozumienie relacji w zdaniu. Wykładowca akademicki Uniwersytet DSW Ideis." },
+  { img: "/assets/team/kamil-kaczmarek.png", name: "Kamil Kaczmarek", specialty: "Fullstack · Boty · Mikroserwisy", bio: "Fullstack deweloper. Buduje bota, mikroserwisy i narzędzia dla agencji marketingowej. Współtwórca systemu zarządzającego dziesiątkami tysięcy ofert na Allegro. Dostarcza end-to-end: od pomysłu do wdrożenia." },
 ];
 
 const ADVISORS = [
