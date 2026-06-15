@@ -3,6 +3,46 @@
  "note": "Uczciwy log eksperymentów Slayer. Każdy wpis: co trenowane, na czym, z jakim wynikiem. Kontaminacja benchmarkowa oznaczona jawnie.",
  "experiments": [
   {
+   "id": "modded-nanogpt-polish-bringup",
+   "date": "2026-06-15",
+   "name": "Stawianie modded-nanogpt na polskim od zera: pięć rzeczy, które się wywaliły (i czemu)",
+   "base": "modded-nanogpt (Muon + RoPE + RMSNorm + QK-norm + SwiGLU, 124M) na clean korpusie PL (3.47B tok, polski BPE 32k), 1×H100",
+   "method": "adaptacja 8×H100 speedrunu pod 1×H100 + polski tokenizer + własne shardy; cel: pobić GPT-2. Debug iteracyjny do pierwszego zdrowego biegu.",
+   "status": "clean",
+   "eval": {
+    "harness": "torchrun --standalone --nproc_per_node=1 train_gpt.py",
+    "tasks": {
+     "Bug 1 — kompilacja kernela CUDA": "triton_kernels.py miał hardkod cuda_include_dirs=/usr/local/cuda/include (nie istnieje na boxie) → nvrtc nie znajdował cuda_bf16.h. Fix: wskazać include na pakiety pip (nvidia-cuda-runtime-cu12)",
+     "Bug 2 — max_num_docs (crash na step 500)": "bufor granic dokumentów stuningowany pod FineWeb (długie doki); nasze gęste krótkie wiki-doki przepełniły go (81 doków > 64) → RuntimeError. Fix: dzielnik //48 zamiast //300 + większa tablica",
+     "Bug 3 — 51 GB H100 zajęte": "Livebook (Erlang/EXLA, root-owned) prealokował 51 z 80 GB; trening dostał 27 GB. Fix: sudo kill beam.smp (XLA agresywnie grabi VRAM nawet idle)",
+     "Bug 4 — własny błąd": "patch zostawił przecinek za komentarzem (vocab_size=32896  # ...,) → przecinek zakomentowany → SyntaxError. Banał, kosztował relaunch",
+     "Bug 5 — thrashing launchy": "kilka równoległych biegów walczących o GPU; pgrep-guard złapał zdychający proces i nie odpalił nowego. Fix: czysty kill → JEDEN bieg + persistent compile cache (TORCHINDUCTOR_CACHE_DIR), żeby 7-min warmup nie powtarzał się przy każdym relaunchu",
+     "Detal — vocab a potęgi 2": "32768 to czysta potęga dwójki (ryzyko gorszej ścieżki cuBLAS, ostrzeżenie Karpathy'ego); model spadowany do 32896 (×128, NIE potęga 2), tokenizer zostaje 32768 — nadmiarowe wiersze to 'useless dimensions', nigdy nie są targetem",
+     "Wniosek": "cudze speedruny są stuningowane pod ICH dane (FineWeb = długie doki); adaptacja do innego rozkładu długości dokumentów wymaga przejrzenia zaszytych stałych. Plus znów: jeden proces, checkpoint/resume, cache kompilacji — inaczej traci się godziny na crashach i warmupie"
+    }
+   }
+  },
+  {
+   "id": "polish-bpe-vs-bielik",
+   "date": "2026-06-15",
+   "name": "Własny polski BPE koduje polski 1.75× gęściej niż tokenizer Bielika",
+   "base": "polish-32k (nasz, byte-level BPE) vs Bielik-11B-v3 / Llama-3 / GPT-2",
+   "method": "fertility = tokeny/słowo na 2000 held-out polskich dokumentów (962k słów); identyczny tekst dla wszystkich. BPE trenowany na ~1GB zbalansowanej próbki korpusu (cap legalese bo 71% to prawo), 51s na 16 rdzeniach.",
+   "status": "clean",
+   "eval": {
+    "harness": "tokenizers (Rust) encode_batch na identycznej próbce held-out, tok/słowo",
+    "tasks": {
+     "polish-32k (nasz, 32k vocab)": "1.738 tok/słowo — 1.00× (baseline)",
+     "Llama-3 (128k vocab)": "2.744 tok/słowo — 1.58× gorzej",
+     "Bielik-11B-v3 (32k vocab)": "3.040 tok/słowo — 1.75× gorzej",
+     "GPT-2 (50k vocab)": "3.659 tok/słowo — 2.10× gorzej",
+     "Dlaczego Bielik tak słabo": "oparty na Mistralu → odziedziczył tokenizer Mistrala (32k ogólny, multilingual); nigdy nie dostał dedykowanego polskiego. Wypada gorzej niż Llama-3, mimo 4× mniejszego słownika u Llamy",
+     "Konsekwencja": "przy tym samym vocab (32k) nasz koduje polski ~2× gęściej → 2× więcej tekstu w oknie kontekstu, 2× efektywniejszy trening na token",
+     "Caveat (uczciwie)": "próbka in-domain (Wikipedia); wszystkie 4 dostały IDENTYCZNY tekst, a skala 1.75× jest za duża by to był artefakt domeny — Mistralowy tokenizer po prostu nie jest polski. Pancerny pomiar OOD do dorobienia"
+    }
+   }
+  },
+  {
    "id": "harness-binary-artifact",
    "date": "2026-06-15",
    "name": "Diagnoza: „przegrana” na CBD/DYK/GSM8K to bug harnessu, nie modelu",
@@ -10,7 +50,10 @@
    "method": "pełna macierz 4 modeli (bench_runner, n=100) + probe scoringu: TAK/NIE vs YES/NO, sum vs per-token vs kalibracja kontekstowa, accuracy vs F1",
    "status": "clean",
    "plots": [
-    { "src": "/results/plots/matrix.png", "cap": "Pełna macierz: base / v3 / v4(cal λ0.3) / Bielik, jeden protokół (n=100). Czerwień u Bielika = poniżej naszej bazy. UWAGA: psc/dyk/cbd zniekształcone artefaktem scoringu (patrz niżej), gsm8k uciętym thinkingiem — to nie wiedza." }
+    {
+     "src": "/results/plots/matrix.png",
+     "cap": "Pełna macierz: base / v3 / v4(cal λ0.3) / Bielik, jeden protokół (n=100). Czerwień u Bielika = poniżej naszej bazy. UWAGA: psc/dyk/cbd zniekształcone artefaktem scoringu (patrz niżej), gsm8k uciętym thinkingiem — to nie wiedza."
+    }
    ],
    "eval": {
     "harness": "bench_runner.py n=100 (screening) + probe kalibracji n=100 na base, seed 42",
@@ -36,8 +79,14 @@
    "method": "λ-merge: base + 0.30·(v3−base), interpolacja wag (DoRA-safe) — bez treningu",
    "status": "clean",
    "plots": [
-    { "src": "/results/plots/matrix.png", "cap": "Macierz benchmarków: base vs v3 vs v4 (kolor = Δ vs base, best-of metoda per zadanie). v4/Bielik dochodzą w miarę liczenia." },
-    { "src": "/results/plots/v4.png", "cap": "Porównanie base / v3 / cal-l030 — cel (LLMzSzŁ) i kalibracja (CDSC-E) + frontier λ." }
+    {
+     "src": "/results/plots/matrix.png",
+     "cap": "Macierz benchmarków: base vs v3 vs v4 (kolor = Δ vs base, best-of metoda per zadanie). v4/Bielik dochodzą w miarę liczenia."
+    },
+    {
+     "src": "/results/plots/v4.png",
+     "cap": "Porównanie base / v3 / cal-l030 — cel (LLMzSzŁ) i kalibracja (CDSC-E) + frontier λ."
+    }
    ],
    "eval": {
     "harness": "klej_eval.py CDSC-E likelihood n=200 + bench_llmzszl_likelihood.py n=400, seed 42",
