@@ -54,7 +54,7 @@ export default function Nav() {
   return (
     <header className="sl-nav">
       <a className="sl-brand" href="/" onClick={close}>
-        <span className="mk">✦</span> slayer<span className="sep"> / </span>protokół
+        <span className="sl-mk">✦</span> slayer<span className="sl-sep"> / </span>protokół
       </a>
       <button
         className="sl-navtoggle"
