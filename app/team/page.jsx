@@ -125,6 +125,7 @@ const MEMBERS = [
   { img: "/assets/team/grzegorz.jpeg", name: "Grzegorz Trzaskoma", specialty: "Backend · Java · Node.js", bio: "Student informatyki II roku. Buduje framework agentowy @the-brain/core oraz aplikację Scheduler (system zarządzania pracownikami) jako sandbox dla agentów. Pełne środowisko testowe w terminalu, pamięć agenta w rozwój. gt-processing.com" },
   { img: "/assets/team/s3nh.jpg", name: "Damian Panek", specialty: "ML Engineer · OSS · Quantization", bio: "ML Engineer, fanatyk open source. Specjalizuje się w metodach kwantyzacji i optymalizacji SOTA modeli." },
   { img: "/assets/team/konradtalik.jpg", name: "Konrad Talik", specialty: "Agent Workflows · ML Strategy · Data Viz", bio: "Wielogodzinny agentowy przepływ pracy, strategia uczenia maszynowego w oparciu o eksplorację i wizualizację danych.", link: "https://www.linkedin.com/in/ktalik", link2: "https://www.kondz.io/" },
+  { img: "/assets/team/jezałb.jpg", name: "Błażej", specialty: "Data Science · NLP/LLM · ML", bio: "Bachelor Data Science, kończy MSc Data Science & AI na TU Eindhoven. Pracuje w Pythonie i R: czyszczenie danych, EDA, ewaluacja modeli, benchmarki. Prowadzi badania nad sieciami cytowań i modelami predykcyjnymi. Chętnie angażuje się w tematy agentów AI i LLM." },
 ];
 
 const ADVISORS = [
