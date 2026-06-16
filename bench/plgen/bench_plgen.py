@@ -34,7 +34,8 @@ from bench.plgen import grammar_check  # noqa: E402
 from bench.plgen import judge_panel  # noqa: E402
 
 DEFAULT_SEEDS = [42, 43, 44]
-NUM_PREDICT = 400  # budżet generacji (wyjścia ~200 słów/~300 tok; 400 z zapasem mieści GPU)
+NUM_PREDICT = 1024  # budżet generacji; 400 ucinał ~84% wyjść (median 169 tok) → 1024 pozwala
+                    # wyjściom ~200-260 słów się domknąć (truncation ~38%, resztę guard/ignore łapie)
 NUM_CTX = 2048     # okno kontekstu ollama (prompty ~40 tok); mały KV cache = model GPU-resident
 PROGRESS_EVERY = 20  # co ile ukończonych itemów emitować linię postępu (+ zawsze ostatni)
 
