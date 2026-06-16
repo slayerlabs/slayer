@@ -90,14 +90,14 @@ export default function LeaderboardLive() {
           </table>
         )}
       </div>
-      <p className="sl-lede" style={{ marginTop: 18, fontSize: 13 }}>
+      <p className="sl-lede" style={{ marginTop: 18, fontSize: 14.5 }}>
         {d ? <>Metryka per benchmark: accuracy (MCQ), trafność sędziego-LLM (PoQuAD), chrF (FLORES). Polski rdzeń + kontrola regresji EN. Wszystko publiczne, deterministyczne, liczone czysto. <a href="/benchmarks">metodologia →</a></> : null}
       </p>
 
       <div style={{ marginTop: "clamp(44px,6vw,70px)" }}>
         <div className="sl-eye">macierz</div>
         <h2 className="sl-h2" style={{ marginTop: 10 }}>Benchmarki × modele</h2>
-        <p className="sl-lede" style={{ marginTop: 10, fontSize: 13 }}>sekcje rozdzielone per protokół — liczb między sekcjami nie porównujemy</p>
+        <p className="sl-lede" style={{ marginTop: 10, fontSize: 14.5 }}>sekcje rozdzielone per protokół — liczb między sekcjami nie porównujemy</p>
         {matrix === null && <p className="sl-tele" style={{ marginTop: 16 }}>wczytuję macierz…</p>}
         {matrix === false && <p className="sl-tele" style={{ marginTop: 16 }}>brak macierzy (results/matrix.json)</p>}
         {matrix && (

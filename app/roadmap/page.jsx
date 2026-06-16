@@ -105,31 +105,31 @@ export default function Roadmap() {
             <div className="sl-col sl-col-block sl-feat">
               <div className="sl-clbl">▸ ręce</div>
               <h3 className="sl-h2" style={{ fontSize: 17, marginBottom: 7 }}>Kontrybutorzy</h3>
-              <p className="sl-lede" style={{ fontSize: 13 }}>Ewaluacje, dekontaminacja, loadery, dane. Wejdź na dowolnym poziomie.</p>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}>Ewaluacje, dekontaminacja, loadery, dane. Wejdź na dowolnym poziomie.</p>
               <p className="sl-fn" style={{ marginTop: "auto" }}><a href="/zadania">Lista zadań →</a></p>
             </div>
             <div className="sl-col">
               <div className="sl-clbl">▸ dane</div>
               <h3 className="sl-h2" style={{ fontSize: 17, marginBottom: 7 }}>Dane prawno-urzędowe</h3>
-              <p className="sl-lede" style={{ fontSize: 13 }}>ISAP, orzeczenia, interpretacje — to nasz moat.</p>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}>ISAP, orzeczenia, interpretacje — to nasz moat.</p>
               <p className="sl-fn"><a href="/datasety" style={{ color: "var(--sl-acc)" }}>Datasety →</a></p>
             </div>
             <div className="sl-col">
               <div className="sl-clbl">▸ rynek</div>
               <h3 className="sl-h2" style={{ fontSize: 17, marginBottom: 7 }}>Firmy — zastosowanie</h3>
-              <p className="sl-lede" style={{ fontSize: 13 }}>Powiedz, czego potrzebujesz. Zostań pierwszym użytkownikiem.</p>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}>Powiedz, czego potrzebujesz. Zostań pierwszym użytkownikiem.</p>
               <p className="sl-fn"><a href="/zespol" style={{ color: "var(--sl-acc)" }}>Zgłoś use case →</a></p>
             </div>
             <div className="sl-col">
               <div className="sl-clbl">▸ zasoby</div>
               <h3 className="sl-h2" style={{ fontSize: 17, marginBottom: 7 }}>Fundatorzy</h3>
-              <p className="sl-lede" style={{ fontSize: 13 }}>GPU lub kredyty (RunPod/Vast). Budżet 15–20k zł, każda złotówka jawna.</p>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}>GPU lub kredyty (RunPod/Vast). Budżet 15–20k zł, każda złotówka jawna.</p>
               <p className="sl-fn"><a href="/zespol" style={{ color: "var(--sl-acc)" }}>Wesprzyj →</a></p>
             </div>
             <div className="sl-col">
               <div className="sl-clbl">▸ nauka</div>
               <h3 className="sl-h2" style={{ fontSize: 17, marginBottom: 7 }}>Naukowcy</h3>
-              <p className="sl-lede" style={{ fontSize: 13 }}>Metodyka, ewaluacje, współautorstwo wyników.</p>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}>Metodyka, ewaluacje, współautorstwo wyników.</p>
               <p className="sl-fn"><a href="/zespol" style={{ color: "var(--sl-acc)" }}>Dołącz →</a></p>
             </div>
           </div>

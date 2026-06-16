@@ -85,26 +85,26 @@ export default function Home() {
             <div className="sl-col sl-col-block sl-feat">
               <div className="sl-clbl">▸ ewaluacja · flagowy tor</div>
               <a href="/benchmarks"><h3 className="sl-h2" style={{ marginBottom: 8 }}>Czysty pomiar polszczyzny</h3></a>
-              <p className="sl-lede" style={{ fontSize: 13 }}>Karty benchmarków: co mierzy każda oś, jaka metryka decyduje, gdzie pułapka. Likelihood i generacja rozdzielone, stały seed, tylko agregaty.</p>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}>Karty benchmarków: co mierzy każda oś, jaka metryka decyduje, gdzie pułapka. Likelihood i generacja rozdzielone, stały seed, tylko agregaty.</p>
               <p className="sl-fn">artefakt — harness + karty 10 osi (LLMzSzŁ, KLEJ, PoQuAD…)</p>
               <span className="sl-chip" style={{ marginTop: "auto", alignSelf: "flex-start" }}>10 osi pomiaru</span>
             </div>
             <div className="sl-col">
               <div className="sl-clbl">▸ dane</div>
               <a href="/datasety"><h3 className="sl-h2" style={{ fontSize: 17, marginBottom: 7 }}>Kuracja zamiast masy</h3></a>
-              <p className="sl-lede" style={{ fontSize: 13 }}>Małe, świetne zbiory biją duże i brudne. Pełny lineage każdego miksu, dekontaminacja względem ewaluacji, provenance per rekord.</p>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}>Małe, świetne zbiory biją duże i brudne. Pełny lineage każdego miksu, dekontaminacja względem ewaluacji, provenance per rekord.</p>
               <p className="sl-fn">artefakt — karty datasetów + miksy 1:1 z lineage</p>
             </div>
             <div className="sl-col">
               <div className="sl-clbl">▸ trening</div>
               <a href="/trening"><h3 className="sl-h2" style={{ fontSize: 17, marginBottom: 7 }}>Recepty, które przechodzą próg</h3></a>
-              <p className="sl-lede" style={{ fontSize: 13 }}>QLoRA SFT, preferencje (DPO/ORPO), RL na weryfikowalnych nagrodach. Każdy run z gate&apos;ami regresji.</p>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}>QLoRA SFT, preferencje (DPO/ORPO), RL na weryfikowalnych nagrodach. Każdy run z gate&apos;ami regresji.</p>
               <p className="sl-fn">artefakt — cooking recipe + training log + decyzje</p>
             </div>
             <div className="sl-col">
               <div className="sl-clbl">▸ styl</div>
               <a href="/kierunki"><h3 className="sl-h2" style={{ fontSize: 17, marginBottom: 7 }}>Naturalna polszczyzna</h3></a>
-              <p className="sl-lede" style={{ fontSize: 13 }}>Model ma pisać jak ktoś, kto ma ucho: bez kalek, bez asystenckiej waty, z natywną fleksją. Mierzone twardo i otwartym sędzią.</p>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}>Model ma pisać jak ktoś, kto ma ucho: bez kalek, bez asystenckiej waty, z natywną fleksją. Mierzone twardo i otwartym sędzią.</p>
               <p className="sl-fn">artefakt — style-SFT 1.6k przykładów + eval stylu held-out</p>
             </div>
           </div>
@@ -179,11 +179,11 @@ export default function Home() {
           <div className="sl-cols" style={{ marginTop: 22 }}>
             <div className="sl-col sl-col-lead">
               <div className="sl-clbl">▸ ekosystem</div>
-              <p className="sl-lede" style={{ fontSize: 13 }}>Bielik (SpeakLeash) to ważny punkt odniesienia i wzór otwartego raportowania. Nasz wkład jest komplementarny: niezależna replikacja, tańsza ścieżka treningu i publiczny warsztat pomiarowy.</p>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}>Bielik (SpeakLeash) to ważny punkt odniesienia i wzór otwartego raportowania. Nasz wkład jest komplementarny: niezależna replikacja, tańsza ścieżka treningu i publiczny warsztat pomiarowy.</p>
             </div>
             <div className="sl-col">
               <div className="sl-clbl">▸ baza i licencja</div>
-              <p className="sl-lede" style={{ fontSize: 13 }}>Budujemy na Qwen3.5-27B (Apache 2.0): pochodne można trenować, wydawać i komercjalizować otwarcie. 9B służy do tanich iteracji. Trening i hosting w Polsce, receptura jawna.</p>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}>Budujemy na Qwen3.5-27B (Apache 2.0): pochodne można trenować, wydawać i komercjalizować otwarcie. 9B służy do tanich iteracji. Trening i hosting w Polsce, receptura jawna.</p>
             </div>
           </div>
         </div>

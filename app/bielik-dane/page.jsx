@@ -140,9 +140,9 @@ export default function BielikDane() {
             </div>
           </div>
           <div className="sl-cols" style={{ marginTop: 22 }}>
-            <div className="sl-col"><div className="sl-clbl">▸ 2.4</div><h3 className="sl-h2" style={{ fontSize: 17, marginBottom: 7 }}>Dane użytkowników</h3><p className="sl-lede" style={{ fontSize: 13 }}>Brak. Ani prompty/interakcje z&nbsp;modelem, ani dane z&nbsp;innych usług dostawcy.</p></div>
-            <div className="sl-col"><div className="sl-clbl">▸ 2.2.2</div><h3 className="sl-h2" style={{ fontSize: 17, marginBottom: 7 }}>Inne prywatne źródła</h3><p className="sl-lede" style={{ fontSize: 13 }}>Brak danych od&nbsp;pośredników / dostawców prywatnych baz (poza licencją itwiz).</p></div>
-            <div className="sl-col"><div className="sl-clbl">▸ 2.6</div><h3 className="sl-h2" style={{ fontSize: 17, marginBottom: 7 }}>Inne źródła</h3><p className="sl-lede" style={{ fontSize: 13 }}>Brak źródeł spoza sekcji 2.1–2.5.</p></div>
+            <div className="sl-col"><div className="sl-clbl">▸ 2.4</div><h3 className="sl-h2" style={{ fontSize: 17, marginBottom: 7 }}>Dane użytkowników</h3><p className="sl-lede" style={{ fontSize: 14.5 }}>Brak. Ani prompty/interakcje z&nbsp;modelem, ani dane z&nbsp;innych usług dostawcy.</p></div>
+            <div className="sl-col"><div className="sl-clbl">▸ 2.2.2</div><h3 className="sl-h2" style={{ fontSize: 17, marginBottom: 7 }}>Inne prywatne źródła</h3><p className="sl-lede" style={{ fontSize: 14.5 }}>Brak danych od&nbsp;pośredników / dostawców prywatnych baz (poza licencją itwiz).</p></div>
+            <div className="sl-col"><div className="sl-clbl">▸ 2.6</div><h3 className="sl-h2" style={{ fontSize: 17, marginBottom: 7 }}>Inne źródła</h3><p className="sl-lede" style={{ fontSize: 14.5 }}>Brak źródeł spoza sekcji 2.1–2.5.</p></div>
           </div>
 
           <div className="sl-eye" style={{ marginTop: 44 }}>sekcja 3</div>
@@ -175,9 +175,9 @@ export default function BielikDane() {
             </div>
           </div>
           <div className="sl-cols" style={{ marginTop: 22 }}>
-            <div className="sl-col sl-col-lead"><div className="sl-clbl">▸ A</div><h3 className="sl-h2" style={{ fontSize: 17, marginBottom: 7 }}>Moat prawno-urzędowy jest wspólny</h3><p className="sl-lede" style={{ fontSize: 13 }}>Bielik mocno stawia na&nbsp;akty prawne, orzeczenia, BIP-y i&nbsp;dyskurs parlamentarny — dokładnie pole, które <a href="/datasety">my targetujemy</a>. To&nbsp;nie jest niezagospodarowana przestrzeń; przewaga będzie w&nbsp;kuracji i&nbsp;formacie zadań, nie w&nbsp;samym dostępie do&nbsp;ustaw.</p></div>
-            <div className="sl-col"><div className="sl-clbl">▸ B</div><h3 className="sl-h2" style={{ fontSize: 17, marginBottom: 7 }}>Baza to wciąż Mistral 7B v0.2</h3><p className="sl-lede" style={{ fontSize: 13 }}>v3 11B dalej rośnie z&nbsp;Mistrala 7B v0.2 (upscaling). To&nbsp;wspiera naszą <a href="/kierunki">tezę</a>, że&nbsp;sufit jakości PL leży w&nbsp;modelu bazowym — stąd nasz start od&nbsp;mocniejszego backbona.</p></div>
-            <div className="sl-col"><div className="sl-clbl">▸ C</div><h3 className="sl-h2" style={{ fontSize: 17, marginBottom: 7 }}>Instrukcje = DeepSeek v3 + self-distill</h3><p className="sl-lede" style={{ fontSize: 13 }}>Synthetic SFT z&nbsp;DeepSeek v3 i&nbsp;Bielika v2.3. Potwierdza kierunek: jakość instrukcji zależy od&nbsp;siły nauczyciela — my dobieramy <a href="/styl">otwartego, silnego sędziego/nauczyciela</a> świadomie.</p></div>
+            <div className="sl-col sl-col-lead"><div className="sl-clbl">▸ A</div><h3 className="sl-h2" style={{ fontSize: 17, marginBottom: 7 }}>Moat prawno-urzędowy jest wspólny</h3><p className="sl-lede" style={{ fontSize: 14.5 }}>Bielik mocno stawia na&nbsp;akty prawne, orzeczenia, BIP-y i&nbsp;dyskurs parlamentarny — dokładnie pole, które <a href="/datasety">my targetujemy</a>. To&nbsp;nie jest niezagospodarowana przestrzeń; przewaga będzie w&nbsp;kuracji i&nbsp;formacie zadań, nie w&nbsp;samym dostępie do&nbsp;ustaw.</p></div>
+            <div className="sl-col"><div className="sl-clbl">▸ B</div><h3 className="sl-h2" style={{ fontSize: 17, marginBottom: 7 }}>Baza to wciąż Mistral 7B v0.2</h3><p className="sl-lede" style={{ fontSize: 14.5 }}>v3 11B dalej rośnie z&nbsp;Mistrala 7B v0.2 (upscaling). To&nbsp;wspiera naszą <a href="/kierunki">tezę</a>, że&nbsp;sufit jakości PL leży w&nbsp;modelu bazowym — stąd nasz start od&nbsp;mocniejszego backbona.</p></div>
+            <div className="sl-col"><div className="sl-clbl">▸ C</div><h3 className="sl-h2" style={{ fontSize: 17, marginBottom: 7 }}>Instrukcje = DeepSeek v3 + self-distill</h3><p className="sl-lede" style={{ fontSize: 14.5 }}>Synthetic SFT z&nbsp;DeepSeek v3 i&nbsp;Bielika v2.3. Potwierdza kierunek: jakość instrukcji zależy od&nbsp;siły nauczyciela — my dobieramy <a href="/styl">otwartego, silnego sędziego/nauczyciela</a> świadomie.</p></div>
           </div>
           <div className="sl-note" style={{ marginTop: 26 }}>
             <div className="sl-clbl">▸ źródło</div>

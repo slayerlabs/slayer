@@ -116,12 +116,12 @@ export default function BielikBenchmarki() {
             <div className="sl-col sl-feat">
               <div className="sl-clbl">▸ bielik v3 · pl</div>
               <h3 className="sl-h2" style={{ fontSize: 17, marginBottom: 7 }}>Polski + regresja EN</h3>
-              <p className="sl-lede" style={{ fontSize: 13 }}>PLCC <b>71,83</b> (1. open-source) · Open PL LLM <b>65,93</b> · Belebele-EU <b>82,98</b> · EQ-Bench-PL <b>71,20</b> · Medical/PES <b>50,21</b> · Open LLM EN (stary) <b>72,45</b> (GSM8K 85,60, MMLU 71,11).</p>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}>PLCC <b>71,83</b> (1. open-source) · Open PL LLM <b>65,93</b> · Belebele-EU <b>82,98</b> · EQ-Bench-PL <b>71,20</b> · Medical/PES <b>50,21</b> · Open LLM EN (stary) <b>72,45</b> (GSM8K 85,60, MMLU 71,11).</p>
             </div>
             <div className="sl-col">
               <div className="sl-clbl">▸ qwen3.6-27b · code</div>
               <h3 className="sl-h2" style={{ fontSize: 17, marginBottom: 7 }}>Agentic / coding / reasoning</h3>
-              <p className="sl-lede" style={{ fontSize: 13 }}>SWE-bench Verified <b>77,2</b> · SWE-bench Pro <b>53,5</b> · Terminal-Bench 2.0 <b>59,3</b> · SkillsBench <b>48,2</b> · GPQA Diamond <b>87,8</b>. Brak jakichkolwiek wyników na&nbsp;PLCC / Open PL LLM / PES.</p>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}>SWE-bench Verified <b>77,2</b> · SWE-bench Pro <b>53,5</b> · Terminal-Bench 2.0 <b>59,3</b> · SkillsBench <b>48,2</b> · GPQA Diamond <b>87,8</b>. Brak jakichkolwiek wyników na&nbsp;PLCC / Open PL LLM / PES.</p>
             </div>
           </div>
 

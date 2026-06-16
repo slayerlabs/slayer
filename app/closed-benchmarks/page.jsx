@@ -29,8 +29,8 @@ export default function ClosedBenchmarks() {
             <div className="sl-col sl-col-lead">
               <div className="sl-clbl">▸ zamknięty</div>
               <h3 className="sl-h2" style={{ fontSize: 17, marginBottom: 7 }}>Polish EQ-Bench</h3>
-              <p className="sl-lede" style={{ fontSize: 13 }}>Inteligencja emocjonalna.</p>
-              <p className="sl-lede" style={{ fontSize: 13 }}><b>Dlaczego nie&nbsp;mierzymy:</b> brak publicznego zbioru pytań: zamknięty leaderboard, zestaw testowy held-out. Nie&nbsp;odtworzymy wyniku.</p>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}>Inteligencja emocjonalna.</p>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}><b>Dlaczego nie&nbsp;mierzymy:</b> brak publicznego zbioru pytań: zamknięty leaderboard, zestaw testowy held-out. Nie&nbsp;odtworzymy wyniku.</p>
               <div style={{ marginTop: "auto", display: "flex", flexWrap: "wrap", gap: 6 }}>
                 <span className="sl-chip">EQ score</span>
                 <span className="sl-chip">PL</span>
@@ -40,8 +40,8 @@ export default function ClosedBenchmarks() {
             <div className="sl-col sl-col-lead">
               <div className="sl-clbl">▸ zamknięty</div>
               <h3 className="sl-h2" style={{ fontSize: 17, marginBottom: 7 }}>CPTUB</h3>
-              <p className="sl-lede" style={{ fontSize: 13 }}>Pragmatyka, implikatury, podchwytliwe pytania.</p>
-              <p className="sl-lede" style={{ fontSize: 13 }}><b>Dlaczego nie&nbsp;mierzymy:</b> istnieje jako przestrzeń-leaderboard, ale&nbsp;bez pobieralnego datasetu. Nie&nbsp;powtórzymy ewaluacji na&nbsp;równych warunkach.</p>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}>Pragmatyka, implikatury, podchwytliwe pytania.</p>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}><b>Dlaczego nie&nbsp;mierzymy:</b> istnieje jako przestrzeń-leaderboard, ale&nbsp;bez pobieralnego datasetu. Nie&nbsp;powtórzymy ewaluacji na&nbsp;równych warunkach.</p>
               <div style={{ marginTop: "auto", display: "flex", flexWrap: "wrap", gap: 6 }}>
                 <span className="sl-chip">accuracy</span>
                 <span className="sl-chip">PL</span>
@@ -51,8 +51,8 @@ export default function ClosedBenchmarks() {
             <div className="sl-col sl-col-lead">
               <div className="sl-clbl">▸ zamknięty</div>
               <h3 className="sl-h2" style={{ fontSize: 17, marginBottom: 7 }}>PLCC</h3>
-              <p className="sl-lede" style={{ fontSize: 13 }}>Kompetencja kulturowo-językowa.</p>
-              <p className="sl-lede" style={{ fontSize: 13 }}><b>Dlaczego nie&nbsp;mierzymy:</b> publiczne są jedynie <b>przykłady</b>; pełny zestaw 600 pytań trzymany prywatnie (anty-kontaminacja). Bez całości brak rzetelnego wyniku.</p>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}>Kompetencja kulturowo-językowa.</p>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}><b>Dlaczego nie&nbsp;mierzymy:</b> publiczne są jedynie <b>przykłady</b>; pełny zestaw 600 pytań trzymany prywatnie (anty-kontaminacja). Bez całości brak rzetelnego wyniku.</p>
               <div style={{ marginTop: "auto", display: "flex", flexWrap: "wrap", gap: 6 }}>
                 <span className="sl-chip">accuracy</span>
                 <span className="sl-chip">PL</span>
@@ -78,15 +78,15 @@ export default function ClosedBenchmarks() {
           <div className="sl-cols" style={{ marginTop: 22 }}>
             <div className="sl-col sl-col-lead">
               <div className="sl-clbl">▸ odtwarzalność ponad zasięg</div>
-              <p className="sl-lede" style={{ fontSize: 13 }}>Jeśli nie&nbsp;możemy pobrać zbioru i&nbsp;powtórzyć runu, benchmark nie&nbsp;trafia na&nbsp;tablicę.</p>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}>Jeśli nie&nbsp;możemy pobrać zbioru i&nbsp;powtórzyć runu, benchmark nie&nbsp;trafia na&nbsp;tablicę.</p>
             </div>
             <div className="sl-col sl-col-lead">
               <div className="sl-clbl">▸ równe warunki</div>
-              <p className="sl-lede" style={{ fontSize: 13 }}>Porównanie ma&nbsp;sens tylko, gdy oba modele przechodzą identyczny, jawny test.</p>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}>Porównanie ma&nbsp;sens tylko, gdy oba modele przechodzą identyczny, jawny test.</p>
             </div>
             <div className="sl-col sl-col-lead">
               <div className="sl-clbl">▸ otwarci na zmianę</div>
-              <p className="sl-lede" style={{ fontSize: 13 }}>Gdy któryś zbiór zostanie udostępniony — przenosimy go&nbsp;na <a href="/leaderboard">leaderboard</a> i&nbsp;mierzymy.</p>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}>Gdy któryś zbiór zostanie udostępniony — przenosimy go&nbsp;na <a href="/leaderboard">leaderboard</a> i&nbsp;mierzymy.</p>
             </div>
           </div>
 

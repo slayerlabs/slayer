@@ -40,7 +40,7 @@ export default function PolNativeBoard() {
       <p className="sl-lede" style={{ marginTop: 12 }}>Czy model pisze po polsku jak rodzimy użytkownik: fleksja, składnia, leksyka,
       frazeologia, literatura, realia, kalibracja, styl. 111 itemów, sędzia otwarty. Mierzy to,
       czego nie łapią benchmarki MCQ.</p>
-      <p className="sl-lede" style={{ marginTop: 8, fontSize: 13 }}><span className="sl-status sl-ok">eval_only · czysto</span></p>
+      <p className="sl-lede" style={{ marginTop: 8, fontSize: 14.5 }}><span className="sl-status sl-ok">eval_only · czysto</span></p>
 
       {!d && <p className="sl-tele" style={{ marginTop: 18 }}>wczytuję…</p>}
       {d && (

@@ -33,7 +33,7 @@
 .sl-h1{font-family:var(--sl-sans);font-weight:300;text-transform:uppercase;letter-spacing:-.01em;line-height:.98;color:var(--sl-ink);font-size:clamp(40px,7vw,64px);margin:0}
 .sl-h2{font-family:var(--sl-sans);font-weight:300;text-transform:uppercase;letter-spacing:-.01em;line-height:1.02;color:var(--sl-ink);font-size:clamp(26px,4vw,34px);margin:0}
 .sl-acc{color:var(--sl-acc)}
-.sl-lede{color:var(--sl-mut);font-size:clamp(14px,1.5vw,16px);line-height:1.6;max-width:56ch}
+.sl-lede{color:var(--sl-mut);font-size:clamp(15px,1.6vw,17px);line-height:1.62;max-width:58ch}
 .sl-lede b{color:var(--sl-ink);font-weight:500}
 .sl-lede a{color:var(--sl-acc);border-bottom:1px solid var(--sl-acc-soft)}
 
@@ -62,7 +62,7 @@
 .sl-col-lead{box-shadow:inset 3px 0 0 var(--sl-acc)}
 .sl-cols>.sl-col-lead{box-shadow:inset 3px 0 0 var(--sl-acc),0 0 0 1px var(--sl-line)}
 .sl-clbl{font-family:var(--sl-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--sl-acc);margin-bottom:14px}
-.sl-list{margin:0;padding:0;list-style:none;font-size:13.5px;line-height:2.05;color:var(--sl-txt)}
+.sl-list{margin:0;padding:0;list-style:none;font-size:14.5px;line-height:2.05;color:var(--sl-txt)}
 .sl-list a{color:var(--sl-txt);transition:color .15s}
 .sl-list a:hover{color:var(--sl-acc)}
 .sl-list sup{font-size:8px;color:var(--sl-acc)}
@@ -73,7 +73,7 @@
 .sl-entry{display:grid;grid-template-columns:auto 1fr;gap:clamp(16px,3vw,30px);padding:clamp(18px,3vw,26px) 0;border-bottom:1px solid var(--sl-line2);align-items:start}
 .sl-entry .sl-no{font-family:var(--sl-sans);font-weight:300;font-size:clamp(28px,4vw,40px);color:var(--sl-acc);line-height:.9}
 .sl-entry h3{font-family:var(--sl-sans);font-weight:500;font-size:clamp(15px,2vw,19px);color:var(--sl-ink);text-transform:uppercase;letter-spacing:-.005em;margin:0 0 7px}
-.sl-entry p{margin:0;color:var(--sl-mut);font-size:13.5px;max-width:74ch}
+.sl-entry p{margin:0;color:var(--sl-mut);font-size:14.5px;max-width:74ch}
 .sl-entry p b{color:var(--sl-ink)}
 @media(max-width:560px){.sl-entry{grid-template-columns:1fr;gap:6px}}
 
@@ -90,7 +90,7 @@
 
 /* poniższe (tabela, chip) to prymitywy systemu pod przyszłe strony (leaderboard, benchmarks) — celowo jeszcze nieużyte na stronie głównej */
 /* ---------- tabela ---------- */
-.sl-tbl{width:100%;border-collapse:collapse;font-size:13px}
+.sl-tbl{width:100%;border-collapse:collapse;font-size:13.5px}
 .sl-tbl th{text-align:left;padding:12px 8px;font-family:var(--sl-mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--sl-mut);background:var(--sl-bg);border-bottom:1px solid var(--sl-line)}
 .sl-tbl th.sl-c,.sl-tbl td.sl-s{text-align:right}
 .sl-tbl td{padding:13px 8px;border-bottom:1px solid var(--sl-line2);color:var(--sl-txt);background:var(--sl-bg)}
@@ -193,7 +193,7 @@
 }
 
 /* ---------- note / callout ---------- */
-.sl-note{border:1px solid var(--sl-line);box-shadow:inset 3px 0 0 var(--sl-acc);background:var(--sl-bg);padding:clamp(16px,2.5vw,22px);color:var(--sl-mut);font-size:14px;line-height:1.62}
+.sl-note{border:1px solid var(--sl-line);box-shadow:inset 3px 0 0 var(--sl-acc);background:var(--sl-bg);padding:clamp(16px,2.5vw,22px);color:var(--sl-mut);font-size:15px;line-height:1.62}
 .sl-note b{color:var(--sl-ink);font-weight:500}
 .sl-note .sl-clbl{margin-bottom:8px}
 .sl-note a{color:var(--sl-acc)}
@@ -215,7 +215,7 @@
 .sl-step-no{font-family:var(--sl-sans);font-weight:600;font-size:clamp(24px,3.5vw,38px);line-height:.9;letter-spacing:-.03em;color:var(--sl-acc)}
 .sl-step-when{font-family:var(--sl-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--sl-dim)}
 .sl-step h3{font-family:var(--sl-sans);font-weight:500;font-size:clamp(15px,2vw,19px);color:var(--sl-ink);text-transform:uppercase;letter-spacing:-.005em;margin:6px 0 7px}
-.sl-step p{margin:0;color:var(--sl-mut);font-size:13.5px;max-width:74ch}
+.sl-step p{margin:0;color:var(--sl-mut);font-size:14.5px;max-width:74ch}
 .sl-step p b{color:var(--sl-ink)}
 .sl-step-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 @media(max-width:560px){.sl-step{grid-template-columns:1fr;gap:6px}}

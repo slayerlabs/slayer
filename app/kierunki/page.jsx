@@ -39,28 +39,28 @@ export default function Kierunki() {
               <div className="sl-clbl">▸ prawniczy</div>
               <span className="sl-chip">moat wysoki</span>
               <h3 className="sl-h2" style={{ fontSize: 17, margin: "10px 0 7px" }}>Prawniczy</h3>
-              <p className="sl-lede" style={{ fontSize: 13 }}>Analiza umów, pisma, orzecznictwo, przepisy (KC/KPC/KK).</p>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}>Analiza umów, pisma, orzecznictwo, przepisy (KC/KPC/KK).</p>
               <p className="sl-fn">dane — ISAP, SAOS, wzory pism &nbsp;·&nbsp; eval — legal QA + reasoning</p>
             </div>
             <div className="sl-col">
               <div className="sl-clbl">▸ medyczny</div>
               <span className="sl-chip">moat wysoki</span>
               <h3 className="sl-h2" style={{ fontSize: 17, margin: "10px 0 7px" }}>Medyczny</h3>
-              <p className="sl-lede" style={{ fontSize: 13 }}>Wsparcie kliniczne, PES/LEK, streszczanie dokumentacji.</p>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}>Wsparcie kliniczne, PES/LEK, streszczanie dokumentacji.</p>
               <p className="sl-fn">dane — egzaminy PES/LEK, ChPL &nbsp;·&nbsp; eval — PES leaderboard</p>
             </div>
             <div className="sl-col">
               <div className="sl-clbl">▸ finansowo-podatkowy</div>
               <span className="sl-chip">moat wysoki</span>
               <h3 className="sl-h2" style={{ fontSize: 17, margin: "10px 0 7px" }}>Finansowo-podatkowy</h3>
-              <p className="sl-lede" style={{ fontSize: 13 }}>Interpretacje podatkowe, faktury, JPK, KPiR.</p>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}>Interpretacje podatkowe, faktury, JPK, KPiR.</p>
               <p className="sl-fn">dane — interpretacje KIS, ustawy &nbsp;·&nbsp; eval — QA + dokładność liczb</p>
             </div>
             <div className="sl-col">
               <div className="sl-clbl">▸ administracja publiczna</div>
               <span className="sl-chip">moat wysoki</span>
               <h3 className="sl-h2" style={{ fontSize: 17, margin: "10px 0 7px" }}>Administracja publiczna</h3>
-              <p className="sl-lede" style={{ fontSize: 13 }}>ZUS, US, urzędy, wnioski. Przekład „urzędowego&rdquo; na&nbsp;ludzki.</p>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}>ZUS, US, urzędy, wnioski. Przekład „urzędowego&rdquo; na&nbsp;ludzki.</p>
               <p className="sl-fn">dane — gov.pl, druki, ePUAP &nbsp;·&nbsp; eval — benchmark biurokracji</p>
             </div>
           </div>
@@ -83,28 +83,28 @@ export default function Kierunki() {
               <div className="sl-clbl">▸ agentowy / tool-use</div>
               <span className="sl-chip sl-warn">moat średni</span>
               <h3 className="sl-h2" style={{ fontSize: 17, margin: "10px 0 7px" }}>Agentowy / tool-use</h3>
-              <p className="sl-lede" style={{ fontSize: 13 }}>Function calling, planowanie, orkiestracja, RAG po&nbsp;polsku.</p>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}>Function calling, planowanie, orkiestracja, RAG po&nbsp;polsku.</p>
               <p className="sl-fn">eval — tool-use + instrukcyjność</p>
             </div>
             <div className="sl-col">
               <div className="sl-clbl">▸ rag / enterprise</div>
               <span className="sl-chip sl-warn">moat średni</span>
               <h3 className="sl-h2" style={{ fontSize: 17, margin: "10px 0 7px" }}>RAG / enterprise</h3>
-              <p className="sl-lede" style={{ fontSize: 13 }}>Odpowiedzi z&nbsp;firmowych dokumentów z&nbsp;cytatem, on-prem.</p>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}>Odpowiedzi z&nbsp;firmowych dokumentów z&nbsp;cytatem, on-prem.</p>
               <p className="sl-fn">eval — rozumienie tekstu + faithfulness</p>
             </div>
             <div className="sl-col">
               <div className="sl-clbl">▸ tłumaczeniowy</div>
               <span className="sl-chip sl-warn">moat średni</span>
               <h3 className="sl-h2" style={{ fontSize: 17, margin: "10px 0 7px" }}>Tłumaczeniowy PL↔</h3>
-              <p className="sl-lede" style={{ fontSize: 13 }}>Tłumaczenia wysokiej jakości — oś, gdzie polskie modele są&nbsp;mocne.</p>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}>Tłumaczenia wysokiej jakości — oś, gdzie polskie modele są&nbsp;mocne.</p>
               <p className="sl-fn">eval — FLORES-200 (BLEU/chrF)</p>
             </div>
             <div className="sl-col">
               <div className="sl-clbl">▸ coding</div>
               <span className="sl-chip sl-mute">moat niski</span>
               <h3 className="sl-h2" style={{ fontSize: 17, margin: "10px 0 7px" }}>Coding po polsku</h3>
-              <p className="sl-lede" style={{ fontSize: 13 }}>Asystent dev z&nbsp;polskim kontekstem, code review, docs.</p>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}>Asystent dev z&nbsp;polskim kontekstem, code review, docs.</p>
               <p className="sl-fn">eval — code + EN regresja</p>
             </div>
           </div>
@@ -127,28 +127,28 @@ export default function Kierunki() {
               <div className="sl-clbl">▸ flagowy ogólny pl</div>
               <span className="sl-chip sl-warn">moat średni</span>
               <h3 className="sl-h2" style={{ fontSize: 17, margin: "10px 0 7px" }}>Flagowy ogólny PL</h3>
-              <p className="sl-lede" style={{ fontSize: 13 }}>Naturalny styl, idiomy, rejestry, wiedza kulturowa.</p>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}>Naturalny styl, idiomy, rejestry, wiedza kulturowa.</p>
               <p className="sl-fn">eval — Open PL LLM (agregat)</p>
             </div>
             <div className="sl-col">
               <div className="sl-clbl">▸ edukacyjny</div>
               <span className="sl-chip sl-warn">moat średni</span>
               <h3 className="sl-h2" style={{ fontSize: 17, margin: "10px 0 7px" }}>Edukacyjny</h3>
-              <p className="sl-lede" style={{ fontSize: 13 }}>Korepetytor pod podstawę programową, matura, ósmoklasista.</p>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}>Korepetytor pod podstawę programową, matura, ósmoklasista.</p>
               <p className="sl-fn">eval — QA przedmiotowe + reasoning</p>
             </div>
             <div className="sl-col">
               <div className="sl-clbl">▸ obsługa klienta</div>
               <span className="sl-chip sl-mute">moat niski</span>
               <h3 className="sl-h2" style={{ fontSize: 17, margin: "10px 0 7px" }}>Obsługa klienta</h3>
-              <p className="sl-lede" style={{ fontSize: 13 }}>Centrum obsługi: ton, deeskalacja, polityki firmowe.</p>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}>Centrum obsługi: ton, deeskalacja, polityki firmowe.</p>
               <p className="sl-fn">eval — instrukcyjność + ton</p>
             </div>
             <div className="sl-col">
               <div className="sl-clbl">▸ guard / moderacja</div>
               <span className="sl-chip sl-warn">moat średni</span>
               <h3 className="sl-h2" style={{ fontSize: 17, margin: "10px 0 7px" }}>Guard / moderacja</h3>
-              <p className="sl-lede" style={{ fontSize: 13 }}>Mały model-strażnik: moderacja, ryzyka, bezpieczeństwo po&nbsp;polsku.</p>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}>Mały model-strażnik: moderacja, ryzyka, bezpieczeństwo po&nbsp;polsku.</p>
               <p className="sl-fn">eval — klasyfikacja (P/R)</p>
             </div>
           </div>

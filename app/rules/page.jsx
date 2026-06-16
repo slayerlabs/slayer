@@ -28,14 +28,14 @@ export default function Rules() {
             <div className="sl-col sl-col-lead">
               <div className="sl-clbl">▸ autorstwo</div>
               <h3 className="sl-h2" style={{ marginBottom: 10 }}>Slayer jest projektem autorstwa Kacpra Wikieła.</h3>
-              <p className="sl-lede" style={{ fontSize: 13 }}><b>Kacper Wikieł</b> jest inicjatorem, autorem kierunku i&nbsp;osobą odpowiedzialną za początkową strukturę projektu: zakres badań, standard publikacji, ton marki, priorytety techniczne i&nbsp;decyzje o&nbsp;tym, co trafia do oficjalnego Slayera.</p>
-              <p className="sl-lede" style={{ fontSize: 13, marginTop: 12 }}>Kontrybucje są mile widziane, ale oficjalna linia projektu musi pozostać spójna: dobry smak, twardy pomiar, jawny koszt i&nbsp;brak benchmaxxingu. Wkład społeczności nie wyklucza przyszłej struktury for-profit.</p>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}><b>Kacper Wikieł</b> jest inicjatorem, autorem kierunku i&nbsp;osobą odpowiedzialną za początkową strukturę projektu: zakres badań, standard publikacji, ton marki, priorytety techniczne i&nbsp;decyzje o&nbsp;tym, co trafia do oficjalnego Slayera.</p>
+              <p className="sl-lede" style={{ fontSize: 14.5, marginTop: 12 }}>Kontrybucje są mile widziane, ale oficjalna linia projektu musi pozostać spójna: dobry smak, twardy pomiar, jawny koszt i&nbsp;brak benchmaxxingu. Wkład społeczności nie wyklucza przyszłej struktury for-profit.</p>
             </div>
             <div className="sl-col sl-col-block sl-feat">
               <div className="sl-clbl">▸ struktura początkowa</div>
               <h3 className="sl-h2" style={{ marginBottom: 10 }}>Benevolent Dictator For Life.</h3>
-              <p className="sl-lede" style={{ fontSize: 13 }}>Początkowy model organizacyjny Slayera to <b>BDFL</b>, czyli <b>Benevolent Dictator For Life</b> — model znany z&nbsp;wczesnej historii Pythona. W&nbsp;praktyce oznacza to, że Kacper Wikieł ma ostatnie słowo w&nbsp;sprawach kierunku, jakości, publikacji, nazwy, marki i&nbsp;konfliktów decyzyjnych.</p>
-              <p className="sl-lede" style={{ fontSize: 13, marginTop: 12 }}>To nie jest zamknięcie projektu. To mechanizm utrzymania spójności, dopóki Slayer nie ma dojrzałego governance, stałych maintainerów i&nbsp;jasnych procesów rozstrzygania sporów.</p>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}>Początkowy model organizacyjny Slayera to <b>BDFL</b>, czyli <b>Benevolent Dictator For Life</b> — model znany z&nbsp;wczesnej historii Pythona. W&nbsp;praktyce oznacza to, że Kacper Wikieł ma ostatnie słowo w&nbsp;sprawach kierunku, jakości, publikacji, nazwy, marki i&nbsp;konfliktów decyzyjnych.</p>
+              <p className="sl-lede" style={{ fontSize: 14.5, marginTop: 12 }}>To nie jest zamknięcie projektu. To mechanizm utrzymania spójności, dopóki Slayer nie ma dojrzałego governance, stałych maintainerów i&nbsp;jasnych procesów rozstrzygania sporów.</p>
             </div>
           </div>
         </div>

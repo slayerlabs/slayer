@@ -129,9 +129,9 @@ export default function Datasety() {
 
           <div className="sl-eye" style={{ marginTop: 44 }}>C · format MCQ + rozumowanie · to test wielokrotnego wyboru</div>
           <div className="sl-cols" style={{ marginTop: 18 }}>
-            <div className="sl-col sl-col-lead"><div className="sl-clbl">▸ syntetyczne</div><h3 className="sl-h2" style={{ fontSize: 17, marginBottom: 7 }}>Polskie MCQ z korpusów</h3><p className="sl-lede" style={{ fontSize: 13 }}>Generowane z Wikipedia/ISAP (Evol/Magpie) z weryfikacją; uczy „odpowiedz literą&quot; i szerokości.</p></div>
-            <div className="sl-col"><div className="sl-clbl">▸ cot</div><h3 className="sl-h2" style={{ fontSize: 17, marginBottom: 7 }}>Distylacja rozumowania PL</h3><p className="sl-lede" style={{ fontSize: 13 }}>Łańcuchy myślenia z mocnego nauczyciela na trudniejsze pozycje.</p></div>
-            <div className="sl-col"><div className="sl-clbl">▸ rlvr</div><h3 className="sl-h2" style={{ fontSize: 17, marginBottom: 7 }}>GRPO na polskich MCQ</h3><p className="sl-lede" style={{ fontSize: 13 }}>Nagroda = poprawna litera → optymalizuje dokładnie to, co mierzy LLMzSzŁ, czysto.</p></div>
+            <div className="sl-col sl-col-lead"><div className="sl-clbl">▸ syntetyczne</div><h3 className="sl-h2" style={{ fontSize: 17, marginBottom: 7 }}>Polskie MCQ z korpusów</h3><p className="sl-lede" style={{ fontSize: 14.5 }}>Generowane z Wikipedia/ISAP (Evol/Magpie) z weryfikacją; uczy „odpowiedz literą&quot; i szerokości.</p></div>
+            <div className="sl-col"><div className="sl-clbl">▸ cot</div><h3 className="sl-h2" style={{ fontSize: 17, marginBottom: 7 }}>Distylacja rozumowania PL</h3><p className="sl-lede" style={{ fontSize: 14.5 }}>Łańcuchy myślenia z mocnego nauczyciela na trudniejsze pozycje.</p></div>
+            <div className="sl-col"><div className="sl-clbl">▸ rlvr</div><h3 className="sl-h2" style={{ fontSize: 17, marginBottom: 7 }}>GRPO na polskich MCQ</h3><p className="sl-lede" style={{ fontSize: 14.5 }}>Nagroda = poprawna litera → optymalizuje dokładnie to, co mierzy LLMzSzŁ, czysto.</p></div>
           </div>
 
           <div className="sl-note" style={{ marginTop: 26 }}>
