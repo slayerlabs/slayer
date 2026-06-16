@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function Home() {
   return (
-    <div className="sl">
+    <main className="sl">
       <section className="sl-hero">
         <div className="sl-inner">
           <div className="sl-eye sl-rv">✦ good taste applied research lab · polskie modele</div>
@@ -166,6 +166,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-    </div>
+    </main>
   );
 }

@@ -60,11 +60,12 @@ export default function Nav() {
         className="sl-navtoggle"
         aria-label="menu"
         aria-expanded={open}
+        aria-controls="sl-nav-links"
         onClick={() => setOpen((v) => !v)}
       >
         <span /><span /><span />
       </button>
-      <nav className={open ? "sl-nlinks sl-open" : "sl-nlinks"}>
+      <nav id="sl-nav-links" className={open ? "sl-nlinks sl-open" : "sl-nlinks"}>
         {GROUPS.map((g) => {
           const active = g.links.some(([href]) => href === pathname);
           return (
