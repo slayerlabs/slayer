@@ -124,6 +124,7 @@ const MEMBERS = [
   { img: "/assets/team/kamil-kaczmarek.png", name: "Kamil Kaczmarek", specialty: "Fullstack · Boty · Mikroserwisy", bio: "Fullstack deweloper. Buduje bota, mikroserwisy i narzędzia dla agencji marketingowej. Współtwórca systemu zarządzającego dziesiątkami tysięcy ofert na Allegro. Dostarcza end-to-end: od pomysłu do wdrożenia." },
   { img: "/assets/team/grzegorz.jpeg", name: "Grzegorz Trzaskoma", specialty: "Backend · Java · Node.js", bio: "Student informatyki II roku. Buduje framework agentowy @the-brain/core oraz aplikację Scheduler (system zarządzania pracownikami) jako sandbox dla agentów. Pełne środowisko testowe w terminalu, pamięć agenta w rozwój. gt-processing.com" },
   { img: "/assets/team/s3nh.jpg", name: "Damian Panek", specialty: "ML Engineer · OSS · Quantization", bio: "ML Engineer, fanatyk open source. Specjalizuje się w metodach kwantyzacji i optymalizacji SOTA modeli." },
+  { img: "/assets/team/konradtalik.jpg", name: "Konrad Talik", specialty: "Agent Workflows · ML Strategy · Data Viz", bio: "Wielogodzinny agentowy przepływ pracy, strategia uczenia maszynowego w oparciu o eksplorację i wizualizację danych.", link: "https://www.linkedin.com/in/ktalik", link2: "https://www.kondz.io/" },
 ];
 
 const ADVISORS = [
@@ -163,7 +164,11 @@ export default function Team() {
                   <div className="member-title-label">Member of Technical Staff</div>
                   <h2 className="member-name">{m.name}</h2>
                   <div className="member-specialty">{m.specialty}</div>
-                  <p className="member-bio">{m.bio}</p>
+                  <p className="member-bio">
+                    {m.bio}
+                    {m.link ? <> <a href={m.link} target="_blank" rel="noopener" style={{ color: "var(--acc)" }}>LinkedIn →</a></> : null}
+                    {m.link2 ? <> <a href={m.link2} target="_blank" rel="noopener" style={{ color: "var(--acc)" }}>www →</a></> : null}
+                  </p>
                 </div>
               </article>
             ))}
