@@ -106,11 +106,7 @@
 /* ---------- przypisy ---------- */
 .sl-fn{font-family:var(--sl-mono);font-size:9px;line-height:1.8;color:var(--sl-dim);letter-spacing:.02em;margin-top:14px}
 
-/* ---------- reveal (a11y: szanuje reduced-motion) ---------- */
-.sl-rv{opacity:0;transform:translateY(12px);animation:sl-rv .7s cubic-bezier(.2,.7,.3,1) forwards}
-.sl-rv.sl-d1{animation-delay:.06s}.sl-rv.sl-d2{animation-delay:.16s}.sl-rv.sl-d3{animation-delay:.26s}.sl-rv.sl-d4{animation-delay:.36s}
-@keyframes sl-rv{to{opacity:1;transform:none}}
-@media(prefers-reduced-motion:reduce){.sl-rv{animation:none;opacity:1;transform:none}}
+/* bez animacji wejścia — zero animacji (decyzja Martyny); .sl-rv/.sl-dN to no-opy */
 
 /* ---------- nav ---------- */
 .sl-nav{position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;height:60px;padding:0 clamp(18px,5vw,72px);background:rgba(13,10,11,.86);backdrop-filter:blur(14px);border-bottom:1px solid var(--sl-line2);font-family:var(--sl-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
@@ -202,12 +198,10 @@
 .sl-status{display:inline-flex;align-items:center;gap:7px;font-family:var(--sl-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--sl-mut)}
 .sl-status::before{content:"";width:7px;height:7px;background:var(--sl-dim);flex:none}
 .sl-status.sl-ok::before,.sl-status.sl-done::before{background:var(--sl-ok)}
-.sl-status.sl-run::before{background:var(--sl-acc);animation:sl-pulse 1.4s ease-in-out infinite}
+.sl-status.sl-run::before{background:var(--sl-acc)}
 .sl-status.sl-queued::before{background:var(--sl-dim)}
 .sl-status.sl-fail::before{background:var(--sl-fail)}
 .sl-status.sl-open::before{background:var(--sl-warn)}
-@keyframes sl-pulse{50%{opacity:.3}}
-@media(prefers-reduced-motion:reduce){.sl-status.sl-run::before{animation:none}}
 
 /* ---------- steps / timeline / recipe / poziomy ---------- */
 .sl-steps{border-top:1px solid var(--sl-line)}
@@ -248,11 +242,8 @@
 
 /* ---------- progress (płaski, bez gradientu) ---------- */
 .sl-bar{position:relative;height:26px;border:1px solid var(--sl-line);background:var(--sl-bg);overflow:hidden}
-.sl-bar-fill{position:absolute;top:0;bottom:0;left:0;background:var(--sl-acc-soft);border-right:2px solid var(--sl-acc);transition:width .4s ease}
-.sl-bar-run .sl-bar-fill{animation:sl-bar-breathe 1.8s ease-in-out infinite}
+.sl-bar-fill{position:absolute;top:0;bottom:0;left:0;background:var(--sl-acc-soft);border-right:2px solid var(--sl-acc)}
 .sl-bar-pct{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--sl-mono);font-size:11px;letter-spacing:.08em;color:var(--sl-ink)}
-@keyframes sl-bar-breathe{50%{border-right-color:var(--sl-acc-strong)}}
-@media(prefers-reduced-motion:reduce){.sl-bar-run .sl-bar-fill{animation:none}}
 
 /* ---------- stacked bar (skład danych) + legenda ---------- */
 .sl-stack{display:flex;height:30px;border:1px solid var(--sl-line);overflow:hidden}

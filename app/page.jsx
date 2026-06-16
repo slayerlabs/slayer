@@ -13,15 +13,15 @@ export default function Home() {
         <div className="sl-inner">
           <div className="sl-hero-grid">
             <div>
-              <div className="sl-eye sl-rv">good taste · applied research lab · polskie modele</div>
-              <h1 className="sl-h1 sl-rv sl-d1">Protokół dla <span className="sl-acc">polskiej inteligencji.</span></h1>
-              <p className="sl-lede sl-rv sl-d2">Badamy modele językowe jak rzemiosło — smak, pomiar, koszt, ślady danych. Zostawiamy <b>artefakty</b>, które da się odtworzyć.</p>
-              <div className="sl-cta sl-rv sl-d3">
+              <div className="sl-eye">good taste · applied research lab · polskie modele</div>
+              <h1 className="sl-h1">Protokół dla <span className="sl-acc">polskiej inteligencji.</span></h1>
+              <p className="sl-lede">Badamy modele językowe jak rzemiosło — smak, pomiar, koszt, ślady danych. Zostawiamy <b>artefakty</b>, które da się odtworzyć.</p>
+              <div className="sl-cta">
                 <a className="sl-btn sl-btn-p" href="/benchmarks">otwórz protokoły →</a>
                 <a className="sl-btn sl-btn-s" href="https://discord.gg/HnTkVR4c5T" rel="noopener" target="_blank">wejście do labu ↗</a>
               </div>
             </div>
-            <div className="sl-art sl-rv sl-d4">
+            <div className="sl-art">
               <div className="sl-eye">slayer-7b · polnative v1</div>
               <div className="sl-tele">run <b>7f3a9c2</b> · seed <b>1337</b> · n=<b>111</b> · lang/pl</div>
               <output className="sl-art-num">0.82</output>
@@ -38,8 +38,8 @@ export default function Home() {
       </section>
 
       <div className="sl-inner">
-        <div className="sl-eye sl-rv" style={{ marginBottom: 14 }}>wskaźniki progu</div>
-        <div className="sl-band sl-rv sl-d4">
+        <div className="sl-eye" style={{ marginBottom: 14 }}>wskaźniki progu</div>
+        <div className="sl-band">
           <div className="sl-stat"><span className="sl-sidx">/01</span><BenchCount /><div className="sl-slbl">osi ewaluacji</div></div>
           <div className="sl-stat"><span className="sl-sidx">/02</span><div className="sl-num">24<span className="sl-acc">k</span></div><div className="sl-slbl">rekordów z rodowodem</div></div>
           <div className="sl-stat"><span className="sl-sidx">/03</span><div className="sl-num">100<span className="sl-acc">%</span></div><div className="sl-slbl">claimów z held-out</div></div>
