@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
+import ThemeToggle from "./ThemeToggle";
 
 const GROUPS = [
   {
@@ -56,15 +57,6 @@ export default function Nav() {
       <a className="sl-brand" href="/" onClick={close}>
         <span className="sl-mk">✦</span> slayer<span className="sl-sep"> / </span>protokół
       </a>
-      <button
-        className="sl-navtoggle"
-        aria-label="menu"
-        aria-expanded={open}
-        aria-controls="sl-nav-links"
-        onClick={() => setOpen((v) => !v)}
-      >
-        <span /><span /><span />
-      </button>
       <nav id="sl-nav-links" className={open ? "sl-nlinks sl-open" : "sl-nlinks"}>
         {GROUPS.map((g) => {
           const active = g.links.some(([href]) => href === pathname);
@@ -85,6 +77,18 @@ export default function Nav() {
           ✦ wejście ↗
         </a>
       </nav>
+      <div className="sl-nav-right">
+        <ThemeToggle />
+        <button
+          className="sl-navtoggle"
+          aria-label="menu"
+          aria-expanded={open}
+          aria-controls="sl-nav-links"
+          onClick={() => setOpen((v) => !v)}
+        >
+          <span /><span /><span />
+        </button>
+      </div>
     </header>
   );
 }
