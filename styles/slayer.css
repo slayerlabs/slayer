@@ -122,3 +122,9 @@
 .sl-foot{border-top:1px solid var(--sl-line);padding:22px clamp(18px,5vw,72px);display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-family:var(--sl-mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--sl-dim);background:var(--sl-bg)}
 .sl-foot a{color:var(--sl-mut)}
 .sl-foot a:hover{color:var(--sl-acc)}
+
+/* ---------- hero (strona główna) ---------- */
+.sl-hero{padding:clamp(40px,8vw,84px) 0 clamp(28px,4vw,44px);background:radial-gradient(ellipse 46% 70% at 14% -8%,rgba(236,43,79,.16),transparent 62%)}
+.sl-hero h1{margin:14px 0 0}
+.sl-hero .sl-lede{margin:22px 0 0}
+.sl-hero .sl-cta{margin-top:26px}
