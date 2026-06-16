@@ -212,6 +212,9 @@
 .sl-step p{margin:0;color:var(--sl-mut);font-size:14.5px;max-width:74ch}
 .sl-step p b{color:var(--sl-ink)}
 .sl-step-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+/* wariant płaski: meta (data · status) na górze, nagłówek pod spodem, wszystko do lewej */
+.sl-steps.sl-flat .sl-step{grid-template-columns:1fr;gap:0}
+.sl-steps.sl-flat .sl-step h3{margin-top:14px}
 @media(max-width:560px){.sl-step{grid-template-columns:1fr;gap:6px}}
 
 /* ---------- chip: stany i warianty ---------- */

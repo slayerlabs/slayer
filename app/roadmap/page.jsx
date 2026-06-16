@@ -30,11 +30,11 @@ export default function Roadmap() {
 
           <div className="sl-eye">harmonogram · zakończone · następne · planowane</div>
 
-          <div className="sl-steps" style={{ marginTop: 18 }}>
+          <div className="sl-steps sl-flat" style={{ marginTop: 18 }}>
             <div className="sl-step">
-              <div className="sl-step-when">F0 · czerwiec</div>
               <div>
                 <div className="sl-step-head">
+                  <span className="sl-step-when">F0 · czerwiec</span>
                   <span className="sl-status sl-done">zakończona ✓</span>
                 </div>
                 <h3>Pomiar bazowy</h3>
@@ -42,9 +42,9 @@ export default function Roadmap() {
               </div>
             </div>
             <div className="sl-step">
-              <div className="sl-step-when">F1 · czerwiec</div>
               <div>
                 <div className="sl-step-head">
+                  <span className="sl-step-when">F1 · czerwiec</span>
                   <span className="sl-status sl-run">w toku</span>
                 </div>
                 <h3>Społeczność i dane</h3>
@@ -52,9 +52,9 @@ export default function Roadmap() {
               </div>
             </div>
             <div className="sl-step">
-              <div className="sl-step-when">F2 · lipiec</div>
               <div>
                 <div className="sl-step-head">
+                  <span className="sl-step-when">F2 · lipiec</span>
                   <span className="sl-status sl-queued">planowane</span>
                 </div>
                 <h3>Pierwszy trening</h3>
@@ -62,9 +62,9 @@ export default function Roadmap() {
               </div>
             </div>
             <div className="sl-step">
-              <div className="sl-step-when">F3 · lipiec/sierpień</div>
               <div>
                 <div className="sl-step-head">
+                  <span className="sl-step-when">F3 · lipiec/sierpień</span>
                   <span className="sl-status sl-queued">planowane</span>
                 </div>
                 <h3>RL na egzaminach</h3>
@@ -72,9 +72,9 @@ export default function Roadmap() {
               </div>
             </div>
             <div className="sl-step">
-              <div className="sl-step-when">F4 · sierpień</div>
               <div>
                 <div className="sl-step-head">
+                  <span className="sl-step-when">F4 · sierpień</span>
                   <span className="sl-status sl-queued">planowane</span>
                 </div>
                 <h3>Iteracje i raport</h3>
