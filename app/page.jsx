@@ -38,11 +38,12 @@ export default function Home() {
       </section>
 
       <div className="sl-inner">
+        <div className="sl-eye sl-rv" style={{ marginBottom: 14 }}>wskaźniki progu</div>
         <div className="sl-band sl-rv sl-d4">
-          <div className="sl-stat"><BenchCount /><div className="sl-slbl">osi ewaluacji</div></div>
-          <div className="sl-stat"><div className="sl-num">24<span className="sl-acc">k</span></div><div className="sl-slbl">rekordów z rodowodem</div></div>
-          <div className="sl-stat"><div className="sl-num">100<span className="sl-acc">%</span></div><div className="sl-slbl">claimów z held-out</div></div>
-          <div className="sl-stat"><div className="sl-num">~18<span className="sl-acc">k</span></div><div className="sl-slbl">zł — koszt w wyniku</div></div>
+          <div className="sl-stat"><span className="sl-sidx">/01</span><BenchCount /><div className="sl-slbl">osi ewaluacji</div></div>
+          <div className="sl-stat"><span className="sl-sidx">/02</span><div className="sl-num">24<span className="sl-acc">k</span></div><div className="sl-slbl">rekordów z rodowodem</div></div>
+          <div className="sl-stat"><span className="sl-sidx">/03</span><div className="sl-num">100<span className="sl-acc">%</span></div><div className="sl-slbl">claimów z held-out</div></div>
+          <div className="sl-stat"><span className="sl-sidx">/04</span><div className="sl-num">~18<span className="sl-acc">k</span></div><div className="sl-slbl">zł — koszt w wyniku</div></div>
         </div>
       </div>
 
@@ -72,9 +73,14 @@ export default function Home() {
 
       <section className="sl-sec">
         <div className="sl-inner">
-          <div className="sl-eye">01 / komnaty</div>
-          <h2 className="sl-h2" style={{ marginTop: 10 }}>Cztery drzwi, <span className="sl-acc">jeden warsztat.</span></h2>
-          <p className="sl-lede" style={{ marginTop: 12 }}>Każdy obszar ma własny protokół, artefakty i ślady. Bez ozdobnych deklaracji, bez wyników na słowo.</p>
+          <div className="sl-mast">
+            <div className="sl-mast-no">01</div>
+            <div>
+              <div className="sl-eye">komnaty</div>
+              <h2 className="sl-h2" style={{ marginTop: 10 }}>Cztery drzwi, <span className="sl-acc">jeden warsztat.</span></h2>
+              <p className="sl-lede" style={{ marginTop: 12 }}>Każdy obszar ma własny protokół, artefakty i ślady. Bez ozdobnych deklaracji, bez wyników na słowo.</p>
+            </div>
+          </div>
           <div className="sl-bento" style={{ marginTop: 22 }}>
             <div className="sl-col sl-col-block sl-feat">
               <div className="sl-clbl">▸ ewaluacja · flagowy tor</div>
@@ -109,10 +115,15 @@ export default function Home() {
 
       <section className="sl-sec">
         <div className="sl-inner">
-          <div className="sl-eye">02 / reguły przejścia</div>
-          <h2 className="sl-h2" style={{ marginTop: 10 }}>Co wpuszczamy <span className="sl-acc">do twierdzeń.</span></h2>
-          <p className="sl-lede" style={{ marginTop: 12, marginBottom: 8 }}>Rygor ewaluacyjny jest częścią smaku. Te reguły obowiązują w każdym runie.</p>
-          <div className="sl-entries">
+          <div className="sl-mast">
+            <div className="sl-mast-no">02</div>
+            <div>
+              <div className="sl-eye">reguły przejścia</div>
+              <h2 className="sl-h2" style={{ marginTop: 10 }}>Co wpuszczamy <span className="sl-acc">do twierdzeń.</span></h2>
+              <p className="sl-lede" style={{ marginTop: 12, marginBottom: 8 }}>Rygor ewaluacyjny jest częścią smaku. Te reguły obowiązują w każdym runie.</p>
+            </div>
+          </div>
+          <div className="sl-entries" style={{ marginTop: 22 }}>
             <div className="sl-entry"><div className="sl-no">01</div><div><h3>Held-out albo nic</h3><p>Publiczne twierdzenia wyłącznie z danych, których model nie widział, mierzone tym samym protokołem co baseline&apos;y. Wynik na zadaniu trenowanym oznaczamy jako trenowany i nie liczymy do claimów.</p></div></div>
             <div className="sl-entry"><div className="sl-no">02</div><div><h3>Agregaty, nie itemy</h3><p>Analizujemy accuracy per kategoria, domena, rok. Nie oglądamy pojedynczych pytań i nie piszemy na ich podstawie danych treningowych. Pliki ewaluacji wchodzą do pipeline&apos;u wyłącznie jako wejście dekontaminacji.</p></div></div>
             <div className="sl-entry"><div className="sl-no">03</div><div><h3>Lineage i disclosure</h3><p>Każdy model ma audytowalną listę: co weszło do treningu, skąd, z jaką licencją. Gdy popełniliśmy błąd (skażony miks v2), <b>opublikowaliśmy go z pełnym disclosure</b> zamiast chować.</p></div></div>
@@ -126,8 +137,13 @@ export default function Home() {
 
       <section className="sl-sec">
         <div className="sl-inner">
-          <div className="sl-eye">03 / wejścia</div>
-          <h2 className="sl-h2" style={{ marginTop: 10 }}>Wybierz <span className="sl-acc">ślad.</span></h2>
+          <div className="sl-mast">
+            <div className="sl-mast-no">03</div>
+            <div>
+              <div className="sl-eye">wejścia</div>
+              <h2 className="sl-h2" style={{ marginTop: 10 }}>Wybierz <span className="sl-acc">ślad.</span></h2>
+            </div>
+          </div>
           <div className="sl-cols" style={{ marginTop: 22 }}>
             <div className="sl-col sl-col-lead">
               <div className="sl-clbl">▸ pomiary</div>
@@ -153,8 +169,13 @@ export default function Home() {
 
       <section className="sl-sec">
         <div className="sl-inner">
-          <div className="sl-eye">04 / kontekst</div>
-          <h2 className="sl-h2" style={{ marginTop: 10 }}>Bez teatru <span className="sl-acc">zwycięstwa.</span></h2>
+          <div className="sl-mast">
+            <div className="sl-mast-no">04</div>
+            <div>
+              <div className="sl-eye">kontekst</div>
+              <h2 className="sl-h2" style={{ marginTop: 10 }}>Bez teatru <span className="sl-acc">zwycięstwa.</span></h2>
+            </div>
+          </div>
           <div className="sl-cols" style={{ marginTop: 22 }}>
             <div className="sl-col sl-col-lead">
               <div className="sl-clbl">▸ ekosystem</div>
