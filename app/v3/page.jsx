@@ -93,7 +93,7 @@ export default function V3() {
           </div>
 
           <div className="sl-cols" style={{ marginTop: 22 }}>
-            <div className="sl-col sl-col-lead">
+            <div className="sl-col sl-col-block">
               <div className="sl-clbl">▸ entigraph</div>
               <div className="sl-num">10<span className="sl-acc">M</span></div>
               <p className="sl-lede" style={{ fontSize: 14.5, marginTop: 12 }}>Tokenów · 92k doków. Fakty z&nbsp;6.5k artykułów PL-focus zmultiplikowane w&nbsp;relacje, parafrazy, streszczenia i&nbsp;QA. ~100k faktów.</p>

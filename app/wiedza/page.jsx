@@ -244,7 +244,7 @@ export default function Wiedza() {
             </div>
           </div>
           <div className="sl-cols" style={{ marginTop: 22 }}>
-            <div className="sl-col sl-col-lead">
+            <div className="sl-col sl-col-block">
               <div className="sl-clbl">▸ probe</div>
               <h3 className="sl-h2" style={{ fontSize: 17, marginBottom: 7 }}>Held-out z&nbsp;konstrukcji</h3>
               <p className="sl-lede" style={{ fontSize: 14.5 }}>Pytania losowane z&nbsp;doków QA korpusu trafiają na&nbsp;exclusion list i&nbsp;nie wchodzą do&nbsp;treningu CPT. Model musi znać fakt z&nbsp;relacji i&nbsp;parafraz, nie z&nbsp;wykutego itemu.</p>

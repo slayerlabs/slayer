@@ -35,7 +35,7 @@ export default function Kierunki() {
             </div>
           </div>
           <div className="sl-cols" style={{ marginTop: 22 }}>
-            <div className="sl-col sl-col-lead">
+            <div className="sl-col sl-col-block">
               <div className="sl-clbl">▸ prawniczy</div>
               <span className="sl-chip">moat wysoki</span>
               <h3 className="sl-h2" style={{ fontSize: 17, margin: "10px 0 7px" }}>Prawniczy</h3>

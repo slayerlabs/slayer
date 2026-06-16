@@ -191,7 +191,9 @@ img{max-width:100%}
 @media(max-width:480px){.sl-bento-a{grid-template-columns:1fr}.sl-bento-a>.sl-feat{grid-column:auto}}
 /* featured jako pełny blok koloru (biały tekst, AA) */
 .sl-col-block{background:var(--sl-acc-strong)}
-.sl-col-block .sl-clbl,.sl-col-block h3,.sl-col-block .sl-lede,.sl-col-block .sl-lede b,.sl-col-block .sl-fn,.sl-col-block b{color:#fff}
+.sl-col-block .sl-clbl,.sl-col-block h3,.sl-col-block .sl-lede,.sl-col-block .sl-lede b,.sl-col-block .sl-fn,.sl-col-block b,.sl-col-block p,.sl-col-block .sl-num,.sl-col-block .sl-acc,.sl-col-block .sl-list,.sl-col-block .sl-list a{color:#fff}
+.sl-col-block .sl-list a{border-bottom-color:rgba(255,255,255,.4)}
+.sl-col-block a:hover{color:rgba(255,255,255,.72)}
 .sl-col-block .sl-chip{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.5);color:#fff}
 
 /* ============================================================

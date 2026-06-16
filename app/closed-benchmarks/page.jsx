@@ -76,7 +76,7 @@ export default function ClosedBenchmarks() {
           </div>
 
           <div className="sl-cols" style={{ marginTop: 22 }}>
-            <div className="sl-col sl-col-lead">
+            <div className="sl-col sl-col-block">
               <div className="sl-clbl">▸ odtwarzalność ponad zasięg</div>
               <p className="sl-lede" style={{ fontSize: 14.5 }}>Jeśli nie&nbsp;możemy pobrać zbioru i&nbsp;powtórzyć runu, benchmark nie&nbsp;trafia na&nbsp;tablicę.</p>
             </div>
