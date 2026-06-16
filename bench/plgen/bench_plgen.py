@@ -504,8 +504,10 @@ def matrix_section(report):
         lambda m: _fmt(m["layer_b"].get("panel_score_mean"), 1))
     row("Sędziowie naturalność 1-5",
         lambda m: _fmt(m["layer_b"].get("naturalnosc_mean"), 2))
-    row("Sędziowie IJA (Krippendorff α)",
-        lambda m: _fmt(m["layer_b"].get("ija_alpha_mean"), 3))
+    # IJA tylko przy ≥2 sędziach — przy 1 sędzim α degeneruje do 1.0 (mylące), pomijamy
+    if len(report.get("judges", [])) > 1:
+        row("Sędziowie IJA (Krippendorff α)",
+            lambda m: _fmt(m["layer_b"].get("ija_alpha_mean"), 3))
 
     # --- per-domena (osobno per warstwa) ---
     a_doms = sorted({d for m in res.values() for d in m["layer_a"].get("per_domena", {})})
@@ -523,9 +525,9 @@ def matrix_section(report):
     judges_str = ", ".join(report.get("judges", [])) or "DeepSeek-V4-Pro"
     section = {
         "title": "PL-GEN — długi tekst: LanguageTool + sędzia (DeepSeek)",
-        "official_for": "plgen",
-        "protocol": ("free-generation PL (bieg referencyjny: 1 seed s42, podzbiór 50/domena — "
-                     f"pełne 193×3 TODO); Layer A = self-hosted LanguageTool ({report.get('lt_image')}) "
+        "official_for": "bledy-jezykowe-pl",
+        "protocol": ("free-generation PL (pełny zbiór 193, 1 seed s42; 3 ziarna TODO → SLA-15); "
+                     f"Layer A = self-hosted LanguageTool ({report.get('lt_image')}) "
                      "błędy/100tok per bucket (dolne ograniczenie, niski recall); Layer B = ślepy "
                      f"sędzia {judges_str} (guided, temp 0), panel_score 0-100 + naturalność 1-5. "
                      "Sub-score'y OSOBNE — nie uśredniać między warstwami ani z innymi sekcjami. "
@@ -534,7 +536,7 @@ def matrix_section(report):
         "rows": rows,
         "note": ("Layer A (LT, ↓ lepiej) i Layer B (sędzia, ↑ lepiej) to ODDZIELNE osie — "
                  "złote pole dashboardu liczy max w wierszu, więc dla wierszy LT (↓) ignoruj "
-                 "podświetlenie. Bieg referencyjny: 1 seed (s42), podzbiór 50/domena. eval_only."),
+                 "podświetlenie. Pełny zbiór 193 promptów, 1 seed (s42); 3 ziarna TODO. eval_only."),
     }
 
     os.makedirs(os.path.dirname(MATRIX_SECTION_OUT) or ".", exist_ok=True)

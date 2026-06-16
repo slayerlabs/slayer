@@ -87,28 +87,28 @@ niskim `panel_score` w PL-GEN = „umie, ale nie robi". Raport zestawia obie osi
 
 ## Wyniki referencyjne
 
-Pojedynczy seed (s42), podzbiór 50 promptów (5/domena), sędzia = DeepSeek-V4-Pro `guided`.
+**Pełny zbiór 193 promptów, pojedynczy seed (s42)**, sędzia = DeepSeek-V4-Pro `guided`.
 Warstwa A (bł./100 tok per kubełek) i Warstwa B (`panel_score` 0–100, `naturalność` 1–5) — osobno.
 
 | model | LT morpho ↓ | LT spelling ↓ | LT style ↓ | panel_score 0–100 ↑ | naturalność 1–5 ↑ |
 |---|---|---|---|---|---|
-| gemma-4-31B-it | 0.043 | 1.042 | 0.022 | **37.5** | 3.96 |
-| Bielik-11B-v3 | 0.053 | 0.954 | 0.018 | 29.5 | 3.49 |
-| Qwen3.5-27B instr | 0.043 | 0.887 | 0.020 | 12.2 | 2.82 |
-| Qwen3.6-27B | 0.110 | 1.363 | 0.067 | 5.8 | 2.63 |
+| gemma-4-31B-it | 0.073 | 1.028 | 0.029 | **32.8** | 3.71 |
+| Bielik-11B-v3 | 0.050 | 0.927 | 0.029 | 31.4 | 3.56 |
+| Qwen3.5-27B instr | 0.086 | 1.086 | 0.031 | 18.9 | 3.02 |
+| Qwen3.6-27B | 0.107 | 1.431 | 0.033 | 11.3 | 2.74 |
 
-Sędzia jest **rygorystyczny** (niskie bezwzględne `panel_score`); sygnałem jest **rozrzut** (5.8–37.5),
-nie poziom. Warstwa A jest płaska (dolne ograniczenie) — zgodnie z projektem.
+Sędzia jest **rygorystyczny** (niskie bezwzględne `panel_score`); sygnałem jest **rozrzut** (11.3–32.8),
+nie poziom — gemma-4 ≈ Bielik na czele, Qwen wyraźnie niżej. Warstwa A płaska (dolne ograniczenie) —
+zgodnie z projektem. (Bieg referencyjny 50/domena dał ten sam ranking — gemma4 > Bielik > Qwen3.5 > Qwen3.6.)
 
 ## Koszt biegu
 
-**~$0.79** za ten bieg (~200 wywołań DeepSeek przez OpenRouter). Raportowany jako wynik (zasada „koszt to
-wynik").
+**~$2.82** za pełny bieg 193 (772 wywołania DeepSeek `guided` + generacja OpenRouter). Raportowany jako
+wynik (zasada „koszt to wynik").
 
 ## Znane pułapki (uczciwie)
 
-- **Pojedynczy seed** — nie planowane 3 ziarna; wariancja generacji niezmierzona.
-- **Podzbiór 50/domena** — nie pełne 193 held-out × 3 ziarna.
+- **Pojedynczy seed (s42)** — nie planowane 3 ziarna; wariancja generacji niezmierzona (→ SLA-15).
 - **Sędzia walidowany na n=20** złota ludzkiego — mały arbiter; kalibracja „mixed" do dostrojenia.
 - **Warstwa A = dolne ograniczenie o niskim recall** (~29% morfoskładnia) — nie ranking modeli na gramatyce.
 - **Determinizm best-effort** — DeepSeek przez OpenRouter (temp 0, przypięty model id); upstream nie

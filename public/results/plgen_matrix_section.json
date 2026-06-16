@@ -1,7 +1,7 @@
 {
   "title": "PL-GEN — długi tekst: LanguageTool + sędzia (DeepSeek)",
-  "official_for": "plgen",
-  "protocol": "free-generation PL (bieg referencyjny: 1 seed s42, podzbiór 50/domena — pełne 193×3 TODO); Layer A = self-hosted LanguageTool (erikvl87/languagetool:6.5) błędy/100tok per bucket (dolne ograniczenie, niski recall); Layer B = ślepy sędzia DeepSeek-V4-Pro (guided, temp 0), panel_score 0-100 + naturalność 1-5. Sub-score'y OSOBNE — nie uśredniać między warstwami ani z innymi sekcjami. IJA N/A przy 1 sędzim.",
+  "official_for": "bledy-jezykowe-pl",
+  "protocol": "free-generation PL (pełny zbiór 193, 1 seed s42; 3 ziarna TODO → SLA-15); Layer A = self-hosted LanguageTool (erikvl87/languagetool:6.5) błędy/100tok per bucket (dolne ograniczenie, niski recall); Layer B = ślepy sędzia DeepSeek-V4-Pro (guided, temp 0), panel_score 0-100 + naturalność 1-5. Sub-score'y OSOBNE — nie uśredniać między warstwami ani z innymi sekcjami. IJA N/A przy 1 sędzim.",
   "cols": [
     "Bielik-11B-v3",
     "Gemma-4-31B-it",
@@ -13,236 +13,227 @@
       "name": "LT morfoskładnia (bł./100tok, ↓)",
       "vals": [
         0.05,
-        0.04,
-        0.04,
+        0.07,
+        0.09,
         0.11
       ]
     },
     {
       "name": "LT ortografia (bł./100tok, ↓)",
       "vals": [
-        0.95,
-        1.04,
-        0.89,
-        1.36
+        0.93,
+        1.03,
+        1.09,
+        1.43
       ]
     },
     {
       "name": "LT styl (bł./100tok, ↓)",
       "vals": [
-        0.02,
-        0.02,
-        0.02,
-        0.07
+        0.03,
+        0.03,
+        0.03,
+        0.03
       ]
     },
     {
       "name": "Sędziowie panel (pass-rate 0-100, ↑)",
       "vals": [
-        29.5,
-        37.5,
-        12.2,
-        5.8
+        31.4,
+        32.8,
+        18.9,
+        11.3
       ]
     },
     {
       "name": "Sędziowie naturalność 1-5",
       "vals": [
-        3.49,
-        3.96,
-        2.82,
-        2.63
-      ]
-    },
-    {
-      "name": "Sędziowie IJA (Krippendorff α)",
-      "vals": [
-        1.0,
-        1.0,
-        1.0,
-        1.0
+        3.56,
+        3.71,
+        3.02,
+        2.74
       ]
     },
     {
       "name": "LT aspekt morfoskładnia (bł./100tok, ↓)",
       "vals": [
-        0.0,
-        0.11,
-        0.0,
-        0.24
+        0.13,
+        0.06,
+        0.13,
+        0.08
       ]
     },
     {
       "name": "LT kalki/AI-style morfoskładnia (bł./100tok, ↓)",
       "vals": [
-        0.07,
-        0.04,
         0.0,
-        0.04
+        0.05,
+        0.03,
+        0.11
       ]
     },
     {
       "name": "LT liczebniki morfoskładnia (bł./100tok, ↓)",
       "vals": [
-        0.21,
+        0.08,
         0.12,
-        0.0,
-        0.0
+        0.06,
+        0.15
       ]
     },
     {
       "name": "LT ortografia morfoskładnia (bł./100tok, ↓)",
       "vals": [
+        0.04,
         0.06,
         0.06,
-        0.0,
-        0.05
+        0.06
       ]
     },
     {
       "name": "LT rejestr morfoskładnia (bł./100tok, ↓)",
       "vals": [
         0.0,
-        0.0,
-        0.1,
-        0.05
+        0.03,
+        0.13,
+        0.28
       ]
     },
     {
       "name": "LT rekcja morfoskładnia (bł./100tok, ↓)",
       "vals": [
-        0.0,
-        0.0,
-        0.09,
-        0.1
+        0.04,
+        0.06,
+        0.08,
+        0.08
       ]
     },
     {
       "name": "LT toponimy morfoskładnia (bł./100tok, ↓)",
       "vals": [
-        0.0,
-        0.0,
         0.13,
-        0.12
+        0.06,
+        0.03,
+        0.11
       ]
     },
     {
       "name": "LT wołacz morfoskładnia (bł./100tok, ↓)",
       "vals": [
-        0.0,
-        0.06,
         0.04,
-        0.29
+        0.07,
+        0.03,
+        0.07
       ]
     },
     {
       "name": "LT zaimki morfoskładnia (bł./100tok, ↓)",
       "vals": [
-        0.19,
-        0.0,
+        0.04,
+        0.13,
         0.05,
-        0.17
+        0.08
       ]
     },
     {
       "name": "LT zgoda długodystansowa morfoskładnia (bł./100tok, ↓)",
       "vals": [
         0.0,
-        0.05,
-        0.0,
-        0.04
+        0.09,
+        0.25,
+        0.06
       ]
     },
     {
       "name": "Sędziowie aspekt (0-100, ↑)",
       "vals": [
-        12.5,
-        37.5,
-        20.0,
-        0.0
+        28.9,
+        23.7,
+        14.7,
+        11.1
       ]
     },
     {
       "name": "Sędziowie kalki/AI-style (0-100, ↑)",
       "vals": [
-        10.0,
-        20.0,
-        10.0,
-        0.0
+        32.5,
+        26.3,
+        21.9,
+        16.7
       ]
     },
     {
       "name": "Sędziowie liczebniki (0-100, ↑)",
       "vals": [
-        16.7,
-        37.5,
-        0.0,
-        10.0
+        33.3,
+        15.6,
+        8.8,
+        5.9
       ]
     },
     {
       "name": "Sędziowie ortografia (0-100, ↑)",
       "vals": [
-        50.0,
-        60.0,
-        10.0,
-        25.0
+        65.6,
+        36.7,
+        34.2,
+        19.4
       ]
     },
     {
       "name": "Sędziowie rejestr (0-100, ↑)",
       "vals": [
-        25.0,
-        12.5,
-        33.3,
-        0.0
+        44.1,
+        30.0,
+        23.1,
+        6.2
       ]
     },
     {
       "name": "Sędziowie rekcja (0-100, ↑)",
       "vals": [
-        50.0,
-        50.0,
-        30.0,
-        25.0
+        8.8,
+        56.2,
+        25.0,
+        11.8
       ]
     },
     {
       "name": "Sędziowie toponimy (0-100, ↑)",
       "vals": [
-        37.5,
-        50.0,
-        20.0,
-        10.0
+        31.6,
+        44.1,
+        12.5,
+        11.8
       ]
     },
     {
       "name": "Sędziowie wołacz (0-100, ↑)",
       "vals": [
-        12.5,
-        40.0,
-        0.0,
+        21.4,
+        30.8,
+        6.7,
         0.0
       ]
     },
     {
       "name": "Sędziowie zaimki (0-100, ↑)",
       "vals": [
-        33.3,
-        33.3,
-        0.0,
-        0.0
+        28.1,
+        34.2,
+        22.5,
+        20.0
       ]
     },
     {
       "name": "Sędziowie zgoda długodystansowa (0-100, ↑)",
       "vals": [
-        50.0,
-        25.0,
-        0.0,
-        0.0
+        21.1,
+        32.4,
+        17.5,
+        5.6
       ]
     }
   ],
-  "note": "Layer A (LT, ↓ lepiej) i Layer B (sędzia, ↑ lepiej) to ODDZIELNE osie — złote pole dashboardu liczy max w wierszu, więc dla wierszy LT (↓) ignoruj podświetlenie. Bieg referencyjny: 1 seed (s42), podzbiór 50/domena. eval_only."
+  "note": "Layer A (LT, ↓ lepiej) i Layer B (sędzia, ↑ lepiej) to ODDZIELNE osie — złote pole dashboardu liczy max w wierszu, więc dla wierszy LT (↓) ignoruj podświetlenie. Pełny zbiór 193 promptów, 1 seed (s42); 3 ziarna TODO. eval_only."
 }

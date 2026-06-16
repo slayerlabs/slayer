@@ -10,10 +10,10 @@
     "bielik": {
       "layer_a": {
         "mean_errors_per_100tok": {
-          "morphosyntax": 0.0534,
-          "spelling": 0.9537,
-          "style": 0.0183,
-          "other": 0.1257
+          "morphosyntax": 0.0504,
+          "spelling": 0.9269,
+          "style": 0.0286,
+          "other": 0.144
         },
         "var_errors_per_100tok": {
           "morphosyntax": null,
@@ -23,116 +23,116 @@
         },
         "per_domena": {
           "aspekt": {
-            "morphosyntax": 0.0,
-            "spelling": 1.9722,
-            "style": 0.0,
-            "other": 0.0
+            "morphosyntax": 0.13,
+            "spelling": 1.6076,
+            "style": 0.045,
+            "other": 0.2113
           },
           "kalki": {
-            "morphosyntax": 0.0741,
-            "spelling": 1.0518,
-            "style": 0.0,
-            "other": 0.3096
+            "morphosyntax": 0.0,
+            "spelling": 0.8854,
+            "style": 0.0391,
+            "other": 0.0755
           },
           "liczebniki": {
-            "morphosyntax": 0.2102,
-            "spelling": 1.7066,
+            "morphosyntax": 0.083,
+            "spelling": 0.7927,
             "style": 0.0,
-            "other": 0.0844
+            "other": 0.0408
           },
           "ortografia": {
-            "morphosyntax": 0.0617,
-            "spelling": 0.408,
-            "style": 0.0,
-            "other": 0.0
+            "morphosyntax": 0.04,
+            "spelling": 0.5053,
+            "style": 0.0376,
+            "other": 0.0795
           },
           "rejestr": {
             "morphosyntax": 0.0,
-            "spelling": 0.8178,
-            "style": 0.1005,
-            "other": 0.1005
+            "spelling": 1.3354,
+            "style": 0.0863,
+            "other": 0.1289
           },
           "rekcja": {
-            "morphosyntax": 0.0,
-            "spelling": 0.5413,
-            "style": 0.0823,
-            "other": 0.0
+            "morphosyntax": 0.0417,
+            "spelling": 0.9591,
+            "style": 0.0385,
+            "other": 0.1526
           },
           "toponimy": {
-            "morphosyntax": 0.0,
-            "spelling": 2.639,
+            "morphosyntax": 0.1259,
+            "spelling": 1.6741,
             "style": 0.0,
-            "other": 0.119
+            "other": 0.1935
           },
           "wołacz": {
-            "morphosyntax": 0.0,
-            "spelling": 0.0,
+            "morphosyntax": 0.0428,
+            "spelling": 0.2534,
             "style": 0.0,
-            "other": 0.155
+            "other": 0.1833
           },
           "zaimki": {
-            "morphosyntax": 0.1881,
-            "spelling": 0.2174,
+            "morphosyntax": 0.0362,
+            "spelling": 0.4035,
             "style": 0.0,
-            "other": 0.3996
+            "other": 0.3389
           },
           "zgoda długodystansowa": {
             "morphosyntax": 0.0,
-            "spelling": 0.1829,
-            "style": 0.0,
-            "other": 0.0885
+            "spelling": 0.7515,
+            "style": 0.0379,
+            "other": 0.0368
           }
         },
         "n_seeds": 1
       },
       "layer_b": {
-        "panel_score_mean": 29.5,
+        "panel_score_mean": 31.4,
         "panel_score_var": null,
-        "naturalnosc_mean": 3.487,
+        "naturalnosc_mean": 3.56,
         "naturalnosc_var": null,
         "ija_alpha_mean": 1.0,
         "ija_alpha_var": null,
         "n_empty": 0,
         "per_domena": {
           "aspekt": {
-            "panel_score": 12.5,
-            "naturalnosc": 3.25
+            "panel_score": 28.9,
+            "naturalnosc": 3.421
           },
           "kalki": {
-            "panel_score": 10.0,
-            "naturalnosc": 2.8
+            "panel_score": 32.5,
+            "naturalnosc": 3.45
           },
           "liczebniki": {
-            "panel_score": 16.7,
-            "naturalnosc": 3.333
+            "panel_score": 33.3,
+            "naturalnosc": 3.667
           },
           "ortografia": {
-            "panel_score": 50.0,
-            "naturalnosc": 4.2
+            "panel_score": 65.6,
+            "naturalnosc": 4.5
           },
           "rejestr": {
-            "panel_score": 25.0,
-            "naturalnosc": 4.0
+            "panel_score": 44.1,
+            "naturalnosc": 3.765
           },
           "rekcja": {
-            "panel_score": 50.0,
-            "naturalnosc": 3.8
+            "panel_score": 8.8,
+            "naturalnosc": 3.294
           },
           "toponimy": {
-            "panel_score": 37.5,
-            "naturalnosc": 3.75
+            "panel_score": 31.6,
+            "naturalnosc": 3.579
           },
           "wołacz": {
-            "panel_score": 12.5,
-            "naturalnosc": 2.5
+            "panel_score": 21.4,
+            "naturalnosc": 3.143
           },
           "zaimki": {
-            "panel_score": 33.3,
-            "naturalnosc": 3.333
+            "panel_score": 28.1,
+            "naturalnosc": 3.562
           },
           "zgoda długodystansowa": {
-            "panel_score": 50.0,
-            "naturalnosc": 4.0
+            "panel_score": 21.1,
+            "naturalnosc": 3.263
           }
         },
         "n_seeds": 1
@@ -142,10 +142,10 @@
     "gemma4": {
       "layer_a": {
         "mean_errors_per_100tok": {
-          "morphosyntax": 0.0428,
-          "spelling": 1.0419,
-          "style": 0.0224,
-          "other": 0.1281
+          "morphosyntax": 0.0731,
+          "spelling": 1.0282,
+          "style": 0.0291,
+          "other": 0.1
         },
         "var_errors_per_100tok": {
           "morphosyntax": null,
@@ -155,116 +155,116 @@
         },
         "per_domena": {
           "aspekt": {
-            "morphosyntax": 0.1058,
-            "spelling": 1.6649,
-            "style": 0.1058,
-            "other": 0.1058
+            "morphosyntax": 0.0574,
+            "spelling": 1.8047,
+            "style": 0.0279,
+            "other": 0.1943
           },
           "kalki": {
-            "morphosyntax": 0.042,
-            "spelling": 1.5116,
-            "style": 0.0,
-            "other": 0.111
+            "morphosyntax": 0.0533,
+            "spelling": 1.1598,
+            "style": 0.0275,
+            "other": 0.0829
           },
           "liczebniki": {
-            "morphosyntax": 0.119,
-            "spelling": 2.0056,
+            "morphosyntax": 0.122,
+            "spelling": 0.7529,
             "style": 0.0,
-            "other": 0.0
+            "other": 0.0989
           },
           "ortografia": {
-            "morphosyntax": 0.059,
-            "spelling": 0.8785,
+            "morphosyntax": 0.0623,
+            "spelling": 0.7669,
             "style": 0.0,
-            "other": 0.0
+            "other": 0.1452
           },
           "rejestr": {
-            "morphosyntax": 0.0,
-            "spelling": 0.7601,
-            "style": 0.0531,
-            "other": 0.114
+            "morphosyntax": 0.0333,
+            "spelling": 2.3608,
+            "style": 0.0628,
+            "other": 0.0818
           },
           "rekcja": {
-            "morphosyntax": 0.0,
-            "spelling": 0.8525,
-            "style": 0.0,
-            "other": 0.1117
+            "morphosyntax": 0.0555,
+            "spelling": 0.6237,
+            "style": 0.0292,
+            "other": 0.0287
           },
           "toponimy": {
-            "morphosyntax": 0.0,
-            "spelling": 1.9429,
+            "morphosyntax": 0.058,
+            "spelling": 1.4974,
             "style": 0.0,
-            "other": 0.2582
+            "other": 0.1091
           },
           "wołacz": {
-            "morphosyntax": 0.057,
-            "spelling": 0.2457,
+            "morphosyntax": 0.0734,
+            "spelling": 0.4219,
             "style": 0.0,
             "other": 0.0
           },
           "zaimki": {
-            "morphosyntax": 0.0,
-            "spelling": 0.1097,
-            "style": 0.0647,
-            "other": 0.1034
+            "morphosyntax": 0.1285,
+            "spelling": 0.2605,
+            "style": 0.0555,
+            "other": 0.0526
           },
           "zgoda długodystansowa": {
-            "morphosyntax": 0.0456,
-            "spelling": 0.4472,
-            "style": 0.0,
-            "other": 0.4773
+            "morphosyntax": 0.0858,
+            "spelling": 0.6313,
+            "style": 0.0846,
+            "other": 0.1847
           }
         },
         "n_seeds": 1
       },
       "layer_b": {
-        "panel_score_mean": 37.5,
+        "panel_score_mean": 32.8,
         "panel_score_var": null,
-        "naturalnosc_mean": 3.955,
+        "naturalnosc_mean": 3.705,
         "naturalnosc_var": null,
         "ija_alpha_mean": 1.0,
         "ija_alpha_var": null,
         "n_empty": 0,
         "per_domena": {
           "aspekt": {
-            "panel_score": 37.5,
-            "naturalnosc": 3.25
+            "panel_score": 23.7,
+            "naturalnosc": 3.474
           },
           "kalki": {
-            "panel_score": 20.0,
-            "naturalnosc": 3.0
+            "panel_score": 26.3,
+            "naturalnosc": 3.158
           },
           "liczebniki": {
-            "panel_score": 37.5,
-            "naturalnosc": 3.75
+            "panel_score": 15.6,
+            "naturalnosc": 3.312
           },
           "ortografia": {
-            "panel_score": 60.0,
-            "naturalnosc": 4.6
+            "panel_score": 36.7,
+            "naturalnosc": 4.2
           },
           "rejestr": {
-            "panel_score": 12.5,
-            "naturalnosc": 4.25
+            "panel_score": 30.0,
+            "naturalnosc": 3.933
           },
           "rekcja": {
-            "panel_score": 50.0,
-            "naturalnosc": 4.6
+            "panel_score": 56.2,
+            "naturalnosc": 4.375
           },
           "toponimy": {
-            "panel_score": 50.0,
-            "naturalnosc": 4.4
+            "panel_score": 44.1,
+            "naturalnosc": 3.941
           },
           "wołacz": {
-            "panel_score": 40.0,
-            "naturalnosc": 4.0
+            "panel_score": 30.8,
+            "naturalnosc": 3.615
           },
           "zaimki": {
-            "panel_score": 33.3,
-            "naturalnosc": 4.0
+            "panel_score": 34.2,
+            "naturalnosc": 3.526
           },
           "zgoda długodystansowa": {
-            "panel_score": 25.0,
-            "naturalnosc": 3.5
+            "panel_score": 32.4,
+            "naturalnosc": 3.706
           }
         },
         "n_seeds": 1
@@ -274,10 +274,10 @@
     "qwen35_instruct": {
       "layer_a": {
         "mean_errors_per_100tok": {
-          "morphosyntax": 0.043,
-          "spelling": 0.8865,
-          "style": 0.0196,
-          "other": 0.051
+          "morphosyntax": 0.0861,
+          "spelling": 1.0863,
+          "style": 0.0311,
+          "other": 0.1119
         },
         "var_errors_per_100tok": {
           "morphosyntax": null,
@@ -287,116 +287,116 @@
         },
         "per_domena": {
           "aspekt": {
-            "morphosyntax": 0.0,
-            "spelling": 1.1749,
-            "style": 0.0,
-            "other": 0.0
+            "morphosyntax": 0.1261,
+            "spelling": 1.95,
+            "style": 0.0318,
+            "other": 0.1268
           },
           "kalki": {
-            "morphosyntax": 0.0,
-            "spelling": 1.1729,
-            "style": 0.0438,
-            "other": 0.129
+            "morphosyntax": 0.0284,
+            "spelling": 0.9473,
+            "style": 0.0,
+            "other": 0.1488
           },
           "liczebniki": {
-            "morphosyntax": 0.0,
-            "spelling": 0.8256,
-            "style": 0.0,
-            "other": 0.0
+            "morphosyntax": 0.0597,
+            "spelling": 1.1813,
+            "style": 0.0891,
+            "other": 0.0276
           },
           "ortografia": {
-            "morphosyntax": 0.0,
-            "spelling": 0.5965,
-            "style": 0.0519,
-            "other": 0.046
+            "morphosyntax": 0.0566,
+            "spelling": 0.5271,
+            "style": 0.0,
+            "other": 0.122
           },
           "rejestr": {
-            "morphosyntax": 0.1045,
-            "spelling": 1.7276,
-            "style": 0.1005,
-            "other": 0.0542
+            "morphosyntax": 0.1322,
+            "spelling": 2.2908,
+            "style": 0.1049,
+            "other": 0.1734
           },
           "rekcja": {
-            "morphosyntax": 0.093,
-            "spelling": 0.8479,
+            "morphosyntax": 0.0832,
+            "spelling": 0.9234,
             "style": 0.0,
-            "other": 0.0939
+            "other": 0.0572
           },
           "toponimy": {
-            "morphosyntax": 0.1333,
-            "spelling": 1.9024,
-            "style": 0.0,
-            "other": 0.0885
+            "morphosyntax": 0.0323,
+            "spelling": 1.3691,
+            "style": 0.0287,
+            "other": 0.1739
           },
           "wołacz": {
-            "morphosyntax": 0.0442,
-            "spelling": 0.1799,
+            "morphosyntax": 0.0347,
+            "spelling": 0.4896,
             "style": 0.0,
-            "other": 0.0442
+            "other": 0.1271
           },
           "zaimki": {
-            "morphosyntax": 0.0545,
-            "spelling": 0.3078,
+            "morphosyntax": 0.0503,
+            "spelling": 0.5589,
             "style": 0.0,
-            "other": 0.0545
+            "other": 0.0822
           },
           "zgoda długodystansowa": {
-            "morphosyntax": 0.0,
-            "spelling": 0.1297,
-            "style": 0.0,
-            "other": 0.0
+            "morphosyntax": 0.2503,
+            "spelling": 0.6315,
+            "style": 0.0604,
+            "other": 0.0856
           }
         },
         "n_seeds": 1
       },
       "layer_b": {
-        "panel_score_mean": 12.2,
+        "panel_score_mean": 18.9,
         "panel_score_var": null,
-        "naturalnosc_mean": 2.822,
+        "naturalnosc_mean": 3.018,
         "naturalnosc_var": null,
         "ija_alpha_mean": 1.0,
         "ija_alpha_var": null,
         "n_empty": 0,
         "per_domena": {
           "aspekt": {
-            "panel_score": 20.0,
-            "naturalnosc": 2.8
+            "panel_score": 14.7,
+            "naturalnosc": 2.882
           },
           "kalki": {
-            "panel_score": 10.0,
-            "naturalnosc": 2.6
+            "panel_score": 21.9,
+            "naturalnosc": 3.062
           },
           "liczebniki": {
-            "panel_score": 0.0,
-            "naturalnosc": 2.0
+            "panel_score": 8.8,
+            "naturalnosc": 2.529
           },
           "ortografia": {
-            "panel_score": 10.0,
-            "naturalnosc": 3.2
+            "panel_score": 34.2,
+            "naturalnosc": 3.579
           },
           "rejestr": {
-            "panel_score": 33.3,
-            "naturalnosc": 3.667
+            "panel_score": 23.1,
+            "naturalnosc": 3.231
           },
           "rekcja": {
-            "panel_score": 30.0,
-            "naturalnosc": 3.6
+            "panel_score": 25.0,
+            "naturalnosc": 3.375
           },
           "toponimy": {
-            "panel_score": 20.0,
+            "panel_score": 12.5,
             "naturalnosc": 3.0
           },
           "wołacz": {
-            "panel_score": 0.0,
-            "naturalnosc": 2.25
+            "panel_score": 6.7,
+            "naturalnosc": 2.6
           },
           "zaimki": {
-            "panel_score": 0.0,
-            "naturalnosc": 2.75
+            "panel_score": 22.5,
+            "naturalnosc": 3.0
           },
           "zgoda długodystansowa": {
-            "panel_score": 0.0,
-            "naturalnosc": 2.4
+            "panel_score": 17.5,
+            "naturalnosc": 2.9
           }
         },
         "n_seeds": 1
@@ -406,10 +406,10 @@
     "qwen36": {
       "layer_a": {
         "mean_errors_per_100tok": {
-          "morphosyntax": 0.1096,
-          "spelling": 1.3628,
-          "style": 0.0672,
-          "other": 0.1324
+          "morphosyntax": 0.1068,
+          "spelling": 1.4309,
+          "style": 0.0334,
+          "other": 0.0964
         },
         "var_errors_per_100tok": {
           "morphosyntax": null,
@@ -419,116 +419,116 @@
         },
         "per_domena": {
           "aspekt": {
-            "morphosyntax": 0.2435,
-            "spelling": 3.1919,
-            "style": 0.1149,
-            "other": 0.0
+            "morphosyntax": 0.0834,
+            "spelling": 2.0036,
+            "style": 0.0282,
+            "other": 0.0878
           },
           "kalki": {
-            "morphosyntax": 0.043,
-            "spelling": 1.1789,
-            "style": 0.0887,
-            "other": 0.4077
+            "morphosyntax": 0.1147,
+            "spelling": 1.7399,
+            "style": 0.0298,
+            "other": 0.1336
           },
           "liczebniki": {
-            "morphosyntax": 0.0,
-            "spelling": 1.1879,
-            "style": 0.2235,
-            "other": 0.0
+            "morphosyntax": 0.1528,
+            "spelling": 1.0422,
+            "style": 0.0294,
+            "other": 0.0306
           },
           "ortografia": {
-            "morphosyntax": 0.0458,
-            "spelling": 0.8768,
-            "style": 0.0458,
-            "other": 0.0458
+            "morphosyntax": 0.0599,
+            "spelling": 1.5224,
+            "style": 0.0314,
+            "other": 0.1865
           },
           "rejestr": {
-            "morphosyntax": 0.0468,
-            "spelling": 1.6246,
-            "style": 0.0987,
-            "other": 0.1965
+            "morphosyntax": 0.2762,
+            "spelling": 2.6334,
+            "style": 0.0701,
+            "other": 0.1847
           },
           "rekcja": {
-            "morphosyntax": 0.1015,
-            "spelling": 1.3447,
-            "style": 0.0,
-            "other": 0.2138
+            "morphosyntax": 0.0832,
+            "spelling": 1.1639,
+            "style": 0.0284,
+            "other": 0.0818
           },
           "toponimy": {
-            "morphosyntax": 0.1156,
-            "spelling": 2.4599,
-            "style": 0.1,
-            "other": 0.1939
+            "morphosyntax": 0.1134,
+            "spelling": 1.4244,
+            "style": 0.0556,
+            "other": 0.0556
           },
           "wołacz": {
-            "morphosyntax": 0.2908,
-            "spelling": 0.6741,
+            "morphosyntax": 0.0651,
+            "spelling": 0.8,
             "style": 0.0,
-            "other": 0.0784
+            "other": 0.0
           },
           "zaimki": {
-            "morphosyntax": 0.1674,
-            "spelling": 0.6136,
+            "morphosyntax": 0.0756,
+            "spelling": 1.0654,
             "style": 0.0,
-            "other": 0.0426
+            "other": 0.1065
           },
           "zgoda długodystansowa": {
-            "morphosyntax": 0.0419,
-            "spelling": 0.4758,
-            "style": 0.0,
-            "other": 0.1457
+            "morphosyntax": 0.055,
+            "spelling": 0.888,
+            "style": 0.058,
+            "other": 0.0828
           }
         },
         "n_seeds": 1
       },
       "layer_b": {
-        "panel_score_mean": 5.8,
+        "panel_score_mean": 11.3,
         "panel_score_var": null,
-        "naturalnosc_mean": 2.628,
+        "naturalnosc_mean": 2.738,
         "naturalnosc_var": null,
         "ija_alpha_mean": 1.0,
         "ija_alpha_var": null,
         "n_empty": 0,
         "per_domena": {
           "aspekt": {
-            "panel_score": 0.0,
-            "naturalnosc": 2.4
+            "panel_score": 11.1,
+            "naturalnosc": 2.556
           },
           "kalki": {
-            "panel_score": 0.0,
-            "naturalnosc": 2.2
+            "panel_score": 16.7,
+            "naturalnosc": 2.833
           },
           "liczebniki": {
-            "panel_score": 10.0,
-            "naturalnosc": 2.6
+            "panel_score": 5.9,
+            "naturalnosc": 2.412
           },
           "ortografia": {
-            "panel_score": 25.0,
-            "naturalnosc": 4.0
+            "panel_score": 19.4,
+            "naturalnosc": 3.167
           },
           "rejestr": {
-            "panel_score": 0.0,
+            "panel_score": 6.2,
             "naturalnosc": 2.75
           },
           "rekcja": {
-            "panel_score": 25.0,
-            "naturalnosc": 3.5
+            "panel_score": 11.8,
+            "naturalnosc": 3.0
           },
           "toponimy": {
-            "panel_score": 10.0,
-            "naturalnosc": 2.6
+            "panel_score": 11.8,
+            "naturalnosc": 2.882
           },
           "wołacz": {
             "panel_score": 0.0,
-            "naturalnosc": 2.4
+            "naturalnosc": 2.308
           },
           "zaimki": {
-            "panel_score": 0.0,
-            "naturalnosc": 2.25
+            "panel_score": 20.0,
+            "naturalnosc": 2.95
           },
           "zgoda długodystansowa": {
-            "panel_score": 0.0,
-            "naturalnosc": 2.5
+            "panel_score": 5.6,
+            "naturalnosc": 2.389
           }
         },
         "n_seeds": 1

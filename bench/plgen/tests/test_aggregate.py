@@ -248,7 +248,7 @@ def test_matrix_section_shape(runs_dir, out_path, tmp_path, monkeypatch):
         {"bielik": common.MODELS["bielik"], "gemma4": common.MODELS["gemma4"]}, [42])
     sec = bench_plgen.matrix_section(rep)
 
-    assert sec["official_for"] == "plgen"
+    assert sec["official_for"] == "bledy-jezykowe-pl"
     assert isinstance(sec["protocol"], str) and sec["protocol"]
     assert isinstance(sec["note"], str) and sec["note"]
     assert len(sec["cols"]) == 2
