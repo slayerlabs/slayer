@@ -18,3 +18,70 @@
 .sl-inner{width:min(var(--sl-max),100%);margin:0 auto;padding-left:clamp(18px,5vw,72px);padding-right:clamp(18px,5vw,72px)}
 .sl-sec{padding:clamp(36px,6vw,72px) 0}
 .sl-rule{border:0;border-top:1px solid var(--sl-line);margin:0}
+
+/* ---------- typografia ---------- */
+.sl-eye{font-family:var(--sl-mono);font-size:10px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--sl-acc)}
+.sl-h1{font-family:var(--sl-sans);font-weight:300;text-transform:uppercase;letter-spacing:-.01em;line-height:.98;color:var(--sl-ink);font-size:clamp(40px,7vw,64px);margin:0}
+.sl-h2{font-family:var(--sl-sans);font-weight:300;text-transform:uppercase;letter-spacing:-.01em;line-height:1.02;color:var(--sl-ink);font-size:clamp(26px,4vw,34px);margin:0}
+.sl-acc{color:var(--sl-acc)}
+.sl-lede{color:var(--sl-mut);font-size:clamp(14px,1.5vw,16px);line-height:1.6;max-width:56ch}
+.sl-lede b{color:var(--sl-ink);font-weight:500}
+.sl-lede a{color:var(--sl-acc);border-bottom:1px solid var(--sl-acc-soft)}
+
+/* ---------- wielka liczba ---------- */
+.sl-num{font-family:var(--sl-sans);font-weight:300;letter-spacing:-.03em;line-height:.85;font-size:clamp(40px,6vw,60px);color:var(--sl-ink)}
+.sl-num.sl-acc{color:var(--sl-acc)}
+
+/* ---------- pas wielkich liczb ---------- */
+.sl-band{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--sl-line);border-top:1px solid var(--sl-line);border-bottom:1px solid var(--sl-line)}
+.sl-stat{background:var(--sl-bg);padding:clamp(18px,3vw,26px) clamp(16px,2vw,24px)}
+.sl-slbl{font-family:var(--sl-mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--sl-mut);margin-top:12px;line-height:1.5}
+@media(max-width:820px){.sl-band{grid-template-columns:repeat(2,1fr)}}
+
+/* ---------- nazwane kolumny + labeled list ---------- */
+.sl-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--sl-line);border-top:1px solid var(--sl-line);border-bottom:1px solid var(--sl-line)}
+.sl-col{background:var(--sl-bg);padding:22px clamp(16px,2vw,24px)}
+.sl-clbl{font-family:var(--sl-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--sl-acc);margin-bottom:14px}
+.sl-list{margin:0;padding:0;list-style:none;font-size:13.5px;line-height:2.05;color:var(--sl-txt)}
+.sl-list a{color:var(--sl-txt);transition:color .15s}
+.sl-list a:hover{color:var(--sl-acc)}
+.sl-list sup{font-size:8px;color:var(--sl-acc)}
+@media(max-width:820px){.sl-cols{grid-template-columns:1fr}}
+
+/* ---------- numerowane wpisy (reguły) ---------- */
+.sl-entries{border-top:1px solid var(--sl-line)}
+.sl-entry{display:grid;grid-template-columns:auto 1fr;gap:clamp(16px,3vw,30px);padding:clamp(18px,3vw,26px) 0;border-bottom:1px solid var(--sl-line2);align-items:start}
+.sl-entry .sl-no{font-family:var(--sl-sans);font-weight:300;font-size:clamp(28px,4vw,40px);color:var(--sl-acc);line-height:.9}
+.sl-entry h3{font-family:var(--sl-sans);font-weight:500;font-size:clamp(15px,2vw,19px);color:var(--sl-ink);text-transform:uppercase;letter-spacing:-.005em;margin:0 0 7px}
+.sl-entry p{margin:0;color:var(--sl-mut);font-size:13.5px;max-width:74ch}
+.sl-entry p b{color:var(--sl-ink)}
+@media(max-width:560px){.sl-entry{grid-template-columns:1fr;gap:6px}}
+
+/* ---------- przyciski ---------- */
+.sl-cta{display:flex;flex-wrap:wrap;gap:12px}
+.sl-btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--sl-mono);font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;padding:12px 18px;border:1px solid transparent;cursor:pointer;transition:.15s}
+.sl-btn-p{background:var(--sl-acc-strong);color:#fff}
+.sl-btn-p:hover{background:var(--sl-acc)}
+.sl-btn-s{border-color:var(--sl-line);color:var(--sl-ink)}
+.sl-btn-s:hover{border-color:var(--sl-acc);color:var(--sl-acc)}
+
+/* ---------- chip ---------- */
+.sl-chip{display:inline-block;font-family:var(--sl-mono);font-size:9.5px;letter-spacing:.04em;padding:3px 9px;border-radius:99px;color:var(--sl-acc);background:var(--sl-acc-soft);border:1px solid rgba(236,43,79,.32)}
+
+/* ---------- tabela ---------- */
+.sl-tbl{width:100%;border-collapse:collapse;font-size:13px}
+.sl-tbl th{text-align:left;padding:12px 8px;font-family:var(--sl-mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--sl-mut);border-bottom:1px solid var(--sl-line)}
+.sl-tbl th.sl-c,.sl-tbl td.sl-s{text-align:right}
+.sl-tbl td{padding:13px 8px;border-bottom:1px solid var(--sl-line2);color:var(--sl-txt)}
+.sl-tbl td.sl-dn{color:var(--sl-ink);font-weight:500}
+.sl-tbl td.sl-s{font-family:var(--sl-mono)}
+.sl-tbl td.sl-s.sl-win{color:var(--sl-acc)}
+
+/* ---------- przypisy ---------- */
+.sl-fn{font-family:var(--sl-mono);font-size:9px;line-height:1.8;color:var(--sl-dim);letter-spacing:.02em;margin-top:14px}
+
+/* ---------- reveal (a11y: szanuje reduced-motion) ---------- */
+.sl-rv{opacity:0;transform:translateY(12px);animation:sl-rv .7s cubic-bezier(.2,.7,.3,1) forwards}
+.sl-rv.sl-d1{animation-delay:.06s}.sl-rv.sl-d2{animation-delay:.16s}.sl-rv.sl-d3{animation-delay:.26s}.sl-rv.sl-d4{animation-delay:.36s}
+@keyframes sl-rv{to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.sl-rv{animation:none;opacity:1;transform:none}}
