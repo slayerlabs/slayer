@@ -8,7 +8,7 @@ import "../styles/slayer.css";
 
 const archivo = Archivo({
   subsets: ["latin", "latin-ext"],
-  weight: ["300", "400", "500", "600"],
+  weight: ["300", "400", "500", "600", "800"],
   variable: "--font-archivo",
   display: "swap",
 });

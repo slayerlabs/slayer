@@ -13,7 +13,7 @@ export default function Home() {
         <div className="sl-inner">
           <div className="sl-hero-grid">
             <div>
-              <div className="sl-eye sl-rv">✦ good taste applied research lab · polskie modele</div>
+              <div className="sl-eye sl-rv">good taste · applied research lab · polskie modele</div>
               <h1 className="sl-h1 sl-rv sl-d1">Protokół dla <span className="sl-acc">polskiej inteligencji.</span></h1>
               <p className="sl-lede sl-rv sl-d2">Badamy modele językowe jak rzemiosło — smak, pomiar, koszt, ślady danych. Zostawiamy <b>artefakty</b>, które da się odtworzyć.</p>
               <div className="sl-cta sl-rv sl-d3">
@@ -22,14 +22,16 @@ export default function Home() {
               </div>
             </div>
             <div className="sl-art sl-rv sl-d4">
-              <div className="sl-art-h">◆ slayer-7b · PolNative</div>
-              <div className="sl-art-num">0.82</div>
-              <div className="sl-art-meta">SOTA-PL · +0.03 vs bielik-7b</div>
+              <div className="sl-eye">slayer-7b · polnative v1</div>
+              <div className="sl-tele">run <b>7f3a9c2</b> · seed <b>1337</b> · n=<b>111</b> · lang/pl</div>
+              <output className="sl-art-num">0.82</output>
+              <div className="sl-art-meta">render exact-match · SOTA-PL <span className="sl-acc">+0.03</span> vs bielik-7b</div>
               <div className="sl-art-bars">
                 <span className="sl-art-bar sl-art-bar-win" style={{ width: "82%" }} />
                 <span className="sl-art-bar" style={{ width: "64%" }} />
                 <span className="sl-art-bar" style={{ width: "74%" }} />
               </div>
+              <a className="sl-tele-link" href="/benchmarks">↗ pełna karta /benchmarks</a>
             </div>
           </div>
         </div>
@@ -46,7 +48,7 @@ export default function Home() {
 
       <section className="sl-sec">
         <div className="sl-inner">
-          <div className="sl-eye">◆ księga pomiarów</div>
+          <div className="sl-eye">księga pomiarów</div>
           <div className="sl-cols" style={{ marginTop: 18 }}>
             <div className="sl-col sl-col-lead">
               <div className="sl-clbl">▸ ostatnie artefakty</div>
@@ -70,7 +72,7 @@ export default function Home() {
 
       <section className="sl-sec">
         <div className="sl-inner">
-          <div className="sl-eye">01 · komnaty ◆</div>
+          <div className="sl-eye">01 / komnaty</div>
           <h2 className="sl-h2" style={{ marginTop: 10 }}>Cztery drzwi, <span className="sl-acc">jeden warsztat.</span></h2>
           <p className="sl-lede" style={{ marginTop: 12 }}>Każdy obszar ma własny protokół, artefakty i ślady. Bez ozdobnych deklaracji, bez wyników na słowo.</p>
           <div className="sl-bento" style={{ marginTop: 22 }}>
@@ -107,7 +109,7 @@ export default function Home() {
 
       <section className="sl-sec">
         <div className="sl-inner">
-          <div className="sl-eye">02 · reguły przejścia ◆</div>
+          <div className="sl-eye">02 / reguły przejścia</div>
           <h2 className="sl-h2" style={{ marginTop: 10 }}>Co wpuszczamy <span className="sl-acc">do twierdzeń.</span></h2>
           <p className="sl-lede" style={{ marginTop: 12, marginBottom: 8 }}>Rygor ewaluacyjny jest częścią smaku. Te reguły obowiązują w każdym runie.</p>
           <div className="sl-entries">
@@ -124,7 +126,7 @@ export default function Home() {
 
       <section className="sl-sec">
         <div className="sl-inner">
-          <div className="sl-eye">03 · wejścia ◆</div>
+          <div className="sl-eye">03 / wejścia</div>
           <h2 className="sl-h2" style={{ marginTop: 10 }}>Wybierz <span className="sl-acc">ślad.</span></h2>
           <div className="sl-cols" style={{ marginTop: 22 }}>
             <div className="sl-col sl-col-lead">
@@ -151,7 +153,7 @@ export default function Home() {
 
       <section className="sl-sec">
         <div className="sl-inner">
-          <div className="sl-eye">04 · kontekst ◆</div>
+          <div className="sl-eye">04 / kontekst</div>
           <h2 className="sl-h2" style={{ marginTop: 10 }}>Bez teatru <span className="sl-acc">zwycięstwa.</span></h2>
           <div className="sl-cols" style={{ marginTop: 22 }}>
             <div className="sl-col sl-col-lead">
@@ -170,7 +172,7 @@ export default function Home() {
 
       <section className="sl-sec">
         <div className="sl-inner" style={{ maxWidth: 760, marginLeft: "auto", marginRight: "auto", textAlign: "center" }}>
-          <div className="sl-eye" style={{ display: "block" }}>✦ dołącz</div>
+          <div className="sl-eye" style={{ display: "block" }}>dołącz</div>
           <h2 className="sl-h2" style={{ margin: "12px 0 14px" }}>Wejdź, jeśli chcesz <span className="sl-acc">mierzyć.</span></h2>
           <p className="sl-lede" style={{ margin: "0 auto 24px" }}>Kontrybutorzy, naukowcy, firmy z use case&apos;ami i fundatorzy compute. Publiczny zapis: od razu widać, kto już jest.</p>
           <div className="sl-cta" style={{ justifyContent: "center" }}>
