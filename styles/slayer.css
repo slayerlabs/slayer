@@ -117,3 +117,8 @@
   .sl-navmenu a{padding:9px 4px;font-size:12px}
   .sl-ncta{margin-top:14px}
 }
+
+/* ---------- footer ---------- */
+.sl-foot{border-top:1px solid var(--sl-line);padding:22px clamp(18px,5vw,72px);display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-family:var(--sl-mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--sl-dim);background:var(--sl-bg)}
+.sl-foot a{color:var(--sl-mut)}
+.sl-foot a:hover{color:var(--sl-acc)}
