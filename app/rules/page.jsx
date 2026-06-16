@@ -41,7 +41,6 @@ export default function Rules() {
         </div>
       </section>
 
-      <hr className="sl-rule" />
 
       <section className="sl-sec">
         <div className="sl-inner">
@@ -62,7 +61,6 @@ export default function Rules() {
         </div>
       </section>
 
-      <hr className="sl-rule" />
 
       <section className="sl-sec">
         <div className="sl-inner" style={{ maxWidth: 760, marginLeft: "auto", marginRight: "auto", textAlign: "center" }}>

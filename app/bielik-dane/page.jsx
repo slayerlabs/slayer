@@ -96,7 +96,6 @@ export default function BielikDane() {
         </div>
       </section>
 
-      <hr className="sl-rule" />
 
       <section className="sl-sec">
         <div className="sl-inner">
@@ -133,7 +132,6 @@ export default function BielikDane() {
         </div>
       </section>
 
-      <hr className="sl-rule" />
 
       <section className="sl-sec">
         <div className="sl-inner">
@@ -168,7 +166,6 @@ export default function BielikDane() {
         </div>
       </section>
 
-      <hr className="sl-rule" />
 
       <section className="sl-sec">
         <div className="sl-inner">

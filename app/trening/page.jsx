@@ -105,7 +105,6 @@ export default function Trening() {
         </div>
       </section>
 
-      <hr className="sl-rule" />
 
       <section className="sl-sec">
         <div className="sl-inner">
@@ -155,7 +154,6 @@ export default function Trening() {
         </div>
       </section>
 
-      <hr className="sl-rule" />
 
       <section className="sl-sec">
         <div className="sl-inner">
@@ -195,7 +193,6 @@ export default function Trening() {
         </div>
       </section>
 
-      <hr className="sl-rule" />
 
       <section className="sl-sec">
         <div className="sl-inner">
@@ -222,7 +219,6 @@ export default function Trening() {
         </div>
       </section>
 
-      <hr className="sl-rule" />
 
       <section className="sl-sec">
         <div className="sl-inner">

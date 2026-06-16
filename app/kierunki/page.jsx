@@ -111,7 +111,6 @@ export default function Kierunki() {
         </div>
       </section>
 
-      <hr className="sl-rule" />
 
       <section className="sl-sec">
         <div className="sl-inner">

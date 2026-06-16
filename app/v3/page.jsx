@@ -122,7 +122,6 @@ export default function V3() {
         </div>
       </section>
 
-      <hr className="sl-rule" />
 
       <section className="sl-sec">
         <div className="sl-inner">

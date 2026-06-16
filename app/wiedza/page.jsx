@@ -75,7 +75,6 @@ export default function Wiedza() {
         </div>
       </section>
 
-      <hr className="sl-rule" />
 
       <section className="sl-sec">
         <div className="sl-inner">
@@ -129,7 +128,6 @@ export default function Wiedza() {
         </div>
       </section>
 
-      <hr className="sl-rule" />
 
       <section className="sl-sec">
         <div className="sl-inner">
@@ -181,7 +179,6 @@ export default function Wiedza() {
         </div>
       </section>
 
-      <hr className="sl-rule" />
 
       <section className="sl-sec">
         <div className="sl-inner">
@@ -237,7 +234,6 @@ export default function Wiedza() {
         </div>
       </section>
 
-      <hr className="sl-rule" />
 
       <section className="sl-sec">
         <div className="sl-inner">
