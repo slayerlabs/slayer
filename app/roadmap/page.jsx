@@ -101,12 +101,12 @@ export default function Roadmap() {
               <h2 className="sl-h2" style={{ marginTop: 10 }}>Zaproszenie <span className="sl-acc">do współpracy.</span></h2>
             </div>
           </div>
-          <div className="sl-cols" style={{ marginTop: 22 }}>
-            <div className="sl-col sl-col-lead">
+          <div className="sl-bento-a" style={{ marginTop: 22 }}>
+            <div className="sl-col sl-col-block sl-feat">
               <div className="sl-clbl">▸ ręce</div>
               <h3 className="sl-h2" style={{ fontSize: 17, marginBottom: 7 }}>Kontrybutorzy</h3>
               <p className="sl-lede" style={{ fontSize: 13 }}>Ewaluacje, dekontaminacja, loadery, dane. Wejdź na dowolnym poziomie.</p>
-              <p className="sl-fn"><a href="/zadania" style={{ color: "var(--sl-acc)" }}>Lista zadań →</a></p>
+              <p className="sl-fn" style={{ marginTop: "auto" }}><a href="/zadania">Lista zadań →</a></p>
             </div>
             <div className="sl-col">
               <div className="sl-clbl">▸ dane</div>
