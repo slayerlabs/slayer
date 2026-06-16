@@ -8,3 +8,7 @@ dependencies = [
     "huggingface-hub>=1.19.0",
     "sacrebleu>=2.6.0",
 ]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["bench"]

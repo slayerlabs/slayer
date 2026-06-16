@@ -38,6 +38,25 @@
     "uwagi_review": null
   },
   {
+    "id": "lek",
+    "nazwa": "LEK (medyczny)",
+    "opis": "lekarski egzamin końcowy · medycyna",
+    "link": "https://huggingface.co/datasets/amu-cai/medical-exams-LEK-PL-2008-2024",
+    "repo": null,
+    "metryka": "accuracy MCQ",
+    "metryka_klucz": "accuracy",
+    "rozmiar": 4312,
+    "licencja": "publiczny",
+    "kategoria": "pl-core",
+    "rola": "egzamin zawodowy",
+    "typ_zadania": "qa-mcq",
+    "tagi": ["pl", "eval", "mcq", "medycyna"],
+    "status": "verified",
+    "dodal": "bartoszkobylinski",
+    "data_dodania": "2026-06-17",
+    "uwagi_review": "źródło CEM, brak zadeklarowanej licencji (jak PES); domena medyczna nakłada się na PES, ale to inny egzamin (LEK = egzamin końcowy lekarza, nie specjalizacyjny)"
+  },
+  {
     "id": "poquad",
     "nazwa": "PoQuAD",
     "opis": "SQuAD 2.0, natywnie PL, no-answer",
