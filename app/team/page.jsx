@@ -15,6 +15,8 @@ const MEMBERS = [
   { img: "/assets/team/kamil-kaczmarek.png", name: "Kamil Kaczmarek", specialty: "Fullstack · Boty · Mikroserwisy", bio: "Fullstack deweloper. Buduje bota, mikroserwisy i narzędzia dla agencji marketingowej. Współtwórca systemu zarządzającego dziesiątkami tysięcy ofert na Allegro. Dostarcza end-to-end: od pomysłu do wdrożenia." },
   { img: "/assets/team/grzegorz.jpeg", name: "Grzegorz Trzaskoma", specialty: "Backend · Java · Node.js", bio: "Student informatyki II roku. Buduje framework agentowy @the-brain/core oraz aplikację Scheduler (system zarządzania pracownikami) jako sandbox dla agentów. Pełne środowisko testowe w terminalu, pamięć agenta w rozwój. gt-processing.com" },
   { img: "/assets/team/s3nh.jpg", name: "Damian Panek", specialty: "ML Engineer · OSS · Quantization", bio: "ML Engineer, fanatyk open source. Specjalizuje się w metodach kwantyzacji i optymalizacji SOTA modeli." },
+  { img: "/assets/team/konradtalik.jpg", name: "Konrad Talik", specialty: "Agent Workflows · ML Strategy · Data Viz", bio: "Wielogodzinny agentowy przepływ pracy, strategia uczenia maszynowego w oparciu o eksplorację i wizualizację danych.", link: "https://www.linkedin.com/in/ktalik", link2: "https://www.kondz.io/" },
+  { img: "/assets/team/jezałb.jpg", name: "Błażej", specialty: "Data Science · NLP/LLM · ML", bio: "Bachelor Data Science, kończy MSc Data Science & AI na TU Eindhoven. Pracuje w Pythonie i R: czyszczenie danych, EDA, ewaluacja modeli, benchmarki. Prowadzi badania nad sieciami cytowań i modelami predykcyjnymi. Chętnie angażuje się w tematy agentów AI i LLM." },
 ];
 
 const ADVISORS = [
@@ -63,11 +65,24 @@ export default function Team() {
           <div className="sl-eye" style={{ marginBottom: 18 }}>core team · member of technical staff</div>
           <div className="sl-people">
             {MEMBERS.map((m) => (
-              <article className="sl-person" key={m.name}>
-                <Avatar img={m.img} name={m.name} />
-                <div className="sl-pname">{m.name}</div>
-                <div className="sl-prole">{m.specialty}</div>
-                <p className="sl-pbio">{m.bio}</p>
+              <article className="member" key={m.name}>
+                <div className="av">
+                  {m.img ? (
+                    <img src={m.img} alt={m.name} />
+                  ) : (
+                    <span className="av-init">{m.name.charAt(0)}</span>
+                  )}
+                </div>
+                <div className="member-info">
+                  <div className="member-title-label">Member of Technical Staff</div>
+                  <h2 className="member-name">{m.name}</h2>
+                  <div className="member-specialty">{m.specialty}</div>
+                  <p className="member-bio">
+                    {m.bio}
+                    {m.link ? <> <a href={m.link} target="_blank" rel="noopener" style={{ color: "var(--acc)" }}>LinkedIn →</a></> : null}
+                    {m.link2 ? <> <a href={m.link2} target="_blank" rel="noopener" style={{ color: "var(--acc)" }}>www →</a></> : null}
+                  </p>
+                </div>
               </article>
             ))}
 
