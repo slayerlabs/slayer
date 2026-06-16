@@ -1,0 +1,19 @@
+/* ============================================================
+   SLAYER v2 — „Ciemny Edytorial". Addytywny, izolowany pod .sl
+   Tokeny i klasy prefiksowane (--sl-* / .sl-*), by nie kolidować
+   z lab.css (stare 22 strony pozostają nietknięte).
+   ============================================================ */
+:root{
+  --sl-bg:#0d0a0b; --sl-ink:#ece4e0; --sl-txt:#b9adad; --sl-mut:#8a7d7d; --sl-dim:#6e6063;
+  --sl-acc:#fb4d68; --sl-acc-strong:#ec2b4f; --sl-acc-soft:rgba(236,43,79,.12);
+  --sl-line:rgba(255,255,255,.12); --sl-line2:rgba(255,255,255,.06);
+  --sl-sans:var(--font-archivo),"Archivo",system-ui,sans-serif;
+  --sl-mono:var(--font-jbmono),"JetBrains Mono",ui-monospace,monospace;
+  --sl-max:1140px;
+}
+.sl{background:var(--sl-bg);color:var(--sl-txt);font-family:var(--sl-sans);font-weight:400;line-height:1.55;-webkit-font-smoothing:antialiased}
+.sl ::selection{background:var(--sl-acc);color:#fff}
+.sl a{color:inherit;text-decoration:none}
+.sl-inner{width:min(var(--sl-max),100%);margin:0 auto;padding-left:clamp(18px,5vw,72px);padding-right:clamp(18px,5vw,72px)}
+.sl-sec{padding:clamp(36px,6vw,72px) 0}
+.sl-rule{border:0;border-top:1px solid var(--sl-line);margin:0}
