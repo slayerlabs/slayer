@@ -9,30 +9,14 @@ export const metadata = {
 export default function Home() {
   return (
     <main className="sl">
-      <section className="sl-hero">
+      <section className="sl-hero sl-hero-hi">
         <div className="sl-inner">
-          <div className="sl-hero-grid">
-            <div>
-              <div className="sl-eye">good taste · applied research lab · polskie modele</div>
-              <h1 className="sl-h1">Protokół dla <span className="sl-acc">polskiej inteligencji.</span></h1>
-              <p className="sl-lede">Badamy modele językowe jak rzemiosło — smak, pomiar, koszt, ślady danych. Zostawiamy <b>artefakty</b>, które da się odtworzyć.</p>
-              <div className="sl-cta">
-                <a className="sl-btn sl-btn-p" href="/benchmarks">otwórz protokoły →</a>
-                <a className="sl-btn sl-btn-s" href="https://discord.gg/HnTkVR4c5T" rel="noopener" target="_blank">wejście do labu ↗</a>
-              </div>
-            </div>
-            <div className="sl-art">
-              <div className="sl-eye">slayer-7b · polnative v1</div>
-              <div className="sl-tele">run <b>7f3a9c2</b> · seed <b>1337</b> · n=<b>111</b> · lang/pl</div>
-              <output className="sl-art-num">0.82</output>
-              <div className="sl-art-meta">render exact-match · SOTA-PL <span className="sl-acc">+0.03</span> vs bielik-7b</div>
-              <div className="sl-art-bars">
-                <span className="sl-art-bar sl-art-bar-win" style={{ width: "82%" }} />
-                <span className="sl-art-bar" style={{ width: "64%" }} />
-                <span className="sl-art-bar" style={{ width: "74%" }} />
-              </div>
-              <a className="sl-tele-link" href="/benchmarks">↗ pełna karta /benchmarks</a>
-            </div>
+          <div className="sl-eye">good taste · applied research lab · polskie modele</div>
+          <h1 className="sl-h1">Protokół dla <span className="sl-acc">polskiej inteligencji.</span></h1>
+          <p className="sl-lede">Badamy modele językowe jak rzemiosło — smak, pomiar, koszt, ślady danych. Zostawiamy <b>artefakty</b>, które da się odtworzyć.</p>
+          <div className="sl-cta">
+            <a className="sl-btn sl-btn-p" href="/benchmarks">otwórz protokoły →</a>
+            <a className="sl-btn sl-btn-s" href="https://discord.gg/HnTkVR4c5T" rel="noopener" target="_blank">wejście do labu ↗</a>
           </div>
         </div>
       </section>

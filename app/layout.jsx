@@ -3,7 +3,6 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Archivo, JetBrains_Mono } from "next/font/google";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
-import "../styles/lab.css";
 import "../styles/slayer.css";
 
 const archivo = Archivo({
@@ -28,15 +27,6 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="pl" className={`${archivo.variable} ${jbmono.variable}`}>
-      <head>
-        {/* TODO(redesign rollout): usunąć preconnect + ten Google Fonts <link>, gdy fonty lab.css (Hanken/IBM Plex/Newsreader) zostaną zastąpione — next/font self-hostuje Archivo + JetBrains Mono i nie potrzebuje tych żądań */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&display=swap"
-          rel="stylesheet"
-        />
-      </head>
       <body>
         <Nav />
         {children}

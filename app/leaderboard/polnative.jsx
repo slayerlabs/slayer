@@ -48,7 +48,7 @@ export default function PolNativeBoard() {
           <thead><tr><th>model</th><th className="pnb-bar-cell"></th><th className="sl-c">wynik</th><th className="sl-c">auto · sędzia</th></tr></thead>
           <tbody>
             {rows.map((r, i) => {
-              const color = r.k.startsWith("slayer") ? "var(--good)" : i === 0 ? "var(--sl-acc)" : "var(--sl-dim)";
+              const color = r.k.startsWith("slayer") ? "var(--sl-ok)" : i === 0 ? "var(--sl-acc)" : "var(--sl-dim)";
               const winner = i === 0 || r.k.startsWith("slayer");
               return (
                 <tr key={r.k}>

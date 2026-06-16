@@ -12,6 +12,14 @@
   --sl-mono:var(--font-jbmono),"JetBrains Mono",ui-monospace,monospace;
   --sl-max:1140px;
 }
+/* baza globalna (zastępuje globalne reguły usuniętego lab.css; świadomie BEZ gradientów body::before/::after) */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--sl-bg);color:var(--sl-txt);font-family:var(--sl-sans);font-size:16.5px;line-height:1.62;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img{max-width:100%}
+::selection{background:var(--sl-acc);color:#fff}
+
 .sl{background:var(--sl-bg);color:var(--sl-txt);font-family:var(--sl-sans);font-weight:400;line-height:1.55;-webkit-font-smoothing:antialiased}
 .sl ::selection{background:var(--sl-acc);color:#fff}
 .sl a{color:inherit;text-decoration:none}
@@ -151,6 +159,11 @@
 .sl-hero h1{margin:14px 0 0}
 .sl-hero .sl-lede{margin:22px 0 0}
 .sl-hero .sl-cta{margin-top:26px}
+/* hero głównej — duma, pełna szerokość, wielki nagłówek */
+.sl-hero-hi{padding:clamp(56px,11vw,128px) 0 clamp(36px,6vw,64px)}
+.sl-hero-hi h1{font-size:clamp(52px,9vw,116px);line-height:.92;letter-spacing:-.02em;margin:18px 0 0}
+.sl-hero-hi .sl-lede{font-size:clamp(16px,1.7vw,19px);max-width:60ch;margin:28px 0 0}
+.sl-hero-hi .sl-cta{margin-top:32px}
 
 /* ---------- editorial split (hero: typografia z lewej, artefakt z prawej) ---------- */
 .sl-hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(22px,4vw,48px);align-items:center}
