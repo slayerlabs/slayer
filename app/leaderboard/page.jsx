@@ -12,7 +12,7 @@ export default function Leaderboard() {
       <section className="sl-sec">
         <div className="sl-inner">
           <div className="sl-mast">
-            <div className="sl-mast-no">00</div>
+            <div className="sl-mast-code"><b>leaderboard</b><span>/ benchmarki</span></div>
             <div>
               <div className="sl-eye">leaderboard · natywność + benchmarki zewnętrzne</div>
               <h1 className="sl-h1" style={{ marginTop: 10 }}>Wyniki <span className="sl-acc">na żywo.</span></h1>

@@ -53,6 +53,12 @@ img{max-width:100%}
 .sl-mast{display:grid;grid-template-columns:minmax(120px,.4fr) 1fr;gap:clamp(20px,5vw,64px);align-items:start}
 .sl-mast-no{font-family:var(--sl-sans);font-weight:600;font-size:clamp(76px,13vw,168px);line-height:.78;letter-spacing:-.04em;color:var(--sl-ink)}
 @media(max-width:700px){.sl-mast{grid-template-columns:1fr;gap:6px}.sl-mast-no{font-size:clamp(60px,20vw,96px)}}
+/* hero stron: mono-kod w rynnie zamiast arbitralnej cyfry (route + grupa) */
+.sl-mast:has(.sl-mast-code){grid-template-columns:minmax(96px,auto) 1fr;align-items:start}
+.sl-mast-code{font-family:var(--sl-mono);text-transform:uppercase;padding-top:6px;line-height:1.3}
+.sl-mast-code b{display:block;font-size:clamp(12px,1.4vw,15px);font-weight:500;letter-spacing:.1em;color:var(--sl-ink);white-space:nowrap}
+.sl-mast-code span{display:block;font-size:10px;letter-spacing:.1em;color:var(--sl-dim);margin-top:8px}
+@media(max-width:700px){.sl-mast:has(.sl-mast-code){grid-template-columns:1fr}.sl-mast-code{padding-top:0;display:flex;gap:12px;align-items:baseline}.sl-mast-code span{margin-top:0}}
 
 /* ---------- pas wielkich liczb (siatka gap:1px jako moduł „blueprint") ---------- */
 .sl-band{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--sl-line);border:1px solid var(--sl-line)}

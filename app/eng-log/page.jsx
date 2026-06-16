@@ -12,7 +12,7 @@ export default function EngLog() {
       <section className="sl-hero">
         <div className="sl-inner">
           <div className="sl-mast">
-            <div className="sl-mast-no">{String(POSTS.length).padStart(2, "0")}</div>
+            <div className="sl-mast-code"><b>eng-log</b><span>/ dane &amp; trening</span></div>
             <div>
               <div className="sl-eye">slayer protocol · engineering log</div>
               <h1 className="sl-h1" style={{ marginTop: 10 }}>

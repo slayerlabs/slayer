@@ -9,11 +9,16 @@ export default function V3() {
     <main className="sl">
       <section className="sl-hero">
         <div className="sl-inner">
-          <div className="sl-eye">propozycja · linia v3 · czysta z&nbsp;konstrukcji</div>
-          <h1 className="sl-h1">v3: czysty <span className="sl-acc">miks danych</span></h1>
-          <p className="sl-lede">v2 nauczyło nas, jak wygląda skażenie train-splitami; v3 jest czyste z&nbsp;konstrukcji: benchmarki są
-          wyłącznie miarą i&nbsp;blocklistą, każda warstwa przechodzi audyt verbatim, a&nbsp;wszystko, co weszło do treningu,
-          da się wskazać co do rekordu. Claim publiczny: tylko held-out, 5-shot.</p>
+          <div className="sl-mast">
+            <div className="sl-mast-code"><b>v3</b><span>/ protokół</span></div>
+            <div>
+              <div className="sl-eye">propozycja · linia v3 · czysta z&nbsp;konstrukcji</div>
+              <h1 className="sl-h1">v3: czysty <span className="sl-acc">miks danych</span></h1>
+              <p className="sl-lede">v2 nauczyło nas, jak wygląda skażenie train-splitami; v3 jest czyste z&nbsp;konstrukcji: benchmarki są
+              wyłącznie miarą i&nbsp;blocklistą, każda warstwa przechodzi audyt verbatim, a&nbsp;wszystko, co weszło do treningu,
+              da się wskazać co do rekordu. Claim publiczny: tylko held-out, 5-shot.</p>
+            </div>
+          </div>
         </div>
       </section>
 

@@ -269,18 +269,23 @@ export default function Eksperymenty() {
     <main className="sl">
       <section className="sl-hero">
         <div className="sl-inner">
-          <div className="sl-eye">log — co · na&nbsp;czym · z&nbsp;jakim wynikiem</div>
-          <h1 className="sl-h1">
-            Log <span className="sl-acc">eksperymentów</span>
-          </h1>
-          <p className="sl-lede">
-            Każdy model jest tu z&nbsp;pełnym składem danych i&nbsp;wynikiem. Trening na&nbsp;train-splicie
-            benchmarku oznaczamy <b>kontaminacją</b> — bo zawyża wynik i&nbsp;jest nieporównywalny z&nbsp;modelami
-            liczonymi 5-shot. Realne twierdzenie stawiamy wyłącznie na&nbsp;<b>oficjalnym 5-shot leaderboardzie
-            i&nbsp;MT-Bench-PL</b>.
-          </p>
-          <div style={{ ...monoLabel, marginTop: 22 }}>
-            zaktualizowano {d?.updated || "—"} · {xs.length} eksperymentów
+          <div className="sl-mast">
+            <div className="sl-mast-code"><b>eksperymenty</b><span>/ benchmarki</span></div>
+            <div>
+              <div className="sl-eye">log — co · na&nbsp;czym · z&nbsp;jakim wynikiem</div>
+              <h1 className="sl-h1">
+                Log <span className="sl-acc">eksperymentów</span>
+              </h1>
+              <p className="sl-lede">
+                Każdy model jest tu z&nbsp;pełnym składem danych i&nbsp;wynikiem. Trening na&nbsp;train-splicie
+                benchmarku oznaczamy <b>kontaminacją</b> — bo zawyża wynik i&nbsp;jest nieporównywalny z&nbsp;modelami
+                liczonymi 5-shot. Realne twierdzenie stawiamy wyłącznie na&nbsp;<b>oficjalnym 5-shot leaderboardzie
+                i&nbsp;MT-Bench-PL</b>.
+              </p>
+              <div style={{ ...monoLabel, marginTop: 22 }}>
+                zaktualizowano {d?.updated || "—"} · {xs.length} eksperymentów
+              </div>
+            </div>
           </div>
         </div>
       </section>

@@ -9,7 +9,7 @@ export default function Roadmap() {
       <section className="sl-hero">
         <div className="sl-inner">
           <div className="sl-mast">
-            <div className="sl-mast-no">06</div>
+            <div className="sl-mast-code"><b>roadmap</b><span>/ protokół</span></div>
             <div>
               <div className="sl-eye">harmonogram · 6–8 tygodni</div>
               <h1 className="sl-h1" style={{ marginTop: 12 }}>Plan i <span className="sl-acc">zaproszenie do współpracy</span></h1>

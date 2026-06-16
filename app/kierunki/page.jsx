@@ -10,7 +10,7 @@ export default function Kierunki() {
       <section className="sl-hero">
         <div className="sl-inner">
           <div className="sl-mast">
-            <div className="sl-mast-no">12</div>
+            <div className="sl-mast-code"><b>kierunki</b><span>/ protokół</span></div>
             <div>
               <div className="sl-eye">pomysły do decyzji</div>
               <h1 className="sl-h1" style={{ marginTop: 12 }}>Jakim modelem <span className="sl-acc">ma być Slayer?</span></h1>

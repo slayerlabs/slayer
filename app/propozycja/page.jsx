@@ -8,9 +8,14 @@ export default function Propozycja() {
     <main className="sl">
       <section className="sl-hero">
         <div className="sl-inner">
-          <span className="sl-status sl-open">bieżący protokół · otwarte na uwagi</span>
-          <h1 className="sl-h1" style={{ marginTop: 16 }}>Protokół <span className="sl-acc">v3</span> — czysty model, realna&nbsp;dźwignia</h1>
-          <p className="sl-lede" style={{ marginTop: 22, maxWidth: "62ch" }}>Chcemy model, który <b>wychodzi dobrze na KLEJ bez trenowania na&nbsp;jego train/test</b> — tylko na&nbsp;tym, co&nbsp;się <b>generalizuje</b>. To jest mapa przed runem: hipoteza, dane, koszt, gate&nbsp;publikacji.</p>
+          <div className="sl-mast">
+            <div className="sl-mast-code"><b>propozycja</b><span>/ protokół</span></div>
+            <div>
+              <span className="sl-status sl-open">bieżący protokół · otwarte na uwagi</span>
+              <h1 className="sl-h1" style={{ marginTop: 16 }}>Protokół <span className="sl-acc">v3</span> — czysty model, realna&nbsp;dźwignia</h1>
+              <p className="sl-lede" style={{ marginTop: 22, maxWidth: "62ch" }}>Chcemy model, który <b>wychodzi dobrze na KLEJ bez trenowania na&nbsp;jego train/test</b> — tylko na&nbsp;tym, co&nbsp;się <b>generalizuje</b>. To jest mapa przed runem: hipoteza, dane, koszt, gate&nbsp;publikacji.</p>
+            </div>
+          </div>
         </div>
       </section>
 

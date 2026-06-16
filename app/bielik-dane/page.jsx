@@ -11,9 +11,14 @@ export default function BielikDane() {
     <main className="sl">
       <section className="sl-hero">
         <div className="sl-inner">
-          <div className="sl-eye">analiza · źródło zewnętrzne</div>
-          <h1 className="sl-h1">Na czym trenowano <span className="sl-acc">Bielika&nbsp;v3</span></h1>
-          <p className="sl-lede">Rozbiór danych treningowych <b>Bielik&nbsp;v3 11B Instruct</b> na&nbsp;podstawie oficjalnego <a href="https://bielik.ai/downloads/Bielik%2011B%20v3%20EU%20Public%20Summary.pdf" rel="noopener">EU Public Summary</a> — dokumentu, który dostawca GPAI musi opublikować na&nbsp;mocy AI Act. Wszystkie nazwane korpusy z&nbsp;linkami HuggingFace, plus to, czego (wg deklaracji) <b>nie</b> użyto. Wyniki benchmarkowe → <a href="/bielik-benchmarki" style={{ color: "var(--sl-acc)", fontWeight: 500 }}>/bielik-benchmarki</a>.</p>
+          <div className="sl-mast">
+            <div className="sl-mast-code"><b>bielik-dane</b><span>/ dane &amp; trening</span></div>
+            <div>
+              <div className="sl-eye">analiza · źródło zewnętrzne</div>
+              <h1 className="sl-h1">Na czym trenowano <span className="sl-acc">Bielika&nbsp;v3</span></h1>
+              <p className="sl-lede">Rozbiór danych treningowych <b>Bielik&nbsp;v3 11B Instruct</b> na&nbsp;podstawie oficjalnego <a href="https://bielik.ai/downloads/Bielik%2011B%20v3%20EU%20Public%20Summary.pdf" rel="noopener">EU Public Summary</a> — dokumentu, który dostawca GPAI musi opublikować na&nbsp;mocy AI Act. Wszystkie nazwane korpusy z&nbsp;linkami HuggingFace, plus to, czego (wg deklaracji) <b>nie</b> użyto. Wyniki benchmarkowe → <a href="/bielik-benchmarki" style={{ color: "var(--sl-acc)", fontWeight: 500 }}>/bielik-benchmarki</a>.</p>
+            </div>
+          </div>
         </div>
       </section>
 

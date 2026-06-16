@@ -26,13 +26,18 @@ export default function Styl() {
 
       <section className="sl-hero">
         <div className="sl-inner">
-          <div className="sl-eye">styl · v1 · przegląd ręczny</div>
-          <h1 className="sl-h1" style={{ marginTop: 16 }}>
-            Co base Qwen robi <span className="sl-acc">źle</span> po&nbsp;polsku.
-          </h1>
-          <p className="sl-lede" style={{ marginTop: 22, maxWidth: "66ch" }}>
-            Przeczytałem odpowiedzi base Qwen3.5-27B po&nbsp;polsku i&nbsp;zaznaczyłem błędy ręcznie, nie&nbsp;regexem. Nie&nbsp;chodzi tylko o&nbsp;szablon. Widać <b>rażące błędy gramatyczne i&nbsp;ortograficzne</b> („Hipoza&quot;, „Bezpośrednie sprzedaż&quot;, „samodzielną rozwiązywanie&quot;), <b>kalki z&nbsp;angielskiego</b>, a&nbsp;nawet <b>liczenie w&nbsp;dolarach</b> przy polskim poleceniu. Po&nbsp;lewej base z&nbsp;zaznaczonymi błędami, po&nbsp;prawej fine-tuned <b>v1</b>. Uczciwie zaznaczam też potknięcia v1.
-          </p>
+          <div className="sl-mast">
+            <div className="sl-mast-code"><b>styl</b><span>/ dane &amp; trening</span></div>
+            <div>
+              <div className="sl-eye">styl · v1 · przegląd ręczny</div>
+              <h1 className="sl-h1" style={{ marginTop: 16 }}>
+                Co base Qwen robi <span className="sl-acc">źle</span> po&nbsp;polsku.
+              </h1>
+              <p className="sl-lede" style={{ marginTop: 22, maxWidth: "66ch" }}>
+                Przeczytałem odpowiedzi base Qwen3.5-27B po&nbsp;polsku i&nbsp;zaznaczyłem błędy ręcznie, nie&nbsp;regexem. Nie&nbsp;chodzi tylko o&nbsp;szablon. Widać <b>rażące błędy gramatyczne i&nbsp;ortograficzne</b> („Hipoza&quot;, „Bezpośrednie sprzedaż&quot;, „samodzielną rozwiązywanie&quot;), <b>kalki z&nbsp;angielskiego</b>, a&nbsp;nawet <b>liczenie w&nbsp;dolarach</b> przy polskim poleceniu. Po&nbsp;lewej base z&nbsp;zaznaczonymi błędami, po&nbsp;prawej fine-tuned <b>v1</b>. Uczciwie zaznaczam też potknięcia v1.
+              </p>
+            </div>
+          </div>
 
           <div className="sl-legend" style={{ marginTop: 24 }}>
             <span><i style={{ background: "#fb4d68" }} />rażący błąd gramatyczny / ortograficzny</span>

@@ -10,7 +10,7 @@ export default function ClosedBenchmarks() {
       <section className="sl-hero">
         <div className="sl-inner">
           <div className="sl-mast">
-            <div className="sl-mast-no">03</div>
+            <div className="sl-mast-code"><b>closed-benchmarks</b><span>/ benchmarki</span></div>
             <div>
               <div className="sl-eye">poza zakresem pomiaru</div>
               <h1 className="sl-h1" style={{ marginTop: 10 }}>Benchmarki <span className="sl-acc">zamknięte</span></h1>

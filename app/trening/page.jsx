@@ -9,7 +9,7 @@ export default function Trening() {
       <section className="sl-hero">
         <div className="sl-inner">
           <div className="sl-mast">
-            <div className="sl-mast-no">02</div>
+            <div className="sl-mast-code"><b>trening</b><span>/ dane &amp; trening</span></div>
             <div>
               <div className="sl-eye">metody fine-tuningu · SOTA 2026</div>
               <h1 className="sl-h1" style={{ marginTop: 12 }}>Jak <span className="sl-acc">trenować</span> — tanio i&nbsp;czysto</h1>

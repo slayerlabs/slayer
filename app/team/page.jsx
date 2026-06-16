@@ -44,7 +44,7 @@ export default function Team() {
       <section className="sl-sec">
         <div className="sl-inner">
           <div className="sl-mast">
-            <div className="sl-mast-no">{MEMBERS.length}</div>
+            <div className="sl-mast-code"><b>team</b><span>/ zespół</span></div>
             <div>
               <div className="sl-eye">zespół · operatorzy protokołu</div>
               <h1 className="sl-h1" style={{ marginTop: 10 }}>Ludzie przy <span className="sl-acc">warsztacie.</span></h1>

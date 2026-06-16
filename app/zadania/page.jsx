@@ -9,7 +9,7 @@ export default function Zadania() {
       <section className="sl-hero">
         <div className="sl-inner">
           <div className="sl-mast">
-            <div className="sl-mast-no">00</div>
+            <div className="sl-mast-code"><b>zadania</b><span>/ dane &amp; trening</span></div>
             <div>
               <div className="sl-eye">dla kontrybutorów</div>
               <h1 className="sl-h1" style={{ marginTop: 12 }}>Zadania — od <span className="sl-acc">prostych</span> po&nbsp;zaawansowane</h1>

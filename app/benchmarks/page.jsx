@@ -11,9 +11,14 @@ export default function Benchmarks() {
     <main className="sl">
       <section className="sl-hero">
         <div className="sl-inner">
-          <div className="sl-eye">metodologia · piątka startowa</div>
-          <h1 className="sl-h1">Jak <span className="sl-acc">mierzymy</span>, żeby wynik znaczył</h1>
-          <p className="sl-lede">Publiczne zbiory, deterministycznie, przez lm-eval-harness. „Wyżej&nbsp;= lepiej&quot;. Wszystko liczone czysto: <b>bez inspekcji itemów, bez benchmaxxingu</b>. Pełna tablica na&nbsp;żywo: <a href="/leaderboard">/leaderboard</a>.</p>
+          <div className="sl-mast">
+            <div className="sl-mast-code"><b>benchmarks</b><span>/ benchmarki</span></div>
+            <div>
+              <div className="sl-eye">metodologia · piątka startowa</div>
+              <h1 className="sl-h1">Jak <span className="sl-acc">mierzymy</span>, żeby wynik znaczył</h1>
+              <p className="sl-lede">Publiczne zbiory, deterministycznie, przez lm-eval-harness. „Wyżej&nbsp;= lepiej&quot;. Wszystko liczone czysto: <b>bez inspekcji itemów, bez benchmaxxingu</b>. Pełna tablica na&nbsp;żywo: <a href="/leaderboard">/leaderboard</a>.</p>
+            </div>
+          </div>
         </div>
       </section>
 

@@ -9,7 +9,7 @@ export default function Rules() {
       <section className="sl-hero">
         <div className="sl-inner">
           <div className="sl-mast">
-            <div className="sl-mast-no">05</div>
+            <div className="sl-mast-code"><b>rules</b><span>/ protokół</span></div>
             <div>
               <div className="sl-eye">zasady · zarządzanie · autorstwo</div>
               <h1 className="sl-h1" style={{ marginTop: 12 }}>Zasady <span className="sl-acc">projektu</span></h1>

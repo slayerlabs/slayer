@@ -34,11 +34,16 @@ export default function Wiedza() {
 
       <section className="sl-hero">
         <div className="sl-inner">
-          <div className="sl-eye">program badawczy · synthetic CPT</div>
-          <h1 className="sl-h1">Ile <span className="sl-acc">wiedzy o&nbsp;Polsce</span> da&nbsp;się wstrzyknąć w&nbsp;model?</h1>
-          <p className="sl-lede">Bielik przeszedł 1.1T tokenów polskiego CPT i&nbsp;zna 29% naszego długiego ogona. Nasza baza (Qwen3.5-27B) zna 16%.
-          Pytanie za&nbsp;kilka tysięcy dolarów: czy syntetyczna multiplikacja faktów (EntiGraph) wstrzykuje ogon taniej
-          i&nbsp;głębiej niż surowy korpus? Wszystko poniżej jest mierzone, z&nbsp;falsyfikatorami.</p>
+          <div className="sl-mast">
+            <div className="sl-mast-code"><b>wiedza</b><span>/ dane &amp; trening</span></div>
+            <div>
+              <div className="sl-eye">program badawczy · synthetic CPT</div>
+              <h1 className="sl-h1">Ile <span className="sl-acc">wiedzy o&nbsp;Polsce</span> da&nbsp;się wstrzyknąć w&nbsp;model?</h1>
+              <p className="sl-lede">Bielik przeszedł 1.1T tokenów polskiego CPT i&nbsp;zna 29% naszego długiego ogona. Nasza baza (Qwen3.5-27B) zna 16%.
+              Pytanie za&nbsp;kilka tysięcy dolarów: czy syntetyczna multiplikacja faktów (EntiGraph) wstrzykuje ogon taniej
+              i&nbsp;głębiej niż surowy korpus? Wszystko poniżej jest mierzone, z&nbsp;falsyfikatorami.</p>
+            </div>
+          </div>
         </div>
       </section>
 

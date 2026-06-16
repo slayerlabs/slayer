@@ -89,7 +89,7 @@ export default function Drabina() {
       <section className="sl-hero">
         <div className="sl-inner">
           <div className="sl-mast">
-            <div className="sl-mast-no">07</div>
+            <div className="sl-mast-code"><b>drabina</b><span>/ protokół</span></div>
             <div>
               <div className="sl-eye">społeczność · drabina statusu, odpowiedzialności i&nbsp;dowodów pracy</div>
               <h1 className="sl-h1" style={{ marginTop: 12 }}>Od obserwatora do <span className="sl-acc">core teamu.</span></h1>

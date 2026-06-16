@@ -11,9 +11,14 @@ export default function Datasety() {
     <main className="sl">
       <section className="sl-hero">
         <div className="sl-inner">
-          <div className="sl-eye">zbiory danych</div>
-          <h1 className="sl-h1">Datasety — <span className="sl-acc">ewaluacja</span> i&nbsp;<span className="sl-acc">trening</span></h1>
-          <p className="sl-lede">Twardy podział: zbiory <b>ewaluacyjne</b> służą TYLKO do pomiaru (held-out, nigdy w&nbsp;treningu), a&nbsp;<b>treningowe</b> są niezależne — <a href="/benchmarks">bez benchmaxxingu</a>.</p>
+          <div className="sl-mast">
+            <div className="sl-mast-code"><b>datasety</b><span>/ dane &amp; trening</span></div>
+            <div>
+              <div className="sl-eye">zbiory danych</div>
+              <h1 className="sl-h1">Datasety — <span className="sl-acc">ewaluacja</span> i&nbsp;<span className="sl-acc">trening</span></h1>
+              <p className="sl-lede">Twardy podział: zbiory <b>ewaluacyjne</b> służą TYLKO do pomiaru (held-out, nigdy w&nbsp;treningu), a&nbsp;<b>treningowe</b> są niezależne — <a href="/benchmarks">bez benchmaxxingu</a>.</p>
+            </div>
+          </div>
         </div>
       </section>
 

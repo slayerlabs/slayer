@@ -12,9 +12,14 @@ export default function BielikBenchmarki() {
     <main className="sl">
       <section className="sl-hero">
         <div className="sl-inner">
-          <div className="sl-eye">wyniki · źródło zewnętrzne</div>
-          <h1 className="sl-h1">Bielik v3 — <span className="sl-acc">wszystkie benchmarki</span></h1>
-          <p className="sl-lede">Komplet ewaluacji <b>Bielik-11B-v3.0-Instruct</b> z&nbsp;dedykowanego raportu technicznego v3 (<a href="https://arxiv.org/abs/2601.11579" rel="noopener">arXiv:2601.11579</a>, wersja wstępna) — 9&nbsp;zestawów, plus uczciwe porównanie z&nbsp;<b>Qwen3.6-27B</b>. Na czym trenowano model: <a href="/bielik-dane">/bielik-dane</a>.</p>
+          <div className="sl-mast">
+            <div className="sl-mast-code"><b>bielik-benchmarki</b><span>/ benchmarki</span></div>
+            <div>
+              <div className="sl-eye">wyniki · źródło zewnętrzne</div>
+              <h1 className="sl-h1">Bielik v3 — <span className="sl-acc">wszystkie benchmarki</span></h1>
+              <p className="sl-lede">Komplet ewaluacji <b>Bielik-11B-v3.0-Instruct</b> z&nbsp;dedykowanego raportu technicznego v3 (<a href="https://arxiv.org/abs/2601.11579" rel="noopener">arXiv:2601.11579</a>, wersja wstępna) — 9&nbsp;zestawów, plus uczciwe porównanie z&nbsp;<b>Qwen3.6-27B</b>. Na czym trenowano model: <a href="/bielik-dane">/bielik-dane</a>.</p>
+            </div>
+          </div>
         </div>
       </section>
 
