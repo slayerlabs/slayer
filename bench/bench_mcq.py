@@ -2,7 +2,7 @@
 """Generic MCQ benchmark via ollama. Accuracy = decisive metric. Aggregates only
 (per-category accuracy COUNTS; no per-item inspection). Idempotent: skips if a
 result for (bench, seed) already exists. Usage: bench_mcq.py <bench> [N] [seed]
-benches: llmzszl belebele belebele_en pes include mmlu arc
+benches: llmzszl belebele belebele_en pes include mmlu arc mmlu_pl
 """
 import json, re, sys, time, random, csv, urllib.request, os, glob
 from collections import defaultdict
@@ -84,6 +84,20 @@ def load_mmlu(n, seed):
               "cat": r.get("subject", "?")} for r in ds]
     return sample_strat(items, n, seed)
 
+def load_mmlu_pl(n, seed):
+    from datasets import load_dataset
+    ds = load_dataset("CohereLabs/Global-MMLU", "pl", split="test")
+    L2I = {"A": 0, "B": 1, "C": 2, "D": 3}
+    items = []
+    for r in ds:
+        gold = L2I.get(str(r["answer"]).strip().upper())
+        if gold is None:
+            continue
+        items.append({"q": r["question"],
+                      "options": [r["option_a"], r["option_b"], r["option_c"], r["option_d"]],
+                      "gold": gold, "cat": r.get("subject", "?")})
+    return sample_strat(items, n, seed)
+
 def load_arc(n, seed):
     from datasets import load_dataset
     ds = load_dataset("allenai/ai2_arc", "ARC-Challenge", split="test")
@@ -99,6 +113,7 @@ BENCHES = {
     "llmzszl": (load_llmzszl, "pl"), "belebele": (load_belebele, "pl"),
     "belebele_en": (load_belebele_en, "en"), "pes": (load_pes, "pl"),
     "include": (load_include, "pl"), "mmlu": (load_mmlu, "en"), "arc": (load_arc, "en"),
+    "mmlu_pl": (load_mmlu_pl, "pl"),
 }
 
 def ask(model, it, sysp):
