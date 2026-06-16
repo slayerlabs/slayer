@@ -65,24 +65,15 @@ export default function Team() {
           <div className="sl-eye" style={{ marginBottom: 18 }}>core team · member of technical staff</div>
           <div className="sl-people">
             {MEMBERS.map((m) => (
-              <article className="member" key={m.name}>
-                <div className="av">
-                  {m.img ? (
-                    <img src={m.img} alt={m.name} />
-                  ) : (
-                    <span className="av-init">{m.name.charAt(0)}</span>
-                  )}
-                </div>
-                <div className="member-info">
-                  <div className="member-title-label">Member of Technical Staff</div>
-                  <h2 className="member-name">{m.name}</h2>
-                  <div className="member-specialty">{m.specialty}</div>
-                  <p className="member-bio">
-                    {m.bio}
-                    {m.link ? <> <a href={m.link} target="_blank" rel="noopener" style={{ color: "var(--acc)" }}>LinkedIn →</a></> : null}
-                    {m.link2 ? <> <a href={m.link2} target="_blank" rel="noopener" style={{ color: "var(--acc)" }}>www →</a></> : null}
-                  </p>
-                </div>
+              <article className="sl-person" key={m.name}>
+                <Avatar img={m.img} name={m.name} />
+                <div className="sl-pname">{m.name}</div>
+                <div className="sl-prole">{m.specialty}</div>
+                <p className="sl-pbio">
+                  {m.bio}
+                  {m.link ? <> {" "}<a href={m.link} target="_blank" rel="noopener" style={{ color: "var(--sl-acc)" }}>LinkedIn →</a></> : null}
+                  {m.link2 ? <> {" "}<a href={m.link2} target="_blank" rel="noopener" style={{ color: "var(--sl-acc)" }}>www →</a></> : null}
+                </p>
               </article>
             ))}
 
