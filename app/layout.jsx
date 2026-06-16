@@ -29,6 +29,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="pl" className={`${archivo.variable} ${jbmono.variable}`}>
       <head>
+        {/* TODO(redesign rollout): usunąć preconnect + ten Google Fonts <link>, gdy fonty lab.css (Hanken/IBM Plex/Newsreader) zostaną zastąpione — next/font self-hostuje Archivo + JetBrains Mono i nie potrzebuje tych żądań */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link

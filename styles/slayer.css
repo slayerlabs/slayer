@@ -4,6 +4,7 @@
    z lab.css (stare 22 strony pozostają nietknięte).
    ============================================================ */
 :root{
+  /* role: bg=tło · ink=nagłówki/emfaza · txt=tekst · mut=drugorzędny · dim=trzeciorzędny/przypisy */
   --sl-bg:#0d0a0b; --sl-ink:#ece4e0; --sl-txt:#b9adad; --sl-mut:#8a7d7d; --sl-dim:#6e6063;
   --sl-acc:#fb4d68; --sl-acc-strong:#ec2b4f; --sl-acc-soft:rgba(236,43,79,.12);
   --sl-line:rgba(255,255,255,.12); --sl-line2:rgba(255,255,255,.06);
