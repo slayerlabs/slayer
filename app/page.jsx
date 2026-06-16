@@ -74,7 +74,7 @@ export default function Home() {
           <h2 className="sl-h2" style={{ marginTop: 10 }}>Cztery drzwi, <span className="sl-acc">jeden warsztat.</span></h2>
           <p className="sl-lede" style={{ marginTop: 12 }}>Każdy obszar ma własny protokół, artefakty i ślady. Bez ozdobnych deklaracji, bez wyników na słowo.</p>
           <div className="sl-bento" style={{ marginTop: 22 }}>
-            <div className="sl-col sl-col-lead sl-feat">
+            <div className="sl-col sl-col-block sl-feat">
               <div className="sl-clbl">▸ ewaluacja · flagowy tor</div>
               <a href="/benchmarks"><h3 className="sl-h2" style={{ marginBottom: 8 }}>Czysty pomiar polszczyzny</h3></a>
               <p className="sl-lede" style={{ fontSize: 13 }}>Karty benchmarków: co mierzy każda oś, jaka metryka decyduje, gdzie pułapka. Likelihood i generacja rozdzielone, stały seed, tylko agregaty.</p>
