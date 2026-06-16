@@ -152,6 +152,47 @@ def test_annotate_writes_shaped_gold(env):
     assert by_wer["fail"]["note"] == "kalka jezykowa"
 
 
+def test_annotate_stores_exact_ans_and_sha(env):
+    """Gold SAMOWYSTARCZALNY: rekord niesie DOKŁADNY tekst odpowiedzi + jego sha."""
+    import hashlib
+
+    rows = anno_cli.load_runs()
+    chosen = anno_cli.sample(rows, 1, seed=5)
+    anno_cli.write_mapping(chosen, env.mp)
+    m = anno_cli.read_mapping(env.mp)[0]
+    # dokładny tekst pokazany anotatorowi (z pliku gen, po (id,model,seed))
+    expected_ans = {(r["id"], r["model"], r["seed"]): r["ans"]
+                    for r in rows}[(m["id"], m["model"], m["seed"])]
+
+    written = anno_cli.annotate("kuba", inp=_scripted(["4", "pass", ""]),
+                                out=lambda *a, **k: None)
+    assert written == 1
+    g = anno_cli.read_gold(env.gold)[0]
+    assert g["ans"] == expected_ans
+    assert g["ans_sha"] == hashlib.sha256(expected_ans.encode("utf-8")).hexdigest()[:12]
+
+
+def test_audit_la_stores_exact_ans_and_sha(env, audit_path, monkeypatch):
+    """Rekord audytu Warstwy A też niesie dokładny tekst + sha."""
+    import hashlib
+
+    monkeypatch.setattr(anno_cli.grammar_check, "ensure_lt", lambda *a, **k: None)
+    monkeypatch.setattr(anno_cli, "ensure_stanza", lambda: (lambda t: []))
+    rows = anno_cli.load_runs()
+    chosen = anno_cli.sample(rows, 1, seed=5)
+    anno_cli.write_mapping(chosen, env.mp)
+    m = anno_cli.read_mapping(env.mp)[0]
+    expected_ans = {(r["id"], r["model"], r["seed"]): r["ans"]
+                    for r in rows}[(m["id"], m["model"], m["seed"])]
+
+    written = anno_cli.audit_layer_a("kuba", inp=_scripted(["0", "0"]),
+                                     out=lambda *a, **k: None)
+    assert written == 1
+    rec = anno_cli.read_audit()[0]
+    assert rec["ans"] == expected_ans
+    assert rec["ans_sha"] == hashlib.sha256(expected_ans.encode("utf-8")).hexdigest()[:12]
+
+
 def test_invalid_input_reprompts(env):
     rows = anno_cli.load_runs()
     chosen = anno_cli.sample(rows, 1, seed=5)
@@ -464,7 +505,13 @@ def test_audit_la_graceful_when_layer_a_unavailable(env, audit_path, monkeypatch
     assert any("niedostępn" in m for m in msgs)
 
 
-def test_gold_schema_unchanged():
-    """Audyt to OSOBNY plik — schemat gold werdyktów nietknięty."""
+def test_gold_schema_self_contained():
+    """Schemat gold: oryginalne pola + `ans`/`ans_sha` (gold samowystarczalny)."""
     assert anno_cli.GOLD_KEYS == ("id", "model", "seed", "naturalnosc",
-                                  "werdykt", "note", "annotator")
+                                  "werdykt", "note", "annotator", "ans", "ans_sha")
+
+
+def test_audit_schema_self_contained():
+    """Schemat audytu Warstwy A: oryginalne pola + `ans`/`ans_sha`."""
+    assert anno_cli.AUDIT_KEYS == ("id", "model", "seed", "la_flagged", "la_fp",
+                                   "la_fn", "annotator", "ans", "ans_sha")

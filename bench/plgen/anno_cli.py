@@ -24,6 +24,7 @@ Usage:
 """
 import argparse
 import glob
+import hashlib
 import json
 import os
 import random
@@ -39,8 +40,17 @@ from bench.plgen import grammar_check  # noqa: E402  (reużyte: ensure_lt/check/
 
 WERDYKTY = ("pass", "mixed", "fail")  # etykiety zgodne z panelem sędziów (Layer B)
 
-# pola rekordu gold (jeden na zanotowany item)
-GOLD_KEYS = ("id", "model", "seed", "naturalnosc", "werdykt", "note", "annotator")
+# pola rekordu gold (jeden na zanotowany item). `ans`/`ans_sha` czynią gold
+# SAMOWYSTARCZALNYM: werdykt człowieka jest przywiązany do KONKRETNEJ generacji
+# (temp>0 -> nieodtwarzalna), więc trzymamy DOKŁADNY tekst oceniony przez anotatora,
+# żeby regeneracja/nadpisanie plików gen nie osierociło goldu.
+GOLD_KEYS = ("id", "model", "seed", "naturalnosc", "werdykt", "note", "annotator",
+             "ans", "ans_sha")
+
+
+def _ans_sha(ans):
+    """Krótki sha256 (12 hex) dokładnego tekstu odpowiedzi — sanity-check integralności."""
+    return hashlib.sha256((ans or "").encode("utf-8")).hexdigest()[:12]
 
 # kształt rekordu mapowania (prywatny side-file, trzyma tożsamość modelu):
 #   {"anno_id": int, "model": str, "seed": int, "id": str}
@@ -487,7 +497,9 @@ def annotate(annotator, gold=None, mp=None, prompts_path=None,
 
         rec = {"id": m["id"], "model": m["model"], "seed": m["seed"],
                "naturalnosc": nat, "werdykt": wer, "note": note,
-               "annotator": annotator}
+               "annotator": annotator,
+               # zapamiętaj DOKŁADNY tekst oceniony przez anotatora -> gold samowystarczalny
+               "ans": ans, "ans_sha": _ans_sha(ans)}
         append_gold(rec, gold)  # append-only: zapis po każdym itemie
         written += 1
     out(f"Zapisano {written} nowych rekordów -> {gold}")
@@ -526,8 +538,10 @@ def export(gold=None, mp=None, out_path=None):
 # Osobny plik audytu (append-only), obok runów. NIE jest to gold werdyktów.
 LAYER_A_AUDIT = os.path.join("slayer-data", "plgen", "runs", "layer_a_audit.jsonl")
 
-# pola rekordu audytu (jeden na zaudytowany item)
-AUDIT_KEYS = ("id", "model", "seed", "la_flagged", "la_fp", "la_fn", "annotator")
+# pola rekordu audytu (jeden na zaudytowany item). `ans`/`ans_sha` jak w gold:
+# audyt też przywiązany do KONKRETNEJ generacji -> trzymamy dokładny tekst.
+AUDIT_KEYS = ("id", "model", "seed", "la_flagged", "la_fp", "la_fn", "annotator",
+              "ans", "ans_sha")
 
 
 def read_audit(path=None):
@@ -626,7 +640,9 @@ def audit_layer_a(annotator, gold=None, mp=None, prompts_path=None,
 
         rec = {"id": m["id"], "model": m["model"], "seed": m["seed"],
                "la_flagged": la_flagged, "la_fp": fp, "la_fn": fn,
-               "annotator": annotator}
+               "annotator": annotator,
+               # zapamiętaj DOKŁADNY tekst zaudytowany -> rekord samowystarczalny
+               "ans": ans, "ans_sha": _ans_sha(ans)}
         append_audit(rec, apath)  # append-only: zapis po każdym itemie
         written += 1
     out(f"Zapisano {written} nowych rekordów audytu -> {apath}")

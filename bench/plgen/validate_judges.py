@@ -129,7 +129,16 @@ def main():
     lt = _load_lt()
 
     items = {k: prompts[k[0]] for k in keys if k[0] in prompts}
-    answers = {k: answers_all[k]["ans"] for k in keys if k in answers_all}
+    # Gold jest SAMOWYSTARCZALNY: gdy rekord gold niesie `ans`, sędzia ocenia DOKŁADNIE
+    # ten tekst, który widział człowiek (generacje temp>0 są nieodtwarzalne, a plik gen
+    # mógł zostać nadpisany). Fallback na bieżący plik gen tylko dla legacy goldu bez `ans`.
+    answers = {}
+    for k in keys:
+        g = gold.get(k)
+        if g is not None and g.get("ans") is not None:
+            answers[k] = g["ans"]
+        elif k in answers_all:
+            answers[k] = answers_all[k]["ans"]
     keys = [k for k in keys if k in items and k in answers]
     print(f"[validate] {len(keys)} itemów gold | z goldem człowieka: "
           f"{sum(1 for k in keys if k in gold)} | LT: {'jest' if lt else 'BRAK (join pominięty)'}")
