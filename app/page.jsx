@@ -13,7 +13,7 @@ export default function Home() {
         <div className="sl-inner">
           <div className="sl-eye sl-rv">✦ good taste applied research lab · polskie modele</div>
           <h1 className="sl-h1 sl-rv sl-d1">Protokół dla <span className="sl-acc">polskiej inteligencji.</span></h1>
-          <p className="sl-lede sl-rv sl-d2">Slayer bada modele językowe jak rzemiosło: smak odpowiedzi, czystość pomiaru, koszt treningu i ślady danych. Nie robimy widowiska. Zostawiamy <b>artefakty</b>: harnessy, lineage, recepty, modele i wyniki, które da się odtworzyć.</p>
+          <p className="sl-lede sl-rv sl-d2">Badamy modele językowe jak rzemiosło — smak, pomiar, koszt, ślady danych. Zostawiamy <b>artefakty</b>, które da się odtworzyć.</p>
           <div className="sl-cta sl-rv sl-d3">
             <a className="sl-btn sl-btn-p" href="/benchmarks">otwórz protokoły →</a>
             <a className="sl-btn sl-btn-s" href="https://discord.gg/HnTkVR4c5T" rel="noopener" target="_blank">wejście do labu ↗</a>
@@ -34,7 +34,7 @@ export default function Home() {
         <div className="sl-inner">
           <div className="sl-eye">◆ księga pomiarów</div>
           <div className="sl-cols" style={{ marginTop: 18 }}>
-            <div className="sl-col">
+            <div className="sl-col sl-col-lead">
               <div className="sl-clbl">▸ ostatnie artefakty</div>
               <ul className="sl-list">
                 <li><a href="/eksperymenty">slayer-style-27b — smak bez amnezji <sup>1</sup></a></li>
@@ -60,7 +60,7 @@ export default function Home() {
           <h2 className="sl-h2" style={{ marginTop: 10 }}>Cztery drzwi, <span className="sl-acc">jeden warsztat.</span></h2>
           <p className="sl-lede" style={{ marginTop: 12 }}>Każdy obszar ma własny protokół, artefakty i ślady. Bez ozdobnych deklaracji, bez wyników na słowo.</p>
           <div className="sl-cols" style={{ marginTop: 22 }}>
-            <div className="sl-col">
+            <div className="sl-col sl-col-lead">
               <div className="sl-clbl">▸ ewaluacja</div>
               <a href="/benchmarks"><h3 className="sl-h2" style={{ fontSize: 17, marginBottom: 7 }}>Czysty pomiar polszczyzny</h3></a>
               <p className="sl-lede" style={{ fontSize: 13 }}>Karty benchmarków: co mierzy każda oś, jaka metryka decyduje, gdzie pułapka. Likelihood i generacja rozdzielone, stały seed, tylko agregaty.</p>
@@ -114,7 +114,7 @@ export default function Home() {
           <div className="sl-eye">03 · wejścia ◆</div>
           <h2 className="sl-h2" style={{ marginTop: 10 }}>Wybierz <span className="sl-acc">ślad.</span></h2>
           <div className="sl-cols" style={{ marginTop: 22 }}>
-            <div className="sl-col">
+            <div className="sl-col sl-col-lead">
               <div className="sl-clbl">▸ pomiary</div>
               <ul className="sl-list">
                 <li><a href="/leaderboard">Ewaluacje na żywo →</a></li>
@@ -141,7 +141,7 @@ export default function Home() {
           <div className="sl-eye">04 · kontekst ◆</div>
           <h2 className="sl-h2" style={{ marginTop: 10 }}>Bez teatru <span className="sl-acc">zwycięstwa.</span></h2>
           <div className="sl-cols" style={{ marginTop: 22 }}>
-            <div className="sl-col">
+            <div className="sl-col sl-col-lead">
               <div className="sl-clbl">▸ ekosystem</div>
               <p className="sl-lede" style={{ fontSize: 13 }}>Bielik (SpeakLeash) to ważny punkt odniesienia i wzór otwartego raportowania. Nasz wkład jest komplementarny: niezależna replikacja, tańsza ścieżka treningu i publiczny warsztat pomiarowy.</p>
             </div>

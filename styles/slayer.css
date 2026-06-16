@@ -41,6 +41,7 @@
 /* ---------- nazwane kolumny + labeled list ---------- */
 .sl-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:1px;background:var(--sl-line);border-top:1px solid var(--sl-line);border-bottom:1px solid var(--sl-line)}
 .sl-col{background:var(--sl-bg);padding:22px clamp(16px,2vw,24px)}
+.sl-col-lead{background:linear-gradient(165deg,rgba(216,31,64,.11),transparent 62%),var(--sl-bg)}
 .sl-clbl{font-family:var(--sl-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--sl-acc);margin-bottom:14px}
 .sl-list{margin:0;padding:0;list-style:none;font-size:13.5px;line-height:2.05;color:var(--sl-txt)}
 .sl-list a{color:var(--sl-txt);transition:color .15s}
@@ -66,7 +67,7 @@
 .sl-btn-s:hover{border-color:var(--sl-acc);color:var(--sl-acc)}
 
 /* ---------- chip ---------- */
-.sl-chip{display:inline-block;font-family:var(--sl-mono);font-size:9.5px;letter-spacing:.04em;padding:3px 9px;border-radius:99px;color:var(--sl-acc);background:var(--sl-acc-soft);border:1px solid rgba(236,43,79,.32)}
+.sl-chip{display:inline-block;font-family:var(--sl-mono);font-size:9.5px;letter-spacing:.04em;padding:3px 9px;border-radius:0;color:var(--sl-acc);background:var(--sl-acc-soft);border:1px solid rgba(236,43,79,.32)}
 
 /* poniższe (tabela, chip) to prymitywy systemu pod przyszłe strony (leaderboard, benchmarks) — celowo jeszcze nieużyte na stronie głównej */
 /* ---------- tabela ---------- */
