@@ -1,0 +1,248 @@
+{
+  "title": "PL-GEN — długi tekst: LanguageTool + panel sędziów",
+  "official_for": "plgen",
+  "protocol": "free-generation PL, 3 seedy; Layer A = self-hosted LanguageTool (erikvl87/languagetool:6.5) błędy/100tok per bucket; Layer B = ślepy panel >=3 niezależnych sędziów (greedy), panel_score 0-100 + naturalność 1-5 + IJA. Sub-score'y OSOBNE — nie uśredniać między warstwami ani z innymi sekcjami.",
+  "cols": [
+    "Bielik-11B-v3",
+    "Gemma-4-31B-it",
+    "Qwen3.5-27B (instr)",
+    "Qwen3.6-27B"
+  ],
+  "rows": [
+    {
+      "name": "LT morfoskładnia (bł./100tok, ↓)",
+      "vals": [
+        0.05,
+        0.04,
+        0.04,
+        0.11
+      ]
+    },
+    {
+      "name": "LT ortografia (bł./100tok, ↓)",
+      "vals": [
+        0.95,
+        1.04,
+        0.89,
+        1.36
+      ]
+    },
+    {
+      "name": "LT styl (bł./100tok, ↓)",
+      "vals": [
+        0.02,
+        0.02,
+        0.02,
+        0.07
+      ]
+    },
+    {
+      "name": "Sędziowie panel (pass-rate 0-100, ↑)",
+      "vals": [
+        29.5,
+        37.5,
+        12.2,
+        5.8
+      ]
+    },
+    {
+      "name": "Sędziowie naturalność 1-5",
+      "vals": [
+        3.49,
+        3.96,
+        2.82,
+        2.63
+      ]
+    },
+    {
+      "name": "Sędziowie IJA (Krippendorff α)",
+      "vals": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "LT aspekt morfoskładnia (bł./100tok, ↓)",
+      "vals": [
+        0.0,
+        0.11,
+        0.0,
+        0.24
+      ]
+    },
+    {
+      "name": "LT kalki/AI-style morfoskładnia (bł./100tok, ↓)",
+      "vals": [
+        0.07,
+        0.04,
+        0.0,
+        0.04
+      ]
+    },
+    {
+      "name": "LT liczebniki morfoskładnia (bł./100tok, ↓)",
+      "vals": [
+        0.21,
+        0.12,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "LT ortografia morfoskładnia (bł./100tok, ↓)",
+      "vals": [
+        0.06,
+        0.06,
+        0.0,
+        0.05
+      ]
+    },
+    {
+      "name": "LT rejestr morfoskładnia (bł./100tok, ↓)",
+      "vals": [
+        0.0,
+        0.0,
+        0.1,
+        0.05
+      ]
+    },
+    {
+      "name": "LT rekcja morfoskładnia (bł./100tok, ↓)",
+      "vals": [
+        0.0,
+        0.0,
+        0.09,
+        0.1
+      ]
+    },
+    {
+      "name": "LT toponimy morfoskładnia (bł./100tok, ↓)",
+      "vals": [
+        0.0,
+        0.0,
+        0.13,
+        0.12
+      ]
+    },
+    {
+      "name": "LT wołacz morfoskładnia (bł./100tok, ↓)",
+      "vals": [
+        0.0,
+        0.06,
+        0.04,
+        0.29
+      ]
+    },
+    {
+      "name": "LT zaimki morfoskładnia (bł./100tok, ↓)",
+      "vals": [
+        0.19,
+        0.0,
+        0.05,
+        0.17
+      ]
+    },
+    {
+      "name": "LT zgoda długodystansowa morfoskładnia (bł./100tok, ↓)",
+      "vals": [
+        0.0,
+        0.05,
+        0.0,
+        0.04
+      ]
+    },
+    {
+      "name": "Sędziowie aspekt (0-100, ↑)",
+      "vals": [
+        12.5,
+        37.5,
+        20.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Sędziowie kalki/AI-style (0-100, ↑)",
+      "vals": [
+        10.0,
+        20.0,
+        10.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Sędziowie liczebniki (0-100, ↑)",
+      "vals": [
+        16.7,
+        37.5,
+        0.0,
+        10.0
+      ]
+    },
+    {
+      "name": "Sędziowie ortografia (0-100, ↑)",
+      "vals": [
+        50.0,
+        60.0,
+        10.0,
+        25.0
+      ]
+    },
+    {
+      "name": "Sędziowie rejestr (0-100, ↑)",
+      "vals": [
+        25.0,
+        12.5,
+        33.3,
+        0.0
+      ]
+    },
+    {
+      "name": "Sędziowie rekcja (0-100, ↑)",
+      "vals": [
+        50.0,
+        50.0,
+        30.0,
+        25.0
+      ]
+    },
+    {
+      "name": "Sędziowie toponimy (0-100, ↑)",
+      "vals": [
+        37.5,
+        50.0,
+        20.0,
+        10.0
+      ]
+    },
+    {
+      "name": "Sędziowie wołacz (0-100, ↑)",
+      "vals": [
+        12.5,
+        40.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Sędziowie zaimki (0-100, ↑)",
+      "vals": [
+        33.3,
+        33.3,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Sędziowie zgoda długodystansowa (0-100, ↑)",
+      "vals": [
+        50.0,
+        25.0,
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "note": "Layer A (LT, ↓ lepiej) i Layer B (sędziowie, ↑ lepiej) to ODDZIELNE osie — złote pole dashboardu liczy max w wierszu, więc dla wierszy LT (↓) ignoruj podświetlenie. Aggregaty po 3 seedach; wariancja w plgen_v1.json. eval_only."
+}
