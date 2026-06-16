@@ -79,7 +79,7 @@
 
 /* ---------- przyciski ---------- */
 .sl-cta{display:flex;flex-wrap:wrap;gap:12px}
-.sl-btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--sl-mono);font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;padding:12px 18px;border:1px solid transparent;cursor:pointer;transition:.15s}
+.sl-btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--sl-mono);font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;padding:12px 18px;background:transparent;border:1px solid transparent;cursor:pointer;transition:.15s}
 .sl-btn-p{background:var(--sl-acc-strong);color:#fff}
 .sl-btn-p:hover{background:var(--sl-acc);color:var(--sl-bg)}
 .sl-btn-s{border-color:var(--sl-line);color:var(--sl-ink)}
@@ -101,6 +101,7 @@
 
 /* neutralizacja globalnych reguł lab.css przeciekających na surowe elementy w .sl (oba arkusze ładują się globalnie) */
 .sl input,.sl textarea,.sl select,.sl button{border-radius:0}
+.sl input:not([type=checkbox]):not([type=radio]),.sl textarea,.sl select{background:var(--sl-bg);color:var(--sl-ink)}
 .sl table th,.sl table td{background:var(--sl-bg)}
 
 /* ---------- przypisy ---------- */
@@ -177,7 +178,7 @@
 @media(max-width:480px){.sl-bento-a{grid-template-columns:1fr}.sl-bento-a>.sl-feat{grid-column:auto}}
 /* featured jako pełny blok koloru (biały tekst, AA) */
 .sl-col-block{background:var(--sl-acc-strong)}
-.sl-col-block .sl-clbl,.sl-col-block h3,.sl-col-block .sl-lede,.sl-col-block .sl-fn{color:#fff}
+.sl-col-block .sl-clbl,.sl-col-block h3,.sl-col-block .sl-lede,.sl-col-block .sl-lede b,.sl-col-block .sl-fn,.sl-col-block b{color:#fff}
 .sl-col-block .sl-chip{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.5);color:#fff}
 
 /* ============================================================
@@ -227,9 +228,10 @@
 /* ---------- formularze + filtry ---------- */
 .sl-field{display:flex;flex-direction:column;gap:7px;margin-bottom:16px}
 .sl-flabel,.sl-field>label{font-family:var(--sl-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--sl-mut)}
-.sl-input,.sl-textarea,.sl-select{font-family:var(--sl-sans);font-size:14px;color:var(--sl-ink);background:var(--sl-bg);border:1px solid var(--sl-line);padding:10px 12px;width:100%;transition:border-color .15s}
-.sl-input:focus,.sl-textarea:focus,.sl-select:focus{outline:none;border-color:var(--sl-acc)}
-.sl-input::placeholder,.sl-textarea::placeholder{color:var(--sl-dim)}
+/* scope pod .sl by przebić lab.css `input[type=text],textarea` (selektor atrybutowy, wyższa specyficzność niż goła klasa) */
+.sl .sl-input,.sl .sl-textarea,.sl .sl-select{font-family:var(--sl-sans);font-size:14.5px;color:var(--sl-ink);background:var(--sl-bg);border:1px solid var(--sl-line);padding:10px 12px;width:100%;transition:border-color .15s}
+.sl .sl-input:focus,.sl .sl-textarea:focus,.sl .sl-select:focus{outline:none;border-color:var(--sl-acc)}
+.sl .sl-input::placeholder,.sl .sl-textarea::placeholder{color:var(--sl-dim)}
 .sl-textarea{resize:vertical;min-height:92px;line-height:1.5}
 .sl-select{cursor:pointer}
 .sl-ferr{font-family:var(--sl-mono);font-size:10px;letter-spacing:.04em;color:var(--sl-acc);margin-top:2px}

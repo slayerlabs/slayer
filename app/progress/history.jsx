@@ -34,8 +34,10 @@ const FLOOR = 1_000_000;
 
 export default function CptHistory() {
   const [data, setData] = useState(FALLBACK);
+  const [now, setNow] = useState(null); // „dziś" liczone tylko po stronie klienta — Date.now() w renderze psuje hydrację SSR
 
   useEffect(() => {
+    setNow(Date.now());
     fetch("/results/cpt_progress_history.json?ts=" + Date.now())
       .then((r) => r.json())
       .then((d) => d && Array.isArray(d.history) && d.history.length && setData(d))
@@ -62,7 +64,7 @@ export default function CptHistory() {
   // geometria
   const W = 920, H = 300, L = 14, R = 150, T = 18, B = 34;
   const x0 = Date.parse(rows[0].date);
-  const x1 = Math.max(Date.now(), tLast) + 2 * 86400e3;
+  const x1 = Math.max(now ?? tLast, tLast) + 2 * 86400e3;
   const X = (iso) => L + ((Date.parse(iso) - x0) / Math.max(x1 - x0, 86400e3)) * (W - L - R);
   const lgF = Math.log10(FLOOR), lgT = Math.log10(target);
   const Y = (tok) => {

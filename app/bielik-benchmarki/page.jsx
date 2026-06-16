@@ -112,8 +112,8 @@ export default function BielikBenchmarki() {
 
           <div className="sl-eye" style={{ marginTop: 44 }}>różne benchmarki — nie da się zsumować na jedną liczbę</div>
           <h2 className="sl-h2" style={{ marginTop: 10 }}>Co każdy zespół <span className="sl-acc">zmierzył.</span></h2>
-          <div className="sl-bento sl-bento-a" style={{ marginTop: 18 }}>
-            <div className="sl-col sl-feat">
+          <div className="sl-cols" style={{ marginTop: 18 }}>
+            <div className="sl-col sl-col-block">
               <div className="sl-clbl">▸ bielik v3 · pl</div>
               <h3 className="sl-h2" style={{ fontSize: 17, marginBottom: 7 }}>Polski + regresja EN</h3>
               <p className="sl-lede" style={{ fontSize: 14.5 }}>PLCC <b>71,83</b> (1. open-source) · Open PL LLM <b>65,93</b> · Belebele-EU <b>82,98</b> · EQ-Bench-PL <b>71,20</b> · Medical/PES <b>50,21</b> · Open LLM EN (stary) <b>72,45</b> (GSM8K 85,60, MMLU 71,11).</p>
