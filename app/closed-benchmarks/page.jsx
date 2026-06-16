@@ -68,7 +68,7 @@ export default function ClosedBenchmarks() {
       <section className="sl-sec">
         <div className="sl-inner">
           <div className="sl-mast">
-            <div className="sl-mast-no">04</div>
+            <div className="sl-mast-no">01</div>
             <div>
               <div className="sl-eye">zasada</div>
               <h2 className="sl-h2" style={{ marginTop: 10 }}>Mierzymy tylko to, <span className="sl-acc">co odtwarzalne.</span></h2>

@@ -95,7 +95,7 @@ export default function Roadmap() {
       <section className="sl-sec">
         <div className="sl-inner">
           <div className="sl-mast">
-            <div className="sl-mast-no">05</div>
+            <div className="sl-mast-no">01</div>
             <div>
               <div className="sl-eye">zaproszenie · czego potrzebujemy teraz (F0→F1)</div>
               <h2 className="sl-h2" style={{ marginTop: 10 }}>Zaproszenie <span className="sl-acc">do współpracy.</span></h2>

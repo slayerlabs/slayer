@@ -160,7 +160,7 @@ export default function Trening() {
       <section className="sl-sec">
         <div className="sl-inner">
           <div className="sl-mast">
-            <div className="sl-mast-no">03</div>
+            <div className="sl-mast-no">01</div>
             <div>
               <div className="sl-eye">referencja · raport techniczny 11B v3</div>
               <h2 className="sl-h2" style={{ marginTop: 10 }}>Jak trenowano <span className="sl-acc">Bielika.</span></h2>
@@ -200,7 +200,7 @@ export default function Trening() {
       <section className="sl-sec">
         <div className="sl-inner">
           <div className="sl-mast">
-            <div className="sl-mast-no">04</div>
+            <div className="sl-mast-no">02</div>
             <div>
               <div className="sl-eye">fertility (tokeny/słowo) · niżej = wydajniej</div>
               <h2 className="sl-h2" style={{ marginTop: 10 }}>Tokenizer — dlaczego <span className="sl-acc">nie rozszerzamy.</span></h2>

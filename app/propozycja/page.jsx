@@ -24,7 +24,7 @@ export default function Propozycja() {
       <section className="sl-sec">
         <div className="sl-inner">
           <div className="sl-mast">
-            <div className="sl-mast-no">00</div>
+            <div className="sl-mast-no">01</div>
             <div>
               <div className="sl-eye">którą grę gramy</div>
               <h2 className="sl-h2" style={{ marginTop: 10 }}>Dwa różne <span className="sl-acc">benchmarki.</span></h2>
@@ -48,7 +48,7 @@ export default function Propozycja() {
       <section className="sl-sec">
         <div className="sl-inner">
           <div className="sl-mast">
-            <div className="sl-mast-no">01</div>
+            <div className="sl-mast-no">02</div>
             <div>
               <div className="sl-eye">teza</div>
               <h2 className="sl-h2" style={{ marginTop: 10 }}>Dźwignią jest duży, czysty, różnorodny <span className="sl-acc">korpus PL.</span></h2>
@@ -92,7 +92,7 @@ export default function Propozycja() {
       <section className="sl-sec">
         <div className="sl-inner">
           <div className="sl-mast">
-            <div className="sl-mast-no">F0</div>
+            <div className="sl-mast-no">03</div>
             <div>
               <div className="sl-eye">eval NAJPIERW · gate przed pierwszym dolarem</div>
               <h2 className="sl-h2" style={{ marginTop: 10 }}>PolKnowledge bench — <span className="sl-acc">known / unknown.</span></h2>
@@ -118,7 +118,7 @@ export default function Propozycja() {
       <section className="sl-sec">
         <div className="sl-inner">
           <div className="sl-mast">
-            <div className="sl-mast-no">F1</div>
+            <div className="sl-mast-no">04</div>
             <div>
               <div className="sl-eye">CPT · jak dodać wiedzę o Polsce</div>
               <h2 className="sl-h2" style={{ marginTop: 10 }}>Pre-training (continued) na&nbsp;czystym <span className="sl-acc">korpusie PL.</span></h2>
@@ -158,7 +158,7 @@ export default function Propozycja() {
       <section className="sl-sec">
         <div className="sl-inner">
           <div className="sl-mast">
-            <div className="sl-mast-no">F2</div>
+            <div className="sl-mast-no">05</div>
             <div>
               <div className="sl-eye">silniki danych · umiejętności + preferencje (fazy 2–3)</div>
               <h2 className="sl-h2" style={{ marginTop: 10 }}>Warstwy danych <span className="sl-acc">i ich udział.</span></h2>
@@ -185,7 +185,7 @@ export default function Propozycja() {
       <section className="sl-sec">
         <div className="sl-inner">
           <div className="sl-mast">
-            <div className="sl-mast-no">03</div>
+            <div className="sl-mast-no">06</div>
             <div>
               <div className="sl-eye">gwarancja czystości</div>
               <h2 className="sl-h2" style={{ marginTop: 10 }}>Benchmark = blocklista i&nbsp;miara, <span className="sl-acc">nigdy źródło.</span></h2>
@@ -200,7 +200,7 @@ export default function Propozycja() {
       <section className="sl-sec">
         <div className="sl-inner">
           <div className="sl-mast">
-            <div className="sl-mast-no">04</div>
+            <div className="sl-mast-no">07</div>
             <div>
               <div className="sl-eye">korpus regresji · żeby nie cofać się gdzie indziej</div>
               <h2 className="sl-h2" style={{ marginTop: 10 }}>Stały zestaw kontrolny <span className="sl-acc">po każdym runie.</span></h2>
@@ -230,7 +230,7 @@ export default function Propozycja() {
       <section className="sl-sec">
         <div className="sl-inner">
           <div className="sl-mast">
-            <div className="sl-mast-no">05</div>
+            <div className="sl-mast-no">08</div>
             <div>
               <div className="sl-eye">otwarte pytania · tu chcemy waszego głosu</div>
               <h2 className="sl-h2" style={{ marginTop: 10 }}>Co jest jeszcze <span className="sl-acc">otwarte.</span></h2>

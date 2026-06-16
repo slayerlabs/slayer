@@ -89,7 +89,7 @@ export default function V3() {
       <section className="sl-sec">
         <div className="sl-inner">
           <div className="sl-mast">
-            <div className="sl-mast-no">02</div>
+            <div className="sl-mast-no">01</div>
             <div>
               <div className="sl-eye">warstwa wiedzy · CPT, osobny tor</div>
               <h2 className="sl-h2" style={{ marginTop: 10 }}>Wiedza składana, <span className="sl-acc">nie odtwarzana.</span></h2>
@@ -127,7 +127,7 @@ export default function V3() {
       <section className="sl-sec">
         <div className="sl-inner">
           <div className="sl-mast">
-            <div className="sl-mast-no">03</div>
+            <div className="sl-mast-no">02</div>
             <div>
               <div className="sl-eye">bramki jakości</div>
               <h2 className="sl-h2" style={{ marginTop: 10 }}>Co musiał przejść <span className="sl-acc">każdy rekord.</span></h2>

@@ -46,7 +46,7 @@ export default function Rules() {
       <section className="sl-sec">
         <div className="sl-inner">
           <div className="sl-mast">
-            <div className="sl-mast-no">05</div>
+            <div className="sl-mast-no">01</div>
             <div>
               <div className="sl-eye">reguły pracy · obowiązują od startu</div>
               <h2 className="sl-h2" style={{ marginTop: 10 }}>Reguły <span className="sl-acc">pracy.</span></h2>
