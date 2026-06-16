@@ -520,19 +520,21 @@ def matrix_section(report):
         row(f"Sędziowie {dn} (0-100, ↑)",
             lambda m, d=d: _fmt(m["layer_b"].get("per_domena", {}).get(d, {}).get("panel_score"), 1))
 
+    judges_str = ", ".join(report.get("judges", [])) or "DeepSeek-V4-Pro"
     section = {
-        "title": "PL-GEN — długi tekst: LanguageTool + panel sędziów",
+        "title": "PL-GEN — długi tekst: LanguageTool + sędzia (DeepSeek)",
         "official_for": "plgen",
-        "protocol": ("free-generation PL, 3 seedy; Layer A = self-hosted LanguageTool "
-                     f"({report.get('lt_image')}) błędy/100tok per bucket; Layer B = ślepy "
-                     "panel >=3 niezależnych sędziów (greedy), panel_score 0-100 + "
-                     "naturalność 1-5 + IJA. Sub-score'y OSOBNE — nie uśredniać między "
-                     "warstwami ani z innymi sekcjami."),
+        "protocol": ("free-generation PL (bieg referencyjny: 1 seed s42, podzbiór 50/domena — "
+                     f"pełne 193×3 TODO); Layer A = self-hosted LanguageTool ({report.get('lt_image')}) "
+                     "błędy/100tok per bucket (dolne ograniczenie, niski recall); Layer B = ślepy "
+                     f"sędzia {judges_str} (guided, temp 0), panel_score 0-100 + naturalność 1-5. "
+                     "Sub-score'y OSOBNE — nie uśredniać między warstwami ani z innymi sekcjami. "
+                     "IJA N/A przy 1 sędzim."),
         "cols": cols,
         "rows": rows,
-        "note": ("Layer A (LT, ↓ lepiej) i Layer B (sędziowie, ↑ lepiej) to ODDZIELNE osie — "
+        "note": ("Layer A (LT, ↓ lepiej) i Layer B (sędzia, ↑ lepiej) to ODDZIELNE osie — "
                  "złote pole dashboardu liczy max w wierszu, więc dla wierszy LT (↓) ignoruj "
-                 "podświetlenie. Aggregaty po 3 seedach; wariancja w plgen_v1.json. eval_only."),
+                 "podświetlenie. Bieg referencyjny: 1 seed (s42), podzbiór 50/domena. eval_only."),
     }
 
     os.makedirs(os.path.dirname(MATRIX_SECTION_OUT) or ".", exist_ok=True)
