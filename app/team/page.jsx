@@ -123,6 +123,7 @@ const MEMBERS = [
   { img: "/assets/team/lizzy.jpg", name: "Elżbieta Dawidek (Lizzy)", specialty: "Antropolog · Logopeda · AAC", bio: "Bada sposoby budowania języka. Projektuje zadania diagnostyczne dla modeli językowych, sprawdzające polską fleksję, przypadki i rozumienie relacji w zdaniu. Wykładowca akademicki Uniwersytet DSW Ideis." },
   { img: "/assets/team/kamil-kaczmarek.png", name: "Kamil Kaczmarek", specialty: "Fullstack · Boty · Mikroserwisy", bio: "Fullstack deweloper. Buduje bota, mikroserwisy i narzędzia dla agencji marketingowej. Współtwórca systemu zarządzającego dziesiątkami tysięcy ofert na Allegro. Dostarcza end-to-end: od pomysłu do wdrożenia." },
   { img: "/assets/team/grzegorz.jpeg", name: "Grzegorz Trzaskoma", specialty: "Backend · Java · Node.js", bio: "Student informatyki II roku. Buduje framework agentowy @the-brain/core oraz aplikację Scheduler (system zarządzania pracownikami) jako sandbox dla agentów. Pełne środowisko testowe w terminalu, pamięć agenta w rozwój. gt-processing.com" },
+  { img: "/assets/team/s3nh.jpg", name: "Damian Panek", specialty: "ML Engineer · OSS · Quantization", bio: "ML Engineer, fanatyk open source. Specjalizuje się w metodach kwantyzacji i optymalizacji SOTA modeli." },
 ];
 
 const ADVISORS = [
