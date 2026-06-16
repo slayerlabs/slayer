@@ -11,12 +11,26 @@ export default function Home() {
     <main className="sl">
       <section className="sl-hero">
         <div className="sl-inner">
-          <div className="sl-eye sl-rv">✦ good taste applied research lab · polskie modele</div>
-          <h1 className="sl-h1 sl-rv sl-d1">Protokół dla <span className="sl-acc">polskiej inteligencji.</span></h1>
-          <p className="sl-lede sl-rv sl-d2">Badamy modele językowe jak rzemiosło — smak, pomiar, koszt, ślady danych. Zostawiamy <b>artefakty</b>, które da się odtworzyć.</p>
-          <div className="sl-cta sl-rv sl-d3">
-            <a className="sl-btn sl-btn-p" href="/benchmarks">otwórz protokoły →</a>
-            <a className="sl-btn sl-btn-s" href="https://discord.gg/HnTkVR4c5T" rel="noopener" target="_blank">wejście do labu ↗</a>
+          <div className="sl-hero-grid">
+            <div>
+              <div className="sl-eye sl-rv">✦ good taste applied research lab · polskie modele</div>
+              <h1 className="sl-h1 sl-rv sl-d1">Protokół dla <span className="sl-acc">polskiej inteligencji.</span></h1>
+              <p className="sl-lede sl-rv sl-d2">Badamy modele językowe jak rzemiosło — smak, pomiar, koszt, ślady danych. Zostawiamy <b>artefakty</b>, które da się odtworzyć.</p>
+              <div className="sl-cta sl-rv sl-d3">
+                <a className="sl-btn sl-btn-p" href="/benchmarks">otwórz protokoły →</a>
+                <a className="sl-btn sl-btn-s" href="https://discord.gg/HnTkVR4c5T" rel="noopener" target="_blank">wejście do labu ↗</a>
+              </div>
+            </div>
+            <div className="sl-art sl-rv sl-d4">
+              <div className="sl-art-h">◆ slayer-7b · PolNative</div>
+              <div className="sl-art-num">0.82</div>
+              <div className="sl-art-meta">SOTA-PL · +0.03 vs bielik-7b</div>
+              <div className="sl-art-bars">
+                <span className="sl-art-bar sl-art-bar-win" style={{ width: "82%" }} />
+                <span className="sl-art-bar" style={{ width: "64%" }} />
+                <span className="sl-art-bar" style={{ width: "74%" }} />
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -59,12 +73,13 @@ export default function Home() {
           <div className="sl-eye">01 · komnaty ◆</div>
           <h2 className="sl-h2" style={{ marginTop: 10 }}>Cztery drzwi, <span className="sl-acc">jeden warsztat.</span></h2>
           <p className="sl-lede" style={{ marginTop: 12 }}>Każdy obszar ma własny protokół, artefakty i ślady. Bez ozdobnych deklaracji, bez wyników na słowo.</p>
-          <div className="sl-cols" style={{ marginTop: 22 }}>
-            <div className="sl-col sl-col-lead">
-              <div className="sl-clbl">▸ ewaluacja</div>
-              <a href="/benchmarks"><h3 className="sl-h2" style={{ fontSize: 17, marginBottom: 7 }}>Czysty pomiar polszczyzny</h3></a>
+          <div className="sl-bento" style={{ marginTop: 22 }}>
+            <div className="sl-col sl-col-lead sl-feat">
+              <div className="sl-clbl">▸ ewaluacja · flagowy tor</div>
+              <a href="/benchmarks"><h3 className="sl-h2" style={{ marginBottom: 8 }}>Czysty pomiar polszczyzny</h3></a>
               <p className="sl-lede" style={{ fontSize: 13 }}>Karty benchmarków: co mierzy każda oś, jaka metryka decyduje, gdzie pułapka. Likelihood i generacja rozdzielone, stały seed, tylko agregaty.</p>
               <p className="sl-fn">artefakt — harness + karty 10 osi (LLMzSzŁ, KLEJ, PoQuAD…)</p>
+              <span className="sl-chip" style={{ marginTop: "auto", alignSelf: "flex-start" }}>10 osi pomiaru</span>
             </div>
             <div className="sl-col">
               <div className="sl-clbl">▸ dane</div>
@@ -78,8 +93,6 @@ export default function Home() {
               <p className="sl-lede" style={{ fontSize: 13 }}>QLoRA SFT, preferencje (DPO/ORPO), RL na weryfikowalnych nagrodach. Każdy run z gate&apos;ami regresji.</p>
               <p className="sl-fn">artefakt — cooking recipe + training log + decyzje</p>
             </div>
-          </div>
-          <div className="sl-cols" style={{ marginTop: 1 }}>
             <div className="sl-col">
               <div className="sl-clbl">▸ styl</div>
               <a href="/kierunki"><h3 className="sl-h2" style={{ fontSize: 17, marginBottom: 7 }}>Naturalna polszczyzna</h3></a>
