@@ -4,10 +4,21 @@ import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import "../styles/lab.css";
 
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://slayer.fabryka.ai";
+
 export const metadata = {
+  metadataBase: new URL(baseUrl),
   title: "Slayer — applied research lab dla polskich modeli",
   description:
     "Slayer to niezależne applied research lab dla polskich modeli językowych: protokoły ewaluacji, lineage danych, recepty treningowe i jawne koszty.",
+  openGraph: {
+    title: "Slayer — applied research lab dla polskich modeli",
+    description: "Slayer to niezależne applied research lab dla polskich modeli językowych.",
+    images: [{
+      url: "/assets/img/hermes-lab-threshold.png",
+      alt: "Slayer",
+    }],
+  },
 };
 
 export default function RootLayout({ children }) {
