@@ -4,28 +4,6 @@ export const metadata = {
     "Drabina społeczności Slayer: 7 poziomów statusu, odpowiedzialności i dowodów pracy. Awans za artefakty, nie za gadanie. Lejek: Discord → starter task → Contributor → Builder → Fellow → Maintainer → Core.",
 };
 
-const css = `
-    .funnel{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-family:var(--mono);font-size:.78rem;color:var(--mut);margin:18px 0 0}
-    .funnel b{color:var(--ink);font-weight:500;padding:6px 12px;border:1px solid var(--line);border-radius:99px;background:var(--panel)}
-    .funnel .ar{color:var(--acc)}
-    .lvl{border:1px solid var(--line);border-radius:var(--rad);background:var(--panel);margin:18px 0;overflow:hidden}
-    .lvl-top{display:flex;align-items:baseline;gap:16px;padding:18px clamp(16px,3vw,26px) 6px}
-    .lvl-top .no{font-family:var(--serif);font-style:italic;font-size:clamp(1.8rem,3vw,2.4rem);color:var(--acc);opacity:.85;line-height:1}
-    .lvl-top h3{margin:0;font-family:var(--serif);font-weight:400;font-size:clamp(1.3rem,2.4vw,1.7rem);letter-spacing:-.01em}
-    .lvl-top .cel{font-size:.92rem;color:var(--mut)}
-    .lvl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--line2);margin-top:12px}
-    @media(max-width:820px){.lvl-grid{grid-template-columns:1fr}}
-    .lvl-col{padding:14px clamp(16px,3vw,26px);border-left:1px solid var(--line2)}
-    .lvl-col:first-child{border-left:0}
-    @media(max-width:820px){.lvl-col{border-left:0;border-top:1px solid var(--line2)}.lvl-col:first-child{border-top:0}}
-    .lvl-col .h{font-family:var(--mono);font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:8px}
-    .lvl-col ul{margin:0;padding-left:16px;color:var(--mut);font-size:.88rem;line-height:1.6}
-    .lvl-col .h.acc{color:var(--acc)}
-    .qcard{font-family:var(--mono);font-size:.82rem;line-height:1.8;color:var(--txt);background:var(--panel2);border:1px solid var(--line);border-radius:var(--rad);padding:18px 22px;white-space:pre}
-    .qcard .k{color:var(--acc)}
-    .tags2{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-`;
-
 const LEVELS = [
   {
     no: "01", name: "Lurker", cel: "obserwuje, czyta, uczy się języka projektu",
@@ -78,93 +56,209 @@ const LEVELS = [
   },
 ];
 
+const FUNNEL = ["Reach", "Discord", "Starter task", "Contributor", "Builder", "Fellow", "Maintainer", "Core"];
+
+const PROOF = [
+  "dobry issue", "eval case", "dataset PR", "benchmark run", "technical note",
+  "onboarding guide", "eksperyment z logami", "model comparison", "bug report", "pull request",
+];
+
+const ROLES = ["Observer", "User", "Contributor", "Builder", "Research Fellow", "Maintainer", "Core"];
+const SKILLS = ["data", "evals", "training", "inference", "frontend", "backend", "infra", "research", "community", "docs", "bizdev"];
+
+const STARTERS = [
+  "Znajdź 20 polskich promptów, na&nbsp;których Bielik/Qwen failuje.",
+  "Dodaj 10 przykładów do eval suite.",
+  "Uruchom benchmark i&nbsp;wrzuć wynik.",
+  "Napisz 1-stronicowe streszczenie papera.",
+  "Zrób taksonomię błędów modelu na&nbsp;30 przykładach.",
+  "Popraw docs instalacji albo porównaj 3 modele na&nbsp;jednym tasku.",
+];
+
+const QUEST = `Title:     20 promptów, na których pada Bielik
+Context:   eval stylu PL, sekcja anty-tells
+Expected:  JSONL: prompt + output + co poszło źle
+Difficulty: S / M / L
+Reward:    credit · bounty · progres roli
+Reviewer:  maintainer obszaru
+Deadline:  7 dni`;
+
 export default function Drabina() {
   return (
-    <>
-      <style>{css}</style>
-      <section className="phero"><div className="inner">
-        <span className="kick">społeczność · drabina statusu, odpowiedzialności i dowodów pracy</span>
-        <h1>Od obserwatora do <em>core teamu</em>.</h1>
-        <p>Społeczność labu nie jest tłumem; to lejek rekrutacyjny z publicznym research outputem.
-        Każdy poziom ma jasne wejście, oczekiwania i nagrodę, a awans przyznajemy za artefakty, nie za gadanie.</p>
-        <div className="funnel">
-          <b>Reach</b><span className="ar">→</span><b>Discord</b><span className="ar">→</span><b>Starter task</b><span className="ar">→</span><b>Contributor</b><span className="ar">→</span><b>Builder</b><span className="ar">→</span><b>Fellow</b><span className="ar">→</span><b>Maintainer</b><span className="ar">→</span><b>Core</b>
-        </div>
-      </div></section>
-
-      <section className="sec tight"><div className="inner">
-        <div className="ghead"><h2>Siedem poziomów</h2><span className="c">wejście · co dostajesz · dowód przejścia wyżej</span></div>
-
-        {LEVELS.map((l) => (
-          <div className="lvl" key={l.no}>
-            <div className="lvl-top"><span className="no">{l.no}</span><h3>{l.name}</h3><span className="cel">{l.cel}</span></div>
-            <div className="lvl-grid">
-              <div className="lvl-col"><div className="h">dostajesz</div><ul>{l.dostajesz.map((x, i) => <li key={i}>{x}</li>)}</ul></div>
-              <div className="lvl-col"><div className="h">oczekiwanie</div><ul>{l.oczekiwanie.map((x, i) => <li key={i}>{x}</li>)}</ul></div>
-              <div className="lvl-col"><div className="h acc">{l.dalejLabel}</div><ul>{l.dalej.map((x, i) => <li key={i}>{x}</li>)}</ul></div>
+    <main className="sl">
+      <section className="sl-hero">
+        <div className="sl-inner">
+          <div className="sl-mast">
+            <div className="sl-mast-no">07</div>
+            <div>
+              <div className="sl-eye">społeczność · drabina statusu, odpowiedzialności i&nbsp;dowodów pracy</div>
+              <h1 className="sl-h1" style={{ marginTop: 12 }}>Od obserwatora do <span className="sl-acc">core teamu.</span></h1>
+              <p className="sl-lede" style={{ marginTop: 18 }}>Społeczność labu nie jest tłumem; to&nbsp;lejek rekrutacyjny z&nbsp;publicznym research outputem. Każdy poziom ma jasne wejście, oczekiwania i&nbsp;nagrodę, a&nbsp;awans przyznajemy za artefakty, nie za gadanie.</p>
+              <div className="sl-cta" style={{ marginTop: 24, flexWrap: "wrap", gap: 8 }}>
+                {FUNNEL.map((step, i) => (
+                  <span key={step} style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
+                    <span className="sl-chip">{step}</span>
+                    {i < FUNNEL.length - 1 && <span className="sl-acc" style={{ fontFamily: "var(--sl-mono)", fontSize: 12 }}>›</span>}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
-        ))}
-      </div></section>
+        </div>
+      </section>
 
-      <section className="sec tight alt"><div className="inner">
-        <div className="ghead"><h2>Proof of work</h2><span className="c">awans za artefakty, nie za gadanie</span></div>
-        <p className="muted" style={{ maxWidth: "70ch" }}>Każdy poziom ma dowód pracy. Liczą się rzeczy, które można otworzyć, odpalić i ocenić:</p>
-        <div className="tags2">
-          <span className="chip">dobry issue</span><span className="chip">eval case</span><span className="chip">dataset PR</span>
-          <span className="chip">benchmark run</span><span className="chip">technical note</span><span className="chip">onboarding guide</span>
-          <span className="chip">eksperyment z logami</span><span className="chip">model comparison</span><span className="chip">bug report</span><span className="chip">pull request</span>
-        </div>
-        <div className="grid c2" style={{ marginTop: 26 }}>
-          <div className="cell"><div className="top"><span>role na discordzie</span></div>
-            <div className="tags2"><span className="chip acc">Observer</span><span className="chip acc">User</span><span className="chip acc">Contributor</span><span className="chip acc">Builder</span><span className="chip acc">Research Fellow</span><span className="chip acc">Maintainer</span><span className="chip acc">Core</span></div>
-          </div>
-          <div className="cell"><div className="top"><span>tagi kompetencji</span></div>
-            <div className="tags2"><span className="chip">data</span><span className="chip">evals</span><span className="chip">training</span><span className="chip">inference</span><span className="chip">frontend</span><span className="chip">backend</span><span className="chip">infra</span><span className="chip">research</span><span className="chip">community</span><span className="chip">docs</span><span className="chip">bizdev</span></div>
-          </div>
-        </div>
-      </div></section>
+      <hr className="sl-rule" />
 
-      <section className="sec tight"><div className="inner">
-        <div className="ghead"><h2>Onboarding: pierwsze 7 dni</h2><span className="c">od wejścia do pierwszego artefaktu</span></div>
-        <div className="grid c3">
-          <div className="cell"><div className="top"><span>krok 1–3</span></div><h3 className="sm">Wejdź i wybierz ścieżkę</h3><p>Dołącz na Discorda, przeczytaj &quot;Start Here&quot;, wybierz: data / evals / code / research / community.</p></div>
-          <div className="cell"><div className="top"><span>krok 4–5</span></div><h3 className="sm">Zrób starter task</h3><p>Jeden mały task z quest boardu. Dostajesz feedback od reviewera w ciągu paru dni.</p></div>
-          <div className="cell"><div className="top"><span>krok 6–7</span></div><h3 className="sm">Dowiezione = Contributor</h3><p>Zaakceptowany artefakt to rola Contributor, kanały robocze i kolejne taski z backlogu.</p></div>
-        </div>
-        <div className="grid c2" style={{ marginTop: 26 }}>
-          <div className="cell"><div className="top"><span>przykładowe starter taski</span></div>
-            <ul style={{ margin: "8px 0 0", paddingLeft: 18, color: "var(--mut)", fontSize: ".93rem", lineHeight: 1.8 }}>
-              <li>Znajdź 20 polskich promptów, na których Bielik/Qwen failuje.</li>
-              <li>Dodaj 10 przykładów do eval suite.</li>
-              <li>Uruchom benchmark i wrzuć wynik.</li>
-              <li>Napisz 1-stronicowe streszczenie papera.</li>
-              <li>Zrób taksonomię błędów modelu na 30 przykładach.</li>
-              <li>Popraw docs instalacji albo porównaj 3 modele na jednym tasku.</li>
-            </ul>
-          </div>
-          <div className="cell"><div className="top"><span>quest board · format taska</span></div>
-            <div className="qcard"><span className="k">Title:</span>{"     20 promptów, na których pada Bielik\n"}<span className="k">Context:</span>{"   eval stylu PL, sekcja anty-tells\n"}<span className="k">Expected:</span>{"  JSONL: prompt + output + co poszło źle\n"}<span className="k">Difficulty:</span>{" S / M / L\n"}<span className="k">Reward:</span>{"    credit · bounty · progres roli\n"}<span className="k">Reviewer:</span>{"  maintainer obszaru\n"}<span className="k">Deadline:</span>{"  7 dni"}</div>
-            <p style={{ margin: "10px 0 0", fontSize: ".85rem", color: "var(--dim)", fontFamily: "var(--mono)" }}>kategorie: good first tasks · bounties · research / eval / data / infra quests · needs owner</p>
+      <section className="sl-sec">
+        <div className="sl-inner">
+          <div className="sl-eye">siedem poziomów · wejście · co dostajesz · dowód przejścia wyżej</div>
+          <h2 className="sl-h2" style={{ marginTop: 10 }}>Siedem <span className="sl-acc">poziomów.</span></h2>
+
+          <div className="sl-entries" style={{ marginTop: 22 }}>
+            {LEVELS.map((l) => (
+              <div className="sl-entry" key={l.no}>
+                <div className="sl-no">{l.no}</div>
+                <div>
+                  <h3>{l.name}</h3>
+                  <p style={{ marginBottom: 16 }}>{l.cel}</p>
+                  <div className="sl-cols">
+                    <div className="sl-col sl-col-lead">
+                      <div className="sl-clbl">dostajesz</div>
+                      <ul className="sl-list">{l.dostajesz.map((x, i) => <li key={i}>{x}</li>)}</ul>
+                    </div>
+                    <div className="sl-col">
+                      <div className="sl-clbl">oczekiwanie</div>
+                      <ul className="sl-list">{l.oczekiwanie.map((x, i) => <li key={i}>{x}</li>)}</ul>
+                    </div>
+                    <div className="sl-col">
+                      <div className="sl-clbl">{l.dalejLabel}</div>
+                      <ul className="sl-list">{l.dalej.map((x, i) => <li key={i}>{x}</li>)}</ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-      </div></section>
+      </section>
 
-      <section className="sec tight alt"><div className="inner">
-        <div className="ghead"><h2>Prestiż musi być widoczny</h2><span className="c">co dostają ludzie, którzy dowożą</span></div>
-        <div className="grid c3">
-          <div className="cell"><h3 className="sm">Publiczny credit</h3><p>Leaderboard contributorów, credits w README, monthly builders report, shoutouty na X/LinkedIn.</p></div>
-          <div className="cell"><h3 className="sm">Dostęp</h3><p>Compute, priority access do modeli, prywatne calle, współautorstwo raportów.</p></div>
-          <div className="cell"><h3 className="sm">Pieniądze</h3><p>Bounty, płatne zlecenia, kontrakty; core team z upside&apos;em zależnym od struktury.</p></div>
+      <hr className="sl-rule" />
+
+      <section className="sl-sec">
+        <div className="sl-inner">
+          <div className="sl-mast">
+            <div className="sl-mast-no">01</div>
+            <div>
+              <div className="sl-eye">proof of work · awans za artefakty, nie za gadanie</div>
+              <h2 className="sl-h2" style={{ marginTop: 10 }}>Każdy poziom ma <span className="sl-acc">dowód pracy.</span></h2>
+              <p className="sl-lede" style={{ marginTop: 12 }}>Liczą się rzeczy, które można otworzyć, odpalić i&nbsp;ocenić:</p>
+            </div>
+          </div>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 22 }}>
+            {PROOF.map((p) => <span className="sl-chip" key={p}>{p}</span>)}
+          </div>
+          <div className="sl-cols" style={{ marginTop: 26 }}>
+            <div className="sl-col sl-col-lead">
+              <div className="sl-clbl">role na&nbsp;discordzie</div>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                {ROLES.map((r) => <span className="sl-chip" key={r}>{r}</span>)}
+              </div>
+            </div>
+            <div className="sl-col">
+              <div className="sl-clbl">tagi kompetencji</div>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                {SKILLS.map((s) => <span className="sl-chip sl-mute" key={s}>{s}</span>)}
+              </div>
+            </div>
+          </div>
         </div>
-      </div></section>
+      </section>
 
-      <section className="sec alt"><div className="inner narrow" style={{ textAlign: "center" }}>
-        <span className="kick">start</span>
-        <h2 className="serif" style={{ fontSize: "clamp(2rem,4vw,2.9rem)", fontWeight: 400, letterSpacing: "-.015em", margin: "14px 0 14px" }}>Wejdź na drabinę.</h2>
-        <p className="muted" style={{ maxWidth: "54ch", margin: "0 auto 26px" }}>Pierwszy szczebel to jedna sensowna wiadomość albo jeden starter task. Reszta to powtarzalne artefakty.</p>
-        <div className="cta-row" style={{ justifyContent: "center" }}><a className="btn btn-p" href="https://discord.gg/HnTkVR4c5T" rel="noopener" target="_blank">Dołącz na Discord →</a><a className="btn btn-s" href="/zadania">zobacz zadania</a></div>
-      </div></section>
-    </>
+      <hr className="sl-rule" />
+
+      <section className="sl-sec">
+        <div className="sl-inner">
+          <div className="sl-mast">
+            <div className="sl-mast-no">02</div>
+            <div>
+              <div className="sl-eye">onboarding · pierwsze 7 dni · od wejścia do pierwszego artefaktu</div>
+              <h2 className="sl-h2" style={{ marginTop: 10 }}>Pierwsze <span className="sl-acc">7 dni.</span></h2>
+            </div>
+          </div>
+          <div className="sl-cols" style={{ marginTop: 22 }}>
+            <div className="sl-col sl-col-lead">
+              <div className="sl-clbl">krok 1–3</div>
+              <h3 className="sl-h2" style={{ fontSize: 17, marginBottom: 7 }}>Wejdź i&nbsp;wybierz ścieżkę</h3>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}>Dołącz na&nbsp;Discorda, przeczytaj „Start Here”, wybierz: data / evals / code / research / community.</p>
+            </div>
+            <div className="sl-col">
+              <div className="sl-clbl">krok 4–5</div>
+              <h3 className="sl-h2" style={{ fontSize: 17, marginBottom: 7 }}>Zrób starter task</h3>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}>Jeden mały task z&nbsp;quest boardu. Dostajesz feedback od reviewera w&nbsp;ciągu paru dni.</p>
+            </div>
+            <div className="sl-col">
+              <div className="sl-clbl">krok 6–7</div>
+              <h3 className="sl-h2" style={{ fontSize: 17, marginBottom: 7 }}>Dowiezione = Contributor</h3>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}>Zaakceptowany artefakt to&nbsp;rola Contributor, kanały robocze i&nbsp;kolejne taski z&nbsp;backlogu.</p>
+            </div>
+          </div>
+          <div className="sl-cols" style={{ marginTop: 26 }}>
+            <div className="sl-col sl-col-lead">
+              <div className="sl-clbl">przykładowe starter taski</div>
+              <ul className="sl-list">
+                {STARTERS.map((s, i) => <li key={i} dangerouslySetInnerHTML={{ __html: s }} />)}
+              </ul>
+            </div>
+            <div className="sl-col">
+              <div className="sl-clbl">quest board · format taska</div>
+              <pre className="sl-pre">{QUEST}</pre>
+              <p className="sl-fn">kategorie: good first tasks · bounties · research / eval / data / infra quests · needs owner</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <hr className="sl-rule" />
+
+      <section className="sl-sec">
+        <div className="sl-inner">
+          <div className="sl-mast">
+            <div className="sl-mast-no">03</div>
+            <div>
+              <div className="sl-eye">prestiż · co dostają ludzie, którzy dowożą</div>
+              <h2 className="sl-h2" style={{ marginTop: 10 }}>Prestiż musi być <span className="sl-acc">widoczny.</span></h2>
+            </div>
+          </div>
+          <div className="sl-cols" style={{ marginTop: 22 }}>
+            <div className="sl-col sl-col-lead">
+              <div className="sl-clbl">publiczny credit</div>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}>Leaderboard contributorów, credits w&nbsp;README, monthly builders report, shoutouty na&nbsp;X/LinkedIn.</p>
+            </div>
+            <div className="sl-col">
+              <div className="sl-clbl">dostęp</div>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}>Compute, priority access do modeli, prywatne calle, współautorstwo raportów.</p>
+            </div>
+            <div className="sl-col">
+              <div className="sl-clbl">pieniądze</div>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}>Bounty, płatne zlecenia, kontrakty; core team z&nbsp;upside&apos;em zależnym od struktury.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <hr className="sl-rule" />
+
+      <section className="sl-sec">
+        <div className="sl-inner" style={{ maxWidth: 760, marginLeft: "auto", marginRight: "auto", textAlign: "center" }}>
+          <div className="sl-eye" style={{ display: "block" }}>start</div>
+          <h2 className="sl-h2" style={{ margin: "12px 0 14px" }}>Wejdź na&nbsp;<span className="sl-acc">drabinę.</span></h2>
+          <p className="sl-lede" style={{ margin: "0 auto 24px" }}>Pierwszy szczebel to&nbsp;jedna sensowna wiadomość albo jeden starter task. Reszta to&nbsp;powtarzalne artefakty.</p>
+          <div className="sl-cta" style={{ justifyContent: "center" }}>
+            <a className="sl-btn sl-btn-p" href="https://discord.gg/HnTkVR4c5T" rel="noopener" target="_blank">Dołącz na&nbsp;Discord →</a>
+            <a className="sl-btn sl-btn-s" href="/zadania">zobacz zadania</a>
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }
