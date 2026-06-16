@@ -63,69 +63,79 @@ export default function SubmitForm() {
 
   const copy = () => navigator.clipboard.writeText(json).then(() => setCopied(true));
 
-  const err = (k) => (touched[k] && errors[k] ? <div className="ferr">{errors[k]}</div> : null);
+  const err = (k) => (touched[k] && errors[k] ? <div className="sl-ferr">{errors[k]}</div> : null);
+
+  const opt = { color: "var(--sl-dim)", textTransform: "none", letterSpacing: 0 };
+  const row2 = { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 };
 
   return (
-    <div className="cols">
-      <form onSubmit={(e) => e.preventDefault()}>
-        <div className="field"><label htmlFor="id">id <span className="opt">(slug, klucz złączenia z wynikami)</span></label>
-          <input id="id" type="text" value={f.id} onChange={set("id")} onBlur={blur("id")} placeholder="np. klej_psc" />{err("id")}</div>
-        <div className="field"><label htmlFor="nazwa">nazwa</label>
-          <input id="nazwa" type="text" value={f.nazwa} onChange={set("nazwa")} onBlur={blur("nazwa")} maxLength={80} placeholder="np. KLEJ PSC" />{err("nazwa")}</div>
-        <div className="field"><label htmlFor="opis">opis</label>
-          <textarea id="opis" value={f.opis} onChange={set("opis")} onBlur={blur("opis")} maxLength={300} placeholder="co mierzy, skąd pochodzi, ile domen…"></textarea>{err("opis")}</div>
-        <div className="grid2">
-          <div className="field"><label htmlFor="typ">typ zadania</label>
-            <select id="typ" value={f.typ_zadania} onChange={set("typ_zadania")}>{TYPY.map((t) => <option key={t} value={t}>{t}</option>)}</select></div>
-          <div className="field"><label htmlFor="kat">kategoria</label>
-            <select id="kat" value={f.kategoria} onChange={set("kategoria")}>{KATEGORIE.map(([k, v]) => <option key={k} value={k}>{v}</option>)}</select></div>
-        </div>
-        <div className="grid2">
-          <div className="field"><label htmlFor="metryka">metryka <span className="opt">(wyświetlana)</span></label>
-            <input id="metryka" type="text" value={f.metryka} onChange={set("metryka")} onBlur={blur("metryka")} placeholder="np. accuracy MCQ" />{err("metryka")}</div>
-          <div className="field"><label htmlFor="mk">metryka_klucz <span className="opt">(pole w leaderboard.json)</span></label>
-            <input id="mk" type="text" value={f.metryka_klucz} onChange={set("metryka_klucz")} placeholder="accuracy" /></div>
-        </div>
-        <div className="grid2">
-          <div className="field"><label htmlFor="rozmiar">rozmiar (n) <span className="opt">(opcjonalnie)</span></label>
-            <input id="rozmiar" type="text" inputMode="numeric" value={f.rozmiar} onChange={set("rozmiar")} onBlur={blur("rozmiar")} placeholder="np. 1078" />{err("rozmiar")}</div>
-          <div className="field"><label htmlFor="licencja">licencja <span className="opt">(opcjonalnie)</span></label>
-            <input id="licencja" type="text" value={f.licencja} onChange={set("licencja")} placeholder="np. CC-BY-4.0" /></div>
-        </div>
-        <div className="field"><label htmlFor="link">link <span className="opt">(HuggingFace / strona, opcjonalnie)</span></label>
-          <input id="link" type="url" value={f.link} onChange={set("link")} onBlur={blur("link")} placeholder="https://huggingface.co/datasets/…" />{err("link")}</div>
-        <div className="field"><label htmlFor="repo">repo źródłowe <span className="opt">(opcjonalnie — np. repo z danymi/harnessem)</span></label>
-          <input id="repo" type="url" value={f.repo} onChange={set("repo")} onBlur={blur("repo")} placeholder="https://github.com/…" />{err("repo")}</div>
-        <div className="grid2">
-          <div className="field"><label htmlFor="rola">rola <span className="opt">(opcjonalnie)</span></label>
-            <input id="rola" type="text" value={f.rola} onChange={set("rola")} placeholder="np. regresja / wiedza PL" /></div>
-          <div className="field"><label htmlFor="tagi">tagi <span className="opt">(po przecinku)</span></label>
-            <input id="tagi" type="text" value={f.tagi} onChange={set("tagi")} placeholder="pl, eval, mcq" /></div>
-        </div>
-        <div className="field"><label htmlFor="dodal">twój nick</label>
-          <input id="dodal" type="text" value={f.dodal} onChange={set("dodal")} onBlur={blur("dodal")} maxLength={40} placeholder="np. kamil" />{err("dodal")}</div>
-      </form>
+    <div className="sl-cols" style={{ alignItems: "start" }}>
+      <div className="sl-col">
+        <div className="sl-clbl">▸ pola zgłoszenia</div>
+        <form onSubmit={(e) => e.preventDefault()}>
+          <div className="sl-field"><label className="sl-flabel" htmlFor="id">id <span style={opt}>(slug, klucz złączenia z&nbsp;wynikami)</span></label>
+            <input className="sl-input" id="id" type="text" value={f.id} onChange={set("id")} onBlur={blur("id")} placeholder="np. klej_psc" />{err("id")}</div>
+          <div className="sl-field"><label className="sl-flabel" htmlFor="nazwa">nazwa</label>
+            <input className="sl-input" id="nazwa" type="text" value={f.nazwa} onChange={set("nazwa")} onBlur={blur("nazwa")} maxLength={80} placeholder="np. KLEJ PSC" />{err("nazwa")}</div>
+          <div className="sl-field"><label className="sl-flabel" htmlFor="opis">opis</label>
+            <textarea className="sl-textarea" id="opis" value={f.opis} onChange={set("opis")} onBlur={blur("opis")} maxLength={300} placeholder="co mierzy, skąd pochodzi, ile domen…"></textarea>{err("opis")}</div>
+          <div style={row2}>
+            <div className="sl-field"><label className="sl-flabel" htmlFor="typ">typ zadania</label>
+              <select className="sl-select" id="typ" value={f.typ_zadania} onChange={set("typ_zadania")}>{TYPY.map((t) => <option key={t} value={t}>{t}</option>)}</select></div>
+            <div className="sl-field"><label className="sl-flabel" htmlFor="kat">kategoria</label>
+              <select className="sl-select" id="kat" value={f.kategoria} onChange={set("kategoria")}>{KATEGORIE.map(([k, v]) => <option key={k} value={k}>{v}</option>)}</select></div>
+          </div>
+          <div style={row2}>
+            <div className="sl-field"><label className="sl-flabel" htmlFor="metryka">metryka <span style={opt}>(wyświetlana)</span></label>
+              <input className="sl-input" id="metryka" type="text" value={f.metryka} onChange={set("metryka")} onBlur={blur("metryka")} placeholder="np. accuracy MCQ" />{err("metryka")}</div>
+            <div className="sl-field"><label className="sl-flabel" htmlFor="mk">metryka_klucz <span style={opt}>(pole w&nbsp;leaderboard.json)</span></label>
+              <input className="sl-input" id="mk" type="text" value={f.metryka_klucz} onChange={set("metryka_klucz")} placeholder="accuracy" /></div>
+          </div>
+          <div style={row2}>
+            <div className="sl-field"><label className="sl-flabel" htmlFor="rozmiar">rozmiar (n) <span style={opt}>(opcjonalnie)</span></label>
+              <input className="sl-input" id="rozmiar" type="text" inputMode="numeric" value={f.rozmiar} onChange={set("rozmiar")} onBlur={blur("rozmiar")} placeholder="np. 1078" />{err("rozmiar")}</div>
+            <div className="sl-field"><label className="sl-flabel" htmlFor="licencja">licencja <span style={opt}>(opcjonalnie)</span></label>
+              <input className="sl-input" id="licencja" type="text" value={f.licencja} onChange={set("licencja")} placeholder="np. CC-BY-4.0" /></div>
+          </div>
+          <div className="sl-field"><label className="sl-flabel" htmlFor="link">link <span style={opt}>(HuggingFace / strona, opcjonalnie)</span></label>
+            <input className="sl-input" id="link" type="url" value={f.link} onChange={set("link")} onBlur={blur("link")} placeholder="https://huggingface.co/datasets/…" />{err("link")}</div>
+          <div className="sl-field"><label className="sl-flabel" htmlFor="repo">repo źródłowe <span style={opt}>(opcjonalnie — np. repo z&nbsp;danymi/harnessem)</span></label>
+            <input className="sl-input" id="repo" type="url" value={f.repo} onChange={set("repo")} onBlur={blur("repo")} placeholder="https://github.com/…" />{err("repo")}</div>
+          <div style={row2}>
+            <div className="sl-field"><label className="sl-flabel" htmlFor="rola">rola <span style={opt}>(opcjonalnie)</span></label>
+              <input className="sl-input" id="rola" type="text" value={f.rola} onChange={set("rola")} placeholder="np. regresja / wiedza PL" /></div>
+            <div className="sl-field"><label className="sl-flabel" htmlFor="tagi">tagi <span style={opt}>(po przecinku)</span></label>
+              <input className="sl-input" id="tagi" type="text" value={f.tagi} onChange={set("tagi")} placeholder="pl, eval, mcq" /></div>
+          </div>
+          <div className="sl-field"><label className="sl-flabel" htmlFor="dodal">twój nick</label>
+            <input className="sl-input" id="dodal" type="text" value={f.dodal} onChange={set("dodal")} onBlur={blur("dodal")} maxLength={40} placeholder="np. kamil" />{err("dodal")}</div>
+        </form>
+      </div>
 
-      <div>
-        <div className="ghead"><h2>Podgląd zgłoszenia</h2><span className="c">status: draft · review przez PR</span></div>
-        <pre className="preview">{json}</pre>
-        <div className="cta-row" style={{ marginTop: 14 }}>
+      <div className="sl-col">
+        <div className="sl-clbl" style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 12 }}>
+          <span>▸ podgląd zgłoszenia</span>
+          <span className="sl-status sl-open">status: draft · review przez PR</span>
+        </div>
+        <pre className="sl-pre">{json}</pre>
+        <div className="sl-cta" style={{ marginTop: 16 }}>
           <a
-            className={"btn btn-p" + (valid ? "" : " off")}
+            className={"sl-btn sl-btn-p"}
             href={valid ? prUrl : undefined}
             target="_blank"
             rel="noopener"
             aria-disabled={!valid}
+            style={valid ? undefined : { opacity: 0.45, cursor: "not-allowed" }}
             onClick={(e) => { if (!valid) { e.preventDefault(); setTouched({ id: true, nazwa: true, opis: true, metryka: true, dodal: true, rozmiar: true, link: true, repo: true }); } }}
           >
             utwórz PR na GitHubie →
           </a>
-          <button className="btn btn-s" onClick={copy} disabled={!valid}>{copied ? "skopiowano ✓" : "kopiuj JSON"}</button>
+          <button className="sl-btn sl-btn-s" onClick={copy} disabled={!valid} style={valid ? undefined : { opacity: 0.45, cursor: "not-allowed" }}>{copied ? "skopiowano ✓" : "kopiuj JSON"}</button>
         </div>
-        <p className="muted" style={{ fontSize: ".84rem", marginTop: 12 }}>
-          Przycisk otwiera GitHuba z gotowym plikiem <code>public/data/submissions/{f.id || "…"}.json</code> —
-          tworzysz PR na własnym koncie (wymagane konto GitHub). Po review maintainer scala wpis do{" "}
-          <code>data/benchmarks.json</code> i zmienia status na <b>verified</b>. Nie masz GitHuba? Skopiuj JSON i wrzuć na Discord.
+        <p className="sl-fn" style={{ fontSize: 11, lineHeight: 1.9, color: "var(--sl-mut)" }}>
+          Przycisk otwiera GitHuba z&nbsp;gotowym plikiem <code>public/data/submissions/{f.id || "…"}.json</code> —
+          tworzysz PR na&nbsp;własnym koncie (wymagane konto GitHub). Po review maintainer scala wpis do{" "}
+          <code>data/benchmarks.json</code> i&nbsp;zmienia status na&nbsp;<b>verified</b>. Nie masz GitHuba? Skopiuj JSON i&nbsp;wrzuć na&nbsp;Discord.
         </p>
       </div>
     </div>

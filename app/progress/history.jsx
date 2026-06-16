@@ -78,86 +78,75 @@ export default function CptHistory() {
   const ticks = [...new Set([rows[0].date, last.date])];
 
   return (
-    <div className="panel" style={{ marginBottom: 14 }}>
+    <div className="sl-art">
       <style>{`
-        .hx-dot-last{animation:hxp 2s ease-in-out infinite}
-        @keyframes hxp{0%,100%{opacity:1}50%{opacity:.35}}
-        .hx-head{display:flex;align-items:baseline;gap:22px;flex-wrap:wrap;margin-bottom:6px}
-        .hx-pct{font-family:var(--mono);font-weight:600;font-size:2.6rem;color:var(--acc)}
-        .hx-kv{font-family:var(--mono);font-size:.78rem;color:var(--dim)}
-        .hx-kv b{display:block;font-size:1.05rem;color:var(--txt);font-weight:600}
+        .hx-head{display:flex;align-items:baseline;gap:22px;flex-wrap:wrap;margin-bottom:14px}
+        .hx-pct{font-family:var(--sl-sans);font-weight:600;letter-spacing:-.035em;line-height:.85;font-size:clamp(40px,6vw,60px);color:var(--sl-acc)}
+        .hx-kv{font-family:var(--sl-mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--sl-dim)}
+        .hx-kv b{display:block;font-family:var(--sl-sans);font-size:18px;color:var(--sl-ink);font-weight:600;margin-top:6px;text-transform:none;letter-spacing:-.01em}
         .hx-svg{width:100%;height:auto;display:block}
-        .hx-ml{font-family:var(--mono);font-size:10.5px;fill:var(--dim)}
-        .hx-tick{font-family:var(--mono);font-size:10.5px;fill:var(--dim)}
-        .hx-ev{font-family:var(--mono);font-size:10px;fill:var(--mut)}
+        .hx-ml{font-family:var(--sl-mono);font-size:10.5px;fill:var(--sl-dim)}
+        .hx-tick{font-family:var(--sl-mono);font-size:10.5px;fill:var(--sl-dim)}
+        .hx-ev{font-family:var(--sl-mono);font-size:10px;fill:var(--sl-mut)}
       `}</style>
-      <div className="panel-top">
-        <span>droga do 2B — postęp w czasie</span>
-        <span className="live"><span className="d"></span>aktualizacja przy każdym przyjętym pakiecie</span>
+      <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 16, flexWrap: "wrap", marginBottom: 18 }}>
+        <div className="sl-eye">droga&nbsp;do 2B — postęp&nbsp;w czasie</div>
+        <span className="sl-status sl-run">aktualizacja przy&nbsp;każdym przyjętym pakiecie</span>
       </div>
-      <div className="panel-bd">
-        <div className="hx-head">
-          <div className="hx-pct">{pct < 10 ? pct.toFixed(2) : pct.toFixed(1)}%</div>
-          <div className="hx-kv">zebrane<b>{fmtTok(last.accepted_tokens)} / {fmtTok(target)}</b></div>
-          <div className="hx-kv">tempo<b>{rate > 0 ? fmtTok(rate) + "/dzień" : "—"}</b></div>
-          <div className="hx-kv">2B przy tym tempie<b>{eta ? fmtDate(eta.toISOString().slice(0, 10)) + " " + eta.getFullYear() : "—"}</b></div>
-        </div>
-
-        <svg className="hx-svg" viewBox={`0 0 ${W} ${H}`} role="img" aria-label="Postęp zbiórki tokenów CPT w czasie, skala logarytmiczna">
-          <defs>
-            <linearGradient id="hxg" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="var(--acc)" stopOpacity=".28" />
-              <stop offset="100%" stopColor="var(--acc)" stopOpacity="0" />
-            </linearGradient>
-          </defs>
-
-          {/* szczeble: kamienie milowe na skali log */}
-          {MILESTONES.map((m) => {
-            const y = Y(m.tokens);
-            const done = last.accepted_tokens >= m.tokens;
-            return (
-              <g key={m.tokens}>
-                <line x1={L} x2={W - R + 8} y1={y} y2={y}
-                  stroke={done ? "var(--acc)" : "var(--line)"} strokeOpacity={done ? ".55" : ".7"}
-                  strokeDasharray={done ? "" : "3 5"} />
-                <text className="hx-ml" x={W - R + 14} y={y + 3.5}
-                  fill={done ? "var(--acc)" : "var(--dim)"}>{m.label}</text>
-              </g>
-            );
-          })}
-
-          {/* oś czasu */}
-          <line x1={L} x2={W - R + 8} y1={H - B} y2={H - B} stroke="var(--line)" />
-          {ticks.map((d) => (
-            <text key={d} className="hx-tick" x={X(d)} y={H - B + 16} textAnchor="middle">{fmtDate(d)}</text>
-          ))}
-
-          {/* przebieg */}
-          <path d={area} fill="url(#hxg)" />
-          <path d={line} fill="none" stroke="var(--acc)" strokeWidth="2" strokeLinejoin="round" />
-
-          {/* punkty + eventy */}
-          {rows.map((r, i) => {
-            const [px, py] = pts[i];
-            const isLast = i === rows.length - 1;
-            return (
-              <g key={r.date}>
-                <circle className={isLast ? "hx-dot-last" : ""} cx={px} cy={py} r={isLast ? 4.5 : 3}
-                  fill={isLast ? "var(--acc)" : "var(--panel2, #14161b)"} stroke="var(--acc)" strokeWidth="1.5">
-                  <title>{`${fmtDate(r.date)} — ${fmtTok(r.accepted_tokens)} tok${r.event ? " · " + r.event : ""}`}</title>
-                </circle>
-                {r.event && (
-                  <text className="hx-ev" x={px + 7} y={py - 8}>{r.event}</text>
-                )}
-              </g>
-            );
-          })}
-        </svg>
-
-        <p className="pnote">Skala logarytmiczna (1M → 2B): na starcie każdy pakiet widać, a szczeble 50M / 250M / 1B / 2B
-          pokazują, ile drabiny zostało. Licznik rośnie wyłącznie o dokumenty, które przeszły bramki jakości
-          (dedup, filtr, decon) — surowe pobrania nie są wliczane.</p>
+      <div className="hx-head">
+        <div className="hx-pct">{pct < 10 ? pct.toFixed(2) : pct.toFixed(1)}%</div>
+        <div className="hx-kv">zebrane<b>{fmtTok(last.accepted_tokens)} / {fmtTok(target)}</b></div>
+        <div className="hx-kv">tempo<b>{rate > 0 ? fmtTok(rate) + "/dzień" : "—"}</b></div>
+        <div className="hx-kv">2B przy&nbsp;tym tempie<b>{eta ? fmtDate(eta.toISOString().slice(0, 10)) + " " + eta.getFullYear() : "—"}</b></div>
       </div>
+
+      <svg className="hx-svg" viewBox={`0 0 ${W} ${H}`} role="img" aria-label="Postęp zbiórki tokenów CPT w czasie, skala logarytmiczna">
+        {/* szczeble: kamienie milowe na skali log */}
+        {MILESTONES.map((m) => {
+          const y = Y(m.tokens);
+          const done = last.accepted_tokens >= m.tokens;
+          return (
+            <g key={m.tokens}>
+              <line x1={L} x2={W - R + 8} y1={y} y2={y}
+                stroke={done ? "var(--sl-acc)" : "var(--sl-line)"} strokeOpacity={done ? ".55" : ".7"}
+                strokeDasharray={done ? "" : "3 5"} />
+              <text className="hx-ml" x={W - R + 14} y={y + 3.5}
+                fill={done ? "var(--sl-acc)" : "var(--sl-dim)"}>{m.label}</text>
+            </g>
+          );
+        })}
+
+        {/* oś czasu */}
+        <line x1={L} x2={W - R + 8} y1={H - B} y2={H - B} stroke="var(--sl-line)" />
+        {ticks.map((d) => (
+          <text key={d} className="hx-tick" x={X(d)} y={H - B + 16} textAnchor="middle">{fmtDate(d)}</text>
+        ))}
+
+        {/* przebieg */}
+        <path d={area} fill="var(--sl-acc-soft)" />
+        <path d={line} fill="none" stroke="var(--sl-acc)" strokeWidth="2" strokeLinejoin="round" />
+
+        {/* punkty + eventy */}
+        {rows.map((r, i) => {
+          const [px, py] = pts[i];
+          const isLast = i === rows.length - 1;
+          return (
+            <g key={r.date}>
+              <circle cx={px} cy={py} r={isLast ? 4.5 : 3}
+                fill={isLast ? "var(--sl-acc)" : "var(--sl-bg)"} stroke="var(--sl-acc)" strokeWidth="1.5">
+                <title>{`${fmtDate(r.date)} — ${fmtTok(r.accepted_tokens)} tok${r.event ? " · " + r.event : ""}`}</title>
+              </circle>
+              {r.event && (
+                <text className="hx-ev" x={px + 7} y={py - 8}>{r.event}</text>
+              )}
+            </g>
+          );
+        })}
+      </svg>
+
+      <p className="sl-fn">Skala logarytmiczna (1M → 2B): na&nbsp;starcie każdy pakiet widać, a&nbsp;szczeble 50M / 250M / 1B / 2B
+        pokazują, ile drabiny zostało. Licznik rośnie wyłącznie o&nbsp;dokumenty, które przeszły bramki jakości
+        (dedup, filtr, decon) — surowe pobrania nie&nbsp;są wliczane.</p>
     </div>
   );
 }

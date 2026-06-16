@@ -6,68 +6,55 @@ export const metadata = {
     "Dziennik inżynierski Slayera: surowe notatki z treningu, recon cudzych receptur, decyzje i wpadki. Pisane na bieżąco, bez wygładzania.",
 };
 
-const css = `
-  .elog-mast{border:1px solid var(--line2);border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.01)),var(--panel);padding:22px 24px;margin-top:6px}
-  .elog-row{display:flex;justify-content:space-between;align-items:baseline;gap:14px;flex-wrap:wrap;font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;color:var(--dim)}
-  .elog-row .id{color:var(--acc)}
-  .elog-rule{border:0;border-top:1px solid var(--line2);margin:14px 0}
-  h1{font-family:var(--serif);font-weight:400;font-size:clamp(2rem,4.6vw,3rem);letter-spacing:-.015em;margin:6px 0 8px}
-  .intro{color:var(--mut);max-width:64ch;line-height:1.6;margin:0}
-  .elog-meta{display:flex;gap:26px;flex-wrap:wrap;font-family:var(--mono);font-size:.72rem;color:var(--dim);margin-top:14px}
-  .elog-meta b{color:var(--txt);font-weight:500;letter-spacing:0}
-  .idx{margin-top:30px}
-  .idx-head{display:grid;grid-template-columns:64px 110px 1fr;gap:14px;font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;color:var(--dim);padding:0 18px 8px;border-bottom:1px solid var(--line2)}
-  .entry{display:grid;grid-template-columns:64px 110px 1fr;gap:14px;align-items:start;padding:18px;border-bottom:1px solid var(--line2);text-decoration:none;transition:background .15s,border-color .15s}
-  .entry:hover{background:rgba(255,255,255,.022)}
-  .entry:hover .e-title{color:var(--acc)}
-  .e-no{font-family:var(--mono);font-size:.95rem;font-weight:600;color:var(--acc)}
-  .e-date{font-family:var(--mono);font-size:.76rem;color:var(--dim);padding-top:3px}
-  .e-title{font-family:var(--serif);font-weight:400;font-size:1.35rem;color:var(--ink);letter-spacing:-.01em;line-height:1.25;margin:0 0 6px;transition:color .15s}
-  .e-lead{color:var(--mut);font-size:.9rem;line-height:1.55;margin:0;max-width:72ch}
-  .e-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
-  .e-tag{font-family:var(--mono);font-size:.66rem;letter-spacing:.06em;padding:2px 8px;border-radius:3px;background:rgba(255,255,255,.04);border:1px solid var(--line);color:var(--dim);text-transform:uppercase}
-  @media(max-width:680px){.idx-head{display:none}.entry{grid-template-columns:1fr;gap:6px}}
-`;
-
 export default function EngLog() {
   return (
-    <div className="sec page-top">
-      <style>{css}</style>
-      <div className="inner">
-        <div className="elog-mast">
-          <div className="elog-row">
-            <span className="id">SLAYER PROTOCOL · ENGINEERING LOG</span>
-            <span>WPISÓW: {String(POSTS.length).padStart(3, "0")}</span>
-          </div>
-          <hr className="elog-rule" />
-          <h1>Engineering log</h1>
-          <p className="intro">
-            Surowe notatki z budowy polskiego modelu: recon cudzych receptur, decyzje treningowe,
-            wpadki i liczby. Pisane na bieżąco, bez wygładzania. Wyniki eksperymentów z metrykami
-            lądują w <a href="/eksperymenty">logu eksperymentów</a>; tutaj jest myślenie pomiędzy.
-          </p>
-          <div className="elog-meta">
-            <span>PROWADZI <b>{AUTHOR}</b></span>
-            <span>FORMAT <b>notatka robocza</b></span>
-            <span>RYTM <b>przy każdym istotnym znalezisku</b></span>
+    <main className="sl">
+      <section className="sl-hero">
+        <div className="sl-inner">
+          <div className="sl-mast">
+            <div className="sl-mast-no">{String(POSTS.length).padStart(2, "0")}</div>
+            <div>
+              <div className="sl-eye">slayer protocol · engineering log</div>
+              <h1 className="sl-h1" style={{ marginTop: 10 }}>
+                Engineering <span className="sl-acc">log.</span>
+              </h1>
+              <p className="sl-lede" style={{ marginTop: 18 }}>
+                Surowe notatki z&nbsp;budowy polskiego modelu: recon cudzych receptur, decyzje
+                treningowe, wpadki i&nbsp;liczby. Pisane na bieżąco, bez wygładzania. Wyniki
+                eksperymentów z&nbsp;metrykami lądują w&nbsp;<a href="/eksperymenty">logu eksperymentów</a>;
+                tutaj jest myślenie pomiędzy.
+              </p>
+              <p className="sl-fn">
+                prowadzi {AUTHOR} &nbsp; · &nbsp; format notatka robocza &nbsp; · &nbsp; rytm przy
+                każdym istotnym znalezisku &nbsp; · &nbsp; wpisów {String(POSTS.length).padStart(3, "0")}
+              </p>
+            </div>
           </div>
         </div>
+      </section>
 
-        <div className="idx">
-          <div className="idx-head"><span>LOG</span><span>DATA</span><span>WPIS</span></div>
-          {POSTS.map((p, i) => (
-            <a className="entry" key={p.slug} href={`/eng-log/${p.slug}`}>
-              <span className="e-no">{entryNo(i)}</span>
-              <span className="e-date">{p.date}</span>
-              <span>
-                <h2 className="e-title">{p.title}</h2>
-                <p className="e-lead">{p.lead}</p>
-                <span className="e-tags">{p.tags.map((t) => <span className="e-tag" key={t}>{t}</span>)}</span>
-              </span>
-            </a>
-          ))}
+      <section className="sl-sec" style={{ paddingTop: 0 }}>
+        <div className="sl-inner">
+          <div className="sl-eye">indeks wpisów</div>
+          <div className="sl-entries" style={{ marginTop: 18 }}>
+            {POSTS.map((p, i) => (
+              <a className="sl-entry" key={p.slug} href={`/eng-log/${p.slug}`}>
+                <div className="sl-no">{entryNo(i)}</div>
+                <div>
+                  <div className="sl-step-when">{p.date}</div>
+                  <h3 style={{ marginTop: 6 }}>{p.title}</h3>
+                  <p>{p.lead}</p>
+                  <div className="sl-cta" style={{ marginTop: 12, gap: 6 }}>
+                    {p.tags.map((t) => (
+                      <span className="sl-chip" key={t}>{t}</span>
+                    ))}
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
         </div>
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }

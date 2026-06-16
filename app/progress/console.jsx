@@ -43,102 +43,107 @@ export default function Console() {
 
   return (
     <>
-      <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 16, flexWrap: "wrap" }}>
-        <div><span className="kick"><span className="ac">POMIAR</span> — autonomiczna kolejka · simp / RTX 3090</span><h1>Konsola pomiaru</h1></div>
-        <span className="live"><span className="d"></span><span>{fail ? "brak danych" : D ? D.phase || "—" : "łączenie…"}</span></span>
+      <style>{`@media(max-width:780px){.sl-pgrid{grid-template-columns:1fr!important}}`}</style>
+      <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 16, flexWrap: "wrap", marginBottom: 18 }}>
+        <div>
+          <div className="sl-eye">pomiar — autonomiczna kolejka · simp / RTX 3090</div>
+          <h2 className="sl-h2" style={{ marginTop: 12 }}>Konsola pomiaru</h2>
+        </div>
+        <span className="sl-status sl-run">{fail ? "brak danych" : D ? D.phase || "—" : "łączenie…"}</span>
       </div>
 
-      <div className="g2" style={{ marginTop: 26 }}>
-        <div className="panel"><div className="panel-top"><span>aktualny benchmark</span></div>
-          <div className="panel-bd">
-            <div className="cur-job">{running ? c.label : D ? ((D.phase || "").includes("zakończ") ? "kolejka zakończona " : "przygotowanie…") : "—"}</div>
-            <div className="tags" style={{ margin: "8px 0 16px" }}>
-              {running && c.model ? <span className="chip acc">{c.model}</span> : null}
-              {running && c.stage ? <span className="chip">{c.stage}</span> : null}
-            </div>
-            <div className={"bigbar" + (running ? " run" : "")}>
-              <i style={{ width: pct + "%" }}></i>
-              <span className="pc">{running ? pct.toFixed(0) + "%" : ""}</span>
-            </div>
-            <div style={{ marginTop: 14 }}>
-              <span className="big">{running ? c.done.toLocaleString("pl") : "—"}</span>{" "}
-              <span className="muted mono" style={{ fontSize: ".86rem" }}>{running ? "/ " + c.total.toLocaleString("pl") + " pytań" : ""}</span>
-            </div>
-            <div className="ticks">
-              <div className="tick"><div className="v acc">{eta != null ? "≈ " + fmt(eta) : "—"}</div><div className="k">ETA benchmarku</div></div>
-              <div className="tick"><div className="v">{(running && c.rate_per_s) || "—"}</div><div className="k">pyt/s</div></div>
-            </div>
+      <div style={{ display: "grid", gridTemplateColumns: "1.4fr 1fr", gap: "clamp(20px,3vw,28px)" }} className="sl-pgrid">
+        <div className="sl-art">
+          <div className="sl-clbl">▸ aktualny benchmark</div>
+          <div className="sl-h2" style={{ fontSize: "clamp(20px,2.6vw,26px)", marginBottom: 12 }}>{running ? c.label : D ? ((D.phase || "").includes("zakończ") ? "kolejka zakończona " : "przygotowanie…") : "—"}</div>
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap", margin: "0 0 16px" }}>
+            {running && c.model ? <span className="sl-chip sl-on">{c.model}</span> : null}
+            {running && c.stage ? <span className="sl-chip sl-mute">{c.stage}</span> : null}
+          </div>
+          <div className="sl-bar">
+            <div className="sl-bar-fill" style={{ width: pct + "%" }}></div>
+            <span className="sl-bar-pct">{running ? pct.toFixed(0) + "%" : ""}</span>
+          </div>
+          <div style={{ marginTop: 16, display: "flex", alignItems: "baseline", gap: 8 }}>
+            <span className="sl-num">{running ? c.done.toLocaleString("pl") : "—"}</span>
+            <span className="sl-tele" style={{ marginTop: 0 }}>{running ? "/ " + c.total.toLocaleString("pl") + " pytań" : ""}</span>
+          </div>
+          <div className="sl-band" style={{ marginTop: 18, gridTemplateColumns: "repeat(2,1fr)" }}>
+            <div className="sl-stat"><div className="sl-num sl-acc">{eta != null ? "≈ " + fmt(eta) : "—"}</div><div className="sl-slbl">ETA benchmarku</div></div>
+            <div className="sl-stat"><div className="sl-num">{(running && c.rate_per_s) || "—"}</div><div className="sl-slbl">pyt/s</div></div>
           </div>
         </div>
-        <div className="panel"><div className="panel-top"><span>wynik zbiorczy</span></div>
-          <div className="panel-bd">
-            <div className="scoreline"><span className="b">{D?.tally?.[NB] ?? 0}</span><span className="d">:</span><span className="q">{D?.tally?.[NQ] ?? 0}</span></div>
-            <div className="muted mono" style={{ textAlign: "center", fontSize: ".72rem" }}>Bielik-11B-v3 · Qwen3.5-9B</div>
-            <div className="ticks">
-              <div className="tick"><div className="v">{D?.benchmarks_done ?? 0}</div><div className="k">benchmarków</div></div>
-              <div className="tick"><div className="v acc">{dl != null ? fmt(dl) : "—"}</div><div className="k">do końca kolejki</div></div>
-            </div>
+        <div className="sl-art">
+          <div className="sl-clbl">▸ wynik zbiorczy</div>
+          <div style={{ display: "flex", alignItems: "baseline", justifyContent: "center", gap: 14, margin: "10px 0 6px" }}>
+            <span className="sl-num sl-acc">{D?.tally?.[NB] ?? 0}</span>
+            <span className="sl-num" style={{ color: "var(--sl-dim)" }}>:</span>
+            <span className="sl-num">{D?.tally?.[NQ] ?? 0}</span>
           </div>
-        </div>
-      </div>
-
-      <div className="panel" style={{ marginBottom: 14 }}><div className="panel-top"><span>postęp całości — faza A</span></div>
-        <div className="panel-bd">
-          <div className="bigbar">
-            <i style={{ background: "linear-gradient(90deg,var(--acc),var(--blue))", width: (fa ? fa.overall_pct : 0) + "%" }}></i>
-            <span className="pc">{fa ? fa.overall_pct + "%" : ""}</span>
-          </div>
-          <div className="ticks">
-            <div className="tick"><div className="v">{fa ? fa.done_jobs + " / " + fa.total_jobs : "—"}</div><div className="k">ukończone</div></div>
-            <div className="tick"><div className="v acc">{oeta != null ? "≈ " + fmt(oeta) : "—"}</div><div className="k">ETA fazy A</div></div>
-            <div className="tick"><div className="v">{fa?.projected_done_ts ? new Date(fa.projected_done_ts * 1000).toLocaleTimeString("pl", { hour: "2-digit", minute: "2-digit" }) : "—"}</div><div className="k">przewidywany koniec</div></div>
+          <div className="sl-tele" style={{ textAlign: "center", marginTop: 0 }}>Bielik-11B-v3 · Qwen3.5-9B</div>
+          <div className="sl-band" style={{ marginTop: 18, gridTemplateColumns: "repeat(2,1fr)" }}>
+            <div className="sl-stat"><div className="sl-num">{D?.benchmarks_done ?? 0}</div><div className="sl-slbl">benchmarków</div></div>
+            <div className="sl-stat"><div className="sl-num sl-acc">{dl != null ? fmt(dl) : "—"}</div><div className="sl-slbl">do końca kolejki</div></div>
           </div>
         </div>
       </div>
 
-      <div className="panel" style={{ marginBottom: 14 }}><div className="panel-top"><span>wyniki — ukończone benchmarki</span></div>
-        <div className="panel-bd">
-          {!R.length ? (
-            <div className="muted mono">pierwsze wyniki po ukończeniu benchmarków…</div>
-          ) : (
-            <div className="tbl">
-              <table>
-                <thead><tr><th>Benchmark</th><th className="c">Bielik-11B-v3</th><th className="c">Qwen3.5-9B</th><th className="c">Wynik</th></tr></thead>
-                <tbody>
-                  {R.map((r) => {
-                    const wb = r.winner === NB && r.margin > 0, wq = r.winner === NQ && r.margin > 0;
-                    const u = r.unit === "chrF" ? "" : "%";
-                    return (
-                      <tr key={r.label}>
-                        <td><div className="dn">{r.label}</div><div className="ds">{(r.metric || "").replace(" (MCQ, exact letter)", "")} · n={r.n}{r.runs > 1 ? " · " + r.runs + " runów" : ""}</div></td>
-                        <td className={"s " + (wb ? "win" : "")}>{r.bielik != null ? r.bielik + u : "—"}</td>
-                        <td className={"s " + (wq ? "win" : "")}>{r.qwen != null ? r.qwen + u : "—"}</td>
-                        <td className="c">{r.bielik != null && r.qwen != null ? (wb ? <span className="vb b">▲ Bielik +{r.margin}</span> : wq ? <span className="vb q">Qwen +{r.margin}</span> : "remis") : "—"}</td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
-          )}
+      <div className="sl-art" style={{ marginTop: "clamp(20px,3vw,28px)" }}>
+        <div className="sl-clbl">▸ postęp całości — faza A</div>
+        <div className="sl-bar">
+          <div className="sl-bar-fill" style={{ width: (fa ? fa.overall_pct : 0) + "%" }}></div>
+          <span className="sl-bar-pct">{fa ? fa.overall_pct + "%" : ""}</span>
+        </div>
+        <div className="sl-band" style={{ marginTop: 18, gridTemplateColumns: "repeat(3,1fr)" }}>
+          <div className="sl-stat"><div className="sl-num">{fa ? fa.done_jobs + " / " + fa.total_jobs : "—"}</div><div className="sl-slbl">ukończone</div></div>
+          <div className="sl-stat"><div className="sl-num sl-acc">{oeta != null ? "≈ " + fmt(oeta) : "—"}</div><div className="sl-slbl">ETA fazy A</div></div>
+          <div className="sl-stat"><div className="sl-num">{fa?.projected_done_ts ? new Date(fa.projected_done_ts * 1000).toLocaleTimeString("pl", { hour: "2-digit", minute: "2-digit" }) : "—"}</div><div className="sl-slbl">przewidywany koniec</div></div>
         </div>
       </div>
 
-      <div className="panel"><div className="panel-top"><span>pipeline — faza A</span></div>
-        <div className="panel-bd">
-          <div className="steps">
-            {(D?.jobs_faza_a || []).map((j) => (
-              <div key={j.key || j.label} className={"step " + j.state}>
-                <div className="ic">{j.state === "running" ? "⟳" : ""}</div>
-                <div className="nm">{KEYL[j.key] || j.label}</div>
-                <div className="st">{STL[j.state] || j.state}</div>
+      <div className="sl-art" style={{ marginTop: "clamp(20px,3vw,28px)" }}>
+        <div className="sl-clbl">▸ wyniki — ukończone benchmarki</div>
+        {!R.length ? (
+          <p className="sl-tele">pierwsze wyniki po&nbsp;ukończeniu benchmarków…</p>
+        ) : (
+          <table className="sl-tbl">
+            <thead><tr><th>Benchmark</th><th className="sl-c">Bielik-11B-v3</th><th className="sl-c">Qwen3.5-9B</th><th className="sl-c">Wynik</th></tr></thead>
+            <tbody>
+              {R.map((r) => {
+                const wb = r.winner === NB && r.margin > 0, wq = r.winner === NQ && r.margin > 0;
+                const u = r.unit === "chrF" ? "" : "%";
+                return (
+                  <tr key={r.label}>
+                    <td className="sl-dn">{r.label}<div className="sl-fn" style={{ marginTop: 4 }}>{(r.metric || "").replace(" (MCQ, exact letter)", "")} · n={r.n}{r.runs > 1 ? " · " + r.runs + " runów" : ""}</div></td>
+                    <td className={"sl-s " + (wb ? "sl-win" : "")}>{r.bielik != null ? r.bielik + u : "—"}</td>
+                    <td className={"sl-s " + (wq ? "sl-win" : "")}>{r.qwen != null ? r.qwen + u : "—"}</td>
+                    <td className="sl-s">{r.bielik != null && r.qwen != null ? (wb ? <span className="sl-chip">▲ Bielik +{r.margin}</span> : wq ? <span className="sl-chip sl-mute">Qwen +{r.margin}</span> : <span className="sl-chip sl-mute">remis</span>) : "—"}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        )}
+      </div>
+
+      <div className="sl-art" style={{ marginTop: "clamp(20px,3vw,28px)" }}>
+        <div className="sl-clbl">▸ pipeline — faza A</div>
+        <div className="sl-steps sl-flat" style={{ marginTop: 4 }}>
+          {(D?.jobs_faza_a || []).map((j) => {
+            const stateClass = { done: "sl-done", running: "sl-run", queued: "sl-queued", fail: "sl-fail" }[j.state] || "";
+            return (
+              <div key={j.key || j.label} className="sl-step">
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 14, flexWrap: "wrap" }}>
+                  <span className={"sl-status " + stateClass}>{KEYL[j.key] || j.label}</span>
+                  <span className={"sl-status " + stateClass}>{STL[j.state] || j.state}</span>
+                </div>
               </div>
-            ))}
-          </div>
+            );
+          })}
         </div>
       </div>
 
-      <p className="muted mono" style={{ textAlign: "center", fontSize: ".78rem", marginTop: 18 }}>
+      <p className="sl-fn" style={{ textAlign: "center", marginTop: 18 }}>
         {D ? "prawdziwe wartości · źródło: simp · stan z " + (D.now || "—") + " · publikacja co ~60 s" : "—"}
       </p>
     </>
