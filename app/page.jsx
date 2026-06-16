@@ -6,217 +6,182 @@ export const metadata = {
     "Slayer to niezależne applied research lab dla polskich modeli językowych: protokoły ewaluacji, lineage danych, recepty treningowe i jawne koszty. Dobry smak plus twardy pomiar.",
 };
 
-const css = `
-    /* ---------- hero ---------- */
-    .hero{position:relative;padding:132px clamp(18px,5vw,72px) 0;overflow:hidden;min-height:96vh}
-    .hero::before{content:"";position:absolute;inset:0;background:
-      linear-gradient(90deg,rgba(9,9,7,.95) 0%,rgba(9,9,7,.80) 38%,rgba(9,9,7,.36) 72%,rgba(9,9,7,.82) 100%),
-      linear-gradient(180deg,rgba(9,9,7,.18) 0%,rgba(9,9,7,.64) 72%,var(--bg) 100%),
-      url('/assets/img/hermes-lab-threshold.png') center right/cover no-repeat;
-      pointer-events:none;filter:saturate(.88) contrast(1.05)}
-    .hero::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.38;background:
-      repeating-linear-gradient(90deg,transparent 0 56px,rgba(222,202,154,.08) 56px 57px),
-      repeating-linear-gradient(0deg,transparent 0 56px,rgba(222,202,154,.055) 56px 57px);
-      -webkit-mask-image:radial-gradient(ellipse 82% 72% at 58% 22%,#000 0%,transparent 76%);
-      mask-image:radial-gradient(ellipse 82% 72% at 58% 22%,#000 0%,transparent 76%)}
-    /* hero jednoszpaltowy: prawa strona w całości dla obrazu pracowni */
-    .hgrid{position:relative;z-index:1;width:min(var(--max),100%);margin:0 auto;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);align-items:center;min-height:72vh;padding-bottom:clamp(54px,7vw,84px)}
-    @media(max-width:940px){.hgrid{grid-template-columns:1fr;min-height:0}}
-    /* księga pomiarów pod hero: wpisy w dwóch kolumnach */
-    .loggrid{display:grid;grid-template-columns:1fr 1fr;gap:0 34px;padding:6px 18px 8px}
-    @media(max-width:820px){.loggrid{grid-template-columns:1fr}}
-    .loggrid .logrow:nth-child(2){border-top:0}
-    .htag{display:inline-flex;align-items:center;gap:10px;margin-bottom:26px}
-    .htag .dot{width:7px;height:7px;border-radius:50%;background:var(--acc);animation:pl 2s infinite}
-    .hero h1{margin:0 0 24px;font-family:var(--serif);font-size:clamp(3rem,6.8vw,5.9rem);line-height:.96;font-weight:360;letter-spacing:-.018em;color:var(--ink);max-width:10.6ch;text-wrap:balance;text-shadow:0 18px 70px rgba(0,0,0,.55)}
-    .hero h1 em{font-style:italic;color:var(--acc)}
-    .lede{max-width:620px;margin:0 0 32px;color:#cfc1a5;font-size:clamp(1.08rem,1.7vw,1.3rem);line-height:1.55;text-shadow:0 10px 34px rgba(0,0,0,.5)}
-    .lede b{color:var(--ink);font-weight:600}
-    .lede a{color:var(--acc);border-bottom:1px solid var(--acc-soft)}
-
-    /* staggered reveal */
-    .rv{opacity:0;transform:translateY(14px);animation:rv .7s cubic-bezier(.2,.7,.3,1) forwards}
-    .rv.d1{animation-delay:.06s}.rv.d2{animation-delay:.16s}.rv.d3{animation-delay:.26s}
-    .rv.d4{animation-delay:.36s}.rv.d5{animation-delay:.48s}
-    @keyframes rv{to{opacity:1;transform:none}}
-    @media(prefers-reduced-motion:reduce){.rv{animation:none;opacity:1;transform:none}}
-
-    /* lab log panel */
-    .loghead{display:flex;align-items:center;gap:8px}
-    .logrow{display:grid;grid-template-columns:86px 1fr auto;gap:12px;align-items:baseline;padding:13px 2px;border-top:1px solid var(--line2);font-size:.92rem}
-    .logrow:first-child{border-top:0}
-    .logrow .dt{font-family:var(--mono);font-size:.72rem;color:var(--dim);letter-spacing:.04em}
-    .logrow .what{color:var(--txt)}
-    .logrow .what b{font-weight:600;color:var(--ink)}
-    .logrow .what .sub{display:block;font-family:var(--mono);font-size:.72rem;color:var(--dim);margin-top:2px}
-    .logrow .go{font-family:var(--mono);font-size:.78rem;color:var(--acc);white-space:nowrap}
-    a.logrow{transition:background .15s}
-    a.logrow:hover{background:rgba(199,148,72,.07)}
-    @media(max-width:480px){.logrow{grid-template-columns:1fr auto}.logrow .dt{display:none}}
-
-    /* stat strip */
-    .stats{position:relative;z-index:1;border-top:1px solid var(--line);background:rgba(9,9,7,.78);backdrop-filter:blur(14px)}
-    .stats .inner{display:grid;grid-template-columns:repeat(4,1fr);width:min(var(--max),100%);margin:0 auto}
-    @media(max-width:820px){.stats .inner{grid-template-columns:repeat(2,1fr)}}
-    .stat{padding:22px clamp(14px,2vw,28px);border-left:1px solid var(--line2)}
-    .stat:first-child{border-left:0}
-    @media(max-width:820px){.stat:nth-child(3){border-left:0}.stat:nth-child(n+3){border-top:1px solid var(--line2)}}
-    .stat .v{font-family:var(--serif);font-size:clamp(1.7rem,3vw,2.3rem);color:var(--ink);line-height:1.1}
-    .stat .v .ac{color:var(--acc)}
-    .stat .k{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-top:5px}
-
-    /* principles: editorial numbered list */
-    .princ{display:grid;gap:0;border:1px solid var(--line);border-radius:var(--rad);background:linear-gradient(180deg,rgba(199,148,72,.06),rgba(255,255,255,.012)),var(--panel);overflow:hidden}
-    .pr{display:grid;grid-template-columns:92px 1fr;gap:clamp(14px,3vw,34px);padding:clamp(20px,3vw,30px) clamp(18px,3vw,32px);border-top:1px solid var(--line2)}
-    .pr:first-child{border-top:0}
-    .pr .no{font-family:var(--serif);font-style:italic;font-size:clamp(1.9rem,3.4vw,2.7rem);color:var(--acc);line-height:1;opacity:.85}
-    .pr h3{margin:2px 0 6px;font-size:1.16rem;font-weight:600;letter-spacing:0}
-    .pr p{margin:0;color:var(--mut);font-size:.97rem;max-width:74ch}
-    .pr p b{color:var(--ink)}
-    @media(max-width:560px){.pr{grid-template-columns:1fr;gap:8px}}
-
-    /* research areas */
-    .area h3{font-family:var(--serif);font-weight:400;font-size:1.42rem;letter-spacing:-.01em;margin:12px 0 8px}
-    .area .meta{margin-top:auto;padding-top:16px}
-`;
-
 export default function Home() {
   return (
-    <>
-      <style>{css}</style>
+    <main className="sl">
+      <section className="sl-hero sl-hero-hi">
+        <div className="sl-inner">
+          <div className="sl-eye">good taste · applied research lab · polskie modele</div>
+          <h1 className="sl-h1">Protokół dla <span className="sl-acc">polskiej inteligencji.</span></h1>
+          <p className="sl-lede">Badamy modele językowe jak rzemiosło — smak, pomiar, koszt, ślady danych. Zostawiamy <b>artefakty</b>, które da się odtworzyć.</p>
+          <div className="sl-cta">
+            <a className="sl-btn sl-btn-p" href="/benchmarks">otwórz protokoły →</a>
+            <a className="sl-btn sl-btn-s" href="https://discord.gg/HnTkVR4c5T" rel="noopener" target="_blank">wejście do labu ↗</a>
+          </div>
+        </div>
+      </section>
 
-      <section className="hero">
-        <div className="hgrid">
-          <div>
-            <div className="htag rv"><span className="dot"></span><span className="kick"><span className="ac">GOOD TASTE APPLIED RESEARCH LAB</span> · POLSKIE MODELE</span></div>
-            <h1 className="rv d1">Protokół dla polskiej inteligencji.</h1>
-            <p className="lede rv d2">Slayer bada modele językowe jak rzemiosło: smak odpowiedzi, czystość pomiaru, koszt treningu i ślady danych. Nie robimy widowiska. Zostawiamy <b>artefakty</b>: harnessy, lineage, recepty, modele i wyniki, które da się odtworzyć.</p>
-            <div className="cta-row rv d3">
-              <a className="btn btn-p" href="/benchmarks">otwórz protokoły →</a>
-              <a className="btn btn-s" href="https://discord.gg/HnTkVR4c5T" rel="noopener" target="_blank">wejście do labu</a>
+      <div className="sl-inner">
+        <div className="sl-eye" style={{ marginBottom: 14 }}>wskaźniki progu</div>
+        <div className="sl-band">
+          <div className="sl-stat"><span className="sl-sidx">/01</span><BenchCount /><div className="sl-slbl">osi ewaluacji</div></div>
+          <div className="sl-stat"><span className="sl-sidx">/02</span><div className="sl-num">24<span className="sl-acc">k</span></div><div className="sl-slbl">rekordów z rodowodem</div></div>
+          <div className="sl-stat"><span className="sl-sidx">/03</span><div className="sl-num">100<span className="sl-acc">%</span></div><div className="sl-slbl">claimów z held-out</div></div>
+          <div className="sl-stat"><span className="sl-sidx">/04</span><div className="sl-num">~18<span className="sl-acc">k</span></div><div className="sl-slbl">zł — koszt w wyniku</div></div>
+        </div>
+      </div>
+
+      <section className="sl-sec">
+        <div className="sl-inner">
+          <div className="sl-eye">księga pomiarów</div>
+          <div className="sl-cols" style={{ marginTop: 18 }}>
+            <div className="sl-col sl-col-lead">
+              <div className="sl-clbl">▸ ostatnie artefakty</div>
+              <ul className="sl-list">
+                <li><a href="/eksperymenty">slayer-style-27b — smak bez amnezji <sup>1</sup></a></li>
+                <li><a href="/datasety">datasety — dane + karty + lineage <sup>2</sup></a></li>
+                <li><a href="/benchmarks">benchmarks — karty 10 osi pomiaru</a></li>
+                <li><a href="https://arena.fabryka.ai" rel="noopener" target="_blank">arena — ślepe porównania PL ↗</a></li>
+              </ul>
+            </div>
+            <div className="sl-col">
+              <div className="sl-clbl">◆ stan</div>
+              <MeasureNote />
+              <p className="sl-fn">1 — LLMzSzŁ 65.0 vs baza 58.5 (likelihood, n=400) &nbsp; 2 — miksy 1:1 · disclosure kontaminacji v2</p>
             </div>
           </div>
         </div>
-        <div className="stats rv d5" style={{ margin: "0 calc(clamp(18px,5vw,72px) * -1)" }}>
-          <div className="inner">
-            <div className="stat"><BenchCount /><div className="k">osi ewaluacji</div></div>
-            <div className="stat"><div className="v">24<span className="ac">k</span></div><div className="k">rekordów z widocznym rodowodem</div></div>
-            <div className="stat"><div className="v">100<span className="ac">%</span></div><div className="k">claimów z held-out</div></div>
-            <div className="stat"><div className="v">~18<span className="ac">k zł</span></div><div className="k">koszt wpisany w wynik</div></div>
-          </div>
-        </div>
       </section>
 
-      <section className="sec tight">
-        <div className="inner">
-          <div className="panel rv d4">
-            <div className="panel-top"><span className="loghead">księga pomiarów</span><span className="live"><span className="d"></span>NA ŻYWO</span></div>
-            <div className="panel-bd loggrid">
-              <a className="logrow" href="/eksperymenty">
-                <span className="dt">2026-06</span>
-                <span className="what"><b>slayer-style-27b</b>: smak odpowiedzi bez amnezji<span className="sub">LLMzSzŁ 65.0 vs baza 58.5 (likelihood, n=400)</span></span>
-                <span className="go">otwórz →</span>
-              </a>
-              <a className="logrow" href="/datasety">
-                <span className="dt">2026-06</span>
-                <span className="what"><b>datasets</b>: dane treningowe + karty + lineage<span className="sub">miksy 1:1, disclosure kontaminacji v2</span></span>
-                <span className="go">ślady →</span>
-              </a>
-              <a className="logrow" href="/benchmarks">
-                <span className="dt">2026-06</span>
-                <span className="what"><b>benchmarks</b>: karty 10 osi pomiaru<span className="sub">metryki, train policy, znane pułapki</span></span>
-                <span className="go">osie →</span>
-              </a>
-              <a className="logrow" href="https://arena.fabryka.ai" rel="noopener" target="_blank">
-                <span className="dt">2026-06</span>
-                <span className="what"><b>arena</b>: ślepe porównania modeli PL<span className="sub">oceniaj odpowiedzi bez etykiet</span></span>
-                <span className="go">wejdź →</span>
-              </a>
+      <hr className="sl-rule" />
+
+      <section className="sl-sec">
+        <div className="sl-inner">
+          <div className="sl-mast">
+            <div className="sl-mast-no">01</div>
+            <div>
+              <div className="sl-eye">komnaty</div>
+              <h2 className="sl-h2" style={{ marginTop: 10 }}>Cztery drzwi, <span className="sl-acc">jeden warsztat.</span></h2>
+              <p className="sl-lede" style={{ marginTop: 12 }}>Każdy obszar ma własny protokół, artefakty i ślady. Bez ozdobnych deklaracji, bez wyników na słowo.</p>
             </div>
-            <MeasureNote />
+          </div>
+          <div className="sl-bento" style={{ marginTop: 22 }}>
+            <div className="sl-col sl-col-block sl-feat">
+              <div className="sl-clbl">▸ ewaluacja · flagowy tor</div>
+              <a href="/benchmarks"><h3 className="sl-h2" style={{ marginBottom: 8 }}>Czysty pomiar polszczyzny</h3></a>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}>Karty benchmarków: co mierzy każda oś, jaka metryka decyduje, gdzie pułapka. Likelihood i generacja rozdzielone, stały seed, tylko agregaty.</p>
+              <p className="sl-fn">artefakt — harness + karty 10 osi (LLMzSzŁ, KLEJ, PoQuAD…)</p>
+              <span className="sl-chip" style={{ marginTop: "auto", alignSelf: "flex-start" }}>10 osi pomiaru</span>
+            </div>
+            <div className="sl-col">
+              <div className="sl-clbl">▸ dane</div>
+              <a href="/datasety"><h3 className="sl-h2" style={{ fontSize: 17, marginBottom: 7 }}>Kuracja zamiast masy</h3></a>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}>Małe, świetne zbiory biją duże i brudne. Pełny lineage każdego miksu, dekontaminacja względem ewaluacji, provenance per rekord.</p>
+              <p className="sl-fn">artefakt — karty datasetów + miksy 1:1 z lineage</p>
+            </div>
+            <div className="sl-col">
+              <div className="sl-clbl">▸ trening</div>
+              <a href="/trening"><h3 className="sl-h2" style={{ fontSize: 17, marginBottom: 7 }}>Recepty, które przechodzą próg</h3></a>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}>QLoRA SFT, preferencje (DPO/ORPO), RL na weryfikowalnych nagrodach. Każdy run z gate&apos;ami regresji.</p>
+              <p className="sl-fn">artefakt — cooking recipe + training log + decyzje</p>
+            </div>
+            <div className="sl-col">
+              <div className="sl-clbl">▸ styl</div>
+              <a href="/kierunki"><h3 className="sl-h2" style={{ fontSize: 17, marginBottom: 7 }}>Naturalna polszczyzna</h3></a>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}>Model ma pisać jak ktoś, kto ma ucho: bez kalek, bez asystenckiej waty, z natywną fleksją. Mierzone twardo i otwartym sędzią.</p>
+              <p className="sl-fn">artefakt — style-SFT 1.6k przykładów + eval stylu held-out</p>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="sec">
-        <div className="inner">
-          <div className="shead"><div><span className="kick">01 · komnaty</span><h2>Cztery drzwi, jeden warsztat.</h2></div>
-            <p>Każdy obszar ma własny protokół, artefakty i ślady. Bez ozdobnych deklaracji, bez wyników na słowo.</p></div>
-          <div className="grid c2">
-            <a className="cell area" href="/benchmarks"><div className="top"><span>ewaluacja</span><span className="ar">→</span></div>
-              <h3>Czysty pomiar polszczyzny</h3>
-              <p>Karty benchmarków: co mierzy każda oś, jaka metryka decyduje, gdzie leży pułapka. Likelihood i generacja rozdzielone, stały seed, tylko agregaty.</p>
-              <div className="meta"><div><span className="k">artefakt</span>harness + karty 10 osi (LLMzSzŁ, KLEJ, PoQuAD…)</div></div></a>
-            <a className="cell area" href="/datasety"><div className="top"><span>dane</span><span className="ar">→</span></div>
-              <h3>Kuracja zamiast masy</h3>
-              <p>Małe, świetne zbiory biją duże i brudne. Pełny lineage każdego miksu treningowego, dekontaminacja względem ewaluacji, provenance per rekord.</p>
-              <div className="meta"><div><span className="k">artefakt</span>karty datasetów + miksy treningowe 1:1 z lineage</div></div></a>
-            <a className="cell area" href="/trening"><div className="top"><span>trening</span><span className="ar">→</span></div>
-              <h3>Recepty, które przechodzą próg</h3>
-              <p>QLoRA SFT, preferencje (DPO/ORPO), RL na weryfikowalnych nagrodach. Każdy run z gate&apos;ami regresji: zysk na celu bez utraty kompetencji bazowych.</p>
-              <div className="meta"><div><span className="k">artefakt</span>cooking recipe + training log + decyzje z pomiarów</div></div></a>
-            <a className="cell area" href="/kierunki"><div className="top"><span>styl</span><span className="ar">→</span></div>
-              <h3>Naturalna polszczyzna</h3>
-              <p>Model ma pisać jak ktoś, kto ma ucho: bez kalek z angielskiego, bez asystenckiej waty, z natywną fleksją. Mierzone twardymi metrykami i otwartym sędzią.</p>
-              <div className="meta"><div><span className="k">artefakt</span>style-SFT 1.6k przykładów + eval stylu held-out</div></div></a>
+
+      <section className="sl-sec">
+        <div className="sl-inner">
+          <div className="sl-mast">
+            <div className="sl-mast-no">02</div>
+            <div>
+              <div className="sl-eye">reguły przejścia</div>
+              <h2 className="sl-h2" style={{ marginTop: 10 }}>Co wpuszczamy <span className="sl-acc">do twierdzeń.</span></h2>
+              <p className="sl-lede" style={{ marginTop: 12, marginBottom: 8 }}>Rygor ewaluacyjny jest częścią smaku. Te reguły obowiązują w każdym runie.</p>
+            </div>
+          </div>
+          <div className="sl-entries" style={{ marginTop: 22 }}>
+            <div className="sl-entry"><div className="sl-no">01</div><div><h3>Held-out albo nic</h3><p>Publiczne twierdzenia wyłącznie z danych, których model nie widział, mierzone tym samym protokołem co baseline&apos;y. Wynik na zadaniu trenowanym oznaczamy jako trenowany i nie liczymy do claimów.</p></div></div>
+            <div className="sl-entry"><div className="sl-no">02</div><div><h3>Agregaty, nie itemy</h3><p>Analizujemy accuracy per kategoria, domena, rok. Nie oglądamy pojedynczych pytań i nie piszemy na ich podstawie danych treningowych. Pliki ewaluacji wchodzą do pipeline&apos;u wyłącznie jako wejście dekontaminacji.</p></div></div>
+            <div className="sl-entry"><div className="sl-no">03</div><div><h3>Lineage i disclosure</h3><p>Każdy model ma audytowalną listę: co weszło do treningu, skąd, z jaką licencją. Gdy popełniliśmy błąd (skażony miks v2), <b>opublikowaliśmy go z pełnym disclosure</b> zamiast chować.</p></div></div>
+            <div className="sl-entry"><div className="sl-no">04</div><div><h3>Otwarci sędziowie</h3><p>Tam, gdzie ocenia LLM, sędzią jest model o otwartych wagach, z podanym promptem i wersją. Zamknięte API nie filtrują danych i nie wystawiają ocen, na których stoi wynik.</p></div></div>
+            <div className="sl-entry"><div className="sl-no">05</div><div><h3>Koszt jest wynikiem</h3><p>Budżet, sprzęt i czas każdego runu są częścią publikacji. Teza kosztowa (konkurencyjny model za ~15–20k zł) jest falsyfikowalna jak każda inna.</p></div></div>
           </div>
         </div>
       </section>
 
-      <hr className="rule" />
 
-      <section className="sec alt">
-        <div className="inner">
-          <div className="shead"><div><span className="kick">02 · reguły przejścia</span><h2>Co wpuszczamy do twierdzeń.</h2></div>
-            <p>Rygor ewaluacyjny jest częścią smaku. Te reguły obowiązują w każdym runie.</p></div>
-          <div className="princ">
-            <div className="pr"><div className="no">01</div><div><h3>Held-out albo nic</h3><p>Publiczne twierdzenia wyłącznie z danych, których model nie widział, mierzone tym samym protokołem co baseline&apos;y. Wynik na zadaniu trenowanym oznaczamy jako trenowany i nie liczymy do claimów.</p></div></div>
-            <div className="pr"><div className="no">02</div><div><h3>Agregaty, nie itemy</h3><p>Analizujemy accuracy per kategoria, domena, rok. Nie oglądamy pojedynczych pytań benchmarków i nie piszemy na ich podstawie danych treningowych. Pliki ewaluacji wchodzą do pipeline&apos;u wyłącznie jako wejście dekontaminacji.</p></div></div>
-            <div className="pr"><div className="no">03</div><div><h3>Lineage i disclosure</h3><p>Każdy model ma audytowalną listę: co dokładnie weszło do treningu, skąd, z jaką licencją. Gdy popełniliśmy błąd (skażony miks v2), <b>opublikowaliśmy go z pełnym disclosure</b> zamiast chować.</p></div></div>
-            <div className="pr"><div className="no">04</div><div><h3>Otwarci sędziowie</h3><p>Tam, gdzie ocenia LLM, sędzią jest model o otwartych wagach, z podanym promptem i wersją. Zamknięte API nie filtrują danych i nie wystawiają ocen, na których stoi wynik.</p></div></div>
-            <div className="pr"><div className="no">05</div><div><h3>Koszt jest wynikiem</h3><p>Budżet, sprzęt i czas każdego runu są częścią publikacji. Teza kosztowa (konkurencyjny model za ~15–20k zł) jest falsyfikowalna jak każda inna.</p></div></div>
+      <section className="sl-sec">
+        <div className="sl-inner">
+          <div className="sl-mast">
+            <div className="sl-mast-no">03</div>
+            <div>
+              <div className="sl-eye">wejścia</div>
+              <h2 className="sl-h2" style={{ marginTop: 10 }}>Wybierz <span className="sl-acc">ślad.</span></h2>
+            </div>
+          </div>
+          <div className="sl-cols" style={{ marginTop: 22 }}>
+            <div className="sl-col sl-col-lead">
+              <div className="sl-clbl">▸ pomiary</div>
+              <ul className="sl-list">
+                <li><a href="/leaderboard">Ewaluacje na żywo →</a></li>
+                <li><a href="/eksperymenty">Eksperymenty (log runów) →</a></li>
+                <li><a href="/benchmarks">Benchmarki (metoda) →</a></li>
+              </ul>
+            </div>
+            <div className="sl-col">
+              <div className="sl-clbl">▸ budowa</div>
+              <ul className="sl-list">
+                <li><a href="/datasety">Datasety (lineage) →</a></li>
+                <li><a href="/trening">Trening (recepty) →</a></li>
+                <li><a href="/zespol">Zespół (dołącz) →</a></li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>
 
-      <hr className="rule" />
 
-      <section className="sec">
-        <div className="inner">
-          <div className="shead"><div><span className="kick">03 · wejścia</span><h2>Wybierz ślad.</h2></div>
-            <p>Sześć modułów na żywo. Pomiary aktualizują się automatycznie, logi pisze pipeline.</p></div>
-          <div className="grid auto">
-            <a className="cell" href="/leaderboard"><div className="top"><span>pomiary</span><span className="ar">→</span></div><h3 className="sm">Ewaluacje na żywo</h3><p>Wyniki wszystkich mierzonych modeli, oś po osi.</p></a>
-            <a className="cell" href="/eksperymenty"><div className="top"><span>log</span><span className="ar">→</span></div><h3 className="sm">Eksperymenty</h3><p>Dziennik runów: hipoteza, setup, wynik, decyzja.</p></a>
-            <a className="cell" href="/benchmarks"><div className="top"><span>metoda</span><span className="ar">→</span></div><h3 className="sm">Benchmarki</h3><p>Karty osi pomiaru i zasady czystości.</p></a>
-            <a className="cell" href="/datasety"><div className="top"><span>dane</span><span className="ar">→</span></div><h3 className="sm">Datasety</h3><p>Ewaluacja vs trening, lineage, licencje.</p></a>
-            <a className="cell" href="/trening"><div className="top"><span>recepty</span><span className="ar">→</span></div><h3 className="sm">Trening</h3><p>SFT, DPO/ORPO, GRPO/RLVR i gate&apos;y regresji.</p></a>
-            <a className="cell" href="/zespol"><div className="top"><span>ludzie</span><span className="ar">→</span></div><h3 className="sm">Zespół</h3><p>Kto buduje i jak dołączyć.</p></a>
+      <section className="sl-sec">
+        <div className="sl-inner">
+          <div className="sl-mast">
+            <div className="sl-mast-no">04</div>
+            <div>
+              <div className="sl-eye">kontekst</div>
+              <h2 className="sl-h2" style={{ marginTop: 10 }}>Bez teatru <span className="sl-acc">zwycięstwa.</span></h2>
+            </div>
+          </div>
+          <div className="sl-cols" style={{ marginTop: 22 }}>
+            <div className="sl-col sl-col-lead">
+              <div className="sl-clbl">▸ ekosystem</div>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}>Bielik (SpeakLeash) to ważny punkt odniesienia i wzór otwartego raportowania. Nasz wkład jest komplementarny: niezależna replikacja, tańsza ścieżka treningu i publiczny warsztat pomiarowy.</p>
+            </div>
+            <div className="sl-col">
+              <div className="sl-clbl">▸ baza i licencja</div>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}>Budujemy na Qwen3.5-27B (Apache 2.0): pochodne można trenować, wydawać i komercjalizować otwarcie. 9B służy do tanich iteracji. Trening i hosting w Polsce, receptura jawna.</p>
+            </div>
           </div>
         </div>
       </section>
 
-      <hr className="rule" />
 
-      <section className="sec">
-        <div className="inner">
-          <div className="shead"><div><span className="kick">04 · kontekst</span><h2>Bez teatru zwycięstwa.</h2></div>
-            <p>Polska scena AI rośnie wtedy, gdy laby publikują i weryfikują nawzajem swoje wyniki.</p></div>
-          <div className="grid c2">
-            <div className="cell"><h3 className="sm">Ekosystem, nie pojedynek</h3><p>Bielik (SpeakLeash) to ważny punkt odniesienia w naszych ewaluacjach i wzór otwartego raportowania. Nasz wkład jest komplementarny: niezależna replikacja, tańsza ścieżka treningu i publiczny warsztat pomiarowy, z którego może korzystać każdy polski projekt.</p></div>
-            <div className="cell"><h3 className="sm">Baza i licencja</h3><p>Budujemy na Qwen3.5-27B (Apache 2.0): pochodne można trenować, wydawać i komercjalizować otwarcie. Mniejsze modele nie wystarczają jeszcze na polskie SOTA; 9B służy nam tylko do tanich iteracji. Trening i hosting w Polsce, receptura jawna.</p></div>
+      <section className="sl-sec">
+        <div className="sl-inner" style={{ maxWidth: 760, marginLeft: "auto", marginRight: "auto", textAlign: "center" }}>
+          <div className="sl-eye" style={{ display: "block" }}>dołącz</div>
+          <h2 className="sl-h2" style={{ margin: "12px 0 14px" }}>Wejdź, jeśli chcesz <span className="sl-acc">mierzyć.</span></h2>
+          <p className="sl-lede" style={{ margin: "0 auto 24px" }}>Kontrybutorzy, naukowcy, firmy z use case&apos;ami i fundatorzy compute. Publiczny zapis: od razu widać, kto już jest.</p>
+          <div className="sl-cta" style={{ justifyContent: "center" }}>
+            <a className="sl-btn sl-btn-p" href="https://discord.gg/HnTkVR4c5T" rel="noopener" target="_blank">wejście do labu ↗</a>
+            <a className="sl-btn sl-btn-s" href="/zespol">zapisz się</a>
           </div>
         </div>
       </section>
-
-      <section className="sec alt">
-        <div className="inner narrow" style={{ textAlign: "center" }}>
-          <span className="kick">dołącz</span>
-          <h2 className="serif" style={{ fontSize: "clamp(2.1rem,4.2vw,3.1rem)", fontWeight: 400, letterSpacing: "-.015em", margin: "14px 0 14px" }}>Wejdź, jeśli chcesz mierzyć.</h2>
-          <p className="muted" style={{ maxWidth: "54ch", margin: "0 auto 26px", fontSize: "1.06rem" }}>Kontrybutorzy, naukowcy, firmy z use case&apos;ami i fundatorzy compute. Publiczny zapis: od razu widać, kto już jest.</p>
-          <div className="cta-row" style={{ justifyContent: "center" }}><a className="btn btn-p" href="https://discord.gg/HnTkVR4c5T" rel="noopener" target="_blank">wejście do labu →</a><a className="btn btn-s" href="/zespol">zapisz się</a></div>
-        </div>
-      </section>
-    </>
+    </main>
   );
 }

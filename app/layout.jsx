@@ -1,8 +1,22 @@
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Archivo, JetBrains_Mono } from "next/font/google";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
-import "../styles/lab.css";
+import "../styles/slayer.css";
+
+const archivo = Archivo({
+  subsets: ["latin", "latin-ext"],
+  weight: ["300", "400", "500", "600"],
+  variable: "--font-archivo",
+  display: "swap",
+});
+const jbmono = JetBrains_Mono({
+  subsets: ["latin", "latin-ext"],
+  weight: ["400", "500"],
+  variable: "--font-jbmono",
+  display: "swap",
+});
 
 export const metadata = {
   title: "Slayer — applied research lab dla polskich modeli",
@@ -10,20 +24,18 @@ export const metadata = {
     "Slayer to niezależne applied research lab dla polskich modeli językowych: protokoły ewaluacji, lineage danych, recepty treningowe i jawne koszty.",
 };
 
+// Ustawia motyw PRZED pierwszym paintem (bez mignięcia): zapamiętany wybór,
+// inaczej preferencja systemu. Brak data-theme = domyślne tokeny ciemne.
+const themeScript = `(function(){try{var t=localStorage.getItem('sl-theme');if(!t){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.dataset.theme=t;}catch(e){document.documentElement.dataset.theme='dark';}})();`;
+
 export default function RootLayout({ children }) {
   return (
-    <html lang="pl">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&display=swap"
-          rel="stylesheet"
-        />
-      </head>
+    <html lang="pl" className={`${archivo.variable} ${jbmono.variable}`} suppressHydrationWarning>
       <body>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <a className="sl-skip" href="#main">Przejdź do treści</a>
         <Nav />
-        {children}
+        <div id="main" tabIndex={-1}>{children}</div>
         <Footer />
         <Analytics />
         <SpeedInsights />

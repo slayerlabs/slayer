@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
+import ThemeToggle from "./ThemeToggle";
 
 const GROUPS = [
   {
@@ -52,29 +53,19 @@ export default function Nav() {
   const [open, setOpen] = useState(false);
   const close = () => setOpen(false);
   return (
-    <header className="nav">
-      <a className="brand" href="/" onClick={close}>
-        <span className="mk">S</span>slayer<span className="sl">·</span>protocol
+    <header className="sl-nav">
+      <a className="sl-brand" href="/" onClick={close}>
+        <span className="sl-mk">✦</span> slayer<span className="sl-sep"> / </span>protokół
       </a>
-      <button
-        className="navtoggle"
-        aria-label="menu"
-        aria-expanded={open}
-        onClick={() => setOpen((v) => !v)}
-      >
-        <span />
-        <span />
-        <span />
-      </button>
-      <nav className={open ? "nlinks open" : "nlinks"}>
+      <nav id="sl-nav-links" className={open ? "sl-nlinks sl-open" : "sl-nlinks"}>
         {GROUPS.map((g) => {
           const active = g.links.some(([href]) => href === pathname);
           return (
-            <div className={active ? "navgroup active" : "navgroup"} key={g.label}>
-              <span className="navtop">{g.label}</span>
-              <div className="navmenu">
+            <div className={active ? "sl-navgroup sl-active" : "sl-navgroup"} key={g.label}>
+              <span className="sl-navtop">{g.label}</span>
+              <div className="sl-navmenu">
                 {g.links.map(([href, label]) => (
-                  <a key={href} className={pathname === href ? "active" : ""} href={href} onClick={close}>
+                  <a key={href} className={pathname === href ? "sl-on" : ""} href={href} onClick={close}>
                     {label}
                   </a>
                 ))}
@@ -82,10 +73,22 @@ export default function Nav() {
             </div>
           );
         })}
-        <a className="ncta" href="https://discord.gg/HnTkVR4c5T" rel="noopener" target="_blank" onClick={close}>
-          wejście →
+        <a className="sl-ncta" href="https://discord.gg/HnTkVR4c5T" rel="noopener" target="_blank" onClick={close}>
+          ✦ wejście ↗
         </a>
       </nav>
+      <div className="sl-nav-right">
+        <ThemeToggle />
+        <button
+          className="sl-navtoggle"
+          aria-label="menu"
+          aria-expanded={open}
+          aria-controls="sl-nav-links"
+          onClick={() => setOpen((v) => !v)}
+        >
+          <span /><span /><span />
+        </button>
+      </div>
     </header>
   );
 }

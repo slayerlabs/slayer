@@ -33,15 +33,23 @@ export function ScoreBoard() {
   }, []);
   const wb = d?.tally?.[NB] ?? 0, wq = d?.tally?.[NQ] ?? 0;
   return (
-    <div className="board">
-      <div className="team"><div className="tg">punkt odniesienia</div><div className="nm">Bielik-11B-v3</div></div>
-      <div className="cnt">
-        <span className="b" style={{ color: wb >= wq && wb > 0 ? "var(--acc)" : undefined }}>{d ? wb : "·"}</span>
-        <span className="d">:</span>
-        <span className="q" style={{ color: wq > wb ? "var(--acc)" : undefined }}>{d ? wq : "·"}</span>
+    <div className="sl-art">
+      <div className="sl-band" style={{ gridTemplateColumns: "1fr auto 1fr" }}>
+        <div className="sl-stat" style={{ textAlign: "center" }}>
+          <span className="sl-sidx">punkt odniesienia</span>
+          <div className="sl-num" style={{ color: wb >= wq && wb > 0 ? "var(--sl-acc)" : undefined }}>{d ? wb : "·"}</div>
+          <div className="sl-slbl">Bielik-11B-v3</div>
+        </div>
+        <div className="sl-stat" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <span className="sl-num" style={{ color: "var(--sl-dim)" }}>:</span>
+        </div>
+        <div className="sl-stat" style={{ textAlign: "center" }}>
+          <span className="sl-sidx">challenger</span>
+          <div className="sl-num" style={{ color: wq > wb ? "var(--sl-acc)" : undefined }}>{d ? wq : "·"}</div>
+          <div className="sl-slbl">Qwen3.5-9B</div>
+        </div>
       </div>
-      <div className="team"><div className="tg">challenger</div><div className="nm">Qwen3.5-9B</div></div>
-      <div className="bfoot">{d ? <><b>{wb} : {wq}</b> po {(d.benchmarks || []).length} benchmarkach (live · {d.generated_at || ""})</> : "—"}</div>
+      <div className="sl-art-meta" style={{ textAlign: "center", marginTop: 16 }}>{d ? <><b style={{ color: "var(--sl-ink)" }}>{wb} : {wq}</b> po {(d.benchmarks || []).length} benchmarkach (live · {d.generated_at || ""})</> : "—"}</div>
     </div>
   );
 }
@@ -63,9 +71,9 @@ export function StartingFive() {
     return () => clearInterval(t);
   }, []);
   return (
-    <div className="tbl">
-      <table>
-        <thead><tr><th>Benchmark</th><th className="c">Bielik-11B-v3</th><th className="c">Qwen3.5-9B</th><th className="c">Wynik</th></tr></thead>
+    <div style={{ overflowX: "auto" }}>
+      <table className="sl-tbl">
+        <thead><tr><th>Benchmark</th><th className="sl-c">Bielik-11B-v3</th><th className="sl-c">Qwen3.5-9B</th><th className="sl-c">Wynik</th></tr></thead>
         <tbody>
           {ROWS.map((row) => {
             const b = by[row.id];
@@ -74,19 +82,19 @@ export function StartingFive() {
             const xb = b && b.winner === NB && b.margin > 0, xq = b && b.winner === NQ && b.margin > 0;
             return (
               <tr key={row.id}>
-                <td><div className="dn"><a href={row.href} rel="noopener">{row.name}</a></div><div className="ds">{row.desc}</div></td>
-                <td className="score" style={{ color: xb ? "var(--acc)" : undefined, fontWeight: xb ? 600 : undefined }}>
-                  {b ? (vb != null ? vb + u : "—") : <span className="muted mono">…</span>}
+                <td className="sl-dn"><a href={row.href} rel="noopener">{row.name}</a><div className="sl-fn" style={{ marginTop: 4 }}>{row.desc}</div></td>
+                <td className={"sl-s " + (xb ? "sl-win" : "")}>
+                  {b ? (vb != null ? vb + u : "—") : <span className="sl-tele">…</span>}
                 </td>
-                <td className="score col-q" style={{ color: xq ? "var(--acc)" : undefined, fontWeight: xq ? 600 : undefined }}>
-                  {b ? (vq != null ? vq + u : "—") : <span className="muted mono">…</span>}
+                <td className={"sl-s " + (xq ? "sl-win" : "")}>
+                  {b ? (vq != null ? vq + u : "—") : <span className="sl-tele">…</span>}
                 </td>
-                <td className="verdict">
+                <td className="sl-s">
                   {b
-                    ? xb ? <span className="vb b">Bielik +{b.margin}</span>
-                      : xq ? <span className="vb b">Qwen +{b.margin}</span>
-                      : <span className="vb pend">remis</span>
-                    : <span className="vb pend">w toku</span>}
+                    ? xb ? <span className="sl-chip">▲ Bielik +{b.margin}</span>
+                      : xq ? <span className="sl-chip">Qwen +{b.margin}</span>
+                      : <span className="sl-chip sl-mute">remis</span>
+                    : <span className="sl-status sl-run">w toku</span>}
                 </td>
               </tr>
             );

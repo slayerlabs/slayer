@@ -3,150 +3,254 @@ export const metadata = {
   description: "Protokół v3: czysty korpus PL, CPT, SFT, DPO, dekontaminacja i claimy tylko z held-out. Applied research plan przed właściwym runem.",
 };
 
-const css = `
-    h1{font-family:var(--serif);font-weight:400;font-size:clamp(2rem,4.8vw,3rem);letter-spacing:-.015em;margin:10px 0 0}
-    h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.4rem,2.6vw,1.8rem);margin:0 0 6px}
-    .prop{display:grid;gap:26px;margin-top:26px}
-    .block{border:1px solid var(--line2);border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,.032),rgba(255,255,255,.012)),var(--panel);padding:20px 22px;box-shadow:0 16px 48px rgba(0,0,0,.18);overflow:hidden}
-    .block .kick{display:block;margin-bottom:10px}
-    .lead{font-size:1.05rem;color:var(--mut);line-height:1.6}.lead b{color:var(--ink)}
-    .two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}.two>*{min-width:0}@media(max-width:760px){.two{grid-template-columns:minmax(0,1fr)}}
-    .mini{border:1px solid var(--line2);border-radius:9px;padding:14px 16px;background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.01)),var(--panel2)}
-    .mini h3{margin:0 0 4px;font-family:var(--mono);font-size:.82rem;color:var(--acc)}
-    .mini p{margin:0;font-size:.9rem;color:var(--mut);line-height:1.5}
-    table{width:100%;border-collapse:collapse;font-size:.9rem;margin-top:6px;display:block;overflow-x:auto}
-    th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line2);vertical-align:top}
-    th{font-family:var(--mono);font-size:.72rem;color:var(--dim);text-transform:uppercase;letter-spacing:.03em}
-    td b{color:var(--ink)} .ok{color:var(--acc);font-weight:600}
-    ol.q{margin:8px 0 0;padding-left:20px}ol.q li{margin:8px 0;color:var(--mut);line-height:1.55}ol.q li b{color:var(--ink)}
-    .ctaband{border:1px solid rgba(199,148,72,.3);border-radius:12px;background:var(--acc-soft);padding:24px;text-align:center}
-    .ctaband h2{color:var(--ink)} .ctaband p{color:var(--mut);max-width:560px;margin:6px auto 16px}
-    .status-pill{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:.74rem;color:var(--acc);background:var(--acc-soft);border:1px solid rgba(199,148,72,.25);padding:5px 12px;border-radius:20px}
-`;
-
 export default function Propozycja() {
   return (
-    <div className="sec page-top">
-      <style>{css}</style>
-      <div className="inner">
-        <span className="status-pill"><span className="d" style={{ width: 7, height: 7, borderRadius: "50%", background: "var(--acc)", display: "inline-block" }}></span>BIEŻĄCY PROTOKÓŁ · otwarte na uwagi</span>
-        <h1>Protokół <em style={{ fontStyle: "italic", color: "var(--acc)" }}>v3</em> — czysty model, realna dźwignia</h1>
-        <p className="lead" style={{ maxWidth: 680, marginTop: 14 }}>Chcemy model, który <b>wychodzi dobrze na KLEJ bez trenowania na jego train/test</b> — tylko na tym, co się <b>generalizuje</b>. To jest mapa przed runem: hipoteza, dane, koszt, gate publikacji.</p>
-
-        <div className="prop">
-
-          <div className="block">
-            <span className="kick">00 · którą grę gramy</span>
-            <div className="two">
-              <div className="mini"><h3>klejbenchmark.com</h3><p>Benchmark <b>enkoderów</b>, fine-tune per zadanie na train-splicie (top: Polish RoBERTa-v2, 88.9). Tu train-on-train to standard.</p></div>
-              <div className="mini"><h3>Open PL LLM Leaderboard ← gramy to</h3><p>Model <b>generatywny, 5-shot</b>, bez fine-tune na zadaniu. Dlatego u nas <b>zero train-splitów</b> — inaczej to benchmaxxing nieporównywalny z 5-shot.</p></div>
+    <main className="sl">
+      <section className="sl-hero">
+        <div className="sl-inner">
+          <div className="sl-mast">
+            <div className="sl-mast-code"><b>propozycja</b><span>/ protokół</span></div>
+            <div>
+              <span className="sl-status sl-open">bieżący protokół · otwarte na uwagi</span>
+              <h1 className="sl-h1" style={{ marginTop: 16 }}>Protokół <span className="sl-acc">v3</span> — czysty model, realna&nbsp;dźwignia</h1>
+              <p className="sl-lede" style={{ marginTop: 22, maxWidth: "62ch" }}>Chcemy model, który <b>wychodzi dobrze na KLEJ bez trenowania na&nbsp;jego train/test</b> — tylko na&nbsp;tym, co&nbsp;się <b>generalizuje</b>. To jest mapa przed runem: hipoteza, dane, koszt, gate&nbsp;publikacji.</p>
             </div>
           </div>
+        </div>
+      </section>
 
-          <div className="block">
-            <span className="kick">01 · teza</span>
-            <h2>Dźwignią jest duży, czysty, różnorodny korpus PL</h2>
-            <p className="lead">Lekcja z polish-roberta (Dadas): <b>135 GB / ponad miliard polskich zdań</b> + standardowy fine-tune dał #1 na KLEJ. Żadnych trików — skala i czystość korpusu. Replikujemy <b>ducha</b> dla modelu generatywnego: dużo różnorodnych danych <b>zdolności</b> i <b>wiedzy</b>, czysto.</p>
+      <hr className="sl-rule" />
+
+      <section className="sl-sec">
+        <div className="sl-inner">
+          <div className="sl-mast">
+            <div className="sl-mast-no">01</div>
+            <div>
+              <div className="sl-eye">którą grę gramy</div>
+              <h2 className="sl-h2" style={{ marginTop: 10 }}>Dwa różne <span className="sl-acc">benchmarki.</span></h2>
+            </div>
+          </div>
+          <div className="sl-cols" style={{ marginTop: 22 }}>
+            <div className="sl-col">
+              <div className="sl-clbl">▸ klejbenchmark.com</div>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}>Benchmark <b>enkoderów</b>, fine-tune per&nbsp;zadanie na&nbsp;train-splicie (top: Polish RoBERTa-v2, 88.9). Tu train-on-train to&nbsp;standard.</p>
+            </div>
+            <div className="sl-col sl-col-lead">
+              <div className="sl-clbl">▸ Open PL LLM Leaderboard ← gramy to</div>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}>Model <b>generatywny, 5-shot</b>, bez fine-tune na&nbsp;zadaniu. Dlatego u&nbsp;nas <b>zero train-splitów</b> — inaczej to&nbsp;benchmaxxing nieporównywalny z&nbsp;5-shot.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <section className="sl-sec">
+        <div className="sl-inner">
+          <div className="sl-mast">
+            <div className="sl-mast-no">02</div>
+            <div>
+              <div className="sl-eye">teza</div>
+              <h2 className="sl-h2" style={{ marginTop: 10 }}>Dźwignią jest duży, czysty, różnorodny <span className="sl-acc">korpus PL.</span></h2>
+              <p className="sl-lede" style={{ marginTop: 16 }}>Lekcja z&nbsp;polish-roberta (Dadas): <b>135 GB / ponad miliard polskich zdań</b> + standardowy fine-tune dał #1 na&nbsp;KLEJ. Żadnych trików — skala i&nbsp;czystość korpusu. Replikujemy <b>ducha</b> dla modelu generatywnego: dużo różnorodnych danych <b>zdolności</b> i&nbsp;<b>wiedzy</b>, czysto.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <section className="sl-sec">
+        <div className="sl-inner">
+          <div className="sl-col sl-col-block" style={{ boxShadow: "none" }}>
+            <div className="sl-clbl">▸ głos społeczności · wbudowany</div>
+            <h3 className="sl-h2" style={{ marginBottom: 10 }}>„Bez pretreningu nie&nbsp;dodasz mu wiedzy (np. o&nbsp;Polsce)&quot;</h3>
+            <p className="sl-lede" style={{ color: "#fff" }}><b style={{ color: "#fff" }}>Słuszne.</b> SFT uczy <i>umiejętności</i> i&nbsp;wydobywa to, co&nbsp;model już wie — <b style={{ color: "#fff" }}>nie dodaje nowej wiedzy</b>. Wiedza powstaje w&nbsp;pretreningu. Dodatkowo: <b style={{ color: "#fff" }}>cienki DoRA (low-rank) i&nbsp;tak nie&nbsp;pomieści wiedzy</b>. Dlatego rozdzielamy fazy i&nbsp;dorzucamy realny <b style={{ color: "#fff" }}>CPT</b>:</p>
           </div>
 
-          <div className="block" style={{ borderColor: "rgba(199,148,72,.3)", background: "var(--acc-soft)" }}>
-            <span className="kick">głos społeczności · wbudowany</span>
-            <h2>„Bez pretreningu nie dodasz mu wiedzy (np. o Polsce)&quot;</h2>
-            <p className="lead"><b>Słuszne.</b> SFT uczy <i>umiejętności</i> i wydobywa to, co model już wie — <b>nie dodaje nowej wiedzy</b>. Wiedza powstaje w pretreningu. Dodatkowo: <b>cienki DoRA (low-rank) i tak nie pomieści wiedzy</b>. Dlatego rozdzielamy fazy i dorzucamy realny <b>CPT</b>:</p>
-            <table>
+          <div style={{ overflowX: "auto", marginTop: 22 }}>
+            <table className="sl-tbl">
               <thead><tr><th>faza</th><th>metoda</th><th>co daje</th><th>adapter</th></tr></thead>
               <tbody>
-                <tr><td><b>1. CPT (wiedza)</b></td><td>continued pretraining (next-token) na czystym korpusie PL: Wiki PL, Wolne Lektury, książki, akademickie + EntiGraph synthetic; replay 20–30% przeciw zapominaniu</td><td><b>wiedza o Polsce</b></td><td>full-FT lub <b>high-rank</b> (r=128–256), <b>nie cienki DoRA</b></td></tr>
-                <tr><td>2. SFT (umiejętności)</td><td>dystylacja zdolności</td><td><i>jak</i> użyć wiedzy (zadania)</td><td>DoRA OK</td></tr>
-                <tr><td>3. DPO</td><td>on-policy, sędzia otwarty</td><td>preferencje/styl</td><td>DoRA OK</td></tr>
+                <tr><td className="sl-dn">1. CPT (wiedza)</td><td>continued pretraining (next-token) na&nbsp;czystym korpusie PL: Wiki PL, Wolne Lektury, książki, akademickie + EntiGraph synthetic; replay 20–30% przeciw zapominaniu</td><td className="sl-dn">wiedza o&nbsp;Polsce</td><td>full-FT lub <b>high-rank</b> (r=128–256), <b>nie cienki DoRA</b></td></tr>
+                <tr><td className="sl-dn">2. SFT (umiejętności)</td><td>dystylacja zdolności</td><td><i>jak</i> użyć wiedzy (zadania)</td><td>DoRA OK</td></tr>
+                <tr><td className="sl-dn">3. DPO</td><td>on-policy, sędzia otwarty</td><td>preferencje/styl</td><td>DoRA OK</td></tr>
               </tbody>
             </table>
-            <p className="lead" style={{ fontSize: ".9rem", marginTop: 10 }}>Kolejność: <b>wiedza → umiejętności → preferencje</b>. EntiGraph (synthetic CPT) = tańszy, sample-efficient sposób wstrzyknięcia wiedzy: rozlewa fakty na wiele sformułowań zamiast zapamiętywać dosłownie.</p>
-            <p className="lead" style={{ fontSize: ".95rem", marginTop: 12, borderLeft: "2px solid var(--acc)", paddingLeft: 12 }}><b>Zbieramy korpus wiedzy PL.</b> Szukamy otwartych źródeł (zwłaszcza pod LLMzSzŁ akademicki, PES medyczny): podręczniki, skrypty, otwarte materiały. Masz źródło / dataset? Wrzuć na Discord.</p>
           </div>
 
-          <div className="block" style={{ borderColor: "rgba(63,111,156,.35)" }}>
-            <span className="kick">faza 0 · eval NAJPIERW (gate przed pierwszym dolarem)</span>
-            <h2>PolKnowledge bench — known / unknown</h2>
-            <p className="lead">Z budżetem na CPT pytanie brzmi nie „czy&quot;, tylko „<b>ile</b>&quot;. A tego nie zmierzysz Open PL LLM Leaderboardem — on <b>nie mierzy długiego ogona</b> (lokalne realia, prawo, regionalia, idiomy). Dlatego <b>przed treningiem</b> budujemy własny eval wiedzy o Polsce:</p>
-            <div className="two">
-              <div className="mini"><h3>co</h3><p>Sonda wiedzy długiego ogona PL: historia, prawo/orzecznictwo, geografia, regionalia, idiomy, kultura, współczesność. Każde pytanie z <b>weryfikowalną</b> odpowiedzią. Held-out, deduplikowane, NIE wchodzi do CPT.</p></div>
-              <div className="mini"><h3>po co</h3><p>Punkt odniesienia <b>Qwen3.5-27B vs Bielik</b> per domenę → mapa luk → <b>wymiaruje CPT</b> (10B czy 40B tokenów, które domeny). Bez tego nie wiesz, czy CPT cokolwiek dał.</p></div>
+          <p className="sl-lede" style={{ fontSize: 14.5, marginTop: 16 }}>Kolejność: <b>wiedza → umiejętności → preferencje</b>. EntiGraph (synthetic CPT) = tańszy, sample-efficient sposób wstrzyknięcia wiedzy: rozlewa fakty na&nbsp;wiele sformułowań zamiast zapamiętywać dosłownie.</p>
+
+          <div className="sl-note" style={{ marginTop: 16 }}>
+            <p><b>Zbieramy korpus wiedzy PL.</b> Szukamy otwartych źródeł (zwłaszcza pod LLMzSzŁ akademicki, PES medyczny): podręczniki, skrypty, otwarte materiały. Masz źródło / dataset? Wrzuć na&nbsp;Discord.</p>
+          </div>
+        </div>
+      </section>
+
+
+      <section className="sl-sec">
+        <div className="sl-inner">
+          <div className="sl-mast">
+            <div className="sl-mast-no">03</div>
+            <div>
+              <div className="sl-eye">eval NAJPIERW · gate przed pierwszym dolarem</div>
+              <h2 className="sl-h2" style={{ marginTop: 10 }}>PolKnowledge bench — <span className="sl-acc">known / unknown.</span></h2>
+              <p className="sl-lede" style={{ marginTop: 16 }}>Z&nbsp;budżetem na&nbsp;CPT pytanie brzmi nie „czy&quot;, tylko „<b>ile</b>&quot;. A&nbsp;tego nie&nbsp;zmierzysz Open PL LLM Leaderboardem — on <b>nie mierzy długiego ogona</b> (lokalne realia, prawo, regionalia, idiomy). Dlatego <b>przed treningiem</b> budujemy własny eval wiedzy o&nbsp;Polsce:</p>
             </div>
-            <p className="lead" style={{ fontSize: ".9rem", marginTop: 10 }}>To też publiczny <b>zasób</b> — dowód, że pobiliśmy Bielika tam, gdzie miał być najmocniejszy (pasuje do CodeSOTA/leaderboardów wiedzy).</p>
           </div>
-
-          <div className="block">
-            <span className="kick">faza 1 · CPT — jak dodać wiedzę o Polsce</span>
-            <h2>Pre-training (continued) na czystym korpusie PL</h2>
-            <div className="two">
-              <div className="mini"><h3>1 · korpus</h3><p>Wikipedia PL (CC-BY-SA), Wolne Lektury (PD), Wikibooks/Wikisource, książki open-access, skrypty akademickie (pod LLMzSzŁ). Dodajemy do Qwen: kilka–kilkadziesiąt GB wystarczy (Dadas miał 135 GB od zera).</p></div>
-              <div className="mini"><h3>2 · przygotowanie</h3><p>dedup (MinHash) → filtr jakości (boilerplate) → <b>dedup vs 17 707 atomów test</b> → tokenizacja.</p></div>
-              <div className="mini"><h3>3 · CPT (Ibrahim 2024)</h3><p>causal LM ze startu z Qwen3.5-27B, <b>full-FT bf16</b> (8×H100 FSDP + activation ckpt — mieści się). <b>Re-warm LR do ~1e-5</b> (nie pretrainingowe 3e-4), cosine. <b>Replay 30–40%</b> (EN/kod/matma); błąd = 100% PL → piękna polszczyzna, głupszy model.</p></div>
-              <div className="mini"><h3>4 · miks korpusu</h3><p><b>60–70% PL</b> (SpeakLeash przefiltrowany + FineWeb-2 PL + Wiki PL + prawo/orzecznictwo) + <b>30–40% replay</b>. Albo EntiGraph synthetic (Yang 2024): encje → warianty → rozlewa wiedzę, sample-efficient.</p></div>
+          <div className="sl-cols" style={{ marginTop: 22 }}>
+            <div className="sl-col">
+              <div className="sl-clbl">▸ co</div>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}>Sonda wiedzy długiego ogona PL: historia, prawo/orzecznictwo, geografia, regionalia, idiomy, kultura, współczesność. Każde pytanie z&nbsp;<b>weryfikowalną</b> odpowiedzią. Held-out, deduplikowane, NIE wchodzi do&nbsp;CPT.</p>
             </div>
-            <p className="lead" style={{ fontSize: ".88rem", marginTop: 12 }}><b>Wykonalność / budżet (~$80k):</b> full-FT 27B bf16 ≈ 430–450 GB stanów → mieści się na 8×H100 (640 GB) z FSDP, bez QLoRA. ~20k tok/s @40% MFU → 10B tok ≈ 5–6 dni ≈ $5–6k. <b>CPT 30–40B tok ≈ $18–25k</b> + SFT $3–5k + bufor na ablacje $10–15k → starcza na <b>2–3 podejścia z ewalem między nimi</b>, nie jeden heroiczny run.</p>
-            <p className="lead" style={{ fontSize: ".84rem", marginTop: 8 }}><b>Dyscyplina:</b> pipeline (tokenizacja/packing/miks/resume) dopracować na <b>4×3090</b>; H100 wynajmować dopiero na właściwe runy z gotowym configiem. Capacity blocks na konkretne okna, checkpoint co godzinę na S3.</p>
+            <div className="sl-col">
+              <div className="sl-clbl">▸ po co</div>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}>Punkt odniesienia <b>Qwen3.5-27B vs Bielik</b> per&nbsp;domenę → mapa luk → <b>wymiaruje CPT</b> (10B czy 40B tokenów, które domeny). Bez tego nie&nbsp;wiesz, czy CPT cokolwiek dał.</p>
+            </div>
           </div>
+          <p className="sl-lede" style={{ fontSize: 14.5, marginTop: 16 }}>To też publiczny <b>zasób</b> — dowód, że&nbsp;pobiliśmy Bielika tam, gdzie miał być najmocniejszy (pasuje do&nbsp;CodeSOTA/leaderboardów wiedzy).</p>
+        </div>
+      </section>
 
-          <div className="block">
-            <span className="kick">faza 2-3 · silniki danych (umiejętności + preferencje)</span>
-            <table>
-              <thead><tr><th>warstwa</th><th>udział</th><th>co</th><th>czyste</th></tr></thead>
+
+      <section className="sl-sec">
+        <div className="sl-inner">
+          <div className="sl-mast">
+            <div className="sl-mast-no">04</div>
+            <div>
+              <div className="sl-eye">CPT · jak dodać wiedzę o Polsce</div>
+              <h2 className="sl-h2" style={{ marginTop: 10 }}>Pre-training (continued) na&nbsp;czystym <span className="sl-acc">korpusie PL.</span></h2>
+            </div>
+          </div>
+          <div className="sl-cols" style={{ marginTop: 22 }}>
+            <div className="sl-col">
+              <div className="sl-clbl">▸ 1 · korpus</div>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}>Wikipedia PL (CC-BY-SA), Wolne Lektury (PD), Wikibooks/Wikisource, książki open-access, skrypty akademickie (pod LLMzSzŁ). Dodajemy do&nbsp;Qwen: kilka–kilkadziesiąt GB wystarczy (Dadas miał 135 GB od&nbsp;zera).</p>
+            </div>
+            <div className="sl-col">
+              <div className="sl-clbl">▸ 2 · przygotowanie</div>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}>dedup (MinHash) → filtr jakości (boilerplate) → <b>dedup vs 17 707 atomów test</b> → tokenizacja.</p>
+            </div>
+            <div className="sl-col">
+              <div className="sl-clbl">▸ 3 · CPT (Ibrahim 2024)</div>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}>causal LM ze&nbsp;startu z&nbsp;Qwen3.5-27B, <b>full-FT bf16</b> (8×H100 FSDP + activation ckpt — mieści się). <b>Re-warm LR do&nbsp;~1e-5</b> (nie pretrainingowe 3e-4), cosine. <b>Replay 30–40%</b> (EN/kod/matma); błąd = 100% PL → piękna polszczyzna, głupszy model.</p>
+            </div>
+            <div className="sl-col">
+              <div className="sl-clbl">▸ 4 · miks korpusu</div>
+              <p className="sl-lede" style={{ fontSize: 14.5 }}><b>60–70% PL</b> (SpeakLeash przefiltrowany + FineWeb-2 PL + Wiki PL + prawo/orzecznictwo) + <b>30–40% replay</b>. Albo EntiGraph synthetic (Yang 2024): encje → warianty → rozlewa wiedzę, sample-efficient.</p>
+            </div>
+          </div>
+          <div className="sl-note" style={{ marginTop: 16 }}>
+            <div className="sl-clbl">◆ wykonalność / budżet (~$80k)</div>
+            <p>full-FT 27B bf16 ≈ 430–450 GB stanów → mieści się na&nbsp;8×H100 (640 GB) z&nbsp;FSDP, bez QLoRA. ~20k tok/s @40% MFU → 10B tok ≈ 5–6 dni ≈ $5–6k. <b>CPT 30–40B tok ≈ $18–25k</b> + SFT $3–5k + bufor na&nbsp;ablacje $10–15k → starcza na&nbsp;<b>2–3 podejścia z&nbsp;ewalem między nimi</b>, nie jeden heroiczny run.</p>
+          </div>
+          <div className="sl-note" style={{ marginTop: 14 }}>
+            <div className="sl-clbl">◆ dyscyplina</div>
+            <p>pipeline (tokenizacja/packing/miks/resume) dopracować na&nbsp;<b>4×3090</b>; H100 wynajmować dopiero na&nbsp;właściwe runy z&nbsp;gotowym configiem. Capacity blocks na&nbsp;konkretne okna, checkpoint co&nbsp;godzinę na&nbsp;S3.</p>
+          </div>
+        </div>
+      </section>
+
+
+      <section className="sl-sec">
+        <div className="sl-inner">
+          <div className="sl-mast">
+            <div className="sl-mast-no">05</div>
+            <div>
+              <div className="sl-eye">silniki danych · umiejętności + preferencje (fazy 2–3)</div>
+              <h2 className="sl-h2" style={{ marginTop: 10 }}>Warstwy danych <span className="sl-acc">i ich udział.</span></h2>
+            </div>
+          </div>
+          <div style={{ overflowX: "auto", marginTop: 22 }}>
+            <table className="sl-tbl">
+              <thead><tr><th>warstwa</th><th className="sl-c">udział</th><th>co</th><th>czyste</th></tr></thead>
               <tbody>
-                <tr><td><b>Destylacja zdolności</b></td><td>~40%</td><td>teacher wymyśla różnorodne PL ucząc <i>umiejętności</i> zadań (sentyment, NLI, parafraza, QA-poprawność, rozumienie, temat, toksyczność, NER) — naturalny format, nie szablon KLEJ</td><td className="ok">✅ dedup</td></tr>
-                <tr><td><b>Wiedza z korpusu</b></td><td>~20%</td><td>synthetic-CPT (EntiGraph) nad otwartym PL: Wiki PL, Wolne Lektury, Wikibooks, ZPE</td><td className="ok">✅ dedup</td></tr>
-                <tr><td><b>Ludzkie PL</b></td><td>~15%</td><td>Aya-PL (native) + OASST-PL + nasz styl</td><td className="ok">✅</td></tr>
-                <tr><td><b>EN retencja</b></td><td>~20%</td><td>Tulu 3 / Dolci (odc-by) — by nie zapominać kodu/matmy</td><td className="ok">✅</td></tr>
-                <tr><td><b>DPO</b></td><td>~5%</td><td>on-policy pary z naszego modelu, sędzia = otwarty Qwen</td><td className="ok">✅</td></tr>
+                <tr><td className="sl-dn">Destylacja zdolności</td><td className="sl-s">~40%</td><td>teacher wymyśla różnorodne PL ucząc <i>umiejętności</i> zadań (sentyment, NLI, parafraza, QA-poprawność, rozumienie, temat, toksyczność, NER) — naturalny format, nie szablon KLEJ</td><td className="sl-acc">✅ dedup</td></tr>
+                <tr><td className="sl-dn">Wiedza z&nbsp;korpusu</td><td className="sl-s">~20%</td><td>synthetic-CPT (EntiGraph) nad otwartym PL: Wiki PL, Wolne Lektury, Wikibooks, ZPE</td><td className="sl-acc">✅ dedup</td></tr>
+                <tr><td className="sl-dn">Ludzkie PL</td><td className="sl-s">~15%</td><td>Aya-PL (native) + OASST-PL + nasz styl</td><td className="sl-acc">✅</td></tr>
+                <tr><td className="sl-dn">EN retencja</td><td className="sl-s">~20%</td><td>Tulu 3 / Dolci (odc-by) — by nie&nbsp;zapominać kodu/matmy</td><td className="sl-acc">✅</td></tr>
+                <tr><td className="sl-dn">DPO</td><td className="sl-s">~5%</td><td>on-policy pary z&nbsp;naszego modelu, sędzia = otwarty Qwen</td><td className="sl-acc">✅</td></tr>
               </tbody>
             </table>
-            <p className="lead" style={{ fontSize: ".86rem", marginTop: 10 }}>Teacher = deepseek-v4-pro (MIT), sędzia = otwarty Qwen3.5 (Apache). <b>Zero Anthropic/OpenAI</b> jako źródło czy filtr. Polski od zera, nie tłumaczenie.</p>
           </div>
+          <p className="sl-lede" style={{ fontSize: 14.5, marginTop: 16 }}>Teacher = deepseek-v4-pro (MIT), sędzia = otwarty Qwen3.5 (Apache). <b>Zero Anthropic/OpenAI</b> jako źródło czy filtr. Polski od&nbsp;zera, nie tłumaczenie.</p>
+        </div>
+      </section>
 
-          <div className="block">
-            <span className="kick">03 · gwarancja czystości</span>
-            <h2>Benchmark = blocklista i miara, nigdy źródło</h2>
-            <p className="lead">Każdy wygenerowany przykład jest <b>deduplikowany przeciw 17 707 atomom</b> ze wszystkich test-splitów KLEJ. Pełny <b>lineage jawny</b> — każdy model i jego dokładny skład na prywatnym HF. (v2 jest u nas oznaczony jako KONTAMINACJA — uczciwie.)</p>
+
+      <section className="sl-sec">
+        <div className="sl-inner">
+          <div className="sl-mast">
+            <div className="sl-mast-no">06</div>
+            <div>
+              <div className="sl-eye">gwarancja czystości</div>
+              <h2 className="sl-h2" style={{ marginTop: 10 }}>Benchmark = blocklista i&nbsp;miara, <span className="sl-acc">nigdy źródło.</span></h2>
+              <p className="sl-lede" style={{ marginTop: 16 }}>Każdy wygenerowany przykład jest <b>deduplikowany przeciw 17 707 atomom</b> ze&nbsp;wszystkich test-splitów KLEJ. Pełny <b>lineage jawny</b> — każdy model i&nbsp;jego dokładny skład na&nbsp;prywatnym HF. (v2 jest u&nbsp;nas oznaczony jako KONTAMINACJA — uczciwie.)</p>
+            </div>
           </div>
+        </div>
+      </section>
 
-          <div className="block">
-            <span className="kick">04 · korpus regresji — żeby nie cofać się gdzie indziej</span>
-            <h2>Stały zestaw kontrolny po każdym runie</h2>
-            <table>
+
+      <section className="sl-sec">
+        <div className="sl-inner">
+          <div className="sl-mast">
+            <div className="sl-mast-no">07</div>
+            <div>
+              <div className="sl-eye">korpus regresji · żeby nie cofać się gdzie indziej</div>
+              <h2 className="sl-h2" style={{ marginTop: 10 }}>Stały zestaw kontrolny <span className="sl-acc">po każdym runie.</span></h2>
+            </div>
+          </div>
+          <div style={{ overflowX: "auto", marginTop: 22 }}>
+            <table className="sl-tbl">
               <thead><tr><th>wymiar</th><th>miara</th><th>po co</th></tr></thead>
               <tbody>
-                <tr><td>PL NLU</td><td><b>KLEJ test · 5-shot</b> (held-out)</td><td>główny cel</td></tr>
-                <tr><td>PL czat/jakość</td><td>MT-Bench-PL</td><td>czy nie psujemy generacji</td></tr>
-                <tr><td>EN retencja</td><td>MMLU · ARC-C · GSM8K</td><td>czy nie zapomina (kod/matma/wiedza)</td></tr>
-                <tr><td>PL wiedza</td><td>LLMzSzŁ / PES (held-out)</td><td>efekt silnika wiedzy</td></tr>
-                <tr><td>Styl PL</td><td>własna sonda ~200 promptów</td><td>fleksja, brak translationese/myślników</td></tr>
+                <tr><td className="sl-dn">PL NLU</td><td><b>KLEJ test · 5-shot</b> (held-out)</td><td>główny cel</td></tr>
+                <tr><td className="sl-dn">PL czat/jakość</td><td>MT-Bench-PL</td><td>czy nie&nbsp;psujemy generacji</td></tr>
+                <tr><td className="sl-dn">EN retencja</td><td>MMLU · ARC-C · GSM8K</td><td>czy nie&nbsp;zapomina (kod/matma/wiedza)</td></tr>
+                <tr><td className="sl-dn">PL wiedza</td><td>LLMzSzŁ / PES (held-out)</td><td>efekt silnika wiedzy</td></tr>
+                <tr><td className="sl-dn">Styl PL</td><td>własna sonda ~200 promptów</td><td>fleksja, brak translationese/myślników</td></tr>
               </tbody>
             </table>
-            <p className="lead" style={{ marginTop: 10 }}><b>Reguła publikacji:</b> tylko jeśli <b>5-shot KLEJ ↑ ORAZ MT-Bench-PL ↑</b> i EN retencja nie spada. Inaczej = regres, nie publikujemy.</p>
           </div>
-
-          <div className="block">
-            <span className="kick">05 · otwarte pytania — tu chcemy waszego głosu</span>
-            <ol className="q">
-              <li><b>CPT: raw czy EntiGraph?</b> — surowy continued-pretraining na korpusie, czy syntetyczny (EntiGraph, sample-efficient), czy mix?</li>
-              <li><b>CPT: full-FT vs high-rank?</b> — pełny fine-tune 27B (drogo, najlepiej dla wiedzy) czy high-rank QLoRA (r=128–256, tańszy kompromis)?</li>
-              <li><b>Źródła korpusu wiedzy</b> — Wiki PL + Wolne Lektury wystarczą, czy CCNet-PL / domeny (prawo, medycyna, akademickie pod LLMzSzŁ/PES)?</li>
-              <li><b>Waga warstw</b> — ile CPT vs SFT vs DPO?</li>
-              <li><b>Sonda regresji</b> — jakie zdolności PL pilnować poza KLEJ? Co was boli w polskich modelach?</li>
-              <li><b>Baza</b> — Qwen3.5-27B, czy też linia 11–14B (tańsza, bliżej Bielika)?</li>
-            </ol>
+          <div className="sl-note" style={{ marginTop: 16 }}>
+            <div className="sl-clbl">◆ reguła publikacji</div>
+            <p>tylko jeśli <b>5-shot KLEJ ↑ ORAZ MT-Bench-PL ↑</b> i&nbsp;EN retencja nie&nbsp;spada. Inaczej = regres, nie&nbsp;publikujemy.</p>
           </div>
-
-          <div className="ctaband">
-            <h2>Masz zdanie? Zanim to zbudujemy — powiedz.</h2>
-            <p>To protokół badawczy przed runem. Dataset v3 powstaje publicznie i chcemy go poprawić z waszymi uwagami.</p>
-            <a className="btn btn-p" href="https://discord.gg/HnTkVR4c5T" rel="noopener" target="_blank">podziel się uwagami →</a>
-          </div>
-
         </div>
-        <p className="muted mono" style={{ textAlign: "center", fontSize: ".76rem", marginTop: 22 }}>propozycja otwarta · źródło: <a href="https://github.com/slayerlabs" rel="noopener">GitHub</a> · zmienia się z waszymi uwagami</p>
-      </div>
-    </div>
+      </section>
+
+
+      <section className="sl-sec">
+        <div className="sl-inner">
+          <div className="sl-mast">
+            <div className="sl-mast-no">08</div>
+            <div>
+              <div className="sl-eye">otwarte pytania · tu chcemy waszego głosu</div>
+              <h2 className="sl-h2" style={{ marginTop: 10 }}>Co jest jeszcze <span className="sl-acc">otwarte.</span></h2>
+            </div>
+          </div>
+          <div className="sl-entries" style={{ marginTop: 22 }}>
+            <div className="sl-entry"><div className="sl-no">01</div><div><h3>CPT: raw czy EntiGraph?</h3><p>surowy continued-pretraining na&nbsp;korpusie, czy syntetyczny (EntiGraph, sample-efficient), czy mix?</p></div></div>
+            <div className="sl-entry"><div className="sl-no">02</div><div><h3>CPT: full-FT vs high-rank?</h3><p>pełny fine-tune 27B (drogo, najlepiej dla wiedzy) czy high-rank QLoRA (r=128–256, tańszy kompromis)?</p></div></div>
+            <div className="sl-entry"><div className="sl-no">03</div><div><h3>Źródła korpusu wiedzy</h3><p>Wiki PL + Wolne Lektury wystarczą, czy CCNet-PL / domeny (prawo, medycyna, akademickie pod LLMzSzŁ/PES)?</p></div></div>
+            <div className="sl-entry"><div className="sl-no">04</div><div><h3>Waga warstw</h3><p>ile CPT vs SFT vs DPO?</p></div></div>
+            <div className="sl-entry"><div className="sl-no">05</div><div><h3>Sonda regresji</h3><p>jakie zdolności PL pilnować poza KLEJ? Co was boli w&nbsp;polskich modelach?</p></div></div>
+            <div className="sl-entry"><div className="sl-no">06</div><div><h3>Baza</h3><p>Qwen3.5-27B, czy też linia 11–14B (tańsza, bliżej Bielika)?</p></div></div>
+          </div>
+        </div>
+      </section>
+
+
+      <section className="sl-sec">
+        <div className="sl-inner" style={{ maxWidth: 760, marginLeft: "auto", marginRight: "auto", textAlign: "center" }}>
+          <div className="sl-eye" style={{ display: "block" }}>masz zdanie?</div>
+          <h2 className="sl-h2" style={{ margin: "12px 0 14px" }}>Zanim to zbudujemy — <span className="sl-acc">powiedz.</span></h2>
+          <p className="sl-lede" style={{ margin: "0 auto 24px" }}>To protokół badawczy przed runem. Dataset v3 powstaje publicznie i&nbsp;chcemy go poprawić z&nbsp;waszymi uwagami.</p>
+          <div className="sl-cta" style={{ justifyContent: "center" }}>
+            <a className="sl-btn sl-btn-p" href="https://discord.gg/HnTkVR4c5T" rel="noopener" target="_blank">podziel się uwagami →</a>
+          </div>
+          <p className="sl-fn" style={{ textAlign: "center", marginTop: 22 }}>propozycja otwarta · źródło: <a href="https://github.com/slayerlabs" rel="noopener" style={{ color: "var(--sl-acc)" }}>GitHub</a> · zmienia się z&nbsp;waszymi uwagami</p>
+        </div>
+      </section>
+    </main>
   );
 }

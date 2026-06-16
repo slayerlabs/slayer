@@ -91,79 +91,81 @@ export default function Explorer() {
     URL.revokeObjectURL(url);
   };
 
-  if (err) return <div className="muted mono" style={{ marginTop: 24 }}>brak danych (data/benchmarks.json)</div>;
-  if (!benchmarks) return <div className="muted mono" style={{ marginTop: 24 }}>wczytuję benchmarki…</div>;
+  if (err) return <p className="sl-tele" style={{ marginTop: 24 }}>brak danych (data/benchmarks.json)</p>;
+  if (!benchmarks) return <p className="sl-tele" style={{ marginTop: 24 }}>wczytuję benchmarki…</p>;
 
   const arrow = (key) => (sort.key === key ? (sort.dir === 1 ? " ↑" : " ↓") : "");
 
+  const stChip = (status) => "sl-chip" + (status === "draft" ? " sl-mute" : status === "deprecated" ? " sl-warn" : "");
+
   return (
     <>
-      <div className="fbar">
-        <input className="fq" type="search" placeholder="szukaj po nazwie / opisie…" value={q} onChange={(e) => setQ(e.target.value)} />
-        <select value={fTyp} onChange={(e) => setFTyp(e.target.value)}>
+      <div className="sl-filter-bar" style={{ marginTop: 26 }}>
+        <input className="sl-input" type="search" placeholder="szukaj po nazwie / opisie…" style={{ flex: "1 1 220px", minWidth: 180 }} value={q} onChange={(e) => setQ(e.target.value)} />
+        <select className="sl-select" value={fTyp} onChange={(e) => setFTyp(e.target.value)}>
           <option value="">typ zadania: wszystkie</option>
           {allTypy.map((t) => <option key={t} value={t}>{t}</option>)}
         </select>
-        <select value={fKat} onChange={(e) => setFKat(e.target.value)}>
+        <select className="sl-select" value={fKat} onChange={(e) => setFKat(e.target.value)}>
           <option value="">kategoria: wszystkie</option>
           {Object.entries(KATEGORIE).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
         </select>
-        <select value={fMetryka} onChange={(e) => setFMetryka(e.target.value)}>
+        <select className="sl-select" value={fMetryka} onChange={(e) => setFMetryka(e.target.value)}>
           <option value="">metryka: wszystkie</option>
           {allMetryki.map((m) => <option key={m} value={m}>{m}</option>)}
         </select>
-        <select value={fModel} onChange={(e) => setFModel(e.target.value)}>
+        <select className="sl-select" value={fModel} onChange={(e) => setFModel(e.target.value)}>
           <option value="">model: wszystkie</option>
           {allModels.map((m) => <option key={m} value={m}>{m}</option>)}
         </select>
-        <select value={fStatus} onChange={(e) => setFStatus(e.target.value)}>
+        <select className="sl-select" value={fStatus} onChange={(e) => setFStatus(e.target.value)}>
           <option value="">status: wszystkie</option>
           {Object.entries(STATUSY).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
         </select>
-        <button className="btn btn-s csv" onClick={exportCsv}>eksport CSV ({rows.length})</button>
+        <button className="sl-btn sl-btn-s" style={{ marginLeft: "auto" }} onClick={exportCsv}>eksport CSV ({rows.length})</button>
       </div>
 
-      <div className="tagbar">
+      <div className="sl-cta" style={{ marginTop: 12, gap: 8 }}>
         {allTagi.map((t) => (
-          <button key={t} className={"ftag" + (fTagi.includes(t) ? " on" : "")} onClick={() => toggleTag(t)}>{t}</button>
+          <button key={t} className={"sl-chip " + (fTagi.includes(t) ? "sl-on" : "sl-ghost")} onClick={() => toggleTag(t)}>{t}</button>
         ))}
         {(fTagi.length || fTyp || fKat || fStatus || fMetryka || fModel || q) ? (
-          <button className="ftag clear" onClick={() => { setFTagi([]); setFTyp(""); setFKat(""); setFStatus(""); setFMetryka(""); setFModel(""); setQ(""); }}>× wyczyść filtry</button>
+          <button className="sl-chip sl-mute" onClick={() => { setFTagi([]); setFTyp(""); setFKat(""); setFStatus(""); setFMetryka(""); setFModel(""); setQ(""); }}>× wyczyść filtry</button>
         ) : null}
       </div>
 
-      <div className="tbl" style={{ marginTop: 14 }}>
-        <table>
+      <div style={{ overflowX: "auto", marginTop: 18 }}>
+        <table className="sl-tbl">
           <thead>
             <tr>
-              <th className="sortable" onClick={() => clickSort("nazwa")}>Benchmark{arrow("nazwa")}</th>
-              <th className="sortable" onClick={() => clickSort("typ_zadania")}>Typ zadania{arrow("typ_zadania")}</th>
-              <th className="sortable" onClick={() => clickSort("kategoria")}>Kategoria{arrow("kategoria")}</th>
-              <th className="sortable" onClick={() => clickSort("metryka")}>Metryka{arrow("metryka")}</th>
-              <th className="sortable c" onClick={() => clickSort("rozmiar")}>n{arrow("rozmiar")}</th>
+              <th style={{ cursor: "pointer", whiteSpace: "nowrap" }} onClick={() => clickSort("nazwa")}>Benchmark{arrow("nazwa")}</th>
+              <th style={{ cursor: "pointer", whiteSpace: "nowrap" }} onClick={() => clickSort("typ_zadania")}>Typ zadania{arrow("typ_zadania")}</th>
+              <th style={{ cursor: "pointer", whiteSpace: "nowrap" }} onClick={() => clickSort("kategoria")}>Kategoria{arrow("kategoria")}</th>
+              <th style={{ cursor: "pointer", whiteSpace: "nowrap" }} onClick={() => clickSort("metryka")}>Metryka{arrow("metryka")}</th>
+              <th className="sl-c" style={{ cursor: "pointer", whiteSpace: "nowrap" }} onClick={() => clickSort("rozmiar")}>n{arrow("rozmiar")}</th>
               <th>Tagi</th>
-              <th className="sortable c" onClick={() => clickSort("status")}>Status{arrow("status")}</th>
+              <th className="sl-c" style={{ cursor: "pointer", whiteSpace: "nowrap" }} onClick={() => clickSort("status")}>Status{arrow("status")}</th>
             </tr>
           </thead>
           <tbody>
             {rows.map((b) => (
-              <tr key={b.id} className={b.status === "deprecated" ? "dep" : ""}>
-                <td>
-                  <div className="dn">{b.link ? <a href={b.link} rel="noopener">{b.nazwa}</a> : b.nazwa}</div>
-                  <div className="ds">{b.opis}{b.modele_zmierzone.length ? ` · zmierzone: ${b.modele_zmierzone.length} modele` : ""}</div>
+              <tr key={b.id} className={b.status === "deprecated" ? "dep" : ""} style={b.status === "deprecated" ? { opacity: .5 } : undefined}>
+                <td className="sl-dn">
+                  <div>{b.link ? <a href={b.link} rel="noopener" style={{ color: "var(--sl-acc)" }}>{b.nazwa}</a> : b.nazwa}</div>
+                  <div className="sl-fn" style={{ marginTop: 4 }}>{b.opis}{b.modele_zmierzone.length ? ` · zmierzone: ${b.modele_zmierzone.length} modele` : ""}</div>
                 </td>
-                <td className="mono-s">{b.typ_zadania || "—"}</td>
-                <td className="mono-s">{KATEGORIE[b.kategoria] || b.kategoria}</td>
-                <td className="mono-s">{b.metryka}</td>
-                <td className="c mono-s">{b.rozmiar != null ? b.rozmiar.toLocaleString("pl") : "—"}</td>
-                <td><div className="tags">{(b.tagi || []).map((t) => <span key={t} className="chip">{t}</span>)}</div></td>
-                <td className="c">
-                  <span className={"stchip " + b.status}>{STATUSY[b.status] || b.status}</span>
-                  {b.uwagi_review ? <div className="ds" style={{ marginTop: 4 }}>{b.uwagi_review}</div> : null}
+                <td className="sl-s" style={{ textAlign: "left", color: "var(--sl-mut)", whiteSpace: "nowrap" }}>{b.typ_zadania || "—"}</td>
+                <td className="sl-s" style={{ textAlign: "left", color: "var(--sl-mut)", whiteSpace: "nowrap" }}>{KATEGORIE[b.kategoria] || b.kategoria}</td>
+                <td className="sl-s" style={{ textAlign: "left", color: "var(--sl-mut)", whiteSpace: "nowrap" }}>{b.metryka}</td>
+                <td className="sl-s">{b.rozmiar != null ? b.rozmiar.toLocaleString("pl") : "—"}</td>
+                <td><div className="sl-cta" style={{ gap: 6 }}>{(b.tagi || []).map((t) => <span key={t} className="sl-chip sl-mute">{t}</span>)}</div></td>
+                <td className="sl-c">
+                  <span className={stChip(b.status)}>{STATUSY[b.status] || b.status}</span>
+                  {b.uwagi_review ? <div className="sl-fn" style={{ marginTop: 4 }}>{b.uwagi_review}</div> : null}
                 </td>
               </tr>
             ))}
-            {!rows.length && <tr><td colSpan={7} className="muted mono" style={{ textAlign: "center", padding: 30 }}>nic nie pasuje do filtrów</td></tr>}
+            {!rows.length && <tr><td colSpan={7} className="sl-tele" style={{ textAlign: "center", padding: 30 }}>nic nie pasuje do filtrów</td></tr>}
           </tbody>
         </table>
       </div>
