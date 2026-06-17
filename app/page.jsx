@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "Slayer Code — model do kodu zbudowany przez medalistów IOI",
+  title: "Slayer Code — on-prem model do kodu dla enterprise (TS/Python)",
   description:
     "Slayer Code to on-premowy model i agent kodujący dla enterprise'owych baz TypeScript i Python. Polska ma jedną z najgęstszych pul talentu olimpijskiego (IOI) w Europie — 135 medali, więcej niż USA. Wygrywamy wewnątrz prywatnego repo klienta.",
 };
@@ -132,8 +132,8 @@ export default function Home() {
         <div className="hgrid">
           <div>
             <div className="htag rv"><span className="dot"></span><span className="kick"><span className="ac">MODEL & AGENT DO KODU</span> · ON-PREM · TYPESCRIPT / PYTHON</span></div>
-            <h1 className="rv d1">Model do kodu, zbudowany przez <em>medalistów IOI</em>.</h1>
-            <p className="lede rv d2">Polska ma jedną z najgęstszych pul talentu olimpijskiego w Europie — <b>135 medali IOI, więcej niż USA</b>. Z tych ludzi budujemy <b>Slayer Code</b>: on-premowy model i agenta kodującego dla enterprise'owych baz TypeScript i Python. Wygrywamy tam, gdzie OpenAI nie widzi danych: <b>wewnątrz prywatnego repo klienta</b>.</p>
+            <h1 className="rv d1">Wyspecjalizowany <em>model do kodu</em> dla enterprise.</h1>
+            <p className="lede rv d2"><b>Slayer Code</b> to on-premowy model i agent kodujący dla enterprise'owych baz TypeScript i Python. Polska ma jedną z najgęstszych pul talentu algorytmicznego w Europie — <b>135 medali IOI, więcej niż USA</b> — i dlatego coding jest naszą grą. Wygrywamy tam, gdzie OpenAI nie widzi danych: <b>wewnątrz prywatnego repo klienta</b>.</p>
             <div className="cta-row rv d3">
               <a className="btn btn-p" href="#pilot">umów pilota →</a>
               <a className="btn btn-s" href="https://discord.gg/HnTkVR4c5T" rel="noopener" target="_blank">wejście do labu</a>
@@ -167,7 +167,7 @@ export default function Home() {
             <div>
               <span className="kick">dlaczego Polska · olimpiada informatyczna</span>
               <h2>Najgęstszy talent <em>algorytmiczny</em> w Europie.</h2>
-              <p>Międzynarodowa Olimpiada Informatyczna (IOI) to najtrudniejszy na świecie konkurs programistyczny dla licealistów. Oficjalne statystyki pokazują Polskę z <b>135 medalami</b> — przed USA (<b>127</b>). To nasz <b>talent arbitrage</b>: lokalna baza ludzi od algorytmiki, code reasoning, program synthesis i evali, z której budujemy model do kodu.</p>
+              <p>Międzynarodowa Olimpiada Informatyczna (IOI) to najtrudniejszy na świecie konkurs programistyczny dla licealistów. Oficjalne statystyki pokazują Polskę z <b>135 medalami</b> — przed USA (<b>127</b>). To <b>sygnał talent arbitrage</b>: gęstość talentu algorytmicznego, code reasoning i program synthesis, na której opiera się europejski lab kodujący.</p>
             </div>
             <div className="medal" aria-label="Medale IOI: Polska vs USA">
               <div className="row win"><span className="who"><span className="flag">🇵🇱</span><b>Polska</b></span><span className="n">135</span></div>
