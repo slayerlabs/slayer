@@ -167,7 +167,7 @@ export default function Home() {
             <div>
               <span className="kick">dlaczego Polska · olimpiada informatyczna</span>
               <h2>Najgęstszy talent <em>algorytmiczny</em> w Europie.</h2>
-              <p>Międzynarodowa Olimpiada Informatyczna (IOI) to najtrudniejszy na świecie konkurs programistyczny dla licealistów. Oficjalne statystyki pokazują Polskę z <b>135 medalami</b> — przed USA (<b>127</b>). To <b>sygnał talent arbitrage</b>: gęstość talentu algorytmicznego, code reasoning i program synthesis, na której opiera się europejski lab kodujący.</p>
+              <p>Międzynarodowa Olimpiada Informatyczna (IOI) to najtrudniejszy na świecie konkurs programistyczny dla licealistów. Oficjalne statystyki pokazują Polskę z <b>135 medalami</b> — przed USA (<b>127</b>). To <b>sygnał talent arbitrage</b>: gęstość talentu algorytmicznego w kraju, która czyni Polskę naturalnym miejscem na europejski lab kodujący — nie deklaracja, kto siedzi w zespole.</p>
             </div>
             <div className="medal" aria-label="Medale IOI: Polska vs USA">
               <div className="row win"><span className="who"><span className="flag">🇵🇱</span><b>Polska</b></span><span className="n">135</span></div>
@@ -243,7 +243,7 @@ export default function Home() {
             <p>Zawężamy claim do tego, co inwestowalne i obronne. Frontier capex to nie nasza gra — kontekst, evale i integracja to nasza gra.</p></div>
           <div className="grid c2">
             <div className="cell"><h3 className="sm">Nie globalny benchmark</h3><p>Nie ścigamy się o „najlepszy model kodujący na świecie”. Wygrywamy na prywatnym repo klienta, gdzie modele hosted nie widzą danych.</p></div>
-            <div className="cell"><h3 className="sm">IOI = talent, nie waga</h3><p>Medale IOI to recruiting signal i baza do evali, code reasoning i program synthesis — nie „dowód konstrukcyjny”, że mamy gotowy frontier model.</p></div>
+            <div className="cell"><h3 className="sm">IOI = sygnał, nie skład</h3><p>Medale IOI mówią o gęstości talentu w Polsce — kontekst, dlaczego coding to właściwy vertical. Nie twierdzimy, że mamy w zespole olimpijczyków ani gotowy frontier model.</p></div>
             <div className="cell"><h3 className="sm">Model ≠ produkt</h3><p>Produktem jest agent + integracje + prywatny eval harness + dashboard. Model jest częścią stacku, nie tym, co sprzedajemy.</p></div>
             <div className="cell"><h3 className="sm">Zero leaku kodu</h3><p>On-prem i air-gapped. Repozytoria, tickety, sekrety i architektura zostają w organizacji — to warunek brzegowy, nie opcja.</p></div>
           </div>
