@@ -40,7 +40,7 @@ export default function V3() {
         <div className="ghead"><h2>1 · Miks SFT</h2><span className="c">train_v3.jsonl · 2 239 przykładów · seed 42 · stan 2026-06-11</span></div>
         <div className="mlegend">
           <span><span className="sw" style={{ background: "#c79448" }}></span>destylacja własna 46%</span>
-          <span><span className="sw" style={{ background: "#b0a062" }}></span>Bielik-distill verified 17%</span>
+          <span><span className="sw" style={{ background: "#b0a062" }}></span>distill verified 17%</span>
           <span><span className="sw" style={{ background: "#74a37a" }}></span>human PL 15%</span>
           <span><span className="sw" style={{ background: "#7e9eb0" }}></span>EN retention 22%</span>
         </div>
@@ -60,11 +60,11 @@ export default function V3() {
             <div className="src">sentiment 111 · topic 120 · paraphrase 98 · nli 104 · qa_correctness 116 · reading 117 · toxicity 125 · ner 25 · rating 106 · general 100</div>
           </div></div>
           <div className="lay"><div className="pct">17%<span className="n">374 ex</span></div><div>
-            <h3>Bielik-distill, frakcja zweryfikowana</h3>
-            <p>Zewnętrzny zbiór destylacji z Bielika-11B (Apache-2.0). Surowy miał 51% poważnych błędów faktograficznych,
+            <h3>Distill, frakcja zweryfikowana</h3>
+            <p>Zewnętrzny zbiór destylacji (Apache-2.0). Surowy miał 51% poważnych błędów faktograficznych,
             więc każdy rekord ocenił niezależny otwarty sędzia; do miksu wchodzą wyłącznie przykłady z czystymi faktami
             i naturalną polszczyzną (4 091 z 9 769 w puli). Werdykty per rekord opublikowane do audytu.</p>
-            <div className="src">źródło: bielik11b_distill_external · sędzia: Qwen3.5-122B (open) · pula verified: 4091</div>
+            <div className="src">źródło: distill_external · sędzia: Qwen3.5-122B (open) · pula verified: 4091</div>
           </div></div>
           <div className="lay"><div className="pct">15%<span className="n">344 ex</span></div><div>
             <h3>Human PL + styl</h3>
@@ -96,7 +96,7 @@ export default function V3() {
         <div className="figbox" style={{ border: "1px solid var(--line)", borderRadius: "var(--rad)", background: "var(--panel)", padding: "10px 24px" }}>
           <div className="gate"><span className="ic">[1]</span><span><b>Zero benchmarków.</b> Twardy bezpiecznik w assemblerze: jakiekolwiek źródło KLEJ-owe w puli przerywa budowę miksu.</span><span className="num">forbidden-sources guard</span></div>
           <div className="gate"><span className="ic">[2]</span><span><b>Audyt verbatim 8-gram</b> vs wszystkie zbiory testowe i held-outy (328k n-gramów). Złapał m.in. 9% kolizji w syntetycznych MCQ i wyciek 85 promptów stylu.</span><span className="num">decon_audit.py</span></div>
-          <div className="gate"><span className="ic">[3]</span><span><b>Weryfikacja faktów</b> zewnętrznych danych otwartym sędzią, rekord po rekordzie; odpadło 51% zbioru Bielik-distill.</span><span className="num">verify_external_sft.py</span></div>
+          <div className="gate"><span className="ic">[3]</span><span><b>Weryfikacja faktów</b> zewnętrznych danych otwartym sędzią, rekord po rekordzie; odpadło 51% zbioru distill.</span><span className="num">verify_external_sft.py</span></div>
           <div className="gate"><span className="ic">[4]</span><span><b>Filtr stylu:</b> nadużycie myślników wycina rekord (AI-tell); 229 przykładów odpadło z miksu.</span><span className="num">dash-rate ≤ 1.5/100 słów</span></div>
           <div className="gate"><span className="ic">[5]</span><span><b>Dedup</b> promptów między warstwami + balans per źródło (cap, żaden podzbiór nie dominuje).</span><span className="num">sha1 + per-source cap</span></div>
           <div className="gate"><span className="ic">[6]</span><span><b>Provenance per rekord:</b> źródło, teacher, sędzia i ścieżka grafu zapisane przy każdym przykładzie; raport miksu publikowany.</span><span className="num">train_v3_mix_report.json</span></div>

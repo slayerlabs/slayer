@@ -225,12 +225,12 @@ export default function Home() {
 
       <section className="sec">
         <div className="inner">
-          <div className="shead"><div><span className="kick">03 · model biznesowy</span><h2>Pilot, licencja produkcyjna, moat.</h2></div>
-            <p>Wchodzimy pilotem na 1–3 repozytoria, dowozimy baseline vs Slayer, przechodzimy w licencję produkcyjną. Moat rośnie z danymi specyficznymi dla repo klienta.</p></div>
+          <div className="shead"><div><span className="kick">03 · jak działamy</span><h2>Otwarta, społecznościowa robota.</h2></div>
+            <p>To wciąż projekt społecznościowy. Budujemy publicznie, dzielimy się artefaktami i rośniemy przez kontrybutorów — kod, evale i pętle feedbacku, nie cennik.</p></div>
           <div className="grid c3">
-            <div className="cell"><div className="top"><span>€20k–€75k</span><span>01</span></div><h3 className="sm">Enterprise pilot</h3><p>8–12 tygodni: on-prem PoC, 1–3 repo, prywatny eval suite, baseline vs Slayer, integracja z GitHub/GitLab/Jira, raport accepted patches i test pass rate.</p></div>
-            <div className="cell"><div className="top"><span>€100k–€500k ARR</span><span>02</span></div><h3 className="sm">Licencja produkcyjna</h3><p>Per enterprise, zależnie od liczby developerów i repozytoriów, deploymentu, SLA, fine-tuningu, supportu i wymagań air-gapped.</p></div>
-            <div className="cell"><div className="top"><span>compounding</span><span>03</span></div><h3 className="sm">Long-term moat</h3><p>Repo-specific evale, task traces, accepted/rejected patche, datasety transformacji kodu, customer-specific adaptery i synthetic task generation z realnych repo.</p></div>
+            <div className="cell"><div className="top"><span>pilot</span><span>01</span></div><h3 className="sm">Pilot na realnym repo</h3><p>Wchodzimy na 1–3 repozytoria, budujemy prywatny eval suite, pokazujemy baseline vs Slayer i wpinamy agenta w GitHub/GitLab/Jira — w pełni on-prem.</p></div>
+            <div className="cell"><div className="top"><span>open</span><span>02</span></div><h3 className="sm">Publicznie i otwarcie</h3><p>Receptury, evale, narzędzia i dzienniki publikujemy tam, gdzie pozwala sens projektu. Discord i GitHub są pierwszą drogą wejścia.</p></div>
+            <div className="cell"><div className="top"><span>compounding</span><span>03</span></div><h3 className="sm">Moat z danych repo</h3><p>Repo-specific evale, task traces, accepted/rejected patche, datasety transformacji kodu i adaptery — przewaga rośnie z każdą iteracją na repo.</p></div>
           </div>
         </div>
       </section>

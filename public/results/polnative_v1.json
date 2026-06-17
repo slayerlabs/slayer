@@ -6,31 +6,6 @@
   "skala": "pass=1, mixed=0.5, fail=0; wynik 0-100",
   "note": "eval_only; itemy w prywatnym repo slayer-datasets, nie trenować",
   "results": {
-    "bielik": {
-      "backend": "ollama",
-      "tag": "hf.co/speakleash/Bielik-11B-v3.0-Instruct-GGUF:Q4_K_M",
-      "temp": 0.2,
-      "score": {
-        "all": 79.7,
-        "dom:EQ": 56.2,
-        "dom:fleksja": 83.3,
-        "dom:frazeologia": 100.0,
-        "dom:kalibracja": 30.0,
-        "dom:leksyka": 70.0,
-        "dom:literatura": 90.6,
-        "dom:naturalnosc": 64.3,
-        "dom:ortografia": 77.3,
-        "dom:realia": 100.0,
-        "dom:rejestr": 87.5,
-        "dom:skladnia": 79.2,
-        "tryb:auto": 91.4,
-        "tryb:judge": 59.8
-      },
-      "n": 111,
-      "n_scored": 111,
-      "empty_answers": 0,
-      "judge_errors": 0
-    },
     "qwen27b": {
       "backend": "openrouter",
       "tag": "qwen/qwen3.5-27b",
@@ -50,6 +25,56 @@
         "dom:skladnia": 70.8,
         "tryb:auto": 60.7,
         "tryb:judge": 54.9
+      },
+      "n": 111,
+      "n_scored": 111,
+      "empty_answers": 0,
+      "judge_errors": 0
+    },
+    "slayer-v3-nothink": {
+      "backend": "file",
+      "tag": "/tmp/answers_slayer_v3.jsonl",
+      "temp": null,
+      "score": {
+        "all": 63.1,
+        "dom:EQ": 75.0,
+        "dom:fleksja": 69.4,
+        "dom:frazeologia": 50.0,
+        "dom:kalibracja": 20.0,
+        "dom:leksyka": 80.0,
+        "dom:literatura": 25.0,
+        "dom:naturalnosc": 71.4,
+        "dom:ortografia": 72.7,
+        "dom:realia": 66.7,
+        "dom:rejestr": 62.5,
+        "dom:skladnia": 95.8,
+        "tryb:auto": 63.6,
+        "tryb:judge": 62.2
+      },
+      "n": 111,
+      "n_scored": 111,
+      "empty_answers": 0,
+      "judge_errors": 0
+    },
+    "qwen27b-local-nothink": {
+      "backend": "file",
+      "tag": "/tmp/answers_qwen27b_local.jsonl",
+      "temp": null,
+      "score": {
+        "all": 60.4,
+        "dom:EQ": 56.2,
+        "dom:fleksja": 58.3,
+        "dom:frazeologia": 54.5,
+        "dom:kalibracja": 40.0,
+        "dom:leksyka": 90.0,
+        "dom:literatura": 28.1,
+        "dom:naturalnosc": 50.0,
+        "dom:ortografia": 77.3,
+        "dom:realia": 66.7,
+        "dom:rejestr": 62.5,
+        "dom:skladnia": 83.3,
+        "tryb:auto": 62.9,
+        "tryb:judge": 56.1
       },
       "n": 111,
       "n_scored": 111,

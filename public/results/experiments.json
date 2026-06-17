@@ -23,10 +23,10 @@
    }
   },
   {
-   "id": "polish-bpe-vs-bielik",
+   "id": "polish-bpe-fertility",
    "date": "2026-06-15",
-   "name": "Własny polski BPE koduje polski 1.75× gęściej niż tokenizer Bielika",
-   "base": "polish-32k (nasz, byte-level BPE) vs Bielik-11B-v3 / Llama-3 / GPT-2",
+   "name": "Własny polski BPE koduje polski 1.58× gęściej niż Llama-3",
+   "base": "polish-32k (nasz, byte-level BPE) vs Llama-3 / GPT-2",
    "method": "fertility = tokeny/słowo na 2000 held-out polskich dokumentów (962k słów); identyczny tekst dla wszystkich. BPE trenowany na ~1GB zbalansowanej próbki korpusu (cap legalese bo 71% to prawo), 51s na 16 rdzeniach.",
    "status": "clean",
    "eval": {
@@ -34,11 +34,10 @@
     "tasks": {
      "polish-32k (nasz, 32k vocab)": "1.738 tok/słowo — 1.00× (baseline)",
      "Llama-3 (128k vocab)": "2.744 tok/słowo — 1.58× gorzej",
-     "Bielik-11B-v3 (32k vocab)": "3.040 tok/słowo — 1.75× gorzej",
      "GPT-2 (50k vocab)": "3.659 tok/słowo — 2.10× gorzej",
-     "Dlaczego Bielik tak słabo": "oparty na Mistralu → odziedziczył tokenizer Mistrala (32k ogólny, multilingual); nigdy nie dostał dedykowanego polskiego. Wypada gorzej niż Llama-3, mimo 4× mniejszego słownika u Llamy",
-     "Konsekwencja": "przy tym samym vocab (32k) nasz koduje polski ~2× gęściej → 2× więcej tekstu w oknie kontekstu, 2× efektywniejszy trening na token",
-     "Caveat (uczciwie)": "próbka in-domain (Wikipedia); wszystkie 4 dostały IDENTYCZNY tekst, a skala 1.75× jest za duża by to był artefakt domeny — Mistralowy tokenizer po prostu nie jest polski. Pancerny pomiar OOD do dorobienia"
+     "Dlaczego ogólne tokenizery słabo": "ogólne/multilingual słowniki nigdy nie dostały dedykowanego polskiego; nasz dedykowany BPE bije nawet 4× większy słownik Llamy-3",
+     "Konsekwencja": "przy tym samym vocab (32k) nasz koduje polski znacznie gęściej → więcej tekstu w oknie kontekstu, efektywniejszy trening na token",
+     "Caveat (uczciwie)": "próbka in-domain (Wikipedia); wszystkie dostały IDENTYCZNY tekst, a skala 1.58× jest za duża by to był artefakt domeny. Pancerny pomiar OOD do dorobienia"
     }
    }
   },
@@ -46,20 +45,20 @@
    "id": "harness-binary-artifact",
    "date": "2026-06-15",
    "name": "Diagnoza: „przegrana” na CBD/DYK/GSM8K to bug harnessu, nie modelu",
-   "base": "Qwen3.5-27B (base/v3/v4) vs Bielik-11B-v2.3",
-   "method": "pełna macierz 4 modeli (bench_runner, n=100) + probe scoringu: TAK/NIE vs YES/NO, sum vs per-token vs kalibracja kontekstowa, accuracy vs F1",
+   "base": "Qwen3.5-27B (base/v3/v4)",
+   "method": "pełna macierz modeli (bench_runner, n=100) + probe scoringu: TAK/NIE vs YES/NO, sum vs per-token vs kalibracja kontekstowa, accuracy vs F1",
    "status": "clean",
    "plots": [
     {
      "src": "/results/plots/matrix.png",
-     "cap": "Pełna macierz: base / v3 / v4(cal λ0.3) / Bielik, jeden protokół (n=100). Czerwień u Bielika = poniżej naszej bazy. UWAGA: psc/dyk/cbd zniekształcone artefaktem scoringu (patrz niżej), gsm8k uciętym thinkingiem — to nie wiedza."
+     "cap": "Pełna macierz: base / v3 / v4(cal λ0.3), jeden protokół (n=100). UWAGA: psc/dyk/cbd zniekształcone artefaktem scoringu (patrz niżej), gsm8k uciętym thinkingiem — to nie wiedza."
     }
    ],
    "eval": {
     "harness": "bench_runner.py n=100 (screening) + probe kalibracji n=100 na base, seed 42",
     "tasks": {
-     "Gdzie Bielik bije nas (n=100)": "CBD, DYK, PolEmo-in, +GSM8K (i PSC remis)",
-     "Z tego realna przewaga": "tylko PolEmo-in — reszta to artefakty pomiaru",
+     "Gdzie scoring nas zaniża (n=100)": "CBD, DYK, +GSM8K (i PSC)",
+     "Z tego realna słabość": "tylko PolEmo-in — reszta to artefakty pomiaru",
      "TAK/NIE — długość tokenów (zmierzone)": "TAK=1 token, NIE=2 tokeny; Tak/Nie=1/1, YES/NO=1/1 (tylko WIELKIE TAK/NIE są asymetryczne)",
      "CBD base — sum logprob (none)": "acc=60 F1=35, predTAK=51/100 (gold TAK=11) — bias ku 1-tokenowemu TAK",
      "CBD base — per-token (mean)": "acc=89 F1=15 — POZORNY fix: to baseline większościowy (89% NIE), F1 pada",
@@ -69,7 +68,7 @@
     }
    },
    "log_note": "Trwa: re-score DYK/PSC + pełny rerun 4 modeli z poprawnym scoringiem (kalibracja + F1 wg KLEJ) i większym budżetem tokenów GSM8K. Macierz powyżej zostanie podmieniona na wersję po naprawie.",
-   "note": "Pytanie wyjściowe: „czemu mamy fuckup na CBD/DYK?”. Odpowiedź: to DWA różne bugi harnessu, nie modelu. (1) CBD/DYK/PSC są scorowane LIKELIHOODEM (nie generacją) — porównujemy sumę logprobów ' TAK' vs ' NIE'. Ale ' TAK'=1 token, ' NIE'=2 tokeny, a scorer sumuje (nie uśrednia) → wbudowany bias ku TAK. Gold jest w 82–89% NIE, więc model „przewiduje” TAK 51–64 razy i accuracy się sypie — DOKŁADNIE proporcjonalnie do niezbalansowania (CBD 89%NIE→najgorzej). Przejście na per-token (mean) to PUŁAPKA: zwija się do samego NIE = baseline większościowy (CBD acc=89 ale F1=15). Prawdziwy fix: kalibracja kontekstowa (odjęcie logprobu etykiety na pustym promptcie) + metryka F1 (oficjalna w KLEJ), stosowane JEDNAKOWO do wszystkich modeli (anti-benchmaxxing). Po kalibracji base wraca do sensownego F1=44. (2) Hipoteza „model woli angielskie YES/NO” obalona twardo: EN-leak=0/100 — przy scoringu likelihood model zawsze stawia na polskie TAK/NIE. (3) GSM8K to osobny bug — generacja z uciętym thinkingiem (max_new=512), base=20 jest nierealne; fix = większy budżet tokenów + format-aware extraction. Wniosek: z 5 „przegranych” z Bielikiem realna jest tylko PolEmo-in; reszta to harness. Reguła: każda poprawka pomiaru idzie na wszystkie modele naraz, nigdy per-model."
+   "note": "Pytanie wyjściowe: „czemu mamy fuckup na CBD/DYK?”. Odpowiedź: to DWA różne bugi harnessu, nie modelu. (1) CBD/DYK/PSC są scorowane LIKELIHOODEM (nie generacją) — porównujemy sumę logprobów ' TAK' vs ' NIE'. Ale ' TAK'=1 token, ' NIE'=2 tokeny, a scorer sumuje (nie uśrednia) → wbudowany bias ku TAK. Gold jest w 82–89% NIE, więc model „przewiduje” TAK 51–64 razy i accuracy się sypie — DOKŁADNIE proporcjonalnie do niezbalansowania (CBD 89%NIE→najgorzej). Przejście na per-token (mean) to PUŁAPKA: zwija się do samego NIE = baseline większościowy (CBD acc=89 ale F1=15). Prawdziwy fix: kalibracja kontekstowa (odjęcie logprobu etykiety na pustym promptcie) + metryka F1 (oficjalna w KLEJ), stosowane JEDNAKOWO do wszystkich modeli (anti-benchmaxxing). Po kalibracji base wraca do sensownego F1=44. (2) Hipoteza „model woli angielskie YES/NO” obalona twardo: EN-leak=0/100 — przy scoringu likelihood model zawsze stawia na polskie TAK/NIE. (3) GSM8K to osobny bug — generacja z uciętym thinkingiem (max_new=512), base=20 jest nierealne; fix = większy budżet tokenów + format-aware extraction. Wniosek: z 5 „przegranych” realna jest tylko PolEmo-in; reszta to harness. Reguła: każda poprawka pomiaru idzie na wszystkie modele naraz, nigdy per-model."
   },
   {
    "id": "v4-faza0",
@@ -81,7 +80,7 @@
    "plots": [
     {
      "src": "/results/plots/matrix.png",
-     "cap": "Macierz benchmarków: base vs v3 vs v4 (kolor = Δ vs base, best-of metoda per zadanie). v4/Bielik dochodzą w miarę liczenia."
+     "cap": "Macierz benchmarków: base vs v3 vs v4 (kolor = Δ vs base, best-of metoda per zadanie). v4 dochodzi w miarę liczenia."
     },
     {
      "src": "/results/plots/v4.png",
@@ -98,24 +97,6 @@
    },
    "log_note": "Trwa pełny screen base vs v3 vs cal-l030: KLEJ ×12 (likelihood) + LLMzSzŁ + EN-retention (ARC-C, MMLU, Belebele-EN, GSM8K). Runner bierze model z HF/katalogu, sampling n=100, zapis przyrostowy + watchdog.",
    "note": "Faza 0 V4 to diagnoza i kalibracja, nie nowy trening. (1) „Katastrofa” CDSC-E v3 była w ~3/4 artefaktem POMIARU: generacja+parser dawały 64.5, ale likelihood (scoring etykiet) daje 81.5 — realny spadek to −6.0, nie −22.5. Wniosek operacyjny: zadania klasyfikacyjne mierzymy likelihood. (2) v3 to realny zysk na celu (LLMzSzŁ +3.3) bez szerokiej regresji KLEJ — makro płaskie, sentyment +9/+7.5. (3) Próba naprawy przez merge wag λ=0.30 (cal-l030) wyglądała świetnie na n=200 (CDSC 82 / LLMzSzŁ 66.5), ale twardy rerun n=400 pokazał, że oddała CAŁY zysk celu (LLMzSzŁ 63.5 = baza), zostawiając −4 na CDSC. Mała próbka skłamała. Wniosek: decyzje o release wyłącznie na n≥400; przy niskim λ koszt CDSC rośnie szybciej niż zysk LLMzSzŁ, więc post-hoc merge nie da gate-clean wygranej — prawdziwy fix to trening anti-collapse (q/v only, niższy lr, hard-neutral NLI + KL-to-base). Reguła V4: zero benchmark train splitów jako paliwa, też KLEJ."
-  },
-  {
-   "id": "bielik-recon",
-   "date": "2026-06-14",
-   "name": "recon Bielik — receptura konkurenta (prez. R. Kinas, SpeakLeash)",
-   "base": "Mistral 7B/11B (up-scaling) + 198 mld tok CPT",
-   "method": "analiza publicznej prezentacji",
-   "n_examples": 0,
-   "status": "clean",
-   "eval": {
-    "harness": "Bielik 11B v2.3 — wyniki raportowane przez SpeakLeash",
-    "tasks": {
-     "MT-Bench-PL": "8.56",
-     "EQ-Bench-PL": "70.86",
-     "LLMzSzŁ (nasz pomiar): Bielik vs Slayer v3": "56.0 vs 66.8"
-    }
-   },
-   "note": "Jak SpeakLeash robi Bielika. Pretrening 198 mld tok (Megatron, 256x GH200, 8 dni) — stąd polska wiedza ze słabej bazy Mistral. SFT 16-20 mln instrukcji (skala, nie LIMA; weighted CE, adaptive LR, masking, packing). Alignment: DPO to główna dźwignia PL — SFT sam +8% PL, SFT+DPO +16% PL. Pipeline preferencji: dedup LSH/cosine/minhash, generacja, ocena metamodelem, filtr (odrzuć margines <2, max<5), DPO-P. Korpusy SpeakLeash/Spichlerz są dostępne przez pakiet speakleash/dashboard, ale rozmiaru nie podajemy bez aktualnego publicznego źródła; mix instrukcyjny/DPO Bielika NIE jest publiczny. Wniosek: mamy mocniejszą bazę (Qwen3.5-27B), wiedzą już bijemy (66.8 vs 56.0); brak nam DPO + szerokiego pokrycia SFT, NIE replikujemy ich CPT. UWAGA: zamknięty leaderboard nie jest dev setem -> budujemy własny proxy 5-shot. Szczegóły: BIELIK_RECIPE_NOTES.md."
   },
   {
    "id": "v3-trained",
@@ -257,16 +238,15 @@
     "tasks": {
      "v3 — LLMzSzŁ acc": "66.8",
      "baza Qwen3.5-27B (ten box)": "63.5",
-     "Bielik-11B-v3": "56.0",
      "slayer v1": "65.0"
     }
    },
-   "note": "Pierwszy czysty wynik v3 (SFT stylu na Qwen3.5-27B, decon gate CZYSTY). Wewnetrzna bramka LLMzSzL likelihood (n=400): v3 +3.3 nad baza (CI sie naklada) i +10.8 nad Bielikiem-11B-v3 (odporne). Vibe-check (6 promptow): v3 pisze naturalniejsza polszczyzna bez markdown/korpo-tonu na tekstach codziennych, traci gestosc/forme na kreatywnych (wiersz, gwara). Wiedza bez regresji. To wewnetrzny gate, nie oficjalne twierdzenie 5-shot. CPT (EntiGraph) odlozone — Munin (Danish FM) potwierdzil, ze SFT-first na Qwen-base wystarcza."
+   "note": "Pierwszy czysty wynik v3 (SFT stylu na Qwen3.5-27B, decon gate CZYSTY). Wewnetrzna bramka LLMzSzL likelihood (n=400): v3 +3.3 nad baza (CI sie naklada, odporne). Vibe-check (6 promptow): v3 pisze naturalniejsza polszczyzna bez markdown/korpo-tonu na tekstach codziennych, traci gestosc/forme na kreatywnych (wiersz, gwara). Wiedza bez regresji. To wewnetrzny gate, nie oficjalne twierdzenie 5-shot. CPT (EntiGraph) odlozone — Munin (Danish FM) potwierdzil, ze SFT-first na Qwen-base wystarcza."
   },
   {
-   "id": "bielik-distill-verify",
+   "id": "ext-distill-verify",
    "date": "2026-06-11",
-   "name": "weryfikacja zewn. bielik-distill-10k",
+   "name": "weryfikacja zewn. destylacji 10k (model PL 11B)",
    "base": "—",
    "method": "sędzia per rekord (otwarty Qwen3.5-122B): fakty + polszczyzna",
    "n_examples": 9769,
@@ -334,7 +314,7 @@
    "n_examples": 2239,
    "data": {
     "distill własny": 1022,
-    "bielik_verified": 374,
+    "ext_distill_verified": 374,
     "human_pl": 344,
     "en_retention": 499
    },
@@ -353,17 +333,15 @@
    "method": "71 pytań closed-book z korpusu EntiGraph (38 polonica / 33 ogólne), sędzia: otwarty Qwen3.5-122B vs gold ugruntowany w źródle",
    "status": "clean",
    "eval": {
-    "harness": "bench/knowledge_probe.py, temp 0, ollama Q4 (Bielik, Qwen9B) + API bf16 (Qwen27B)",
+    "harness": "bench/knowledge_probe.py, temp 0, ollama Q4 (Qwen9B) + API bf16 (Qwen27B)",
     "tasks": {
-     "Bielik polonica": 28.9,
      "Qwen9B polonica": 18.4,
      "Qwen27B polonica": 15.8,
-     "Bielik ogólne": 39.4,
      "Qwen9B ogólne": 30.3,
      "Qwen27B ogólne": 33.3
     }
    },
-   "note": "Długi ogon (regionalia, lokalne fakty) leży u wszystkich: 16-29%. Bielik najlepszy (CPT 1.1T PL częściowo kupił ogon), baza 27B najsłabsza na polonica przy dobrej wiedzy ogólnej. Wniosek: CPT na zmultiplikowanym syntetycznie ogonie (EntiGraph 10M) ma ~85% przestrzeni do odzyskania; cel po CPT: >28.9 na polonica. n=71 to smoke: różnica Bielik vs 27B na polonica (13pp, n=38) jeszcze nieistotna statystycznie; potwierdzenie na probe 300-500 + drugi niezależny sędzia. Itemy probe = held-out (exclusion list z treningu CPT).",
+   "note": "Długi ogon (regionalia, lokalne fakty) leży u wszystkich: 16-29%. Baza 27B najsłabsza na polonica przy dobrej wiedzy ogólnej. Wniosek: CPT na zmultiplikowanym syntetycznie ogonie (EntiGraph 10M) ma duże przestrzenie do odzyskania; cel po CPT: znaczący wzrost na polonica. n=71 to smoke: różnice na polonica (n=38) jeszcze nieistotne statystycznie; potwierdzenie na probe 300-500 + drugi niezależny sędzia. Itemy probe = held-out (exclusion list z treningu CPT).",
    "artifacts": "results/knowledge_probe_v1.json; probe prywatnie (datasets/data/eval)",
    "n_examples": 71,
    "data": {
@@ -398,7 +376,7 @@
      "polemo2_in": 89.5
     }
    },
-   "note": "Trenowany na train splitach KLEJ → KONTAMINACJA. Dowód: belebele +0.0 (0 przykładów w miksie) vs psc +26.5 — artefakt train-splitów, nie zdolność. NIE jest claimem leaderboardowym. Train≠test (dedup), więc to nie oszustwo, ale nieporównywalne z 5-shot Bielikiem.",
+   "note": "Trenowany na train splitach KLEJ → KONTAMINACJA. Dowód: belebele +0.0 (0 przykładów w miksie) vs psc +26.5 — artefakt train-splitów, nie zdolność. NIE jest claimem leaderboardowym. Train≠test (dedup), więc to nie oszustwo, ale nieporównywalne z wynikami 5-shot leaderboardu.",
    "hf": "kacperwikiel/slayer-v2-qwen3.5-27b-klej",
    "data_hf": "kacperwikiel/slayer-data-v2-klej-mix",
    "train_cfg": {

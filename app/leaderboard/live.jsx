@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
 
-const NB = "Bielik-11B-v3.0-Instruct";
 const NQ = "Qwen3.5-9B";
 const PRIMARY = { poquad: "judged_accuracy", llmzszl: "accuracy", belebele: "accuracy", pes: "accuracy", flores: "chrf_overall", include: "accuracy", belebele_en: "accuracy", mmlu: "accuracy", arc: "accuracy", gsm8k: "accuracy" };
 const LABEL = { llmzszl: "LLMzSzŁ", pes: "PES (medyczny)", include: "INCLUDE-44 (PL)", belebele: "Belebele (PL)", poquad: "PoQuAD", flores: "FLORES-200 (PL↔EN)", belebele_en: "Belebele (EN)", arc: "ARC-C (EN)", mmlu: "MMLU (EN)", gsm8k: "GSM8K (EN)" };
@@ -32,22 +31,18 @@ export default function LeaderboardLive() {
     return () => clearInterval(t);
   }, []);
 
-  const b = d?.tally?.[NB] ?? 0;
-  const q = d?.tally?.[NQ] ?? 0;
   const bs = d?.benchmarks || [];
 
   return (
     <>
       <p className="upd">{d ? "// aktualizacja: " + (d.generated_at || "—") + " · źródło: simp (RTX 3090)" : "wczytuję…"}</p>
       <div className="board">
-        <div className="team"><div className="tg">punkt odniesienia</div><div className="nm">Bielik-11B-v3</div></div>
+        <div className="team"><div className="tg">model</div><div className="nm">Qwen3.5-9B</div></div>
         <div className="cnt">
-          <span className="b" style={{ color: b >= q && b > 0 ? "var(--acc)" : undefined }}>{b}</span>
-          <span className="d">:</span>
-          <span className="q" style={{ color: q > b ? "var(--acc)" : "#9aa3b2" }}>{q}</span>
+          <span className="q" style={{ color: "var(--acc)" }}>{bs.length}</span>
         </div>
-        <div className="team"><div className="tg">challenger</div><div className="nm">Qwen3.5-9B</div></div>
-        <div className="bfoot">{d ? <><b>{b} : {q}</b> po {bs.length} benchmarkach</> : "—"}</div>
+        <div className="team"><div className="tg">benchmarki</div><div className="nm">suita zewnętrzna</div></div>
+        <div className="bfoot">{d ? <><b>{bs.length}</b> benchmarków zmierzonych</> : "—"}</div>
       </div>
 
       <div>
@@ -56,25 +51,16 @@ export default function LeaderboardLive() {
         {bs.length > 0 && (
           <div className="tbl">
             <table>
-              <thead><tr><th>Benchmark</th><th className="c">Bielik-11B-v3</th><th className="c">Qwen3.5-9B</th><th className="c">Wynik</th></tr></thead>
+              <thead><tr><th>Benchmark</th><th className="c">Qwen3.5-9B</th></tr></thead>
               <tbody>
                 {bs.map((p) => {
-                  const vb = val(p, NB), vq = val(p, NQ);
-                  const wb = p.winner === NB && p.margin > 0, wq = p.winner === NQ && p.margin > 0;
+                  const vq = val(p, NQ);
                   const runs = p.runs > 1 ? ` · ${p.runs} runów` : "";
                   const sub = (k) => (p.mean_across_runs?.[k] && p.runs > 1 ? <span className="sub">śr {p.mean_across_runs[k]}</span> : null);
                   return (
                     <tr key={p.benchmark}>
                       <td><div className="dn">{LABEL[p.benchmark] || p.benchmark}</div><div className="ds">{p.metric || ""} · n={p.n}{runs}</div></td>
-                      <td className={"s " + (wb ? "win" : "")}>{vb ?? "—"}{sub(NB)}</td>
-                      <td className={"s " + (wq ? "win" : "")}>{vq ?? "—"}{sub(NQ)}</td>
-                      <td className="c">
-                        {vb != null && vq != null
-                          ? wb ? <span className="vb b">▲ Bielik +{p.margin}</span>
-                            : wq ? <span className="vb q">Qwen +{p.margin}</span>
-                            : <span className="vb pend">remis</span>
-                          : <span className="vb pend">w toku</span>}
-                      </td>
+                      <td className="s">{vq ?? "—"}{sub(NQ)}</td>
                     </tr>
                   );
                 })}

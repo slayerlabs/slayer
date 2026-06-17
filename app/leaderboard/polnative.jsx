@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 
 const META = {
-  bielik: { name: "Bielik-11B-v3", tag: "punkt odniesienia", params: "11B" },
   qwen27b: { name: "Qwen3.5-27B", tag: "nasza baza", params: "27B" },
   qwen27b_local: { name: "Qwen3.5-27B", tag: "nasza baza", params: "27B" },
   slayer: { name: "Slayer-27B v3", tag: "nasz model", params: "27B" },

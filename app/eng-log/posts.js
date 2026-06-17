@@ -41,7 +41,7 @@ Około 3/4 spadku to styl i gadatliwość po SFT plus kruchy parser: zwracał pi
 \`\`\`
 LLMzSzŁ  likelihood  n=400
   base Qwen3.5-27B   63.5
-  Slayer v3          66.8   (+3.3;  Bielik-11B = 56.0)
+  Slayer v3          66.8   (+3.3)
 \`\`\`
 
 Pełny KLEJ (generacja) potwierdza brak szerokiej regresji — makro płaskie, a sentyment wręcz w górę:

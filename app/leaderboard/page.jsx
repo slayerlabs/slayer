@@ -2,8 +2,8 @@ import LeaderboardLive from "./live";
 import PolNativeBoard from "./polnative";
 
 export const metadata = {
-  title: "Leaderboard — Bielik-11B-v3 vs Qwen3.5-9B | Slayer",
-  description: "Wyniki na żywo: Bielik-11B-v3 vs Qwen3.5-9B na 10 benchmarkach. Autonomiczna kolejka, czysty pomiar.",
+  title: "Leaderboard — Qwen3.5-9B | Slayer",
+  description: "Wyniki na żywo: Qwen3.5-9B na 10 benchmarkach. Autonomiczna kolejka, czysty pomiar.",
 };
 
 const css = `
@@ -29,7 +29,7 @@ export default function Leaderboard() {
         </div>
         <PolNativeBoard />
         <div style={{ marginTop: 48, paddingTop: 8, borderTop: "1px solid var(--line2)" }}>
-          <span className="kick"><span className="ac">BENCHMARKI ZEWNĘTRZNE</span> — Bielik-11B-v3 vs Qwen3.5-9B</span>
+          <span className="kick"><span className="ac">BENCHMARKI ZEWNĘTRZNE</span> — Qwen3.5-9B</span>
         </div>
         <LeaderboardLive />
       </div>

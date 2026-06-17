@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 
-const NB = "Bielik-11B-v3.0-Instruct";
 const NQ = "Qwen3.5-9B";
 const KEYL = { belebele: "Belebele (PL)", llmzszl: "LLMzSzŁ (full)", pes: "PES (medyczny, full)", poquad: "PoQuAD + sędzia", flores: "FLORES-200", include: "INCLUDE-44 (PL)", belebele_en: "Belebele (EN)", arc: "ARC-C (EN)", mmlu: "MMLU (EN)", gsm8k: "GSM8K (EN)" };
 const STL = { done: "gotowe", running: "liczę…", queued: "w kolejce", fail: "błąd" };
@@ -72,8 +71,8 @@ export default function Console() {
         </div>
         <div className="panel"><div className="panel-top"><span>wynik zbiorczy</span></div>
           <div className="panel-bd">
-            <div className="scoreline"><span className="b">{D?.tally?.[NB] ?? 0}</span><span className="d">:</span><span className="q">{D?.tally?.[NQ] ?? 0}</span></div>
-            <div className="muted mono" style={{ textAlign: "center", fontSize: ".72rem" }}>Bielik-11B-v3 · Qwen3.5-9B</div>
+            <div className="scoreline"><span className="q">{D?.benchmarks_done ?? 0}</span></div>
+            <div className="muted mono" style={{ textAlign: "center", fontSize: ".72rem" }}>Qwen3.5-9B · benchmarki zaliczone</div>
             <div className="ticks">
               <div className="tick"><div className="v">{D?.benchmarks_done ?? 0}</div><div className="k">benchmarków</div></div>
               <div className="tick"><div className="v acc">{dl != null ? fmt(dl) : "—"}</div><div className="k">do końca kolejki</div></div>
@@ -103,17 +102,14 @@ export default function Console() {
           ) : (
             <div className="tbl">
               <table>
-                <thead><tr><th>Benchmark</th><th className="c">Bielik-11B-v3</th><th className="c">Qwen3.5-9B</th><th className="c">Wynik</th></tr></thead>
+                <thead><tr><th>Benchmark</th><th className="c">Qwen3.5-9B</th></tr></thead>
                 <tbody>
                   {R.map((r) => {
-                    const wb = r.winner === NB && r.margin > 0, wq = r.winner === NQ && r.margin > 0;
                     const u = r.unit === "chrF" ? "" : "%";
                     return (
                       <tr key={r.label}>
                         <td><div className="dn">{r.label}</div><div className="ds">{(r.metric || "").replace(" (MCQ, exact letter)", "")} · n={r.n}{r.runs > 1 ? " · " + r.runs + " runów" : ""}</div></td>
-                        <td className={"s " + (wb ? "win" : "")}>{r.bielik != null ? r.bielik + u : "—"}</td>
-                        <td className={"s " + (wq ? "win" : "")}>{r.qwen != null ? r.qwen + u : "—"}</td>
-                        <td className="c">{r.bielik != null && r.qwen != null ? (wb ? <span className="vb b">▲ Bielik +{r.margin}</span> : wq ? <span className="vb q">Qwen +{r.margin}</span> : "remis") : "—"}</td>
+                        <td className="s">{r.qwen != null ? r.qwen + u : "—"}</td>
                       </tr>
                     );
                   })}

@@ -39,7 +39,7 @@ export default function Propozycja() {
             <span className="kick">00 · którą grę gramy</span>
             <div className="two">
               <div className="mini"><h3>klejbenchmark.com</h3><p>Benchmark <b>enkoderów</b>, fine-tune per zadanie na train-splicie (top: Polish RoBERTa-v2, 88.9). Tu train-on-train to standard.</p></div>
-              <div className="mini"><h3>Open PL LLM Leaderboard ← gramy to</h3><p>Model <b>generatywny, 5-shot</b>, bez fine-tune na zadaniu. Dlatego u nas <b>zero train-splitów</b> — inaczej to benchmaxxing nieporównywalny z 5-shot.</p></div>
+              <div className="mini"><h3>Proxy 5-shot ← tu iterujemy</h3><p>Model <b>generatywny, 5-shot</b>, bez fine-tune na zadaniu. Zamknięty leaderboard nie jest naszym dev setem; replikujemy publiczny protokół na własnym proxy, a finalny model można wysłać do autora na końcu.</p></div>
             </div>
           </div>
 
@@ -68,12 +68,12 @@ export default function Propozycja() {
           <div className="block" style={{ borderColor: "rgba(63,111,156,.35)" }}>
             <span className="kick">faza 0 · eval NAJPIERW (gate przed pierwszym dolarem)</span>
             <h2>PolKnowledge bench — known / unknown</h2>
-            <p className="lead">Z budżetem na CPT pytanie brzmi nie „czy&quot;, tylko „<b>ile</b>&quot;. A tego nie zmierzysz Open PL LLM Leaderboardem — on <b>nie mierzy długiego ogona</b> (lokalne realia, prawo, regionalia, idiomy). Dlatego <b>przed treningiem</b> budujemy własny eval wiedzy o Polsce:</p>
+            <p className="lead">Z budżetem na CPT pytanie brzmi nie „czy&quot;, tylko „<b>ile</b>&quot;. Tego nie zmierzysz zamkniętym leaderboardem ani krótkim proxy 5-shot — one <b>nie mierzą długiego ogona</b> (lokalne realia, prawo, regionalia, idiomy). Dlatego <b>przed treningiem</b> budujemy własny eval wiedzy o Polsce:</p>
             <div className="two">
               <div className="mini"><h3>co</h3><p>Sonda wiedzy długiego ogona PL: historia, prawo/orzecznictwo, geografia, regionalia, idiomy, kultura, współczesność. Każde pytanie z <b>weryfikowalną</b> odpowiedzią. Held-out, deduplikowane, NIE wchodzi do CPT.</p></div>
-              <div className="mini"><h3>po co</h3><p>Punkt odniesienia <b>Qwen3.5-27B vs Bielik</b> per domenę → mapa luk → <b>wymiaruje CPT</b> (10B czy 40B tokenów, które domeny). Bez tego nie wiesz, czy CPT cokolwiek dał.</p></div>
+              <div className="mini"><h3>po co</h3><p>Punkt odniesienia <b>Qwen3.5-27B</b> per domenę → mapa luk → <b>wymiaruje CPT</b> (10B czy 40B tokenów, które domeny). Bez tego nie wiesz, czy CPT cokolwiek dał.</p></div>
             </div>
-            <p className="lead" style={{ fontSize: ".9rem", marginTop: 10 }}>To też publiczny <b>zasób</b> — dowód, że pobiliśmy Bielika tam, gdzie miał być najmocniejszy (pasuje do CodeSOTA/leaderboardów wiedzy).</p>
+            <p className="lead" style={{ fontSize: ".9rem", marginTop: 10 }}>To też publiczny <b>zasób</b> — twardy dowód pokrycia wiedzy o Polsce (pasuje do CodeSOTA/leaderboardów wiedzy).</p>
           </div>
 
           <div className="block">
@@ -134,7 +134,7 @@ export default function Propozycja() {
               <li><b>Źródła korpusu wiedzy</b> — Wiki PL + Wolne Lektury wystarczą, czy CCNet-PL / domeny (prawo, medycyna, akademickie pod LLMzSzŁ/PES)?</li>
               <li><b>Waga warstw</b> — ile CPT vs SFT vs DPO?</li>
               <li><b>Sonda regresji</b> — jakie zdolności PL pilnować poza KLEJ? Co was boli w polskich modelach?</li>
-              <li><b>Baza</b> — Qwen3.5-27B, czy też linia 11–14B (tańsza, bliżej Bielika)?</li>
+              <li><b>Baza</b> — Qwen3.5-27B, czy też linia 11–14B (tańsza)?</li>
             </ol>
           </div>
 

@@ -135,7 +135,7 @@ export default function Drabina() {
         <div className="grid c2" style={{ marginTop: 26 }}>
           <div className="cell"><div className="top"><span>przykładowe starter taski</span></div>
             <ul style={{ margin: "8px 0 0", paddingLeft: 18, color: "var(--mut)", fontSize: ".93rem", lineHeight: 1.8 }}>
-              <li>Znajdź 20 polskich promptów, na których Bielik/Qwen failuje.</li>
+              <li>Znajdź 20 polskich promptów, na których Qwen failuje.</li>
               <li>Dodaj 10 przykładów do eval suite.</li>
               <li>Uruchom benchmark i wrzuć wynik.</li>
               <li>Napisz 1-stronicowe streszczenie papera.</li>
@@ -144,7 +144,7 @@ export default function Drabina() {
             </ul>
           </div>
           <div className="cell"><div className="top"><span>quest board · format taska</span></div>
-            <div className="qcard"><span className="k">Title:</span>{"     20 promptów, na których pada Bielik\n"}<span className="k">Context:</span>{"   eval stylu PL, sekcja anty-tells\n"}<span className="k">Expected:</span>{"  JSONL: prompt + output + co poszło źle\n"}<span className="k">Difficulty:</span>{" S / M / L\n"}<span className="k">Reward:</span>{"    credit · bounty · progres roli\n"}<span className="k">Reviewer:</span>{"  maintainer obszaru\n"}<span className="k">Deadline:</span>{"  7 dni"}</div>
+            <div className="qcard"><span className="k">Title:</span>{"     20 promptów, na których pada model\n"}<span className="k">Context:</span>{"   eval stylu PL, sekcja anty-tells\n"}<span className="k">Expected:</span>{"  JSONL: prompt + output + co poszło źle\n"}<span className="k">Difficulty:</span>{" S / M / L\n"}<span className="k">Reward:</span>{"    credit · bounty · progres roli\n"}<span className="k">Reviewer:</span>{"  maintainer obszaru\n"}<span className="k">Deadline:</span>{"  7 dni"}</div>
             <p style={{ margin: "10px 0 0", fontSize: ".85rem", color: "var(--dim)", fontFamily: "var(--mono)" }}>kategorie: good first tasks · bounties · research / eval / data / infra quests · needs owner</p>
           </div>
         </div>

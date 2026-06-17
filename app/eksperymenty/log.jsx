@@ -99,7 +99,8 @@ export default function ExperimentLog({ d }) {
       <div className="banner">
         <b>Uczciwa zasada:</b> każdy model jest tu z pełnym składem danych i wynikiem. Trening na train-splicie
         benchmarku oznaczamy <b style={{ color: "#c98a78" }}>KONTAMINACJA</b> — bo zawyża wynik i jest nieporównywalny
-        z modelami liczonymi 5-shot. Realne twierdzenie stawiamy wyłącznie na <b>oficjalnym 5-shot leaderboardzie + MT-Bench-PL</b>.
+        z modelami liczonymi 5-shot. Iterujemy na otwartych benchmarkach i prywatnych proxy setach; zamknięty leaderboard
+        może być tylko końcowym zewnętrznym sprawdzeniem, nie gate'em treningowym.
       </div>
 
       <div className="log">
