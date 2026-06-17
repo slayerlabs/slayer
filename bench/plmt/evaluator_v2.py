@@ -332,16 +332,22 @@ def aggregate(models, seeds, level_descriptions):
     print("  AGREGAT — pass-rate per poziom (mean±std po seedach)")
     print("█" * 64)
 
-    reformulations = {t["id"] for t in json.load(open(DEFAULT_FILE, encoding="utf-8"))["tests"]
-                      if t.get("is_reformulation_of")}
+    tests = json.load(open(DEFAULT_FILE, encoding="utf-8"))["tests"]
+    reformulations = {t["id"] for t in tests if t.get("is_reformulation_of")}
+    id_flagged = {t["id"] for t in tests if t.get("instruction_dependent")}
 
     all_levels = set()
     per_model = {}  # model -> {level -> [rate_seed1, rate_seed2, ...]}
     fail_counts = {}  # model -> {test_id -> n_fail}
+    split = {}  # model -> {"morf": [...], "all": [...], "id": [...]} pass-rate per seed
+
+    def _rate(rows):
+        return sum(r["passed"] for r in rows) / len(rows) if rows else None
 
     for model in models:
         per_model[model] = {}
         fail_counts[model] = {}
+        split[model] = {"morf": [], "all": [], "id": []}
         for seed in seeds:
             p = result_path(model, seed)
             if not os.path.exists(p):
@@ -355,6 +361,9 @@ def aggregate(models, seeds, level_descriptions):
             for r in canon:
                 if not r["passed"]:
                     fail_counts[model][r["id"]] = fail_counts[model].get(r["id"], 0) + 1
+            split[model]["all"].append(_rate(canon))
+            split[model]["morf"].append(_rate([r for r in canon if r["id"] not in id_flagged]))
+            split[model]["id"].append(_rate([r for r in canon if r["id"] in id_flagged]))
 
     levels = sorted(all_levels)
     header = "  model".ljust(22) + "".join(f"L{l}".rjust(11) for l in levels)
@@ -384,6 +393,34 @@ def aggregate(models, seeds, level_descriptions):
         top = sorted(fail_counts[model].items(), key=lambda kv: -kv[1])[:8]
         items = ", ".join(f"{tid}:{n}/{n_runs}" for tid, n in top)
         print(f"    {model}: {items}")
+
+    # ── Oś morfologia vs instrukcja (lizzy): morphology = pytania BEZ flagi ID;
+    # instruction+morfologia = wszystkie. Δ(non-ID − ID-only) = podatek instrukcyjny
+    # (ile model traci, gdy polecenie samo w sobie wymaga dekodowania). ──
+    def _ms(vals):
+        v = [x for x in vals if x is not None]
+        if not v:
+            return "    —    "
+        m = statistics.mean(v)
+        s = statistics.stdev(v) if len(v) > 1 else 0.0
+        return f"{m:.2f}±{s:.2f}"
+    n_id = len(id_flagged - reformulations)
+    n_morf = sum(1 for t in tests
+                 if not t.get("is_reformulation_of") and not t.get("instruction_dependent"))
+    print(f"\n  Oś morfologia vs instrukcja  (morphology={n_morf} pytań bez ID, ID-only={n_id}):")
+    print("    model".ljust(24) + "morphology   instr+morf    ID-only    Δ(morf−ID)")
+    for model in models:
+        sp = split[model]
+        morf = [x for x in sp["morf"] if x is not None]
+        idv = [x for x in sp["id"] if x is not None]
+        delta = (statistics.mean(morf) - statistics.mean(idv)) if morf and idv else 0.0
+        row = f"    {model}".ljust(24)
+        row += _ms(sp["morf"]).rjust(10) + _ms(sp["all"]).rjust(13)
+        row += _ms(sp["id"]).rjust(13) + f"   {delta:+.2f}"
+        print(row)
+    print("    UWAGA: Δ jest SKAŻONA składem trudności — flaga ID koreluje z łatwymi L1-L3,")
+    print("    a kubełek non-ID trzyma CAŁE L5/L6/L7. To NIE jest czysty podatek instrukcyjny;")
+    print("    item-matched miarą instrukcji są warianty reformulowane (np. PASSIVE_002→_002b).")
     print("█" * 64)
 
 
