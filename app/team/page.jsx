@@ -123,6 +123,7 @@ const MEMBERS = [
   { img: "/assets/team/kuba6.jpg", name: "Kuba", specialty: "AI Engineer · Fullstack", bio: "Fizyk-teoretyk z wykształcenia. AI Engineer w projekcie onkologicznym (CV), ostatnie 2 lata w GenAI i agentach. Chce trenować LLM, robi datasety i benchmarki." },
   { img: "/assets/team/sygrydstorrada.webp", name: "sygrydstorrada", specialty: "Fullstack · Agenci AI · Architektura LLM", bio: "Programistka fullstack. Obecnie pracuję głównie z agentami AI i projektowaniem architektury współdziałania modeli LLM. Oprócz technologii interesuje mnie literatura, historia i sztuki wizualne." },
   { img: "/assets/team/dominik.webp", name: "Dominik", specialty: "Frontend · Angular · TypeScript", bio: "Od prawie 5 lat frontend developer z zajawką do AI. Aktualnie na 10xDevs. Dzieli się doświadczeniem na LinkedIn — treści o AI, Angularze, TypeScript i ogólnie programowaniu." },
+  { name: "Łukasz Wesołowski", specialty: "SEO · NLP · LLM", bio: "Na co dzień SEO, coraz mocniej skręca w stronę NLP i LLM. Pracuje z embeddingami, encjami, RAG i analizą procesów rozumowania modeli (m.in. Gemini). Pomaga przy danych, ewaluacji i eksperymentach z modelami.", link: "https://www.linkedin.com/in/lukasz-wesolowski-dolp" },
 ];
 
 const ADVISORS = [
@@ -152,13 +153,13 @@ export default function Team() {
             {MEMBERS.map((m) => (
               <article className="member" key={m.name}>
                 <div className="av">
-                  <img src={m.img} alt={m.name} />
+                  {m.img ? <img src={m.img} alt={m.name} /> : <span className="av-init">{m.name.slice(0, 1)}</span>}
                 </div>
                 <div className="member-info">
                   <div className="member-title-label">Member of Technical Staff</div>
                   <h2 className="member-name">{m.name}</h2>
                   <div className="member-specialty">{m.specialty}</div>
-                  <p className="member-bio">{m.bio}</p>
+                  <p className="member-bio">{m.bio}{m.link ? <> {" "}<a href={m.link} target="_blank" rel="noopener" style={{ color: "var(--acc)" }}>LinkedIn →</a></> : null}</p>
                 </div>
               </article>
             ))}
