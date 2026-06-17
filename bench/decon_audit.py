@@ -18,11 +18,18 @@ Dodatkowo egzekwuje exclusion list sondy wiedzy
 ma sha1 z listy, jest trafieniem (typ probe_excluded) — te doki QA NIE mogą wejść
 do CPT, inaczej sonda mierzy pamięć itemu zamiast wiedzy.
 
+Opcjonalny pass --near-dup dokłada wykrywanie near-duplicate (MinHash/Jaccard):
+verbatim n-gram łapie tylko DOKŁADNY wspólny ciąg >= N słów, więc mija itemy
+krótsze niż N oraz lekko przeredagowane kopie. MinHash + LSH daje uzupełniający,
+rekord-do-rekordu sygnał podobieństwa (pure-python, bez ciężkich zależności).
+
 Usage:
-  python3 bench/decon_audit.py <plik.jsonl> [...]            # audyt, raport
+  python3 bench/decon_audit.py <plik.jsonl> [...]            # audyt verbatim, raport
   python3 bench/decon_audit.py <plik.jsonl> --strip          # + zapis <plik>.clean.jsonl
+  python3 bench/decon_audit.py <plik.jsonl> --near-dup       # + pass MinHash/Jaccard
   python3 bench/decon_audit.py --all                         # audyt wszystkich artefaktów gen
 Opcje: --ngram 8 --report results/decon_audit.json
+       --near-dup --jaccard 0.7 --minhash-k 4 --perms 128 --bands 32
 Raport bieżący jest nadpisywany, ale każdy przebieg dopisuje się też do
 results/decon_audit_history.jsonl (trwały ślad audytu).
 """
@@ -31,6 +38,7 @@ import glob
 import hashlib
 import json
 import os
+import random
 import re
 import time
 import unicodedata
@@ -112,6 +120,105 @@ def shingles(ws, n):
         yield " ".join(ws[i:i + n])
 
 
+# --- near-duplicate (MinHash / Jaccard) -------------------------------------
+# Verbatim n-gram (powyżej) wykrywa tylko DOKŁADNY wspólny ciąg >= N słów. Mija:
+#   - itemy krótsze niż N słów (zero n-gramów -> niewidoczne dla indeksu),
+#   - lekko przeredagowane kopie (zmiana paru słów rozbija każdy długi ciąg).
+# MinHash + LSH daje uzupełniający, rekord-do-rekordu sygnał podobieństwa
+# (estymata Jaccarda na shingle'ach słów), skalowalny przez banding.
+
+_MH_PRIME = (1 << 61) - 1  # prime Mersenne'a, mieści 64-bit hashe
+
+
+def make_perms(perms, seed=1234):
+    """Deterministyczne współczynniki permutacji (a*h + b) mod prime."""
+    rng = random.Random(seed)
+    return [(rng.randrange(1, _MH_PRIME), rng.randrange(0, _MH_PRIME))
+            for _ in range(perms)]
+
+
+def _shingle_hash(sh):
+    return int.from_bytes(hashlib.blake2b(sh.encode("utf-8"), digest_size=8).digest(),
+                          "little")
+
+
+def minhash_signature(ws, k, perms_ab):
+    """Sygnatura MinHash z k-słownych shingli (fallback: całe zdanie, gdy < k słów)."""
+    sh = set(shingles(ws, k)) or {" ".join(ws)}
+    hs = [_shingle_hash(s) for s in sh]
+    if not hs:
+        return tuple([0] * len(perms_ab))
+    return tuple(min((a * h + b) % _MH_PRIME for h in hs) for (a, b) in perms_ab)
+
+
+def estimate_jaccard(sa, sb):
+    """Udział zgodnych pozycji sygnatur = nieobciążona estymata Jaccarda."""
+    if not sa:
+        return 0.0
+    return sum(1 for x, y in zip(sa, sb) if x == y) / len(sa)
+
+
+def lsh_keys(sig, bands):
+    """Podział sygnatury na pasma (banding LSH); kandydat = wspólne pasmo."""
+    rows = len(sig) // bands
+    return [(b, sig[b * rows:(b + 1) * rows]) for b in range(bands)]
+
+
+class NearDupIndex:
+    """Indeks LSH nad rekordami ewaluacyjnymi; query zwraca najlepszy near-dup >= próg."""
+
+    def __init__(self, k=4, perms=128, bands=32, threshold=0.7, seed=1234):
+        if perms % bands:
+            raise ValueError(f"perms ({perms}) musi być podzielne przez bands ({bands})")
+        self.k, self.bands, self.threshold = k, bands, threshold
+        self.perms_ab = make_perms(perms, seed)
+        self.sigs = {}
+        self.meta = {}
+        self.buckets = defaultdict(set)
+        self._rid = 0
+
+    def add(self, ws, src, sample):
+        sig = minhash_signature(ws, self.k, self.perms_ab)
+        rid = self._rid
+        self._rid += 1
+        self.sigs[rid] = sig
+        self.meta[rid] = (src, sample)
+        for key in lsh_keys(sig, self.bands):
+            self.buckets[key].add(rid)
+
+    def query(self, ws):
+        sig = minhash_signature(ws, self.k, self.perms_ab)
+        cand = set()
+        for key in lsh_keys(sig, self.bands):
+            cand |= self.buckets.get(key, set())
+        best = None
+        for rid in cand:
+            j = estimate_jaccard(sig, self.sigs[rid])
+            if j >= self.threshold and (best is None or j > best[1]):
+                best = (rid, j)
+        return best  # (rid, jaccard) albo None
+
+    def __len__(self):
+        return self._rid
+
+
+def build_neardup_index(k, perms, bands, threshold):
+    ndx = NearDupIndex(k=k, perms=perms, bands=bands, threshold=threshold)
+    per_src = {}
+    for src in EVAL_SOURCES + [llmzszl_test_path()]:
+        if not os.path.exists(src):
+            per_src[src] = "BRAK"
+            continue
+        c = 0
+        for t in iter_texts(src):
+            ws = words(t)
+            if len(ws) >= k:
+                ndx.add(ws, src, t[:120])
+                c += 1
+        per_src[src] = c
+    return ndx, per_src
+
+
 def build_index(n):
     idx = set()
     per_src = {}
@@ -137,7 +244,7 @@ def load_excluded_hashes():
     return {h.strip() for h in open(EXCL_HASHES_F) if h.strip()}
 
 
-def audit_file(path, idx, n, strip, excl_hashes):
+def audit_file(path, idx, n, strip, excl_hashes, ndup=None):
     rows, hits = [], []
     total = 0
     for ln in open(path, encoding="utf-8"):
@@ -169,6 +276,17 @@ def audit_file(path, idx, n, strip, excl_hashes):
                         break
                 if matched:
                     break
+        if not matched and ndup is not None:
+            for t in texts_of(obj):
+                ws = words(t)
+                if len(ws) < ndup.k:
+                    continue
+                hit = ndup.query(ws)
+                if hit:
+                    rid, j = hit
+                    matched = f"<near-dup {j:.2f} vs {ndup.meta[rid][0]}: {ndup.meta[rid][1]}>"
+                    mtype = "neardup_jaccard"
+                    break
         rows.append((ln, bool(matched)))
         if matched:
             hits.append({"line": total, "span": matched, "type": mtype})
@@ -179,7 +297,9 @@ def audit_file(path, idx, n, strip, excl_hashes):
                 if not bad:
                     f.write(ln + "\n")
         print(f"    -> czysty plik: {clean} ({total - len(hits)}/{total})")
-    return {"file": path, "records": total, "verbatim_hits": len(hits),
+    neardup = sum(1 for h in hits if h["type"] == "neardup_jaccard")
+    return {"file": path, "records": total, "verbatim_hits": len(hits) - neardup,
+            "neardup_hits": neardup, "hits": len(hits),
             "rate_pct": round(len(hits) / max(total, 1) * 100, 3),
             "samples": hits[:5]}
 
@@ -191,6 +311,12 @@ def main():
     ap.add_argument("--ngram", type=int, default=8)
     ap.add_argument("--strip", action="store_true")
     ap.add_argument("--report", default="public/results/decon_audit.json")
+    ap.add_argument("--near-dup", action="store_true",
+                    help="dodatkowy pass near-duplicate (MinHash/Jaccard) obok verbatim")
+    ap.add_argument("--jaccard", type=float, default=0.7, help="próg Jaccarda dla near-dup")
+    ap.add_argument("--minhash-k", type=int, default=4, help="rozmiar shingla (słowa) dla MinHash")
+    ap.add_argument("--perms", type=int, default=128, help="liczba permutacji MinHash")
+    ap.add_argument("--bands", type=int, default=32, help="pasma LSH (perms %% bands == 0)")
     a = ap.parse_args()
 
     paths = a.paths or []
@@ -206,10 +332,19 @@ def main():
     for s, c in per_src.items():
         print(f"  {s}: {c}")
 
+    ndup = None
+    if a.near_dup:
+        ndup, nd_src = build_neardup_index(a.minhash_k, a.perms, a.bands, a.jaccard)
+        print(f"[decon] near-dup: {len(ndup)} rekordów eval | MinHash k={a.minhash_k} "
+              f"perms={a.perms} bands={a.bands} próg Jaccard={a.jaccard}")
+
     results = []
     for p in paths:
-        r = audit_file(p, idx, a.ngram, a.strip, excl_hashes)
-        flag = "CZYSTY" if r["verbatim_hits"] == 0 else f"!!! {r['verbatim_hits']} trafień ({r['rate_pct']}%)"
+        r = audit_file(p, idx, a.ngram, a.strip, excl_hashes, ndup)
+        if r["hits"] == 0:
+            flag = "CZYSTY"
+        else:
+            flag = f"!!! {r['hits']} trafień ({r['rate_pct']}%) [verbatim={r['verbatim_hits']} near-dup={r['neardup_hits']}]"
         print(f"[decon] {p}: {r['records']} rekordów -> {flag}")
         for s in r["samples"]:
             print(f"    linia {s['line']} [{s.get('type', 'ngram')}]: \"{s['span'][:90]}\"")
@@ -217,13 +352,17 @@ def main():
 
     report = {"ts": time.strftime("%Y-%m-%dT%H:%M:%S"), "ngram": a.ngram,
               "index_size": len(idx), "excl_hashes": len(excl_hashes),
+              "near_dup": ({"k": a.minhash_k, "perms": a.perms, "bands": a.bands,
+                            "jaccard": a.jaccard, "eval_records": len(ndup)}
+                           if ndup is not None else None),
               "eval_sources": per_src, "results": results}
     os.makedirs(os.path.dirname(a.report), exist_ok=True)
     json.dump(report, open(a.report, "w"), ensure_ascii=False, indent=2)
+    os.makedirs("results", exist_ok=True)
     with open("results/decon_audit_history.jsonl", "a", encoding="utf-8") as hf:
         hf.write(json.dumps(report, ensure_ascii=False) + "\n")
     print(f"[decon] raport -> {a.report} (+ historia: results/decon_audit_history.jsonl)")
-    bad = [r for r in results if r["verbatim_hits"]]
+    bad = [r for r in results if r["hits"]]
     raise SystemExit(1 if bad else 0)
 
 
