@@ -148,13 +148,13 @@ export default function Home() {
 <span className="cl add"><span className="ln">14</span>  <span className="kw">return</span> api.post('/auth', token, {'{'} retry: 2 {'}'})</span>
 <span className="cl"><span className="ln">15</span>{'}'}  <span className="cm">// styl i wzorce twojego repo</span></span>
             </pre>
-            <div className="cc-run"><span>✓</span><span><b>14 / 14 testów</b> przechodzi · on-prem · 0 linii kodu wysłanych na zewnątrz</span></div>
+            <div className="cc-run"><span>✓</span><span><b>test suite</b> przechodzi · on-prem · 0 linii kodu wysłanych na zewnątrz</span></div>
           </aside>
         </div>
         <div className="stats rv d5" style={{ margin: "0 calc(clamp(18px,5vw,72px) * -1)" }}>
           <div className="inner">
             <div className="stat"><div className="v">135<span className="ac"> : 127</span></div><div className="k">medale IOI · Polska vs USA</div></div>
-            <div className="stat"><div className="v">+20–40<span className="ac">%</span></div><div className="k">po adaptacji na repo klienta</div></div>
+            <div className="stat"><div className="v">prywatny<span className="ac"> eval</span></div><div className="k">benchmark per repozytorium klienta</div></div>
             <div className="stat"><div className="v">on-prem<span className="ac"> first</span></div><div className="k">deployment we wnętrzu firmy</div></div>
             <div className="stat"><div className="v">TS/<span className="ac">PY</span></div><div className="k">focus na enterprise stack</div></div>
           </div>
