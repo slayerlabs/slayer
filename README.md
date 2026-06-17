@@ -25,7 +25,7 @@ Pomiar Fazy 0 (baseline). Oba modele: 4-bit GGUF, ollama @ RTX 3090, determinist
 | GSM8K (EN) | exact match | — | **+34.5** | Qwen +34.5 |
 
 **Stan: Bielik 1 : 8 Qwen3.5-9B** (9 ważnych osi).
-*INCLUDE-44 wykluczony — loader poniżej losowego (błąd mapowania gold; do naprawy).*
+*INCLUDE-44: loader naprawiony (PR #20 - mapowanie gold 0-based) i z powrotem w narzędziach leaderboardu. Wraca do tej tabeli po pełnym re-runie Fazy 0; dotąd tylko pilotaż n=50 (Bielik 70 / Qwen 64), za mały na headline.*
 
 **Wniosek:** Qwen3.5-9B jest wyraźnie mocniejszy (zwłaszcza rozumowanie EN), a wąsko wygrywa na większości osi polskich. Bielik trzyma jedynie **LLMzSzŁ** (egzaminy państwowe/zawodowe PL) — czyli dokładnie oś naszego targetu urzędniczo-prawniczego. **Decyzja: baza = Qwen3.5-9B + polska specjalizacja.**
 
