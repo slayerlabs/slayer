@@ -122,6 +122,7 @@ const MEMBERS = [
   { img: "/assets/team/michal-konieczka.jpeg", name: "Michał Konieczka", specialty: "Fullstack · UX · Product development", bio: "Fullstack, UX i product development." },
   { img: "/assets/team/kuba6.jpg", name: "Kuba", specialty: "AI Engineer · Fullstack", bio: "Fizyk-teoretyk z wykształcenia. AI Engineer w projekcie onkologicznym (CV), ostatnie 2 lata w GenAI i agentach. Chce trenować LLM, robi datasety i benchmarki." },
   { img: "/assets/team/sygrydstorrada.webp", name: "sygrydstorrada", specialty: "Fullstack · Agenci AI · Architektura LLM", bio: "Programistka fullstack. Obecnie pracuję głównie z agentami AI i projektowaniem architektury współdziałania modeli LLM. Oprócz technologii interesuje mnie literatura, historia i sztuki wizualne." },
+  { img: "/assets/team/dominik.webp", name: "Dominik", specialty: "Frontend · Angular · TypeScript", bio: "Od prawie 5 lat frontend developer z zajawką do AI. Aktualnie na 10xDevs. Dzieli się doświadczeniem na LinkedIn — treści o AI, Angularze, TypeScript i ogólnie programowaniu." },
 ];
 
 const ADVISORS = [
