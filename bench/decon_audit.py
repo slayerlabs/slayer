@@ -43,6 +43,8 @@ EVAL_SOURCES = [
     "slayer-data/mcq_heldout.jsonl",
     "slayer-data/mcq_test.jsonl",
     "slayer-data/style/holdout_v1.jsonl",
+    "slayer-data/plgen/prompts_v1.jsonl",  # PL-GEN held-out prompty (eval_only; Track B je produkuje — do tego czasu BRAK i pomijane)
+    "slayer-data/plmt/polish_morph_tests_v02.json",  # PL-MT morfologia (eval_only; master w datasets/data/eval/plmt)
 ]
 LLMZSZL_FALLBACK = "slayer-data/llmzszl_R_eval.jsonl"
 EXCL_HASHES_F = "slayer-data/knowledge/probe_v1.excluded_hashes.txt"
@@ -97,6 +99,15 @@ def iter_texts(path):
         for ln in open(path, encoding="utf-8"):
             if ln.strip():
                 yield ln.strip()
+        return
+    if path.endswith(".json"):
+        # cały plik to jeden obiekt (np. PL-MT) — nie JSONL; wyciągnij wszystkie stringi
+        try:
+            obj = json.load(open(path, encoding="utf-8"))
+        except json.JSONDecodeError:
+            return
+        for t in texts_of(obj):
+            yield t
         return
     for ln in open(path, encoding="utf-8"):
         try:

@@ -1,0 +1,21 @@
+{"id": 1, "klasa": "rekcja/dopełniacz", "tekst": "Szukam mój telefon od rana, bo nigdzie nie mogę go znaleźć.", "poprawka": "mojego telefonu", "lt_catches": false}
+{"id": 2, "klasa": "rekcja (potrzebować+D)", "tekst": "Potrzebuję nowy samochód, bo stary się zepsuł.", "poprawka": "nowego samochodu", "lt_catches": false}
+{"id": 3, "klasa": "negacja→dopełniacz", "tekst": "Nie widzę problem w tym rozwiązaniu.", "poprawka": "problemu", "lt_catches": false}
+{"id": 4, "klasa": "rekcja (używać+D)", "tekst": "Codziennie używam ten program do pracy.", "poprawka": "tego programu", "lt_catches": true}
+{"id": 5, "klasa": "zgoda biernik ż.", "tekst": "Widzę ten książkę na półce.", "poprawka": "tę książkę", "lt_catches": false}
+{"id": 6, "klasa": "zgoda przym.-rzecz.", "tekst": "To jest bardzo ładny dziewczyna.", "poprawka": "ładna dziewczyna", "lt_catches": false}
+{"id": 7, "klasa": "zaimek wskazujący", "tekst": "Mam tą nową samochód od miesiąca.", "poprawka": "ten nowy samochód", "lt_catches": false}
+{"id": 8, "klasa": "liczebnik dwa/dwie", "tekst": "Na spotkaniu były dwa kobiety i jeden mężczyzna.", "poprawka": "dwie kobiety", "lt_catches": false}
+{"id": 9, "klasa": "liczebnik + D mn.", "tekst": "Mam pięć lat doświadczenie w tej branży.", "poprawka": "doświadczenia", "lt_catches": false}
+{"id": 10, "klasa": "liczebnik–czas. zgoda", "tekst": "Pięć osób przyszli na zebranie.", "poprawka": "przyszło", "lt_catches": false}
+{"id": 11, "klasa": "liczebnik zbiorowy", "tekst": "W schronisku było pięcioro dziecko.", "poprawka": "pięcioro dzieci", "lt_catches": true}
+{"id": 12, "klasa": "wołacz", "tekst": "Cześć Marek, jak leci?", "poprawka": "Marku (potocznie wariantywne)", "lt_catches": false}
+{"id": 13, "klasa": "toponim (Tychy)", "tekst": "Mieszkam w Tychy od urodzenia.", "poprawka": "w Tychach", "lt_catches": false}
+{"id": 14, "klasa": "toponim (Kielce)", "tekst": "Jutro jadę do Kielce na konferencję.", "poprawka": "do Kielc", "lt_catches": true}
+{"id": 15, "klasa": "nazwisko (narzędnik)", "tekst": "Rozmawiałem z panem Kowalski o umowie.", "poprawka": "panem Kowalskim", "lt_catches": false}
+{"id": 16, "klasa": "aspekt/czas przeszły", "tekst": "Wczoraj pisałem list i go wysłać na poczcie.", "poprawka": "wysłałem", "lt_catches": false}
+{"id": 17, "klasa": "rodzaj czasu przeszłego", "tekst": "Ona poszedł do sklepu po chleb.", "poprawka": "poszła", "lt_catches": true}
+{"id": 18, "klasa": "ortografia (przecinek)", "tekst": "Nie wiem czy przyjdzie na spotkanie.", "poprawka": "wiem, czy", "lt_catches": true}
+{"id": 19, "klasa": "nie z czasownikiem", "tekst": "On niewie, co się stało.", "poprawka": "nie wie", "lt_catches": true}
+{"id": 20, "klasa": "kalka korpo", "tekst": "Na koniec dnia musimy się zdzwonić i touch base w tej sprawie.", "poprawka": "ostatecznie/koniec końców; wrócić do tematu", "lt_catches": false}
+{"id": 21, "klasa": "swój vs jego", "tekst": "Jan zabrał jego płaszcz i wyszedł.", "poprawka": "swój płaszcz", "lt_catches": false}

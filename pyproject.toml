@@ -6,5 +6,11 @@ requires-python = ">=3.10"
 dependencies = [
     "datasets>=5.0.0",
     "huggingface-hub>=1.19.0",
+    "language-tool-python>=3.4.0",
     "sacrebleu>=2.6.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.0",
 ]
