@@ -1,43 +1,58 @@
 export const metadata = {
-  title: "Slayer Code — on-prem coding intelligence lab",
+  title: "Slayer Code — model do kodu zbudowany przez medalistów IOI",
   description:
-    "Slayer Code buduje on-premowe agenty i wyspecjalizowane modele kodujące dla enterprise'owych baz TypeScript i Python. Wygrywamy tam, gdzie modele frontierowe są najsłabsze: wewnątrz prywatnych repozytoriów, których nie widzą.",
+    "Slayer Code to on-premowy model i agent kodujący dla enterprise'owych baz TypeScript i Python. Polska ma jedną z najgęstszych pul talentu olimpijskiego (IOI) w Europie — 135 medali, więcej niż USA. Wygrywamy wewnątrz prywatnego repo klienta.",
 };
 
 const css = `
-    /* ---------- hero ---------- */
-    .hero{position:relative;padding:132px clamp(18px,5vw,72px) 0;overflow:hidden;min-height:96vh}
-    .hero::before{content:"";position:absolute;inset:0;background:
-      linear-gradient(90deg,rgba(9,9,7,.96) 0%,rgba(9,9,7,.82) 42%,rgba(9,9,7,.44) 74%,rgba(9,9,7,.84) 100%),
-      linear-gradient(180deg,rgba(9,9,7,.12) 0%,rgba(9,9,7,.66) 72%,var(--bg) 100%),
-      url('/assets/img/hermes-lab-threshold.png') center right/cover no-repeat;
-      pointer-events:none;filter:saturate(.86) contrast(1.06)}
-    .hero::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.34;background:
-      repeating-linear-gradient(90deg,transparent 0 56px,rgba(222,202,154,.08) 56px 57px),
-      repeating-linear-gradient(0deg,transparent 0 56px,rgba(222,202,154,.055) 56px 57px);
-      -webkit-mask-image:radial-gradient(ellipse 82% 72% at 58% 22%,#000 0%,transparent 76%);
-      mask-image:radial-gradient(ellipse 82% 72% at 58% 22%,#000 0%,transparent 76%)}
-    .hgrid{position:relative;z-index:1;width:min(var(--max),100%);margin:0 auto;display:grid;grid-template-columns:minmax(0,1.06fr) minmax(320px,.72fr);gap:clamp(24px,5vw,70px);align-items:center;min-height:72vh;padding-bottom:clamp(54px,7vw,84px)}
-    @media(max-width:940px){.hgrid{grid-template-columns:1fr;min-height:0}}
-    .htag{display:inline-flex;align-items:center;gap:10px;margin-bottom:26px}
+    /* ---------- light pitch scope: override the global dark theme just on this page ---------- */
+    .lp{
+      --bg:#ffffff; --bg2:#f6f3ec; --panel:#ffffff; --panel2:#f8f6ef;
+      --ink:#15130d; --txt:#322e24; --mut:#5d5849; --dim:#8f8773;
+      --line:rgba(21,19,13,.14); --line2:rgba(21,19,13,.07);
+      --acc:#b3791f; --acc-d:#8c652c; --acc-soft:rgba(179,121,31,.12); --acc-ink:#ffffff;
+      --good:#2c8a47; --blue:#2c6f9c; --violet:#7a5bbf; --amber:#b3791f;
+      --code-add:#1f8a4c; --code-del:#c2412f; --code-add-bg:rgba(31,138,76,.09); --code-del-bg:rgba(194,65,47,.08);
+      background:var(--bg);color:var(--txt);
+    }
+
+    /* ---------- hero (bright) ---------- */
+    .hero{position:relative;padding:124px clamp(18px,5vw,72px) 0;overflow:hidden;
+      background:
+        radial-gradient(125% 80% at 82% -12%, rgba(179,121,31,.16), transparent 58%),
+        radial-gradient(95% 75% at -5% 0%, rgba(44,111,156,.12), transparent 55%),
+        linear-gradient(180deg,#fffefb 0%, #f6f2e8 100%)}
+    .hero::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.7;background:
+      repeating-linear-gradient(90deg,transparent 0 56px,rgba(21,19,13,.045) 56px 57px),
+      repeating-linear-gradient(0deg,transparent 0 56px,rgba(21,19,13,.035) 56px 57px);
+      -webkit-mask-image:radial-gradient(ellipse 86% 72% at 60% 16%,#000 0%,transparent 78%);
+      mask-image:radial-gradient(ellipse 86% 72% at 60% 16%,#000 0%,transparent 78%)}
+    .hgrid{position:relative;z-index:1;width:min(var(--max),100%);margin:0 auto;display:grid;grid-template-columns:minmax(0,1.04fr) minmax(340px,.78fr);gap:clamp(24px,5vw,64px);align-items:center;padding:18px 0 clamp(46px,6vw,72px)}
+    @media(max-width:940px){.hgrid{grid-template-columns:1fr}}
+    .htag{display:inline-flex;align-items:center;gap:10px;margin-bottom:24px}
     .htag .dot{width:7px;height:7px;border-radius:50%;background:var(--acc);animation:pl 2s infinite}
-    .hero h1{margin:0 0 24px;font-family:var(--serif);font-size:clamp(3rem,6.6vw,5.6rem);line-height:.96;font-weight:360;letter-spacing:-.018em;color:var(--ink);max-width:13ch;text-wrap:balance;text-shadow:0 18px 70px rgba(0,0,0,.55)}
+    .hero h1{margin:0 0 22px;font-family:var(--serif);font-size:clamp(2.7rem,6vw,5rem);line-height:.98;font-weight:380;letter-spacing:-.018em;color:var(--ink);max-width:14ch;text-wrap:balance}
     .hero h1 em{font-style:italic;color:var(--acc)}
-    .lede{max-width:700px;margin:0 0 32px;color:#cfc1a5;font-size:clamp(1.08rem,1.7vw,1.3rem);line-height:1.55;text-shadow:0 10px 34px rgba(0,0,0,.5)}
+    .lede{max-width:680px;margin:0 0 30px;color:var(--mut);font-size:clamp(1.06rem,1.65vw,1.28rem);line-height:1.58}
     .lede b{color:var(--ink);font-weight:600}
-    .lede a{color:var(--acc);border-bottom:1px solid var(--acc-soft)}
-    .hero-panel{justify-self:end;width:min(420px,100%);border:1px solid rgba(222,202,154,.18);border-radius:14px;background:rgba(18,17,13,.78);backdrop-filter:blur(18px);box-shadow:0 28px 80px rgba(0,0,0,.38);overflow:hidden}
-    .hero-panel .hp-top{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:15px 16px;border-bottom:1px solid var(--line2);font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
-    .hero-panel .hp-top b{color:var(--acc);font-weight:500}
-    .focus-list{display:grid}
-    .focus{display:grid;grid-template-columns:42px 1fr;gap:14px;padding:17px 18px;border-top:1px solid var(--line2)}
-    .focus:first-child{border-top:0}
-    .focus .idx{font-family:var(--mono);font-size:.76rem;color:var(--blue);padding-top:2px}
-    .focus h3{margin:0 0 3px;font-size:1rem;color:var(--ink);letter-spacing:0}
-    .focus p{margin:0;color:var(--mut);font-size:.9rem;line-height:1.45}
-    .artifact-strip{display:flex;flex-wrap:wrap;gap:7px;padding:14px 16px;border-top:1px solid var(--line2);background:rgba(126,158,176,.055)}
-    .artifact-strip span{font-family:var(--mono);font-size:.67rem;color:#b6c9d4;border:1px solid rgba(126,158,176,.24);border-radius:999px;padding:4px 8px;background:rgba(126,158,176,.07)}
-    @media(max-width:940px){.hero-panel{justify-self:start;margin-top:8px}}
+
+    /* hero code card — says "coding model" at a glance */
+    .codecard{justify-self:end;width:min(440px,100%);border:1px solid var(--line);border-radius:14px;background:#fff;box-shadow:0 28px 70px rgba(21,19,13,.12),0 2px 0 rgba(21,19,13,.02);overflow:hidden}
+    .codecard .cc-top{display:flex;align-items:center;gap:8px;padding:13px 15px;border-bottom:1px solid var(--line2);background:var(--panel2)}
+    .codecard .cc-top .dots{display:flex;gap:6px}
+    .codecard .cc-top .dots i{width:10px;height:10px;border-radius:50%;display:block;background:#dcd6c7}
+    .codecard .cc-top .dots i:nth-child(1){background:#e6857a}.codecard .cc-top .dots i:nth-child(2){background:#e8c277}.codecard .cc-top .dots i:nth-child(3){background:#86c08e}
+    .codecard .cc-top .file{margin-left:6px;font-family:var(--mono);font-size:.72rem;color:var(--dim)}
+    .codecard .cc-top .badge{margin-left:auto;font-family:var(--mono);font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;color:var(--good);border:1px solid rgba(44,138,71,.3);background:rgba(44,138,71,.08);border-radius:99px;padding:3px 8px}
+    .codecard pre{margin:0;padding:14px 16px;font-family:var(--mono);font-size:.79rem;line-height:1.72;color:var(--txt);overflow-x:auto}
+    .codecard .cl{display:block;white-space:pre}
+    .codecard .cl .ln{display:inline-block;width:1.6em;color:var(--dim);user-select:none}
+    .codecard .cl.add{background:var(--code-add-bg);color:var(--code-add)}
+    .codecard .cl.del{background:var(--code-del-bg);color:var(--code-del)}
+    .codecard .cl .kw{color:var(--blue)}.codecard .cl .cm{color:var(--dim)}
+    .codecard .cc-run{display:flex;align-items:center;gap:9px;padding:11px 16px;border-top:1px solid var(--line2);background:var(--panel2);font-family:var(--mono);font-size:.74rem;color:var(--good)}
+    .codecard .cc-run b{color:var(--ink);font-weight:600}
+    @media(max-width:940px){.codecard{justify-self:start;margin-top:6px}}
 
     .rv{opacity:0;transform:translateY(14px);animation:rv .7s cubic-bezier(.2,.7,.3,1) forwards}
     .rv.d1{animation-delay:.06s}.rv.d2{animation-delay:.16s}.rv.d3{animation-delay:.26s}
@@ -45,114 +60,95 @@ const css = `
     @keyframes rv{to{opacity:1;transform:none}}
     @media(prefers-reduced-motion:reduce){.rv{animation:none;opacity:1;transform:none}}
 
-    .stats{position:relative;z-index:1;border-top:1px solid var(--line);background:rgba(9,9,7,.78);backdrop-filter:blur(14px)}
+    /* stats strip (bright) */
+    .stats{position:relative;z-index:1;border-top:1px solid var(--line);background:rgba(255,255,255,.72);backdrop-filter:blur(8px)}
     .stats .inner{display:grid;grid-template-columns:repeat(4,1fr);width:min(var(--max),100%);margin:0 auto}
     @media(max-width:820px){.stats .inner{grid-template-columns:repeat(2,1fr)}}
     .stat{padding:22px clamp(14px,2vw,28px);border-left:1px solid var(--line2);position:relative}
     .stat::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:transparent}
-    .stat:nth-child(2)::before{background:rgba(126,158,176,.72)}
-    .stat:nth-child(3)::before{background:rgba(116,163,122,.72)}
-    .stat:nth-child(4)::before{background:rgba(199,148,72,.72)}
+    .stat:nth-child(1)::before{background:rgba(179,121,31,.8)}
+    .stat:nth-child(2)::before{background:rgba(44,111,156,.7)}
+    .stat:nth-child(3)::before{background:rgba(44,138,71,.7)}
+    .stat:nth-child(4)::before{background:rgba(179,121,31,.7)}
     .stat:first-child{border-left:0}
     @media(max-width:820px){.stat:nth-child(3){border-left:0}.stat:nth-child(n+3){border-top:1px solid var(--line2)}}
     .stat .v{font-family:var(--serif);font-size:clamp(1.7rem,3vw,2.3rem);color:var(--ink);line-height:1.1}
     .stat .v .ac{color:var(--acc)}
     .stat .k{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-top:5px}
 
-    .traction{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:18px;align-items:stretch}
-    @media(max-width:920px){.traction{grid-template-columns:1fr}}
-    .traction-copy{border:1px solid rgba(199,148,72,.32);border-radius:14px;background:linear-gradient(180deg,rgba(199,148,72,.075),rgba(255,255,255,.014)),var(--panel);padding:30px;box-shadow:0 22px 70px rgba(0,0,0,.22)}
-    .traction-copy h2{font-family:var(--serif);font-size:clamp(2rem,4vw,3rem);font-weight:400;line-height:1.04;letter-spacing:-.016em;margin:12px 0 14px;color:var(--ink);max-width:11ch}
-    .traction-copy h2 em{color:var(--acc);font-style:italic}
-    .traction-copy p{margin:0;color:var(--mut);font-size:1rem;line-height:1.65;max-width:48ch}
-    .traction-copy .source{margin-top:18px;font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
-    .traction-panel{border:1px solid var(--line);border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.012)),var(--panel);box-shadow:0 22px 70px rgba(0,0,0,.24);overflow:hidden}
-    .traction-top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 16px;border-bottom:1px solid var(--line2);font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
-    .traction-top b{color:var(--acc);font-weight:500}
-    .traction-metrics{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--line2)}
-    @media(max-width:620px){.traction-metrics{grid-template-columns:1fr}.traction-metric{border-left:0!important;border-top:1px solid var(--line2)}.traction-metric:first-child{border-top:0}}
-    .traction-metric{padding:18px 18px 16px;border-left:1px solid var(--line2)}
-    .traction-metric:first-child{border-left:0}
-    .traction-metric .num{font-family:var(--serif);font-size:clamp(1.65rem,3vw,2.4rem);line-height:1;color:var(--ink);letter-spacing:-.012em}
-    .traction-metric .lbl{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-top:8px}
-    .traction-chart{padding:22px 18px 16px}
-    .chart-frame{position:relative;height:250px;border-left:1px solid var(--line2);border-bottom:1px solid var(--line2);background:linear-gradient(180deg,rgba(142,181,200,.055),transparent)}
-    .chart-frame::before,.chart-frame::after{content:"";position:absolute;left:0;right:0;height:1px;background:var(--line2)}
-    .chart-frame::before{top:25%}.chart-frame::after{top:58%}
-    .chart-bars{position:absolute;inset:0 12px 0 12px;display:grid;grid-template-columns:repeat(7,1fr);gap:10px;align-items:end}
-    .chart-bar{position:relative;display:flex;align-items:end;justify-content:center;min-width:0;height:100%}
-    .chart-bar i{display:block;width:100%;max-width:34px;height:var(--h);border-radius:7px 7px 0 0;background:linear-gradient(180deg,var(--blue),rgba(142,181,200,.18));border:1px solid rgba(142,181,200,.28);box-shadow:0 0 28px rgba(142,181,200,.08)}
-    .chart-bar.peak i{background:linear-gradient(180deg,var(--acc),rgba(215,163,81,.18));border-color:rgba(215,163,81,.4);box-shadow:0 0 34px rgba(215,163,81,.12)}
-    .chart-bar span{position:absolute;bottom:-27px;font-family:var(--mono);font-size:.68rem;color:var(--dim);white-space:nowrap}
-    .chart-note{display:flex;justify-content:space-between;gap:14px;margin-top:38px;font-family:var(--mono);font-size:.68rem;line-height:1.45;color:var(--dim)}
-    .chart-note b{color:var(--acc);font-weight:500}
+    /* IOI band — the talent claim, loud and bright */
+    .ioiband{position:relative;overflow:hidden;border:1px solid rgba(179,121,31,.28);border-radius:16px;
+      background:linear-gradient(135deg,#fff7e6 0%,#fffdf8 52%,#eef5fb 100%);
+      box-shadow:0 24px 70px rgba(21,19,13,.08);padding:clamp(26px,4vw,44px);display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(22px,4vw,48px);align-items:center}
+    @media(max-width:860px){.ioiband{grid-template-columns:1fr}}
+    .ioiband .kick{color:var(--acc)}
+    .ioiband h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.9rem,4vw,2.9rem);line-height:1.06;letter-spacing:-.016em;color:var(--ink);margin:10px 0 12px;max-width:16ch}
+    .ioiband h2 em{font-style:italic;color:var(--acc)}
+    .ioiband p{margin:0;color:var(--mut);font-size:1.04rem;line-height:1.62;max-width:52ch}
+    .ioiband p b{color:var(--ink)}
+    .medal{border:1px solid var(--line);border-radius:14px;background:#fff;box-shadow:0 16px 44px rgba(21,19,13,.08);overflow:hidden}
+    .medal .row{display:grid;grid-template-columns:1fr auto;align-items:center;gap:14px;padding:16px 20px;border-top:1px solid var(--line2)}
+    .medal .row:first-child{border-top:0}
+    .medal .row .who{font-family:var(--mono);font-size:.82rem;color:var(--mut);display:flex;align-items:center;gap:9px}
+    .medal .row .who b{color:var(--ink);font-weight:600;font-size:.92rem}
+    .medal .row .flag{font-size:1.05rem}
+    .medal .row .n{font-family:var(--serif);font-size:clamp(1.7rem,3.4vw,2.4rem);line-height:1;color:var(--ink)}
+    .medal .row.win{background:linear-gradient(90deg,rgba(179,121,31,.1),transparent)}
+    .medal .row.win .n{color:var(--acc)}
+    .medal .cap{padding:11px 20px;border-top:1px solid var(--line2);background:var(--panel2);font-family:var(--mono);font-size:.68rem;letter-spacing:.04em;color:var(--dim)}
 
     .thesis{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:18px;align-items:stretch}
     @media(max-width:880px){.thesis{grid-template-columns:1fr}}
-    .quote{border:1px solid rgba(199,148,72,.34);border-left:3px solid var(--acc);border-radius:14px;background:linear-gradient(180deg,rgba(199,148,72,.08),rgba(255,255,255,.015)),var(--panel);padding:32px;box-shadow:0 22px 70px rgba(0,0,0,.22)}
-    .quote p{font-family:var(--serif);font-size:clamp(1.6rem,3vw,2.28rem);line-height:1.15;color:var(--ink);margin:0;letter-spacing:-.012em}
-    .quote .sub{font-family:var(--mono);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);margin-top:18px;line-height:1.5}
+    .quote{border:1px solid rgba(179,121,31,.34);border-left:3px solid var(--acc);border-radius:14px;background:linear-gradient(180deg,#fff8ea,#fff);padding:32px;box-shadow:0 18px 50px rgba(21,19,13,.07)}
+    .quote p{font-family:var(--serif);font-size:clamp(1.55rem,3vw,2.2rem);line-height:1.15;color:var(--ink);margin:0;letter-spacing:-.012em}
+    .quote .sub{font-family:var(--mono);font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);margin-top:18px;line-height:1.6}
     .worklist{display:grid;gap:12px}
-    .workitem{border:1px solid var(--line);border-radius:14px;padding:18px 20px;background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.012)),var(--panel);box-shadow:0 14px 44px rgba(0,0,0,.16)}
+    .workitem{border:1px solid var(--line);border-radius:14px;padding:18px 20px;background:#fff;box-shadow:0 12px 36px rgba(21,19,13,.06)}
     .workitem .label{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:8px}
     .workitem p{margin:0;color:var(--mut)}
     .workitem b{color:var(--ink)}
 
-    .loggrid{display:grid;grid-template-columns:1fr 1fr;gap:0 34px;padding:6px 18px 8px}
-    @media(max-width:820px){.loggrid{grid-template-columns:1fr}}
-    .loggrid .logrow:nth-child(2){border-top:0}
-    .loghead{display:flex;align-items:center;gap:8px}
-    .logrow{display:grid;grid-template-columns:120px 1fr auto;gap:12px;align-items:baseline;padding:13px 2px;border-top:1px solid var(--line2);font-size:.92rem}
-    .logrow:first-child{border-top:0}
-    .logrow .dt{font-family:var(--mono);font-size:.72rem;color:var(--dim);letter-spacing:.04em}
-    .logrow .what{color:var(--txt)}
-    .logrow .what b{font-weight:600;color:var(--ink)}
-    .logrow .what .sub{display:block;font-family:var(--mono);font-size:.72rem;color:var(--dim);margin-top:2px}
-    .logrow .go{font-family:var(--mono);font-size:.78rem;color:var(--acc);white-space:nowrap}
-    a.logrow{transition:background .15s}
-    a.logrow:hover{background:rgba(199,148,72,.07)}
-    @media(max-width:480px){.logrow{grid-template-columns:1fr auto}.logrow .dt{display:none}}
-
     .stack{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
     @media(max-width:900px){.stack{grid-template-columns:1fr}}
-    .stack .cell{min-height:230px;border-top:2px solid rgba(126,158,176,.42)}
-    .stack .cell:nth-child(2){border-top-color:rgba(199,148,72,.58)}
-    .stack .cell:nth-child(3){border-top-color:rgba(116,163,122,.50)}
+    .stack .cell{min-height:226px;border-top:2px solid rgba(44,111,156,.5)}
+    .stack .cell:nth-child(2){border-top-color:rgba(179,121,31,.6)}
+    .stack .cell:nth-child(3){border-top-color:rgba(44,138,71,.55)}
     .area h3{font-family:var(--serif);font-weight:400;font-size:1.42rem;letter-spacing:-.01em;margin:12px 0 8px}
     .area .meta{margin-top:auto;padding-top:16px}
-    .road{display:grid;border:1px solid var(--line);border-radius:var(--rad);overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.032),rgba(255,255,255,.012)),var(--panel)}
-    .phase{display:grid;grid-template-columns:160px 1fr;gap:20px;padding:22px 24px;border-top:1px solid var(--line2)}
-    .phase:first-child{border-top:0}
-    .phase .when{font-family:var(--mono);font-size:.78rem;color:var(--acc)}
-    .phase h3{margin:0 0 5px;font-size:1.15rem;color:var(--ink)}
-    .phase p{margin:0;color:var(--mut)}
-    @media(max-width:680px){.phase{grid-template-columns:1fr;gap:6px}}
+
+    /* light surfaces for the shared .cell / .sec.alt blocks on this page */
+    .lp .sec.alt{background:linear-gradient(180deg,#f7f4ec,#fbf9f3)}
+    .lp .cell{background:#fff;box-shadow:0 12px 36px rgba(21,19,13,.05)}
+    .lp .cell.area:hover{box-shadow:0 18px 48px rgba(21,19,13,.09)}
+    .lp .rule{border-top-color:var(--line)}
 `;
 
 export default function Home() {
   return (
-    <>
+    <div className="lp">
       <style>{css}</style>
 
       <section className="hero">
         <div className="hgrid">
           <div>
-            <div className="htag rv"><span className="dot"></span><span className="kick"><span className="ac">ON-PREM CODING INTELLIGENCE LAB</span> · TYPESCRIPT / PYTHON · ENTERPRISE</span></div>
-            <h1 className="rv d1">Wygrywamy <em>wewnątrz repo</em>, którego frontier nie widzi.</h1>
-            <p className="lede rv d2">Slayer Code buduje on-premowe agenty i wyspecjalizowane modele kodujące dla enterprise'owych baz <b>TypeScript</b> i <b>Python</b>. Nie konkurujemy z OpenAI na ogólnym czacie. Konkurujemy tam, gdzie OpenAI nie ma dostępu do danych: <b>w prywatnym repozytorium klienta</b>.</p>
+            <div className="htag rv"><span className="dot"></span><span className="kick"><span className="ac">MODEL & AGENT DO KODU</span> · ON-PREM · TYPESCRIPT / PYTHON</span></div>
+            <h1 className="rv d1">Model do kodu, zbudowany przez <em>medalistów IOI</em>.</h1>
+            <p className="lede rv d2">Polska ma jedną z najgęstszych pul talentu olimpijskiego w Europie — <b>135 medali IOI, więcej niż USA</b>. Z tych ludzi budujemy <b>Slayer Code</b>: on-premowy model i agenta kodującego dla enterprise'owych baz TypeScript i Python. Wygrywamy tam, gdzie OpenAI nie widzi danych: <b>wewnątrz prywatnego repo klienta</b>.</p>
             <div className="cta-row rv d3">
               <a className="btn btn-p" href="#pilot">umów pilota →</a>
               <a className="btn btn-s" href="https://discord.gg/HnTkVR4c5T" rel="noopener" target="_blank">wejście do labu</a>
             </div>
           </div>
-          <aside className="hero-panel rv d4" aria-label="Na czym polega przewaga Slayer Code">
-            <div className="hp-top"><span>nasz wedge</span><b>repo-specific</b></div>
-            <div className="focus-list">
-              <div className="focus"><div className="idx">01</div><div><h3>Adaptacja do repo</h3><p>Rozumie duże prywatne monorepo: stack, frameworki, konwencje, historię issue.</p></div></div>
-              <div className="focus"><div className="idx">02</div><div><h3>Zamknięta pętla</h3><p>Testy, code review i feedback klienta domykają pętlę, której modele hosted nie mają.</p></div></div>
-              <div className="focus"><div className="idx">03</div><div><h3>On-prem / air-gap</h3><p>Kod, tickety, sekrety i architektura nie opuszczają organizacji.</p></div></div>
-            </div>
-            <div className="artifact-strip"><span>issue→PR</span><span>testy</span><span>migracje</span><span>code review</span><span>repo map</span></div>
+          <aside className="codecard rv d4" aria-label="Przykład: agent naprawia issue i przechodzi testy">
+            <div className="cc-top"><span className="dots"><i></i><i></i><i></i></span><span className="file">fix/auth-token-refresh.ts</span><span className="badge">issue → PR</span></div>
+            <pre aria-hidden="true">
+<span className="cl"><span className="ln">12</span><span className="kw">async function</span> refresh(token) {'{'}</span>
+<span className="cl del"><span className="ln">13</span>  <span className="kw">return</span> api.post('/auth', token)</span>
+<span className="cl add"><span className="ln">13</span>  <span className="kw">if</span> (isExpired(token)) <span className="kw">await</span> rotate(token)</span>
+<span className="cl add"><span className="ln">14</span>  <span className="kw">return</span> api.post('/auth', token, {'{'} retry: 2 {'}'})</span>
+<span className="cl"><span className="ln">15</span>{'}'}  <span className="cm">// styl i wzorce twojego repo</span></span>
+            </pre>
+            <div className="cc-run"><span>✓</span><span><b>14 / 14 testów</b> przechodzi · on-prem · 0 linii kodu wysłanych na zewnątrz</span></div>
           </aside>
         </div>
         <div className="stats rv d5" style={{ margin: "0 calc(clamp(18px,5vw,72px) * -1)" }}>
@@ -161,6 +157,23 @@ export default function Home() {
             <div className="stat"><div className="v">+20–40<span className="ac">%</span></div><div className="k">po adaptacji na repo klienta</div></div>
             <div className="stat"><div className="v">on-prem<span className="ac"> first</span></div><div className="k">deployment we wnętrzu firmy</div></div>
             <div className="stat"><div className="v">TS/<span className="ac">PY</span></div><div className="k">focus na enterprise stack</div></div>
+          </div>
+        </div>
+      </section>
+
+      <section className="sec tight">
+        <div className="inner">
+          <div className="ioiband rv d4">
+            <div>
+              <span className="kick">dlaczego Polska · olimpiada informatyczna</span>
+              <h2>Najgęstszy talent <em>algorytmiczny</em> w Europie.</h2>
+              <p>Międzynarodowa Olimpiada Informatyczna (IOI) to najtrudniejszy na świecie konkurs programistyczny dla licealistów. Oficjalne statystyki pokazują Polskę z <b>135 medalami</b> — przed USA (<b>127</b>). To nasz <b>talent arbitrage</b>: lokalna baza ludzi od algorytmiki, code reasoning, program synthesis i evali, z której budujemy model do kodu.</p>
+            </div>
+            <div className="medal" aria-label="Medale IOI: Polska vs USA">
+              <div className="row win"><span className="who"><span className="flag">🇵🇱</span><b>Polska</b></span><span className="n">135</span></div>
+              <div className="row"><span className="who"><span className="flag">🇺🇸</span><b>USA</b></span><span className="n">127</span></div>
+              <div className="cap">źródło: stats.ioinformatics.org · medale łącznie</div>
+            </div>
           </div>
         </div>
       </section>
@@ -182,11 +195,11 @@ export default function Home() {
 
       <section className="sec">
         <div className="inner">
-          <div className="shead"><div><span className="kick">01 · produkt</span><h2>Sprzedajemy system, nie wagi modelu.</h2></div>
-            <p>Model jest częścią stacku. Produktem jest on-premowy agent kodujący wpięty w GitHub/GitLab/Jira, który dowozi mierzalny wynik na repozytorium klienta.</p></div>
+          <div className="shead"><div><span className="kick">01 · produkt</span><h2>Model do kodu + agent, nie ogólny czat.</h2></div>
+            <p>Wyspecjalizowany model kodujący jest sercem stacku. Produktem jest on-premowy agent wpięty w GitHub/GitLab/Jira, który dowozi mierzalny wynik na repozytorium klienta.</p></div>
           <div className="stack">
             <div className="cell area"><div className="top"><span>agent</span><span>01</span></div><h3>Monorepo agent (TS/Python)</h3><p>Repo ingestion, mapa codebase, issue-to-PR, pisanie testów, migracje i refaktory, code review. Wpięty w GitHub/GitLab/Jira, uruchamiany lokalnie u klienta.</p><div className="meta"><div><span className="k">deliverable</span>agent + integracje + dashboard</div></div></div>
-            <div className="cell area"><div className="top"><span>eval</span><span>02</span></div><h3>Prywatny SWE-bench klienta</h3><p>Z historycznych bugfix-PRów, issue, test suite i constraintów budujemy wewnętrzny benchmark. Pokazujemy baseline (Claude/Codex) vs agent Slayera zaadaptowany na repo — w pełni on-prem.</p><div className="meta"><div><span className="k">deliverable</span>benchmark + raport baseline vs Slayer</div></div></div>
+            <div className="cell area"><div className="top"><span>eval</span><span>02</span></div><h3>Prywatny SWE-bench klienta</h3><p>Z historycznych bugfix-PRów, issue, test suite i constraintów budujemy wewnętrzny benchmark. Pokazujemy baseline (Claude/Codex) vs model Slayera zaadaptowany na repo — w pełni on-prem.</p><div className="meta"><div><span className="k">deliverable</span>benchmark + raport baseline vs Slayer</div></div></div>
             <div className="cell area"><div className="top"><span>deploy</span><span>03</span></div><h3>On-prem / air-gapped</h3><p>Wdrożenie wewnątrz organizacji. Kod, sekrety, architektura i dane klientów nie wychodzą na zewnątrz. SLA, fine-tuning i support pod wymagania enterprise.</p><div className="meta"><div><span className="k">deliverable</span>deployment + SLA + adaptery</div></div></div>
           </div>
         </div>
@@ -209,41 +222,6 @@ export default function Home() {
       </section>
 
       <hr className="rule" />
-
-      <section className="sec tight">
-        <div className="inner">
-          <div className="traction">
-            <div className="traction-copy rv d4">
-              <span className="kick">dlaczego Polska · talent arbitrage</span>
-              <h2>Najgęstszy talent <em>algorytmiczny</em> w Europie.</h2>
-              <p>Oficjalne statystyki IOI pokazują Polskę z <b>135 medalami</b>, przed USA z <b>127</b>. To nie dowód, że mamy już frontier lab — to <b>sygnał talent arbitrage</b>: lokalna baza do budowy zespołu od code reasoning, evali, program synthesis i RL/verifier infrastructure.</p>
-              <div className="source">Źródło: stats.ioinformatics.org · medale łącznie</div>
-            </div>
-            <div className="traction-panel rv d4" aria-label="Precedensy: GLM i ElevenLabs">
-              <div className="traction-top"><span>precedent</span><b>investable</b></div>
-              <div className="traction-metrics">
-                <div className="traction-metric"><div className="num">GLM-4.5</div><div className="lbl">coding SOTA poza OpenAI/Anthropic</div></div>
-                <div className="traction-metric"><div className="num">$11B</div><div className="lbl">ElevenLabs · Polish-origin founders</div></div>
-                <div className="traction-metric"><div className="num">SWE</div><div className="lbl">najbardziej mierzalny task LLM</div></div>
-              </div>
-              <div className="traction-chart">
-                <div className="chart-frame">
-                  <div className="chart-bars" aria-hidden="true">
-                    <div className="chart-bar" style={{ "--h": "20%" }}><i></i><span>ingest</span></div>
-                    <div className="chart-bar" style={{ "--h": "32%" }}><i></i><span>map</span></div>
-                    <div className="chart-bar" style={{ "--h": "46%" }}><i></i><span>bugfix</span></div>
-                    <div className="chart-bar" style={{ "--h": "58%" }}><i></i><span>tests</span></div>
-                    <div className="chart-bar" style={{ "--h": "70%" }}><i></i><span>migrate</span></div>
-                    <div className="chart-bar peak" style={{ "--h": "94%" }}><i></i><span>adapt</span></div>
-                    <div className="chart-bar" style={{ "--h": "82%" }}><i></i><span>review</span></div>
-                  </div>
-                </div>
-                <div className="chart-note"><span>Im więcej kontekstu repo i pętli feedbacku, tym większa przewaga.</span><span>baseline → <b>+20–40%</b> na repo klienta</span></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       <section className="sec">
         <div className="inner">
@@ -275,11 +253,11 @@ export default function Home() {
       <section className="sec alt" id="pilot">
         <div className="inner narrow" style={{ textAlign: "center" }}>
           <span className="kick">domyślna warstwa prywatnej inteligencji kodu</span>
-          <h2 className="serif" style={{ fontSize: "clamp(2.1rem,4.2vw,3.1rem)", fontWeight: 400, letterSpacing: "-.015em", margin: "14px 0 14px" }}>The European on-prem coding lab.</h2>
+          <h2 className="serif" style={{ fontSize: "clamp(2.1rem,4.2vw,3.1rem)", fontWeight: 400, letterSpacing: "-.015em", margin: "14px 0 14px", color: "var(--ink)" }}>The European on-prem coding lab.</h2>
           <p className="muted" style={{ maxWidth: "58ch", margin: "0 auto 26px", fontSize: "1.06rem" }}>Frontier-grade engineering dla firm, które nie mogą wysłać kodu do OpenAI, Anthropic czy Cursora. Umów 8–12-tygodniowego pilota na własnym repo.</p>
           <div className="cta-row" style={{ justifyContent: "center" }}><a className="btn btn-p" href="https://discord.gg/HnTkVR4c5T" rel="noopener" target="_blank">umów pilota →</a><a className="btn btn-s" href="/zespol">dla zespołu</a></div>
         </div>
       </section>
-    </>
+    </div>
   );
 }
