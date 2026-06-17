@@ -25,10 +25,16 @@ Płaski wynik („46/71") nie mówi *gdzie* model pada. Pole `level` (1–7) por
 
 ## Scoring
 
-- **Dopasowanie po granicy słowa** (`(?<!\w)…(?!\w)`), nie podciąg — `lepiej` nie zalicza `najlepiej`,
-  `duże` nie podświetla się w `dużej`. Naprawia false-PASS/false-distractor z v0.1.
-- **AND-match** (`acceptable_all`) dla pytań „wymień wszystkie przypadki": liczy się **komplet nazw**
-  niezależnie od szyku/spójnika (`i` vs `oraz`) — inaczej `acceptable` goni frazowanie każdego modelu.
+Dopasowanie liczy **zbiory, nie podciągi** — to naraz eliminuje przeszacowanie (overgeneration)
+i niedoszacowanie (formatowanie). Tryb per item w polu `match`:
+
+- **`contains`** (domyślny): granica słowa (`(?<!\w)…(?!\w)`), nie podciąg — `lepiej` nie zalicza
+  `najlepiej`, `duże` nie podświetla się w `dużej`. `acceptable_all` = AND-match (wszystkie podane).
+- **`cases`** — pytania „wymień wszystkie przypadki": **dokładny zbiór** przypadków (np. GEN/DAT/LOC);
+  dorzucony biernik/narzędnik = fail (overgeneration), szyk/spójnik bez znaczenia. `SYNCRETISM_001/004`.
+- **`forms`** — całe paradygmaty: wszystkie wymagane formy obecne **ORAZ** żadna zabroniona (np. formy
+  l.mn. gdy pytano o l.poj.). Zalicza `ja piszę / ty piszesz / on pisze`, odrzuca zrzut całej tablicy.
+  `VERB_CONJ_004`.
 - **Losowa kolejność W OBRĘBIE poziomu** (seed), kolejność poziomów stała — model nie gra pozycją.
 - **Early stopping wyłączony domyślnie** — pełny przebieg (poziomy NIE są monotoniczne w trudności:
   modele bywają 1.00 na L7 i 0.00 na L4).
@@ -50,11 +56,13 @@ Szczegóły per item i opis poziomów (`benchmark_poziomy_trudnosci.md`) — w r
 
 ## Wyniki referencyjne (4 modele × 5 seedów, pass-rate per poziom, mean±std)
 
+Po przejściu na scoring zbiorowy (`cases`/`forms`); warianty reformulowane wyłączone z macierzy.
+
 | model | L1 | L2 | L3 | L4 | L5 | L6 | L7 | all items | avg levels |
 |---|---|---|---|---|---|---|---|---|---|
-| gemma4 | 0.91 | 0.95 | 0.93 | 0.33 | 0.43 | 0.64 | 1.00 | **0.80** | **0.74** |
-| bielik | 0.72 | 0.80 | 0.91 | 0.40 | 0.62 | 0.72 | 0.62 | **0.73** | **0.68** |
-| qwen35_instruct | 0.82 | 0.82 | 0.78 | 0.00 | 0.14 | 0.52 | 1.00 | **0.66** | **0.58** |
+| gemma4 | 0.92 | 0.95 | 0.93 | 0.33 | 0.43 | 0.64 | 1.00 | **0.81** | **0.74** |
+| bielik | 0.65 | 0.80 | 0.91 | 0.33 | 0.62 | 0.72 | 0.62 | **0.71** | **0.66** |
+| qwen35_instruct | 0.83 | 0.82 | 0.78 | 0.00 | 0.14 | 0.52 | 1.00 | **0.66** | **0.58** |
 | qwen36 | 0.83 | 0.81 | 0.80 | 0.00 | 0.06 | 0.44 | 0.80 | **0.62** | **0.53** |
 
 Ranking zgodny z PL-GEN (gemma4 > Bielik > Qwen3.5 > Qwen3.6). Diagnostyka, którą daje podział na poziomy:

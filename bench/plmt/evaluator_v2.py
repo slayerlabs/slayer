@@ -79,25 +79,67 @@ def contains_form(form: str, response_norm: str) -> bool:
     return re.search(rf"(?<!\w){pat}(?!\w)", response_norm) is not None
 
 
+# Przypadki gramatyczne: stem polski (prefiks — łapie 'w dopełniaczu', 'dopełniacza')
+# + skróty łacińskie (dokładny token, by 'gen' nie łapało 'genialny'). Do trybu 'cases':
+# liczy się ZBIÓR nazwanych przypadków == wymagany zbiór, niezależnie od szyku/spójnika.
+CASE_PREFIX = {
+    "NOM": ["mianownik"], "GEN": ["dopełniacz", "dopelniacz"], "DAT": ["celownik"],
+    "ACC": ["biernik"], "INS": ["narzędnik", "narzednik"], "LOC": ["miejscownik"],
+    "VOC": ["wołacz", "wolacz"],
+}
+CASE_EXACT = {
+    "NOM": ["nom", "mian"], "GEN": ["gen", "dop"], "DAT": ["dat", "cel"],
+    "ACC": ["acc", "bier"], "INS": ["ins", "narz"], "LOC": ["loc", "msc", "ms", "miejsc"],
+    "VOC": ["voc", "woł", "wol"],
+}
+
+
+def cases_present(response_norm: str) -> set:
+    """Zbiór przypadków gramatycznych NAZWANYCH w odpowiedzi (kanoniczne kody)."""
+    toks = re.findall(r"[a-ząćęłńóśźż]+", response_norm)
+    found = set()
+    for code in CASE_PREFIX:
+        pref, exact = CASE_PREFIX[code], CASE_EXACT[code]
+        if any(t.startswith(p) for t in toks for p in pref) or any(t in exact for t in toks):
+            found.add(code)
+    return found
+
+
 def check_answer(response: str, test: dict) -> dict:
     r = normalize(response)
     distractors = test.get("distractor", [])
-    # AND-match dla pytań "wymień wszystkie przypadki": liczy się KOMPLET nazw,
-    # niezależnie od szyku/spójnika ('i' vs 'oraz') — inaczej acceptable goni frazowanie
-    # każdego modelu z osobna. ponytail: prosty AND podciągów; "to NIE mianownik lecz..."
-    # (oba słowa, zła intencja) przeszłoby — rzadkie, akceptowalny sufit.
+    hit = [d for d in distractors if contains_form(d, r)]
+    mode = test.get("match", "contains")
+
+    # tryb 'cases': KOMPLETNY zbiór przypadków — nadmiarowy przypadek (biernik/narzędnik)
+    # to fail (overgeneration), inny szyk/spójnik bez znaczenia. SYNCRETISM_001/004.
+    if mode == "cases":
+        req = set(test["cases"])
+        passed = cases_present(r) == req
+        return {"passed": passed, "matched_form": " ".join(sorted(req)) if passed else None,
+                "hit_distractor": bool(hit) and not passed, "distractors_hit": hit}
+
+    # tryb 'forms': ZBIÓR form — wszystkie wymagane obecne ORAZ żadna zabroniona
+    # (np. formy l.mn. gdy pytano o l.poj.) -> łapie overgeneration paradygmatu,
+    # toleruje etykiety/szyk ('ja piszę / ty piszesz'). VERB_CONJ_004.
+    if mode == "forms":
+        need = all(contains_form(f, r) for f in test["forms"])
+        bad = [f for f in test.get("forms_forbidden", []) if contains_form(f, r)]
+        passed = need and not bad
+        return {"passed": passed, "matched_form": ", ".join(test["forms"]) if passed else None,
+                "hit_distractor": bool(bad), "distractors_hit": bad}
+
+    # domyślnie 'contains': AND-match (acceptable_all) albo OR po acceptable, z granicą słowa.
     req = test.get("acceptable_all")
     if req and all(contains_form(f, r) for f in req):
-        hit = [d for d in distractors if contains_form(d, r)]
         return {"passed": True, "matched_form": " + ".join(req),
                 "hit_distractor": bool(hit), "distractors_hit": hit}
     for form in test["acceptable"]:
         if contains_form(form, r):
-            hit = [d for d in distractors
-                   if contains_form(d, r) and normalize(d) != normalize(form)]
+            fhit = [d for d in distractors
+                    if contains_form(d, r) and normalize(d) != normalize(form)]
             return {"passed": True, "matched_form": form,
-                    "hit_distractor": bool(hit), "distractors_hit": hit}
-    hit = [d for d in distractors if contains_form(d, r)]
+                    "hit_distractor": bool(fhit), "distractors_hit": fhit}
     return {"passed": False, "matched_form": None,
             "hit_distractor": bool(hit), "distractors_hit": hit}
 
@@ -281,10 +323,17 @@ def save_results(results, model, seed, stopped_at, path=None):
 # ─── Agregat cross-seed / cross-model ─────────────────────────────────────────
 
 def aggregate(models, seeds, level_descriptions):
-    """Tabela model × poziom: pass-rate mean±std po seedach + częste faile."""
+    """Tabela model × poziom: pass-rate mean±std po seedach + częste faile.
+
+    Warianty reformulowane (is_reformulation_of) są A/B-kandydatami — NIE wchodzą
+    do macierzy poziomów (byłyby podwójnym liczeniem tego samego fenomenu).
+    """
     print("\n" + "█" * 64)
     print("  AGREGAT — pass-rate per poziom (mean±std po seedach)")
     print("█" * 64)
+
+    reformulations = {t["id"] for t in json.load(open(DEFAULT_FILE, encoding="utf-8"))["tests"]
+                      if t.get("is_reformulation_of")}
 
     all_levels = set()
     per_model = {}  # model -> {level -> [rate_seed1, rate_seed2, ...]}
@@ -299,10 +348,11 @@ def aggregate(models, seeds, level_descriptions):
                 print(f"  (brak {p} — pomijam)")
                 continue
             data = json.load(open(p, encoding="utf-8"))
-            for lvl, b in level_breakdown(data["results"]).items():
+            canon = [r for r in data["results"] if r["id"] not in reformulations]
+            for lvl, b in level_breakdown(canon).items():
                 all_levels.add(lvl)
                 per_model[model].setdefault(lvl, []).append(b["passed"] / b["total"])
-            for r in data["results"]:
+            for r in canon:
                 if not r["passed"]:
                     fail_counts[model][r["id"]] = fail_counts[model].get(r["id"], 0) + 1
 
@@ -372,6 +422,18 @@ def selftest():
     t = {"acceptable": [], "acceptable_all": ["mianownik", "dopełniacz"], "distractor": []}
     assert check_answer("Mianownik liczba mnoga oraz dopełniacz liczba mnoga", t)["passed"]
     assert not check_answer("To dopełniacz liczby pojedynczej", t)["passed"]
+    # tryb 'cases': dokładny zbiór przypadków; nadmiarowy biernik -> fail (overgeneration)
+    tc = {"match": "cases", "cases": ["GEN", "DAT", "LOC"], "acceptable": [], "distractor": []}
+    assert check_answer("Dopełniacz, celownik, miejscownik", tc)["passed"]
+    assert check_answer("w dopełniaczu, w celowniku i w miejscowniku", tc)["passed"]
+    assert not check_answer("GEN, DAT, ACC, LOC", tc)["passed"]   # nadmiarowy biernik
+    assert not check_answer("dopełniacz i celownik", tc)["passed"]  # brakuje miejscownika
+    assert cases_present("genialny pomysł") == set()  # 'gen' nie łapie 'genialny'
+    # tryb 'forms': komplet form l.poj. bez form l.mn. (zakazanych)
+    tf = {"match": "forms", "forms": ["piszę", "piszesz", "pisze"],
+          "forms_forbidden": ["piszemy", "piszecie", "piszą"], "acceptable": [], "distractor": []}
+    assert check_answer("ja piszę / ty piszesz / on pisze", tf)["passed"]     # etykiety OK
+    assert not check_answer("piszę, piszesz, pisze, piszemy, piszecie, piszą", tf)["passed"]  # overgen
     print("selftest OK")
 
 
