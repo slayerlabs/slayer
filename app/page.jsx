@@ -24,8 +24,8 @@ const html = `<div style="min-height: 100vh; background: #eceef6; color: #2a2b38
         <span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 18px; letter-spacing: -.01em;"><span style="color: #d56a4d;">Slayer</span> <span style="color: #b9bccd;">/</span> <span style="color: #5a63c0;">LEM</span></span>
       </div>
       <div style="display: flex; align-items: center; gap: 26px; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #6a6f86;">
-        <span>protokół</span><span>księga pomiarów</span><span>drabina</span><span>artefakty</span>
-        <span style="background: #ef8a6e; color: #fff; padding: 8px 16px; border-radius: 40px; font-weight: 500;">wejdź do labu →</span>
+        <a href="/rules">protokół</a><a href="/eksperymenty">księga pomiarów</a><a href="/drabina">drabina</a><a href="/benchmarks">artefakty</a>
+        <a href="https://discord.gg/HnTkVR4c5T" target="_blank" rel="noopener" style="background: #ef8a6e; color: #fff; padding: 8px 16px; border-radius: 40px; font-weight: 500;">wejdź do labu →</a>
       </div>
     </div>
   </div>
@@ -38,8 +38,8 @@ const html = `<div style="min-height: 100vh; background: #eceef6; color: #2a2b38
       <p style="font-size: 20px; line-height: 1.55; color: #3f4154; max-width: 700px; margin: 0 0 18px; font-weight: 500;">Wchodzisz do laboratorium, w którym każdy widzi, jak powstaje polski model: dane, trening, błędy, koszty, benchmarki, logi, decyzje.</p>
       <p style="font-size: 16.5px; line-height: 1.62; color: #5c5f72; max-width: 660px; margin: 0 0 36px;">Nie publikujemy obietnic — publikujemy artefakty. Pierwszy eksperyment: konkurencyjny polski model open-weight z jawną recepturą, held-out ewaluacją, lineage danych i kosztem wpisanym w wynik. To nie kolejne „AI community”. To otwarty protokół, do którego wchodzisz na dowolnym poziomie.</p>
       <div style="display: flex; gap: 14px; align-items: center; flex-wrap: wrap;">
-        <span style="background: #ef8a6e; color: #fff; font-weight: 600; padding: 15px 26px; border-radius: 40px; font-size: 15px;">Wejdź do labu →</span>
-        <span style="border: 1px solid #c8cbdc; color: #3f4154; padding: 15px 26px; border-radius: 40px; font-size: 15px; font-weight: 500;">Zobacz protokoły →</span>
+        <a href="https://discord.gg/HnTkVR4c5T" target="_blank" rel="noopener" style="background: #ef8a6e; color: #fff; font-weight: 600; padding: 15px 26px; border-radius: 40px; font-size: 15px;">Wejdź do labu →</a>
+        <a href="/rules" style="border: 1px solid #c8cbdc; color: #3f4154; padding: 15px 26px; border-radius: 40px; font-size: 15px; font-weight: 500;">Zobacz protokoły →</a>
       </div>
     </div>
   </div>
@@ -280,8 +280,8 @@ const html = `<div style="min-height: 100vh; background: #eceef6; color: #2a2b38
       <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 56px; font-weight: 600; letter-spacing: -.025em; margin: 0 0 18px; color: #3a160b; line-height: 1.02;">Wejdź do labu na swoim poziomie.</h2>
       <p style="font-size: 17px; line-height: 1.6; color: #6e3422; max-width: 560px; margin: 0 auto 32px;">Obserwuj, testuj, zgłaszaj błędy, rób dane, pisz evale, trenuj adaptery, sponsoruj compute albo wnoś use case. Realny credit, ownership i ścieżka głębiej — nie darmowa praca dla startupu.</p>
       <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
-        <span style="background: #3a160b; color: #fff; font-weight: 600; padding: 15px 30px; border-radius: 40px; font-size: 15px;">Wejście do labu (Discord) →</span>
-        <span style="border: 1px solid #9a4a30; color: #3a160b; padding: 15px 30px; border-radius: 40px; font-size: 15px; font-weight: 600;">GitHub: lem-protocol</span>
+        <a href="https://discord.gg/HnTkVR4c5T" target="_blank" rel="noopener" style="background: #3a160b; color: #fff; font-weight: 600; padding: 15px 30px; border-radius: 40px; font-size: 15px;">Wejście do labu (Discord) →</a>
+        <a href="https://github.com/slayerlabs" target="_blank" rel="noopener" style="border: 1px solid #9a4a30; color: #3a160b; padding: 15px 30px; border-radius: 40px; font-size: 15px; font-weight: 600;">GitHub: lem-protocol</a>
       </div>
     </div>
   </div>
@@ -294,7 +294,7 @@ const html = `<div style="min-height: 100vh; background: #eceef6; color: #2a2b38
         <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #7b7f98; max-width: 420px; line-height: 1.6;">Community-driven applied AI lab. Open weights · open protocol · publiczne artefakty. 2026.</div>
       </div>
       <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #8b8fa8; display: flex; gap: 28px; flex-wrap: wrap;">
-        <span>GitHub: lem-protocol</span><span>księga pomiarów</span><span>drabina</span><span>roadmap</span><span>discord</span>
+        <a href="https://github.com/slayerlabs" target="_blank" rel="noopener">GitHub: lem-protocol</a><a href="/eksperymenty">księga pomiarów</a><a href="/drabina">drabina</a><a href="/roadmap">roadmap</a><a href="https://discord.gg/HnTkVR4c5T" target="_blank" rel="noopener">discord</a>
       </div>
     </div>
   </div>

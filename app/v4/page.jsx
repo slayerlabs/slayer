@@ -14,13 +14,13 @@ const css = `
   .metric{border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:16px}
   .metric .k{font-family:var(--mono);font-size:.68rem;letter-spacing:.11em;text-transform:uppercase;color:var(--dim)}
   .metric .v{display:block;margin-top:8px;font-family:var(--serif);font-size:2rem;line-height:1;color:var(--ink)}
-  .metric .v.bad{color:#d08a72}.metric .v.good{color:var(--good)}
+  .metric .v.bad{color:#d56a4d}.metric .v.good{color:var(--good)}
   .metric .d{display:block;margin-top:8px;color:var(--mut);font-size:.9rem}
   .dist{display:grid;gap:10px}
   .dist-row{display:grid;grid-template-columns:86px 1fr 54px;gap:12px;align-items:center;font-family:var(--mono);font-size:.78rem;color:var(--mut)}
   .dist-row b{color:var(--ink);font-weight:500}
   .dist-row i{display:block;height:8px;border-radius:99px;background:var(--acc)}
-  .dist-row.neu i{background:var(--blue)}.dist-row.con i{background:#d08a72}
+  .dist-row.neu i{background:var(--blue)}.dist-row.con i{background:#d56a4d}
   .flow{display:grid;gap:12px;margin-top:12px}
   .step{display:grid;grid-template-columns:76px 1fr;gap:18px;padding:16px 0;border-top:1px solid var(--line2)}
   .step:first-child{border-top:0}
@@ -40,7 +40,7 @@ const css = `
   select:focus{outline:none;border-color:var(--acc);box-shadow:0 0 0 3px var(--acc-soft)}
   .hp{position:absolute;left:-10000px;width:1px;height:1px;opacity:0}
   .form-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-  .form-msg{font-size:.88rem;color:var(--dim)}.form-msg.err{color:#d08a72}
+  .form-msg{font-size:.88rem;color:var(--dim)}.form-msg.err{color:#d56a4d}
   .comment-list{display:grid;gap:12px;margin-top:16px}
   .comment{border:1px solid var(--line2);border-radius:8px;background:rgba(255,255,255,.025);padding:14px 16px}
   .comment-top{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-family:var(--mono);font-size:.7rem;color:var(--dim);letter-spacing:.05em;text-transform:uppercase}

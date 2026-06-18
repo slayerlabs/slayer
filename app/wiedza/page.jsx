@@ -11,11 +11,11 @@ const css = `
     .figbox svg{width:100%;height:auto;display:block}
     .figbox .src{font-family:var(--mono);font-size:.68rem;color:var(--dim);margin-top:10px}
     svg text{font-family:"IBM Plex Mono",monospace}
-    .axis{stroke:rgba(222,202,154,.20);stroke-width:1}
-    .gridl{stroke:rgba(222,202,154,.07);stroke-width:1}
-    .lbl{fill:#6f6653;font-size:11px}
-    .lblb{fill:#a89b82;font-size:11.5px}
-    .val{fill:#f2ead7;font-size:12px;font-weight:600}
+    .axis{stroke:rgba(90,99,192,.20);stroke-width:1}
+    .gridl{stroke:rgba(90,99,192,.07);stroke-width:1}
+    .lbl{fill:#5c5f72;font-size:11px}
+    .lblb{fill:#9396ad;font-size:11.5px}
+    .val{fill:#5a63c0;font-size:12px;font-weight:600}
     .hyp{display:grid;grid-template-columns:92px 1fr auto;gap:clamp(12px,2.5vw,28px);padding:clamp(18px,2.6vw,26px) clamp(16px,2.6vw,28px);border-top:1px solid var(--line2);align-items:start}
     .hyp:first-child{border-top:0}
     .hyp .no{font-family:var(--serif);font-style:italic;font-size:clamp(1.7rem,3vw,2.3rem);color:var(--acc);line-height:1;opacity:.85}
@@ -25,7 +25,7 @@ const css = `
     .hyp .fals b{color:var(--amber);font-weight:500}
     .st{font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:99px;white-space:nowrap}
     .st.ok{color:var(--good);border:1px solid rgba(116,163,122,.4);background:rgba(116,163,122,.08)}
-    .st.part{color:var(--amber);border:1px solid rgba(199,148,72,.4);background:var(--acc-soft)}
+    .st.part{color:var(--amber);border:1px solid rgba(90,99,192,.4);background:var(--acc-soft)}
     .st.open{color:var(--dim);border:1px solid var(--line)}
     @media(max-width:640px){.hyp{grid-template-columns:1fr}.hyp .no{font-size:1.5rem}}
     .pyr td{font-size:.92rem}
@@ -117,15 +117,15 @@ export default function Wiedza() {
             <text className="lbl" x="540" y="276" textAnchor="middle">$1.5k</text>
             <text className="lbl" x="665" y="276" textAnchor="middle">$3.5k</text>
             {/* krzywa log-liniowa (hipoteza H1) */}
-            <path d="M150,252 C 240,244 270,222 295,212 C 420,164 470,140 540,110 C 600,84 640,44 665,24" fill="none" stroke="#c79448" strokeWidth="2.5" strokeDasharray="1 0" />
+            <path d="M150,252 C 240,244 270,222 295,212 C 420,164 470,140 540,110 C 600,84 640,44 665,24" fill="none" stroke="#5a63c0" strokeWidth="2.5" strokeDasharray="1 0" />
             {/* punkty */}
             <circle cx="150" cy="252" r="6" fill="#74a37a" />
             <text className="val" x="150" y="236" textAnchor="middle">10M tok</text>
             <text className="lbl" x="150" y="222" textAnchor="middle">~3% · MAMY</text>
-            <circle cx="295" cy="212" r="6" fill="#c79448" />
+            <circle cx="295" cy="212" r="6" fill="#5a63c0" />
             <text className="val" x="295" y="194" textAnchor="middle">50M</text>
             <text className="lbl" x="295" y="180" textAnchor="middle">10–30%</text>
-            <circle cx="540" cy="110" r="6" fill="#c79448" />
+            <circle cx="540" cy="110" r="6" fill="#5a63c0" />
             <text className="val" x="540" y="93" textAnchor="middle">2B</text>
             <text className="lbl" x="540" y="79" textAnchor="middle">~50%</text>
             <circle cx="665" cy="24" r="6" fill="#7e9eb0" />

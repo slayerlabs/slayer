@@ -21,7 +21,7 @@ const css = `
     .steps{display:grid;gap:8px}
     .step{display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:6px;background:rgba(255,255,255,.025);border:1px solid var(--line2)}
     .step .ic{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:.74rem;font-weight:700;flex:none;font-family:var(--mono)}
-    .step.done .ic{background:var(--acc);color:var(--acc-ink)}.step.running .ic{border:2px solid var(--acc);color:var(--acc);animation:sp 1.2s linear infinite}.step.queued .ic{background:var(--panel2);color:var(--dim)}.step.fail .ic{background:#8f3b31;color:var(--ink)}
+    .step.done .ic{background:var(--acc);color:var(--acc-ink)}.step.running .ic{border:2px solid var(--acc);color:var(--acc);animation:sp 1.2s linear infinite}.step.queued .ic{background:var(--panel2);color:var(--dim)}.step.fail .ic{background:#d56a4d;color:var(--ink)}
     @keyframes sp{to{transform:rotate(360deg)}}
     .step .nm{font-weight:400}.step .st{margin-left:auto;font-family:var(--mono);font-size:.74rem;color:var(--dim)}.step.done .st{color:var(--acc)}
     .scoreline{display:flex;align-items:baseline;justify-content:center;gap:14px;font-family:var(--mono);font-weight:600;font-size:2.4rem;margin:6px 0}

@@ -39,14 +39,14 @@ export default function V3() {
       <section className="sec tight"><div className="inner">
         <div className="ghead"><h2>1 · Miks SFT</h2><span className="c">train_v3.jsonl · 2 239 przykładów · seed 42 · stan 2026-06-11</span></div>
         <div className="mlegend">
-          <span><span className="sw" style={{ background: "#c79448" }}></span>destylacja własna 46%</span>
-          <span><span className="sw" style={{ background: "#b0a062" }}></span>distill verified 17%</span>
+          <span><span className="sw" style={{ background: "#5a63c0" }}></span>destylacja własna 46%</span>
+          <span><span className="sw" style={{ background: "#ef8a6e" }}></span>distill verified 17%</span>
           <span><span className="sw" style={{ background: "#74a37a" }}></span>human PL 15%</span>
           <span><span className="sw" style={{ background: "#7e9eb0" }}></span>EN retention 22%</span>
         </div>
         <div className="mixbar">
-          <div style={{ width: "45.6%", background: "#c79448" }}>1022</div>
-          <div style={{ width: "16.7%", background: "#b0a062" }}>374</div>
+          <div style={{ width: "45.6%", background: "#5a63c0" }}>1022</div>
+          <div style={{ width: "16.7%", background: "#ef8a6e" }}>374</div>
           <div style={{ width: "15.4%", background: "#74a37a" }}>344</div>
           <div style={{ width: "22.3%", background: "#7e9eb0" }}>499</div>
         </div>

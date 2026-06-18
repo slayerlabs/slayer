@@ -24,7 +24,7 @@ export default function Zadania() {
           <div className="cell"><div className="top"><span className="num">04</span></div><h3 className="sm">Dodaj loader MCQ</h3><p>Nowy publiczny zbiór: mapowanie pól do harnessu.</p><div className="meta"><span className="chip acc">eval</span><span className="chip">kod</span></div></div>
           <div className="cell"><div className="top"><span className="num">05</span></div><h3 className="sm">Poprawki strony / docs</h3><p>Treści, tłumaczenia, drobne fixy UI.</p><div className="meta"><span className="chip">strona</span></div></div>
         </div>
-        <div className="ghead"><span className="lv" style={{ background: "var(--amber)", color: "#1a1300" }}></span><h2>Średnio</h2><span className="c">trochę kodu/compute · pierwszy trening</span></div>
+        <div className="ghead"><span className="lv" style={{ background: "var(--amber)", color: "#232430" }}></span><h2>Średnio</h2><span className="c">trochę kodu/compute · pierwszy trening</span></div>
         <div className="grid auto">
           <div className="cell"><div className="top"><span className="num">06</span></div><h3 className="sm">Skrypt dekontaminacji</h3><p>n-gram/embedding overlap korpusu vs zbiory testowe.</p><div className="meta"><span className="chip blue">dane</span><span className="chip acc">eval</span></div></div>
           <div className="cell"><div className="top"><span className="num">07</span></div><h3 className="sm">QLoRA SFT (mały zbiór)</h3><p>Dostrojenie 11–14B na 1 GPU, wynik na held-out.</p><div className="meta"><span className="chip amber">trening</span></div></div>
@@ -33,7 +33,7 @@ export default function Zadania() {
           <div className="cell"><div className="top"><span className="num">10</span></div><h3 className="sm">Model merging</h3><p>mergekit (TIES/DARE/SLERP), pomiar na held-out.</p><div className="meta"><span className="chip amber">trening</span><span className="chip">infra</span></div></div>
           <div className="cell"><div className="top"><span className="num">11</span></div><h3 className="sm">Prywatny held-out</h3><p>Świeży zestaw (najnowsze CKE/PES) — anty-benchmaxxing.</p><div className="meta"><span className="chip acc">eval</span><span className="chip blue">dane</span></div></div>
         </div>
-        <div className="ghead"><span className="lv" style={{ background: "#8f3b31" }}></span><h2>Zaawansowane</h2><span className="c">pełne treningi · RL · infra</span></div>
+        <div className="ghead"><span className="lv" style={{ background: "#d56a4d" }}></span><h2>Zaawansowane</h2><span className="c">pełne treningi · RL · infra</span></div>
         <div className="grid auto">
           <div className="cell"><div className="top"><span className="num">12</span></div><h3 className="sm">DPO / ORPO full + ablacje</h3><p>Pełny alignment, porównanie wariantów, raport.</p><div className="meta"><span className="chip amber">trening</span></div></div>
           <div className="cell"><div className="top"><span className="num">13</span></div><h3 className="sm">GRPO / RLVR na egzaminach</h3><p>RL z weryfikowalną nagrodą. Killer pod target.</p><div className="meta"><span className="chip amber">trening</span><span className="chip">infra</span></div></div>

@@ -26,7 +26,7 @@ const css = `
     .xp-name{font-family:var(--serif);font-size:1.35rem;color:var(--ink)}
     .badge{font-family:var(--mono);font-size:.68rem;font-weight:600;padding:3px 9px;border-radius:20px;letter-spacing:.03em}
     .badge.clean{background:rgba(116,163,122,.13);color:var(--good);border:1px solid rgba(116,163,122,.32)}
-    .badge.contaminated{background:rgba(143,59,49,.16);color:#c98a78;border:1px solid rgba(143,59,49,.36)}
+    .badge.contaminated{background:rgba(213,106,77,.16);color:#d56a4d;border:1px solid rgba(213,106,77,.36)}
     .xp-macro{margin-left:auto;font-family:var(--mono);font-weight:600;font-size:1.4rem;color:var(--ink)}
     .xp-macro .d{font-size:.8rem;color:var(--dim);font-weight:400}
     .xp-bd{padding:16px 18px;display:grid;gap:12px}
@@ -34,12 +34,12 @@ const css = `
     .meta b{color:var(--ink);font-weight:500}
     .chips{display:flex;flex-wrap:wrap;gap:6px}
     .chip{font-family:var(--mono);font-size:.72rem;padding:3px 9px;border-radius:5px;background:rgba(255,255,255,.04);border:1px solid var(--line);color:var(--mut)}
-    .chip.contam{border-color:rgba(143,59,49,.36);color:#c98a78}
+    .chip.contam{border-color:rgba(213,106,77,.36);color:#d56a4d}
     .tasks{display:flex;flex-wrap:wrap;gap:14px;font-family:var(--mono);font-size:.78rem;margin-top:2px}
     .tasks .t .k{color:var(--dim);font-size:.7rem}.tasks .t .v{color:var(--ink);font-weight:600}
     .xp-note{font-size:.9rem;color:var(--mut);line-height:1.5;border-left:2px solid var(--line2);padding-left:12px}
     .xp-links{display:flex;gap:14px;font-family:var(--mono);font-size:.74rem}.xp-links a{color:var(--acc)}
-    .banner{border:1px solid var(--line2);border-radius:10px;padding:16px 18px;background:rgba(199,148,72,.06);font-size:.92rem;color:var(--mut);line-height:1.55;margin-top:22px}
+    .banner{border:1px solid var(--line2);border-radius:10px;padding:16px 18px;background:rgba(90,99,192,.06);font-size:.92rem;color:var(--mut);line-height:1.55;margin-top:22px}
     .banner b{color:var(--ink)}
     .chartwrap{margin-top:4px;border:1px solid var(--line2);border-radius:8px;padding:10px 12px 6px;background:rgba(255,255,255,.015)}
     .chart{width:100%;height:130px;display:block}
@@ -55,12 +55,12 @@ const css = `
     .secline{font-family:var(--mono);font-size:.68rem;color:var(--dim);letter-spacing:.04em;text-transform:uppercase;margin:6px 0 2px}
     .lossimg{width:100%;max-width:640px;border:1px solid var(--line2);border-radius:8px;display:block}
     .dataset{display:flex;flex-direction:column;gap:7px}
-    .dspill{align-self:flex-start;font-family:var(--mono);font-size:.76rem;padding:5px 11px;border-radius:6px;background:var(--acc-soft);border:1px solid rgba(199,148,72,.25);color:var(--acc);text-decoration:none}
-    .dspill:hover{background:rgba(199,148,72,.16)}
+    .dspill{align-self:flex-start;font-family:var(--mono);font-size:.76rem;padding:5px 11px;border-radius:6px;background:var(--acc-soft);border:1px solid rgba(90,99,192,.25);color:var(--acc);text-decoration:none}
+    .dspill:hover{background:rgba(90,99,192,.16)}
     .dsdesc{font-size:.86rem;color:var(--mut);line-height:1.5}
     .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px;margin-top:4px}
     .gfig{margin:0}
-    .gimg{width:100%;border:1px solid var(--line2);border-radius:8px;display:block;background:#f6f3ec}
+    .gimg{width:100%;border:1px solid var(--line2);border-radius:8px;display:block;background:#f6f7fc}
     .gfig figcaption{font-family:var(--mono);font-size:.7rem;color:var(--dim);margin-top:4px;line-height:1.4}
 `;
 
