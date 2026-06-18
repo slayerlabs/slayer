@@ -19,10 +19,10 @@ const html = `<div style="min-height: 100vh; background: #eceef6; color: #2a2b38
   <!-- nav -->
   <div style="border-bottom: 1px solid #e0e2ee; background: rgba(236,238,246,.85);">
     <div style="max-width: 1120px; margin: 0 auto; padding: 18px 40px; display: flex; align-items: center; justify-content: space-between;">
-      <div style="display: flex; align-items: center; gap: 11px;">
+      <a href="/" style="display: flex; align-items: center; gap: 11px; text-decoration: none;">
         <span style="width: 10px; height: 10px; border-radius: 50%; background: #ef8a6e; display: inline-block; animation: lemPulse 2.4s ease-in-out infinite;"></span>
         <span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 18px; letter-spacing: -.01em;"><span style="color: #d56a4d;">Slayer</span> <span style="color: #b9bccd;">/</span> <span style="color: #5a63c0;">LEM</span></span>
-      </div>
+      </a>
       <div style="display: flex; align-items: center; gap: 26px; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #6a6f86;">
         <a href="/rules">protokół</a><a href="/eksperymenty">księga pomiarów</a><a href="/drabina">drabina</a><a href="/benchmarks">artefakty</a>
         <a href="https://discord.gg/HnTkVR4c5T" target="_blank" rel="noopener" style="background: #ef8a6e; color: #fff; padding: 8px 16px; border-radius: 40px; font-weight: 500;">wejdź do labu →</a>
@@ -39,7 +39,7 @@ const html = `<div style="min-height: 100vh; background: #eceef6; color: #2a2b38
       <p style="font-size: 16.5px; line-height: 1.62; color: #5c5f72; max-width: 660px; margin: 0 0 36px;">Nie publikujemy obietnic — publikujemy artefakty. Pierwszy eksperyment: konkurencyjny polski model open-weight z jawną recepturą, held-out ewaluacją, lineage danych i kosztem wpisanym w wynik. To nie kolejne „AI community”. To otwarty protokół, do którego wchodzisz na dowolnym poziomie.</p>
       <div style="display: flex; gap: 14px; align-items: center; flex-wrap: wrap;">
         <a href="https://discord.gg/HnTkVR4c5T" target="_blank" rel="noopener" style="background: #ef8a6e; color: #fff; font-weight: 600; padding: 15px 26px; border-radius: 40px; font-size: 15px;">Wejdź do labu →</a>
-        <a href="/rules" style="border: 1px solid #c8cbdc; color: #3f4154; padding: 15px 26px; border-radius: 40px; font-size: 15px; font-weight: 500;">Zobacz protokoły →</a>
+        <a href="/rules" style="border: 1px solid #c8cbdc; color: #3f4154; padding: 15px 26px; border-radius: 40px; font-size: 15px; font-weight: 500;">Zobacz protokoły →</a><a href="https://ort.fabryka.ai" target="_blank" rel="noopener" style="color: #5a63c0; padding: 15px 6px; font-size: 15px; font-weight: 600;">Wczesne badania ↗</a>
       </div>
     </div>
   </div>
@@ -294,7 +294,7 @@ const html = `<div style="min-height: 100vh; background: #eceef6; color: #2a2b38
         <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #7b7f98; max-width: 420px; line-height: 1.6;">Community-driven applied AI lab. Open weights · open protocol · publiczne artefakty. 2026.</div>
       </div>
       <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #8b8fa8; display: flex; gap: 28px; flex-wrap: wrap;">
-        <a href="https://github.com/slayerlabs" target="_blank" rel="noopener">GitHub: lem-protocol</a><a href="/eksperymenty">księga pomiarów</a><a href="/drabina">drabina</a><a href="/roadmap">roadmap</a><a href="https://discord.gg/HnTkVR4c5T" target="_blank" rel="noopener">discord</a>
+        <a href="https://github.com/slayerlabs" target="_blank" rel="noopener">GitHub: lem-protocol</a><a href="/eksperymenty">księga pomiarów</a><a href="/drabina">drabina</a><a href="/roadmap">roadmap</a><a href="https://discord.gg/HnTkVR4c5T" target="_blank" rel="noopener">discord</a><a href="https://ort.fabryka.ai" target="_blank" rel="noopener">wczesne badania</a>
       </div>
     </div>
   </div>
