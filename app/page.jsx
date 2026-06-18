@@ -48,14 +48,14 @@ const html = `<div style="min-height: 100vh; background: #eceef6; color: #2a2b38
   <div style="border-bottom: 1px solid #e0e2ee; background: #e6e8f3;">
     <div style="max-width: 1120px; margin: 0 auto; padding: 56px 40px 64px;">
       <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 8px;">
-        <span style="color: #5a63c0; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: .12em; display: inline-flex; align-items: center; gap: 8px;"><span style="width: 8px; height: 8px; border-radius: 50%; background: #5b9e7e; animation: lemPulse 1.6s infinite;"></span>NA ŻYWO</span>
-        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #8085a0;">run-ledger/ · pipeline pisze wpisy automatycznie</span>
+        <span style="color: #5a63c0; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: .12em; display: inline-flex; align-items: center; gap: 8px;"><span style="width: 8px; height: 8px; border-radius: 50%; background: #5b9e7e; animation: lemPulse 1.6s infinite;"></span>PODGLĄD</span>
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #8085a0;">run-ledger/ · wpisy poglądowe · koszty szacunkowe · pełny pomiar w budowie</span>
       </div>
       <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 30px; font-weight: 600; letter-spacing: -.015em; margin: 0 0 8px; color: #232430;">Księga pomiarów.</h2>
-      <p style="font-size: 15px; color: #5c5f72; margin: 0 0 26px; max-width: 620px; line-height: 1.55;">Publiczny log eksperymentów, kosztów, regresji i decyzji. Widać realne życie labu — nie tylko sukcesy, ale też porażki i ich cenę.</p>
+      <p style="font-size: 15px; color: #5c5f72; margin: 0 0 26px; max-width: 620px; line-height: 1.55;">Publiczny log eksperymentów, kosztów, regresji i decyzji. Liczby kosztów są na razie szacunkowe — automatyczny pomiar runów dopiero wpinamy. Docelowo widać realne życie labu: nie tylko sukcesy, ale też porażki i ich cenę.</p>
       <div style="border: 1px solid #d6d9ea; border-radius: 6px; overflow: hidden; background: #f6f7fc; font-family: 'IBM Plex Mono', monospace;">
         <div style="display: grid; grid-template-columns: 150px 1fr 110px 120px 1fr 150px; padding: 12px 20px; border-bottom: 1px solid #e0e2ee; font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: #9396ad; background: #eef0f8;">
-          <span>data · run</span><span>dataset</span><span>tokeny</span><span>koszt</span><span>eval</span><span style="text-align: right;">decyzja</span>
+          <span>data · run</span><span>dataset</span><span>tokeny</span><span>koszt (szac.)</span><span>eval</span><span style="text-align: right;">decyzja</span>
         </div>
         <div style="display: grid; grid-template-columns: 150px 1fr 110px 120px 1fr 150px; padding: 14px 20px; border-bottom: 1px solid #eaecf5; font-size: 12px; color: #4a4d61; align-items: center;">
           <span><span style="color: #232430; font-weight: 500;">2026-06-18</span><br><span style="color: #8085a0;">run/qwen27b-pol-v004</span></span><span>mix-v4.2</span><span>48.2M</span><span>1 840 PLN</span><span style="color: #6a6f86;">KLEJ ↑ · PolQA ↔ · code ↓</span><span style="text-align: right;"><span style="color: #d56a4d; background: #fbe7e0; padding: 4px 10px; border-radius: 40px; font-size: 10.5px;">reject</span></span>
