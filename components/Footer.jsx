@@ -1,4 +1,8 @@
+"use client";
+import { usePathname } from "next/navigation";
+
 export default function Footer() {
+  if ((usePathname() || "/") === "/") return null; // ponytail: landing page (LEM) ships its own footer
   return (
     <footer className="foot">
       <span>SLAYER — laboratorium stosowanej AI · dostrajanie / RL / agenci · 2026</span>

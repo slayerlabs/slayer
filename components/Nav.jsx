@@ -51,6 +51,7 @@ export default function Nav() {
   const pathname = (usePathname() || "/").replace(/\/+$/, "") || "/";
   const [open, setOpen] = useState(false);
   const close = () => setOpen(false);
+  if (pathname === "/") return null; // ponytail: landing page (LEM) ships its own nav
   return (
     <header className="nav">
       <a className="brand" href="/" onClick={close}>
