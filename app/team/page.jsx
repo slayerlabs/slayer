@@ -112,8 +112,9 @@ const css = `
     }
 `;
 
+const FOUNDER = { img: "/assets/team/kacper-wikiel.png", name: "Kacper Wikieł", specialty: "ML · Infrastruktura", bio: "ML, infrastruktura treningowa i optymalizacja modeli. Założyciel i lider Slayera." };
+
 const MEMBERS = [
-  { img: "/assets/team/kacper-wikiel.png", name: "Kacper Wikieł", specialty: "ML · Infrastruktura", bio: "ML, infrastruktura treningowa i optymalizacja modeli." },
   { img: "/assets/team/kamil-dzieniszewski.jpeg", name: "Kamil Dzieniszewski", specialty: "Frontend · Produkt", bio: "Frontend, doświadczenie produktowe i narzędzia deweloperskie." },
   { img: "/assets/team/piotr-nalepa.webp", name: "Piotr Nalepa", specialty: "Fullstack · Narzędzia developerskie", bio: "Fullstack, zarządzanie projektem i tworzenie narzędzi dla developerów." },
   { img: "/assets/team/piotr-rozek.jpeg", name: "Piotr Rożek", specialty: "Python · Fizyka", bio: "Fizyk z wykształcenia, Python developer, człowiek renesansu." },
@@ -137,6 +138,7 @@ const MEMBERS = [
   { img: "/assets/team/dariusz.jpeg", name: "Dariusz", specialty: "AI Tooling · Automation · Agentic RAG", bio: "15+ lat w IT. Buduje agentic harnessy, eval/QA pipeline'y i local-first RAG. Teza: context before LLM — deterministyczny pipeline, zanim model zacznie zgadywać. Jego teren to inżynieria wokół modelu, nie sam trening." },
   { img: null, name: "Allen (Krzysiek)", specialty: "Agentic AI · Architektura AI · Wdrożenia", bio: "ADHD-owiec na pełen etat. 20 lat w serwisie sprzętu komputerowego. Prowadzi mały zespół wdrożeniowo-rozwojowy. Specjalizuje się w agentic AI i projektowaniu architektury rozwiązań AI — z naciskiem na user-friendliness i realną wartość biznesową. Hejter hype'u bez pokrycia." },
   { img: "/assets/team/bartoszpanek.jpg", name: "Bartosz Panek (Osye)", specialty: "ML · Distillation · Fine-tuning · Interpretability", bio: "Samouk w ML. Robi distillacje, finetuningi, trochę modeli wytrenowanych — ale bardziej skupia się na zrozumieniu modelu od środka. Lubi eksperymenty." },
+  { img: "/assets/team/pawel-wodnicki.jpg", name: "Paweł Wodnicki", specialty: "Embedded · Agenci AI · Kompilatory", bio: "O AI i sieciach neuronowych uczył się na studiach w poprzednim cyklu AI, douczał się czytając BYTE. Prowadzi firmę zajmującą się komputerami wbudowanymi razem z agentami AI. Interesuje go zastosowanie agentów AI w przemyśle, symboliczna AI, programowanie funkcjonalne, kompilatory, generowanie kodu. Języki: C/C++, Prolog, Assembler, HDL." },
 ];
 
 const ADVISORS = [
@@ -162,6 +164,25 @@ export default function Team() {
 
       <section className="sec tight">
         <div className="inner">
+          <span className="kick">founder · założyciel</span>
+          <div className="team-grid" style={{ marginBottom: "clamp(56px, 8vw, 96px)" }}>
+            <article className="member">
+              <div className="av">
+                <img src={FOUNDER.img} alt={FOUNDER.name} />
+              </div>
+              <div className="member-info">
+                <div className="member-title-label">Founder · Założyciel</div>
+                <h2 className="member-name">{FOUNDER.name}</h2>
+                <div className="member-specialty">{FOUNDER.specialty}</div>
+                <p className="member-bio">{FOUNDER.bio}</p>
+              </div>
+            </article>
+          </div>
+
+          <div className="advisors-head" style={{ paddingTop: "clamp(40px, 6vw, 64px)", borderTop: "1px solid var(--line)" }}>
+            <span className="kick">zespół · operatorzy protokołu</span>
+            <h2 style={{ fontFamily: "var(--serif)", fontWeight: 400, letterSpacing: "-.02em", fontSize: "clamp(1.7rem, 3vw, 2.2rem)", margin: "10px 0 0" }}>Zespół</h2>
+          </div>
           <div className="team-grid">
             {MEMBERS.map((m) => (
               <article className="member" key={m.name}>
