@@ -55,7 +55,8 @@ export default function Nav() {
   return (
     <header className="nav">
       <a className="brand" href="/" onClick={close}>
-        <span className="mk">S</span>slayer<span className="sl">·</span>lab
+        <span className="bdot" />
+        <span><span style={{ color: "#d56a4d" }}>Slayer</span> <span style={{ color: "var(--dim)" }}>/</span> <span style={{ color: "#5a63c0" }}>LEM</span></span>
       </a>
       <button
         className="navtoggle"

@@ -47,6 +47,7 @@ img{max-width:100%}
 .nav .brand{display:inline-flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;font-size:1.2rem;letter-spacing:-.012em;color:var(--ink);padding:7px 9px 7px 0;border-radius:10px}
 .nav .brand .mk{display:grid;place-items:center;width:30px;height:30px;background:linear-gradient(145deg,#8b93e0,#5a63c0 58%,#ef8a6e);color:#fff;border:1px solid rgba(90,99,192,.4);border-radius:9px;font-family:var(--sans);font-weight:800;font-size:.82rem;box-shadow:0 6px 16px rgba(90,99,192,.24),inset 0 1px 0 rgba(255,255,255,.45)}
 .nav .brand .sl{color:var(--dim)}
+.nav .brand .bdot{width:9px;height:9px;border-radius:50%;background:#ef8a6e;flex:0 0 auto}
 .nlinks{display:flex;align-items:center;gap:clamp(8px,1.6vw,18px);font-size:.92rem;font-weight:540;color:var(--mut)}
 .nlinks a{transition:color .15s,background .15s,border-color .15s,transform .15s}.nlinks a:hover{color:var(--ink)}
 .nlinks a.active{color:var(--acc)}
