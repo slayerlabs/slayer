@@ -132,9 +132,10 @@ def main():
     json.dump(results, open("/home/kacper/poquad_results.json", "w"), ensure_ascii=False, indent=2)
     print("\n================ PODSUMOWANIE (PoQuAD, n=100) ================")
     print(f"{'Model':<28}{'EM':>7}{'F1':>7}{'odp.F1':>9}{'abst.acc':>10}{'czas':>8}")
+    fmt = lambda v, w: format(v, f">{w}") if v is not None else format("-", f">{w}")
     for r in results:
         print(f"{r['display_name']:<28}{r['overall_EM']:>7}{r['overall_F1']:>7}"
-              f"{r['answerable_F1']:>9}{r['unanswerable_abstain_acc']:>10}{r['secs']:>7.0f}s")
+              f"{fmt(r['answerable_F1'], 9)}{fmt(r['unanswerable_abstain_acc'], 10)}{r['secs']:>7.0f}s")
 
 if __name__ == "__main__":
     main()

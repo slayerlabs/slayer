@@ -71,8 +71,8 @@ def main():
             if (i + 1) % 20 == 0:
                 print(f"  {i+1}/100", flush=True)
         n = ans_n + no_n
-        acc = (ans_ok + no_ok) / n * 100
-        s = {"model": name, "judged_accuracy": round(acc, 1),
+        acc = (ans_ok + no_ok) / n * 100 if n else None
+        s = {"model": name, "judged_accuracy": round(acc, 1) if acc is not None else None,
              "answerable_correct": ans_ok, "answerable_n": ans_n,
              "answerable_acc": round(ans_ok / ans_n * 100, 1) if ans_n else None,
              "unanswerable_abstain": no_ok, "unanswerable_n": no_n}
@@ -81,10 +81,11 @@ def main():
     json.dump(summary, open("/home/kacper/poquad_judged.json", "w"), ensure_ascii=False, indent=2)
     print("\n===== DECISIVE (LLM-judge, n=100) =====")
     print(f"{'Model':<28}{'acc':>8}{'odp.acc':>10}{'abst.':>8}")
+    fmt = lambda v, w: format(v, f">{w}") if v is not None else format("-", f">{w}")
     for s in summary:
-        print(f"{s['model']:<28}{s['judged_accuracy']:>7}%{s['answerable_acc']:>9}%"
+        print(f"{s['model']:<28}{fmt(s['judged_accuracy'], 7)}%{fmt(s['answerable_acc'], 9)}%"
               f"{s['unanswerable_abstain']:>5}/{s['unanswerable_n']}")
-    if len(summary) == 2:
+    if len(summary) == 2 and all(s["judged_accuracy"] is not None for s in summary):
         a, b = summary
         win = a if a["judged_accuracy"] > b["judged_accuracy"] else b
         diff = abs(a["judged_accuracy"] - b["judged_accuracy"])
