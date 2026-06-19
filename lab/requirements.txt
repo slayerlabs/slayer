@@ -1,8 +1,16 @@
-torch>=2.3
-transformers>=4.44
-trl>=0.11
-peft>=0.12
-bitsandbytes>=0.43
+# Zwalidowane 2026-06-20 na aisrv: RTX 3090, CUDA 12.1, Python 3.10, torch 2.4.1+cu121.
+# Smoke-test (Qwen3-0.6B QLoRA SFT) przeszedl end-to-end: loss 3.39 -> 0.59, poprawna generacja PL.
+#
+# Uwaga wersyjna (wyszlo w praniu):
+#  - transformers 5.x uzywa torch>=2.5 (model.set_submodule) w sciezce bitsandbytes 4-bit.
+#  - transformers 4.46 NIE zna architektury 'qwen3' (dodana w 4.51).
+#  => na torch 2.4 dziala transformers 4.51.x. Na torch>=2.5 mozna isc na nowsze.
+torch>=2.4
+transformers==4.51.3
+trl==0.14.0
+peft>=0.17
+bitsandbytes>=0.46
 datasets>=2.20
 accelerate>=0.33
+pillow>=10        # systemowy Pillow na boxie potrafi nie miec Image.Resampling
 lm-eval>=0.4.3

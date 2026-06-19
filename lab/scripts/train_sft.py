@@ -39,8 +39,13 @@ def main():
         task_type="CAUSAL_LM",
         target_modules=["q_proj","k_proj","v_proj","o_proj","gate_proj","up_proj","down_proj"])
     ds = load_dataset("json", data_files=a.data, split="train")
+    # Renderuj format chat ({"messages":[...]}) do pola "text" przed SFT.
+    # Robust miedzy wersjami trl (0.14 nie zawsze auto-wykrywa konwersacje).
+    if "messages" in ds.column_names:
+        ds = ds.map(lambda r: {"text": tok.apply_chat_template(r["messages"], tokenize=False)},
+                    remove_columns=ds.column_names)
     cfg = SFTConfig(
-        output_dir=a.out, num_train_epochs=a.epochs,
+        output_dir=a.out, dataset_text_field="text", num_train_epochs=a.epochs,
         per_device_train_batch_size=a.bsz, gradient_accumulation_steps=a.grad_accum,
         learning_rate=a.lr, lr_scheduler_type="cosine", warmup_ratio=0.03,
         logging_steps=10, save_steps=200, bf16=True, max_seq_length=a.maxlen,

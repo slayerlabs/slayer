@@ -20,7 +20,22 @@ nie w tym README (zadnej tezy bez dowodu).
 - `eval_pl.sh` mierzy PUBLICZNY leaderboard (kierunek, nie dowod).
 - Walidacje "epsilon lepszy" rob wylacznie na prywatnym held-out wolnym od wyciekow.
 
-## Status
-Scaffold v0. API bibliotek (trl/peft) bywa ruchome — przypnijcie wersje z requirements.txt.
-Smoke-test: uruchom train_sft.py na malym modelu (np. Qwen/Qwen3-0.6B) i 50 przykladach,
-zeby potwierdzic ze pipeline przechodzi end-to-end, zanim puscicie 9B.
+## Status: ZWALIDOWANE (smoke-test 2026-06-20 na aisrv, RTX 3090)
+Pelny pipeline przeszedl end-to-end: QLoRA SFT na Qwen/Qwen3-0.6B, 51 przykladow PL,
+3 epoki, 31s na jednym 3090. Loss 3.39 -> 0.59. Adapter zapisany, generacja PL poprawna
+(np. "Jaka jest stolica Polski?" -> "Stolica Polski jest Warszawa.").
+
+Smoke (powtarzalny):
+```
+python scripts/train_sft.py --model Qwen/Qwen3-0.6B --data data/sft_pl.jsonl \
+  --out out/smoke-0.6b --epochs 3 --maxlen 512 --grad_accum 4
+```
+
+Pulapki srodowiska (wyszly w praniu na boxie z torch 2.4.1):
+1. systemowy Pillow bez `Image.Resampling` -> `pip install -U pillow`.
+2. transformers 5.x w sciezce bnb 4-bit wola `model.set_submodule` (torch>=2.5);
+   na torch 2.4 uzyj transformers 4.51.3 (4.46 nie zna 'qwen3').
+3. trl 0.14 nie zawsze auto-wykrywa `messages` -> train_sft.py pre-renderuje
+   chat template do pola `text` (juz w kodzie).
+
+Nastepny krok: ten sam pipeline na bazie 9B w 4-bit (miesci sie w 24GB) + realne dane SFT.
