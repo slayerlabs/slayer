@@ -149,7 +149,7 @@ export default function Explorer() {
             {rows.map((b) => (
               <tr key={b.id} className={b.status === "deprecated" ? "dep" : ""}>
                 <td>
-                  <div className="dn">{b.link ? <a href={b.link} rel="noopener">{b.nazwa}</a> : b.nazwa}</div>
+                  <div className="dn">{b.link ? <a href={b.link} target="_blank" rel="noopener noreferrer">{b.nazwa}</a> : b.nazwa}</div>
                   <div className="ds">{b.opis}{b.modele_zmierzone.length ? ` · zmierzone: ${b.modele_zmierzone.length} modele` : ""}</div>
                 </td>
                 <td className="mono-s">{b.typ_zadania || "—"}</td>
