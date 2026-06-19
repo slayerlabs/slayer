@@ -65,7 +65,7 @@ export default function Console() {
             </div>
             <div className="ticks">
               <div className="tick"><div className="v acc">{eta != null ? "≈ " + fmt(eta) : "—"}</div><div className="k">ETA benchmarku</div></div>
-              <div className="tick"><div className="v">{(running && c.rate_per_s) || "—"}</div><div className="k">pyt/s</div></div>
+              <div className="tick"><div className="v">{running && c.rate_per_s != null ? c.rate_per_s : "—"}</div><div className="k">pyt/s</div></div>
             </div>
           </div>
         </div>
