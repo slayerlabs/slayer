@@ -102,12 +102,10 @@ def score(model, sample):
         if (i+1) % 10 == 0:
             print(f"  [{model}] {i+1}/{N}  ({time.time()-t0:.0f}s)", flush=True)
     n = len(sample)
-    overall_em = (has_em + no_ok) / n * 100
-    overall_f1 = (has_f1 + no_ok) / n * 100
     return {
         "model": model, "n": n,
-        "overall_EM": round(overall_em, 1),
-        "overall_F1": round(overall_f1, 1),
+        "overall_EM": round((has_em + no_ok)/n*100, 1) if n else None,
+        "overall_F1": round((has_f1 + no_ok)/n*100, 1) if n else None,
         "answerable_n": has_n,
         "answerable_EM": round(has_em/has_n*100, 1) if has_n else None,
         "answerable_F1": round(has_f1/has_n*100, 1) if has_n else None,
