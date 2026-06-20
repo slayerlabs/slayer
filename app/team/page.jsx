@@ -115,7 +115,6 @@ const css = `
 const FOUNDER = { img: "/assets/team/kacper-wikiel.png", name: "Kacper Wikieł", specialty: "ML · Infrastruktura", bio: "ML, infrastruktura treningowa i optymalizacja modeli. Założyciel i lider Slayera." };
 
 const MEMBERS = [
-  { img: "/assets/team/kamil-dzieniszewski.jpeg", name: "Kamil Dzieniszewski", specialty: "Product · Community · Operations", bio: "Koordynuje kontrybutorów, buduje społeczność, wspiera inicjatywy produktowe i pomaga zamieniać pomysły w wysłane projekty." },
   { img: "/assets/team/piotr-nalepa.webp", name: "Piotr Nalepa", specialty: "Fullstack · Narzędzia developerskie", bio: "Fullstack, zarządzanie projektem i tworzenie narzędzi dla developerów." },
   { img: "/assets/team/piotr-rozek.jpeg", name: "Piotr Rożek", specialty: "Python · Fizyka", bio: "Fizyk z wykształcenia, Python developer, człowiek renesansu." },
   { img: "/assets/team/piotr-styla.webp", name: "Piotr Styła", specialty: "Rekrutacja · Agenci LLM", bio: "Za dnia rekrutuje i onboarduje talenty, po zmroku LLM Slayer: buduje zespoły agentów (call center dla branży medycznej) oraz aplikacje webowe i na Androida. AGH." },
