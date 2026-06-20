@@ -1,8 +1,12 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-// ponytail: faithful port of the Claude Design "Community task management system"
-// mock. State + actions are client-side only (no backend) — same as the design.
+// Read-only mirror of Linear (team SLA). Real data comes from
+// /results/zadania.json (built by scripts/pull_linear.mjs); the constants below
+// are the demo fallback shown until that file exists. No write-back: "weź na
+// siebie" routes to Discord, where a maintainer assigns the issue in Linear.
+
+const DISCORD_URL = "https://discord.gg/HnTkVR4c5T";
 
 const PEOPLE = {
   me:    { id: "me",    nick: "marcin.k", initials: "MK", color: "#C15F3C", rung: 1, rungLabel: "Kontrybutor" },
@@ -260,16 +264,30 @@ const css = `
 export default function Board() {
   const [state, setState] = useState({
     tab: "zadania",
-    selectedId: "t07",
+    selectedId: null,
     fLevel: "all",
     fStatus: [],
     fTags: [],
+    people: PEOPLE,
     tasks: INITIAL_TASKS,
     feed: INITIAL_FEED,
   });
   const S = state;
   const up = (patch) => setState((s) => ({ ...s, ...(typeof patch === "function" ? patch(s) : patch) }));
 
+  // Load the live Linear mirror; keep the demo data if it isn't there yet.
+  useEffect(() => {
+    fetch("/results/zadania.json")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((j) => {
+        if (j && Array.isArray(j.tasks) && j.tasks.length) {
+          up({ people: j.people || {}, tasks: j.tasks, feed: j.feed || [], selectedId: null });
+        }
+      })
+      .catch(() => {});
+  }, []);
+
+  const openClaim = () => window.open(DISCORD_URL, "_blank", "noopener");
   const taskById = (id) => S.tasks.find((t) => t.id === id);
   const taskByNum = (n) => S.tasks.find((t) => t.num === n);
   const setTab = (t) => up({ tab: t });
@@ -279,19 +297,14 @@ export default function Board() {
   const toggleStatus = (s) => up((st) => ({ fStatus: st.fStatus.includes(s) ? st.fStatus.filter((x) => x !== s) : [...st.fStatus, s] }));
   const toggleTag = (t) => up((st) => ({ fTags: st.fTags.includes(t) ? st.fTags.filter((x) => x !== t) : [...st.fTags, t] }));
   const resetFilters = () => up({ fLevel: "all", fStatus: [], fTags: [] });
-  const claim = (id) => up((st) => ({ selectedId: id, tasks: st.tasks.map((t) => (t.id === id ? { ...t, status: "wziete", assignee: "me", progress: 0 } : t)) }));
-  const start = (id) => up((st) => ({ tasks: st.tasks.map((t) => (t.id === id ? { ...t, status: "w-toku", progress: t.progress || 10 } : t)) }));
-  const review = (id) => up((st) => ({ tasks: st.tasks.map((t) => (t.id === id ? { ...t, status: "review", progress: 95 } : t)) }));
-  const release = (id) => up((st) => ({ tasks: st.tasks.map((t) => (t.id === id ? { ...t, status: "wolne", assignee: null, progress: 0 } : t)) }));
 
-  const assigneeOf = (t) => (t.assignee ? PEOPLE[t.assignee] : null);
+  const assigneeOf = (t) => (t.assignee ? S.people[t.assignee] : null);
 
   const sm = STATUS_META, lm = LEVEL_META, tasks = S.tasks;
-  const meP = PEOPLE.me;
   const cu = {
-    ...meP,
-    activeCount: tasks.filter((t) => t.assignee === "me" && isActive(t.status)).length,
-    doneCount: tasks.filter((t) => t.assignee === "me" && t.status === "done").length,
+    color: "#C15F3C", initials: "SLA", nick: "Projekt SLA", rung: null, rungLabel: "tablica społeczności",
+    activeCount: tasks.filter((t) => isActive(t.status)).length,
+    doneCount: tasks.filter((t) => t.status === "done").length,
   };
 
   const cnt = (s) => tasks.filter((t) => t.status === s).length;
@@ -305,15 +318,11 @@ export default function Board() {
 
   const ladder = LEVEL_ORDER.map((lv) => {
     const lvTasks = tasks.filter((t) => t.level === lv);
-    const doneByUser = lvTasks.filter((t) => t.assignee === "me" && t.status === "done").length;
-    const current = (lv === "p" && meP.rung === 1) || (lv === "s" && meP.rung === 2) || (lv === "z" && meP.rung === 3);
+    const doneByUser = lvTasks.filter((t) => t.status === "done").length;
     return {
-      lv, label: lm[lv].label, hint: lm[lv].hint, color: lm[lv].color, isCurrent: current,
+      lv, label: lm[lv].label, hint: lm[lv].hint, color: lm[lv].color, isCurrent: false,
       total: lvTasks.length, doneByUser,
-      dotBorder: current ? lm[lv].color : "#D2CEBF",
-      dotBg: current ? lm[lv].color : "#FBFAF5",
-      line: "#E4E1D4",
-      fg: current ? "#211F1A" : "#79746B",
+      dotBorder: lm[lv].color, dotBg: "#FBFAF5", line: "#E4E1D4", fg: "#211F1A",
     };
   });
 
@@ -371,16 +380,18 @@ export default function Board() {
     return { tier: lm[lv].tier, label: lm[lv].label, hint: lm[lv].hint, color: lm[lv].color, done, total: lvTasks.length, pct };
   });
 
-  const order = ["kuba", "ada", "nowak", "tomek", "darek", "wik", "ola", "me"];
-  const peopleCards = order.map((pid) => {
-    const p = PEOPLE[pid];
-    const ptasks = tasks
-      .filter((t) => t.assignee === pid && isActive(t.status))
-      .sort((a, b) => sm[a.status].order - sm[b.status].order)
-      .map((t) => ({ id: t.id, numStr: pad(t.num), title: t.title, statusLabel: sm[t.status].label, statusColor: sm[t.status].color }));
-    const doneCount = tasks.filter((t) => t.assignee === pid && t.status === "done").length;
-    return { ...p, isMe: pid === "me", doneCount, tasks: ptasks, hasTasks: ptasks.length > 0, idle: ptasks.length === 0 };
-  });
+  const peopleCards = Object.keys(S.people)
+    .map((pid) => {
+      const p = S.people[pid];
+      const ptasks = tasks
+        .filter((t) => t.assignee === pid && isActive(t.status))
+        .sort((a, b) => sm[a.status].order - sm[b.status].order)
+        .map((t) => ({ id: t.id, numStr: pad(t.num), title: t.title, statusLabel: sm[t.status].label, statusColor: sm[t.status].color }));
+      const doneCount = tasks.filter((t) => t.assignee === pid && t.status === "done").length;
+      return { ...p, id: pid, isMe: false, doneCount, tasks: ptasks, hasTasks: ptasks.length > 0, idle: ptasks.length === 0 };
+    })
+    .filter((p) => p.hasTasks || p.doneCount > 0)
+    .sort((a, b) => b.tasks.length - a.tasks.length || b.doneCount - a.doneCount);
   const activePeople = peopleCards.filter((p) => p.hasTasks).length;
 
   const columns = ["wolne", "wziete", "w-toku", "review", "done"].map((s) => {
@@ -427,7 +438,7 @@ export default function Board() {
 
   const feed = S.feed.map((f) => {
     const t = taskById(f.tid);
-    const p = PEOPLE[f.a];
+    const p = S.people[f.a] || { color: "#C9C4B8", initials: "?" };
     return { who: f.who, action: f.action, color: p.color, initials: p.initials, code: t ? t.linear : "", taskTitle: t ? t.title : "", time: f.time, tid: f.tid };
   });
 
@@ -442,7 +453,7 @@ export default function Board() {
               <div className="zb-av" style={{ width: 36, height: 36, borderRadius: 7, fontSize: 13, background: cu.color }}>{cu.initials}</div>
               <div className="zb-uc-name">
                 <div className="n">{cu.nick}</div>
-                <div className="r">poziom {cu.rung} · {cu.rungLabel}</div>
+                <div className="r">{cu.rung ? "poziom " + cu.rung + " · " : ""}{cu.rungLabel}</div>
               </div>
             </div>
             <div className="zb-uc-stats">
@@ -570,7 +581,7 @@ export default function Board() {
                           </div>
                           <div className="zb-task-act">
                             {task.canClaim ? (
-                              <button className="zb-claim" onClick={(e) => { e.stopPropagation(); claim(task.id); }}>weź na siebie →</button>
+                              <button className="zb-claim" onClick={(e) => { e.stopPropagation(); openClaim(); }}>weź na siebie →</button>
                             ) : task.hasAssignee ? (
                               <div className="zb-asg">
                                 <div className="zb-av" style={{ width: 23, height: 23, borderRadius: 5, fontSize: 10, background: task.aColor }}>{task.aInitials}</div>
@@ -709,10 +720,7 @@ export default function Board() {
               )}
 
               <div className="zb-d-actions">
-                {d.canClaim && <button className="zb-btn zb-btn-acc" onClick={() => claim(d.id)}>weź to zadanie na siebie →</button>}
-                {d.canStart && <button className="zb-btn zb-btn-dark" onClick={() => start(d.id)}>▶ zacznij pracę</button>}
-                {d.canReview && <button className="zb-btn zb-btn-dark" onClick={() => review(d.id)}>zgłoś do review →</button>}
-                {d.canRelease && <button className="zb-btn-rel" onClick={() => release(d.id)}>zwolnij zadanie</button>}
+                {d.canClaim && <button className="zb-btn zb-btn-acc" onClick={openClaim}>weź to zadanie na siebie →</button>}
                 {d.isDone && <div className="zb-btn-done">✓ zadanie domknięte</div>}
               </div>
 

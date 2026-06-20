@@ -1,0 +1,206 @@
+{
+  "generatedAt": "2026-06-20T00:26:59.900Z",
+  "team": "SLA",
+  "people": {
+    "0bebe113-92ce-4dfa-a6a5-1fe6620925a7": {
+      "nick": "kwiscion",
+      "initials": "KW",
+      "color": "#C15F3C",
+      "rung": 1,
+      "rungLabel": "Kontrybutor"
+    },
+    "8a38da98-8300-460d-88f8-eb61681f1ba5": {
+      "nick": "k.wikiel",
+      "initials": "KW",
+      "color": "#B07D2E",
+      "rung": 1,
+      "rungLabel": "Kontrybutor"
+    }
+  },
+  "tasks": [
+    {
+      "id": "i16",
+      "num": 16,
+      "linear": "SLA-16",
+      "title": "PL-GEN follow-up: error-span gold (web UI) + neural GEC — czułość Warstwy A",
+      "level": "p",
+      "tags": [],
+      "status": "wolne",
+      "assignee": null,
+      "effort": "—",
+      "progress": 0,
+      "dod": "Follow-up odroczony z [SLA-9](https://linear.app/slayerlab/issue/SLA-9/3-warstwa-a-languagetool-scoring-per-dokument-kategorie) (czułość Warstwy A).",
+      "deps": []
+    },
+    {
+      "id": "i15",
+      "num": 15,
+      "linear": "SLA-15",
+      "title": "PL-GEN follow-up: pełny bieg 193×3 ziarna + Qwen3.5-27B base",
+      "level": "p",
+      "tags": [],
+      "status": "wolne",
+      "assignee": null,
+      "effort": "—",
+      "progress": 0,
+      "dod": "Follow-up odroczony z [SLA-13](https://linear.app/slayerlab/issue/SLA-13/7-run-bielik-qwen35-27b-baseinstruct-qwen36-27b-gemma-4-31b-it-raport).",
+      "deps": []
+    },
+    {
+      "id": "i14",
+      "num": 14,
+      "linear": "SLA-14",
+      "title": "PL-GEN follow-up: panel ≥3 sędziów + inter-judge agreement (IJA)",
+      "level": "p",
+      "tags": [],
+      "status": "wolne",
+      "assignee": null,
+      "effort": "—",
+      "progress": 0,
+      "dod": "Follow-up odroczony z [SLA-10](https://linear.app/slayerlab/issue/SLA-10/4-warstwa-b-sedzia-blindstructuredfamily-independent-panel-3-deferred) / [SLA-11](https://linear.app/slayerlab/issue/SLA-11/5-zloto-ludzkie-30-50-walidacja-pr-sedziego-inter-judge-agreement).",
+      "deps": []
+    },
+    {
+      "id": "i13",
+      "num": 13,
+      "linear": "SLA-13",
+      "title": "7. Run: Bielik, Qwen3.5-27B base+instruct, Qwen3.6-27B, gemma-4-31B-it + raport",
+      "level": "p",
+      "tags": [],
+      "status": "done",
+      "assignee": null,
+      "effort": "—",
+      "progress": 100,
+      "dod": "✅ **DONE (pełny bieg single-seed, num_predict=1024).** 4/5 modeli na **pełnym zbiorze 193** (seed s42), sędzia DeepSeek-V4-Pro guided:",
+      "deps": []
+    },
+    {
+      "id": "i12",
+      "num": 12,
+      "linear": "SLA-12",
+      "title": "6. Agregacja + sekcja bledy-jezykowe-pl w matrix.json",
+      "level": "p",
+      "tags": [],
+      "status": "done",
+      "assignee": null,
+      "effort": "—",
+      "progress": 100,
+      "dod": "✅ **DONE.** `bench_plgen.py:aggregate()` → `public/results/plgen_v1.json` (warstwy OSOBNO, per-domena, wariancja). Sekcja **wklejona do** `public/results/matrix.json` jako `official_for: \"bledy-jezykowe-pl\"` (zgodnie ze spec), `updated: 2026-06-16`. Protokół opisuje uczciwie 1 sę",
+      "deps": []
+    },
+    {
+      "id": "i11",
+      "num": 11,
+      "linear": "SLA-11",
+      "title": "5. Złoto ludzkie ~30–50 + walidacja P/R sędziego + inter-judge agreement",
+      "level": "p",
+      "tags": [],
+      "status": "w-toku",
+      "assignee": null,
+      "effort": "—",
+      "progress": 50,
+      "dod": "🟡 **Częściowo.**",
+      "deps": []
+    },
+    {
+      "id": "i10",
+      "num": 10,
+      "linear": "SLA-10",
+      "title": "4. Warstwa B: sędzia blind/structured/family-independent (panel ≥3 DEFERRED)",
+      "level": "p",
+      "tags": [],
+      "status": "done",
+      "assignee": null,
+      "effort": "—",
+      "progress": 100,
+      "dod": "✅ **DONE (descoped).** Wysłany pojedynczy sędzia **DeepSeek-V4-Pro** w trybie `guided`: ślepy (brak nazwy modelu w promcie), structured JSON werdykt, otwartowagowy/nie-Qwen → niezależny od rodzin, zakotwiczony na per-item `phenomena`, greedy temp 0. Walidacja vs gold: **56% exact",
+      "deps": []
+    },
+    {
+      "id": "i9",
+      "num": 9,
+      "linear": "SLA-9",
+      "title": "3. Warstwa A: LanguageTool scoring per-dokument, kategorie",
+      "level": "p",
+      "tags": [],
+      "status": "done",
+      "assignee": null,
+      "effort": "—",
+      "progress": 100,
+      "dod": "✅ **DONE (z udokumentowanym ograniczeniem).** `bench/plgen/grammar_check.py`: self-hosted LT (pinned `erikvl87/languagetool:6.5`), scoring per-dokument, 4 kubełki (morphosyntax/spelling/style/other), szum typograficzny wyłączony, błędy/100tok, per-domena w `plgen_v1.json`.",
+      "deps": []
+    },
+    {
+      "id": "i8",
+      "num": 8,
+      "linear": "SLA-8",
+      "title": "2. Skrypt generacji — modele @own defaults, length-normalized",
+      "level": "p",
+      "tags": [],
+      "status": "done",
+      "assignee": null,
+      "effort": "—",
+      "progress": 100,
+      "dod": "✅ **DONE (mechanizm).** `bench/plgen/bench_plgen.py:generate()` — każdy model na samplingu wydawcy (Bielik 0.2, Qwen 0.7, Gemma 1.0 w `common.MODELS`), zapis `n_tokens`, normalizacja do błędów/100tok, guard `MIN_TOKENS=40` (anti-gaming), idempotentny, zapis atomowy, live diag str",
+      "deps": []
+    },
+    {
+      "id": "i7",
+      "num": 7,
+      "linear": "SLA-7",
+      "title": "1. Zestaw ~150 promptów (held-out, długie, domeny) + decon",
+      "level": "p",
+      "tags": [],
+      "status": "done",
+      "assignee": null,
+      "effort": "—",
+      "progress": 100,
+      "dod": "✅ **DONE.** 193 held-out promptów, 10 domen (rekcja/liczebniki/zaimki/wołacz/toponimy/aspekt/ortografia/kalki/rejestr/zgoda długodystansowa), len_target 150–250, zamrożone, `eval_only`. Przekracza cel ~150.",
+      "deps": []
+    },
+    {
+      "id": "i6",
+      "num": 6,
+      "linear": "SLA-6",
+      "title": "LLM as a judge do oceny błędów językowych",
+      "level": "p",
+      "tags": [],
+      "status": "w-toku",
+      "assignee": "0bebe113-92ce-4dfa-a6a5-1fe6620925a7",
+      "effort": "—",
+      "progress": 50,
+      "dod": "Sub-issues:",
+      "deps": []
+    },
+    {
+      "id": "i5",
+      "num": 5,
+      "linear": "SLA-5",
+      "title": "Benchmark Qwen 27b na benchmarkach Bielika",
+      "level": "p",
+      "tags": [],
+      "status": "wziete",
+      "assignee": "8a38da98-8300-460d-88f8-eb61681f1ba5",
+      "effort": "—",
+      "progress": 0,
+      "dod": "Brak opisu w Linear.",
+      "deps": []
+    }
+  ],
+  "feed": [
+    {
+      "who": "kwiscion",
+      "a": "0bebe113-92ce-4dfa-a6a5-1fe6620925a7",
+      "action": "pracuje nad",
+      "tid": "i6",
+      "time": "4 dni temu"
+    },
+    {
+      "who": "k.wikiel",
+      "a": "8a38da98-8300-460d-88f8-eb61681f1ba5",
+      "action": "wziął na siebie",
+      "tid": "i5",
+      "time": "7 dni temu"
+    }
+  ]
+}

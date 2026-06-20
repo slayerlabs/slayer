@@ -3,8 +3,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
+    "build": "node scripts/pull_linear.mjs && next build",
+    "start": "next start",
+    "pull:linear": "node scripts/pull_linear.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "^1.4.1",
