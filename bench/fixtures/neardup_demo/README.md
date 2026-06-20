@@ -13,19 +13,19 @@ dosłowny `decon_audit.py`.
 
 ```bash
 python3 bench/decon_neardup.py bench/fixtures/neardup_demo/gen.jsonl \
-  --tests bench/fixtures/neardup_demo/eval.jsonl --no-llmzszl \
-  --minhash --shingle 3 --minhash-threshold 0.5
+  --tests bench/fixtures/neardup_demo/eval.jsonl --no-llmzszl
 ```
 
 ## Wynik
 
 ```
-gen.jsonl: 3 rekordy -> near-dup 2 (poza verbatim: 2, diakrytyki: 1, minhash: 2)
+gen.jsonl: 3 rekordy -> near-dup 1 (poza verbatim: 1, diacrytyki: 1)
   linia 1 [diacritics] score=1.0
-  linia 2 [minhash]    score=0.5312
 ```
 
 `verbatim_raw_hits = 0`: dosłowny n-gram (czyli to, co liczy `decon_audit`)
 nie łapie żadnego z tych rekordów, bo różnią się diakrytykami albo jednym słowem.
-Warstwa near-dup łapie `g1` (zwinięcie diakrytyków) i `g2` (Jaccard 0.53), a `g3`
-zostawia jako czysty.
+Warstwa diakrytyków łapie `g1` (zwinięcie diakrytyków); `g2` i `g3` zostają
+(near-dup przeredagowany = domena MinHasha w #36).
+
+`--strip` wycina tylko verbatim; tier diakrytyków wymaga jawnego `--strip-diacritics`.
