@@ -90,11 +90,13 @@ def load_mmlu_pl(n, seed):
     L2I = {"A": 0, "B": 1, "C": 2, "D": 3}
     items = []
     for r in ds:
+        opts = [r["option_a"], r["option_b"], r["option_c"], r["option_d"]]
+        if any(o is None for o in opts):
+            continue
         gold = L2I.get(str(r["answer"]).strip().upper())
         if gold is None:
             continue
-        items.append({"q": r["question"],
-                      "options": [r["option_a"], r["option_b"], r["option_c"], r["option_d"]],
+        items.append({"q": r["question"], "options": opts,
                       "gold": gold, "cat": r.get("subject", "?")})
     return sample_strat(items, n, seed)
 
