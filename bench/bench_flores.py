@@ -73,14 +73,19 @@ def main():
                         "bleu_overall": round((pe_b+ep_b)/2, 1),
                         "secs": round(t1+t2, 1)})
         print(f"  [{name}] chrF={results[-1]['chrf_overall']} BLEU={results[-1]['bleu_overall']}", flush=True)
-    winner = max(results, key=lambda r: r["chrf_overall"])
     payload = {"benchmark": "flores", "metric": "chrF (PL↔EN, sacrebleu)",
                "n": len(pairs), "seed": SEED, "date": os.environ.get("RUN_DATE", ""),
-               "models": results, "winner": winner["display_name"],
-               "margin": round(abs(results[0]["chrf_overall"]-results[1]["chrf_overall"]), 1)}
+               "models": results}
+    sr = sorted(results, key=lambda r: r["chrf_overall"], reverse=True)
+    if len(sr) > 1:
+        payload["winner"] = sr[0]["display_name"]
+        payload["margin"] = round(sr[0]["chrf_overall"] - sr[1]["chrf_overall"], 1)
     os.makedirs(OUT, exist_ok=True)
     json.dump(payload, open(f"{OUT}/flores_n{len(pairs)}_s{SEED}.json", "w"), ensure_ascii=False, indent=2)
-    print(f"[flores] winner={winner['display_name']} +{payload['margin']} chrF", flush=True)
+    if "winner" in payload:
+        print(f"[flores] winner={payload['winner']} +{payload['margin']} chrF", flush=True)
+    else:
+        print(f"[flores] single-model ({sr[0]['display_name']}) - brak winner/margin", flush=True)
 
 if __name__ == "__main__":
     main()
