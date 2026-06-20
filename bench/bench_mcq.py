@@ -137,20 +137,22 @@ def run(bench, n, seed):
     print(f"[{bench}] sample={len(sample)} seed={seed} lang={lang}", flush=True)
     results = []
     for name, tag in MODELS:
-        ok = bad = 0; ct_ok = defaultdict(int); ct_n = defaultdict(int); t0 = time.time()
+        ok = bad = errors = 0; ct_ok = defaultdict(int); ct_n = defaultdict(int); t0 = time.time()
         for i, it in enumerate(sample):
             out, nopt = ask(tag, it, sysp)
+            if isinstance(out, str) and (out.startswith("__ERR__") or out == ""):
+                errors += 1; continue          # blad inferencji != odpowiedz modelu - poza metrykami
             pred = parse_letter(out, nopt)
             if pred == -1: bad += 1
             c = int(pred == it["gold"]); ok += c
             ct_ok[it["cat"]] += c; ct_n[it["cat"]] += 1
             if (i+1) % 200 == 0:
-                print(f"  [{name}] {i+1}/{len(sample)} acc={ok/(i+1)*100:.1f}% ({time.time()-t0:.0f}s)", flush=True)
-        nn = len(sample)
+                print(f"  [{name}] {i+1}/{len(sample)} acc={ok/max(i+1-errors,1)*100:.1f}% ({time.time()-t0:.0f}s)", flush=True)
+        nn = len(sample); scored = nn - errors
         bycat_all = {c: round(ct_ok[c]/ct_n[c]*100, 1) for c in ct_n if ct_n[c] >= 15}
         bycat = {c: v for c, v in bycat_all.items() if ct_n[c] >= 20}
-        results.append({"display_name": name, "tag": tag, "n": nn,
-                        "accuracy": round(ok/nn*100, 1), "unparsed": bad,
+        results.append({"display_name": name, "tag": tag, "n": nn, "n_scored": scored, "errors": errors,
+                        "accuracy": round(ok/scored*100, 1) if scored else 0.0, "unparsed": bad,
                         "by_category_top": dict(sorted(bycat.items(), key=lambda x:-x[1])),
                         "by_category": bycat_all,
                         "category_n": {c: ct_n[c] for c in ct_n if ct_n[c] >= 15},
