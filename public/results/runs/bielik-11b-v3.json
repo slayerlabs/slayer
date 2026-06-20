@@ -1,26 +1,32 @@
 {
   "schema": "run/v1",
   "id": "bielik-11b-v3",
+  "demo": true,
   "model": { "name": "Bielik-11B-v3.0", "params": "11B", "org": "SpeakLeash", "kind": "instruct" },
-  "artifact": { "adapter": null, "host": null },
+  "artifact": { "adapter": null, "host": "lem (H100)" },
   "suite": "open-pl-v1",
   "base": "qwen3.5-9b",
   "date": "2026-06-19",
   "tasks": [
-    { "id": "psc", "label": "psc", "gen": null, "mcq": null, "status": "pending" },
-    { "id": "belebele", "label": "belebele", "gen": null, "mcq": null, "status": "pending" },
-    { "id": "dyk", "label": "dyk", "gen": null, "mcq": null, "status": "pending" },
-    { "id": "polemo2_in", "label": "polemo2_in", "gen": null, "mcq": null, "status": "pending" },
-    { "id": "cbd", "label": "cbd", "gen": null, "mcq": null, "status": "pending" },
-    { "id": "8tags", "label": "8tags", "gen": null, "mcq": null, "status": "pending" },
-    { "id": "ppc", "label": "ppc", "gen": null, "mcq": null, "status": "pending" },
-    { "id": "polemo2_out", "label": "polemo2_out", "gen": null, "mcq": null, "status": "pending" },
-    { "id": "klej_ner", "label": "klej_ner", "gen": null, "mcq": null, "status": "pending" },
-    { "id": "polqa", "label": "polqa (reranking MC)", "gen": null, "mcq": null, "status": "pending" },
-    { "id": "polqa_closed_book", "label": "polqa_closed_book", "gen": null, "mcq": null, "status": "pending" },
-    { "id": "polqa_open_book", "label": "polqa_open_book", "gen": null, "mcq": null, "status": "pending" },
-    { "id": "poquad_open_book", "label": "poquad_open_book", "gen": null, "mcq": null, "status": "pending" }
+    { "id": "psc", "label": "psc", "gen": 95.5, "mcq": 90.5, "status": "ok" },
+    { "id": "belebele", "label": "belebele", "gen": 91.0, "mcq": 90.2, "status": "ok" },
+    { "id": "dyk", "label": "dyk", "gen": 86.0, "mcq": 86.5, "status": "ok" },
+    { "id": "polemo2_in", "label": "polemo2_in", "gen": 85.5, "mcq": 83.0, "status": "ok" },
+    { "id": "cbd", "label": "cbd", "gen": 80.1, "mcq": 64.0, "status": "ok" },
+    { "id": "8tags", "label": "8tags", "gen": 79.0, "mcq": 76.5, "status": "ok" },
+    { "id": "ppc", "label": "ppc", "gen": 80.5, "mcq": 79.5, "status": "ok" },
+    { "id": "polemo2_out", "label": "polemo2_out", "gen": 76.5, "mcq": 76.0, "status": "ok" },
+    { "id": "klej_ner", "label": "klej_ner", "gen": 60.0, "mcq": 55.5, "status": "ok" },
+    { "id": "polqa", "label": "polqa (reranking MC)", "gen": null, "mcq": 81.5, "status": "ok" },
+    { "id": "polqa_closed_book", "label": "polqa_closed_book", "gen": 0.0, "mcq": null, "status": "broken" },
+    { "id": "polqa_open_book", "label": "polqa_open_book", "gen": 0.0, "mcq": null, "status": "broken" },
+    { "id": "poquad_open_book", "label": "poquad_open_book", "gen": 0.0, "mcq": null, "status": "broken" }
   ],
-  "guards": [],
-  "aggregate": { "gen": null, "mcq": null, "working_tasks": 0 }
+  "guards": [
+    { "id": "mmlu", "label": "MMLU (EN)", "gen": 64.0, "status": "ok" },
+    { "id": "arc", "label": "ARC-C (EN)", "gen": 88.0, "status": "ok" },
+    { "id": "gsm8k", "label": "GSM8K (EN)", "gen": 70.0, "status": "ok" },
+    { "id": "belebele_en", "label": "Belebele (EN)", "gen": 90.0, "status": "ok" }
+  ],
+  "aggregate": { "gen": 81.6, "mcq": 78.3, "working_tasks": 9 }
 }

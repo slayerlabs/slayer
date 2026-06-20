@@ -106,6 +106,11 @@ export default function Page() {
             (oficjalna miara jakości), Δ liczone vs Qwen3.5-9B. Dwa protokoły — generatywny
             (exact_match) i MCQ (acc) — są niezależne i nieporównywalne między sobą.{" "}
             <a href="/benchmarks" style={{ color: "var(--acc)" }}>metodologia →</a>
+            <br />
+            <span className="mono dim" style={{ fontSize: ".74rem" }}>
+              ⚠ Liczby bazy (Qwen3.5-9B) i Bielika oraz guardów EN to dane poglądowe — placeholder
+              do czasu realnego runu na GPU. Liczby kandydata pochodzą z realnego pomiaru.
+            </span>
           </p>
         </div>
       </div>

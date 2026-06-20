@@ -73,6 +73,7 @@ export default async function Page({ params }) {
 
   const guards = run.guards || [];
   const guardFail = guards.some((g) => g.status === "fail");
+  const isDemo = run.demo || base?.demo;
   const broken = (run.tasks || []).filter((t) => t.status === "broken");
 
   const headDelta = (val, baseVal) => {
@@ -120,6 +121,11 @@ export default async function Page({ params }) {
           </div>
         </div>
         <p className="hl-note">// dwa niezależne protokoły — generatywny i MCQ nie są porównywalne między sobą</p>
+        {isDemo && (
+          <p className="hl-note" style={{ color: "#c0564a" }}>
+            ⚠ dane poglądowe — baza/Bielik oraz guardy EN to placeholder do czasu realnego runu na GPU
+          </p>
+        )}
 
         {/* EN guard strip */}
         <div className="gstrip">

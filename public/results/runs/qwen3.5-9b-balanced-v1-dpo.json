@@ -21,6 +21,11 @@
     { "id": "polqa_open_book", "label": "polqa_open_book", "gen": 0.0, "mcq": null, "status": "broken" },
     { "id": "poquad_open_book", "label": "poquad_open_book", "gen": 0.0, "mcq": null, "status": "broken" }
   ],
-  "guards": [],
+  "guards": [
+    { "id": "mmlu", "label": "MMLU (EN)", "gen": 76.8, "status": "ok" },
+    { "id": "arc", "label": "ARC-C (EN)", "gen": 94.0, "status": "ok" },
+    { "id": "gsm8k", "label": "GSM8K (EN)", "gen": 90.9, "status": "ok" },
+    { "id": "belebele_en", "label": "Belebele (EN)", "gen": 94.7, "status": "ok" }
+  ],
   "aggregate": { "gen": 80.8, "mcq": 79.1, "working_tasks": 9 }
 }
