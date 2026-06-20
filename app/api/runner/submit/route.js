@@ -1,6 +1,6 @@
 // app/api/runner/submit/route.js
-import { enqueueSubmission, usingBlob } from "../../../../lib/store";
-import { validateSubmission } from "../../../../lib/run-schema";
+import { enqueueSubmission, usingBlob } from "../../../../lib/store.js";
+import { validateSubmission } from "../../../../lib/run-schema.js";
 
 const HF = /^[\w.-]+\/[\w.-]+$/;
 const MAX_BODY = 2048; // bytes
@@ -16,6 +16,7 @@ export async function POST(req) {
   const now = Date.now();
   if (seen.has(ip) && now - seen.get(ip) < COOLDOWN_MS)
     return Response.json({ error: "zwolnij — spróbuj za chwilę" }, { status: 429 });
+  seen.set(ip, now);
 
   // Don't trust content-length (absent on chunked / spoofable). Read text with a hard byte ceiling.
   const raw = await req.text();
@@ -36,7 +37,6 @@ export async function POST(req) {
   const { ok, errors } = validateSubmission(sub);
   if (!ok) return Response.json({ error: errors.join("; ") }, { status: 400 });
 
-  seen.set(ip, now);
   if (!usingBlob()) return Response.json({ id: sub.id, queued: false, note: "store offline (dev)" }, { status: 201 });
   await enqueueSubmission(sub);
   return Response.json({ id: sub.id, queued: true }, { status: 201 });
