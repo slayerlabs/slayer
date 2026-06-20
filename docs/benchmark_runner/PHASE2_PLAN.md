@@ -15,7 +15,8 @@
 - Pure JS (no TypeScript) — match the existing app.
 - `run/v1` schema is the contract (see `BENCHMARK_RUNNER_DESIGN.md`); do not change its field names. Submissions use a **separate** `submission/v1` shape — they are NOT run/v1, so queued items never reach the board.
 - Open-suite results are PUBLIC (`access: 'public'`). Private/Tier-A runs are out of scope for this phase.
-- Blob writes require `BLOB_READ_WRITE_TOKEN` (server-only secret, never `NEXT_PUBLIC_`). Reads of public blobs use `NEXT_PUBLIC_BLOB_BASE` (the store's public base URL, e.g. `https://<id>.public.blob.vercel-storage.com`) and need no token.
+- Blob writes require `BLOB_READ_WRITE_TOKEN` (server-only secret, never `NEXT_PUBLIC_`). Reads of public blobs use `NEXT_PUBLIC_BLOB_BASE` (the store's public base URL, e.g. `https://<id>.public.blob.vercel-storage.com`) and need no token. **Both must be set together** on Vercel — `usingBlob()` returns false unless both are present (otherwise prod would silently show an empty board).
+- Blob writes set `cacheControlMaxAge: 60` — the default is 1 month, which would make overwrites/new runs invisible to ISR and the GPU-runner publish loop.
 - All writes use `addRandomSuffix: false` + `allowOverwrite: true` → stable, idempotent paths (re-publishing a run overwrites it; the GPU runner depends on this).
 - Blob layout: `runner/runs/<id>.json` (public board), `runner/suites/<id>.json` (public), `runner/queue/<id>.json` (submissions, NOT shown on the board).
 - Dev fallback: when `BLOB_READ_WRITE_TOKEN` is unset, the store reads `public/results/runs/` and `public/results/suites/` exactly as today (local dev + the current PR preview keep working with zero config).
@@ -298,15 +299,19 @@ Expected: FAIL — `lib/store.js` missing.
 // lib/store.js — source for runs/suites/submissions. Blob in prod, fs in dev.
 import fsp from "node:fs/promises";
 import path from "node:path";
-import { list, put } from "@vercel/blob";
 import { runPath, suitePath, queuePath, idFromPath, publicUrl } from "./blob-paths.js";
 
 const FS_ROOT = () => process.env.RUNNER_RESULTS_DIR || path.join(process.cwd(), "public/results");
-export function usingBlob() { return Boolean(process.env.BLOB_READ_WRITE_TOKEN); }
+// Blob requires BOTH: the write token AND the public base URL used for O(1) reads.
+// Keying off the token alone would silently serve an empty board when the base is unset.
+export function usingBlob() {
+  return Boolean(process.env.BLOB_READ_WRITE_TOKEN && process.env.NEXT_PUBLIC_BLOB_BASE);
+}
 
 async function fsJson(p) { try { return JSON.parse(await fsp.readFile(p, "utf-8")); } catch { return null; } }
 async function urlJson(pathname) {
   try {
+    // cache:"no-store" bypasses Next's data cache; the 60s blob Cache-Control (see wopts) keeps the CDN fresh.
     const res = await fetch(publicUrl(pathname), { cache: "no-store" });
     return res.ok ? await res.json() : null;
   } catch { return null; }
@@ -314,6 +319,7 @@ async function urlJson(pathname) {
 
 export async function listRunIds() {
   if (usingBlob()) {
+    const { list } = await import("@vercel/blob"); // lazy: keep the fs path (and its unit test) stdlib-only
     const { blobs } = await list({ prefix: "runner/runs/", token: process.env.BLOB_READ_WRITE_TOKEN });
     return blobs.map((b) => idFromPath(b.pathname)).filter(Boolean).sort();
   }
@@ -333,11 +339,17 @@ export async function listRuns() {
   return (await Promise.all(ids.map(getRun))).filter(Boolean);
 }
 
+// cacheControlMaxAge: 60 — without it the public URL is cached by the Blob CDN for 1 month,
+// so overwrites (the whole point of allowOverwrite) + the GPU runner's publish→ISR loop never surface.
 const wopts = () => ({ access: "public", addRandomSuffix: false, allowOverwrite: true,
-  contentType: "application/json", token: process.env.BLOB_READ_WRITE_TOKEN });
-export async function putRun(run) { return put(runPath(run.id), JSON.stringify(run), wopts()); }
-export async function putSuite(suite) { return put(suitePath(suite.id), JSON.stringify(suite), wopts()); }
-export async function enqueueSubmission(sub) { return put(queuePath(sub.id), JSON.stringify(sub), wopts()); }
+  cacheControlMaxAge: 60, contentType: "application/json", token: process.env.BLOB_READ_WRITE_TOKEN });
+async function putJson(pathname, obj) {
+  const { put } = await import("@vercel/blob");
+  return put(pathname, JSON.stringify(obj), wopts());
+}
+export async function putRun(run) { return putJson(runPath(run.id), run); }
+export async function putSuite(suite) { return putJson(suitePath(suite.id), suite); }
+export async function enqueueSubmission(sub) { return putJson(queuePath(sub.id), sub); }
 ```
 
 - [ ] **Step 4: Run test to verify it passes**
@@ -592,7 +604,9 @@ const MAX_BODY = 2048; // bytes
 const COOLDOWN_MS = 20_000;
 // ponytail: per-instance in-memory cooldown; mirrors signup_server. Swap for KV if it must be global.
 const seen = new Map();
-const slug = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+// Collision-free id: slash is the only char in an HF name outside the SLUG set; map it to "--".
+// (slug()-style collapsing made model.v2 / model-v2 / model_v2 all collide.)
+const subId = (hf) => "sub-" + hf.toLowerCase().replace(/\//g, "--");
 
 export async function POST(req) {
   const ip = (req.headers.get("x-forwarded-for") || "").split(",")[0].trim() || "anon";
@@ -600,18 +614,19 @@ export async function POST(req) {
   if (seen.has(ip) && now - seen.get(ip) < COOLDOWN_MS)
     return Response.json({ error: "zwolnij — spróbuj za chwilę" }, { status: 429 });
 
-  const len = Number(req.headers.get("content-length") || 0);
-  if (len > MAX_BODY) return Response.json({ error: "body too large" }, { status: 413 });
+  // Don't trust content-length (absent on chunked / spoofable). Read text with a hard byte ceiling.
+  const raw = await req.text();
+  if (Buffer.byteLength(raw, "utf-8") > MAX_BODY) return Response.json({ error: "body too large" }, { status: 413 });
 
   let body;
-  try { body = await req.json(); } catch { return Response.json({ error: "bad json" }, { status: 400 }); }
+  try { body = JSON.parse(raw); } catch { return Response.json({ error: "bad json" }, { status: 400 }); }
   if (body?.trap) return Response.json({ id: "ok" }, { status: 201 }); // honeypot
 
   const hfModel = String(body?.hfModel || "").trim();
   if (!HF.test(hfModel)) return Response.json({ error: "hfModel must be org/name" }, { status: 400 });
 
   const sub = {
-    schema: "submission/v1", id: `sub-${slug(hfModel)}`, hfModel,
+    schema: "submission/v1", id: subId(hfModel), hfModel,
     base: String(body?.base || "qwen3.5-9b"), suite: String(body?.suite || "open-pl-v1"),
     status: "queued", requested_at: new Date().toISOString(),
   };
@@ -634,7 +649,7 @@ Expected: exit 0; `ƒ /api/runner/submit` appears.
 
 ```bash
 curl -s -XPOST localhost:3000/api/runner/submit -H 'content-type: application/json' -d '{"hfModel":"nope"}'   # -> 400
-curl -s -XPOST localhost:3000/api/runner/submit -H 'content-type: application/json' -d '{"hfModel":"speakleash/Bielik-11B"}'  # -> 201 {id:"sub-speakleash-bielik-11b", queued:false}
+curl -s -XPOST localhost:3000/api/runner/submit -H 'content-type: application/json' -d '{"hfModel":"speakleash/Bielik-11B"}'  # -> 201 {id:"sub-speakleash--bielik-11b", queued:false}
 ```
 
 - [ ] **Step 4: Commit**
@@ -738,7 +753,7 @@ Out of scope here — gated on external inputs, gets its own plan once decided:
 
 - **Open decision — harness:** which single harness runs the suite (lm-eval-harness with PL tasks vs in-house ollama scripts). Determines how `run/v1` is produced and the exact `open-pl-v1` task membership.
 - **Open decision — GPU access:** provisioning via @Michał Warda; where the runner executes; how it gets `BLOB_READ_WRITE_TOKEN`.
-- **Scope:** poll `runner/queue/` → run decon gate → run suite + EN guards → assemble `run/v1` → `putRun` → delete the queue item → ISR surfaces it. Reuses `lib/run-schema.js` + `scripts/publish-run.mjs`.
+- **Scope:** poll `runner/queue/` → run decon gate → run suite + EN guards → assemble `run/v1` → `putRun` → delete the queue item → ISR surfaces it. Reuses `lib/run-schema.js` + `scripts/publish-run.mjs`. Once the runner claims a queue item it owns that key (write `status:"running"`); a resubmission of the same model overwrites the queue stub, so the runner should re-read before claiming.
 - **Tier-A / private:** private results land in a private store; only aggregates ever cross into the public one. Separate, later.
 
 ---
@@ -749,3 +764,4 @@ Out of scope here — gated on external inputs, gets its own plan once decided:
 - **Placeholder scan:** every code step shows real code; no TBD/TODO; Phase 3 labelled out-of-scope. ✓
 - **Type consistency:** `boardRows/taskRows/guardStatus/pickBase` consistent (Task 1 ↔ tests ↔ Task 4). `validateRun/validateSubmission -> {ok,errors}` (Tasks 5–7). `putRun/putSuite/enqueueSubmission -> {url}` (Tasks 3, 5, 6, 8). `usingBlob()` (Tasks 3, 5, 6). Blob path helpers (Task 2 ↔ Task 3). ✓
 - **Review fixes applied:** `allowOverwrite:true` (F1); deterministic-URL reads, no `list`-per-read, no `head`-miss assumption (F2/F3); `dynamicParams` + documented seed behavior (F4); suites published (F5); queue prefix + cooldown + size cap + dedup id (F6/F8); `submission/v1` separate from run/v1 (F7); `generateMetadata` rewritten + removed-symbol call sites enumerated (F9); env-restore + no cache-buster in store test (F10); pure path helpers unit-tested (F11); dead `run.guard_eps` dropped (F12); real-seed validation test (F13); honeypot hidden input added (F15); seed-before-enable ordering documented (F16). ✓
+- **Second-pass fixes applied:** `cacheControlMaxAge: 60` so CDN cache doesn't defeat ISR/overwrite (B1); `usingBlob()` requires BOTH token + base, documented (B2); submit reads body as text with a real byte ceiling instead of trusting `content-length` (M3); collision-free submission id `sub-<hf with / → -->` (M4); lazy `import("@vercel/blob")` keeps the fs path + its test stdlib-only (M5); Phase-3 queue-ownership note (M9). ✓
