@@ -1,5 +1,8 @@
 import Submit from "./submit";
 import { boardRows, rankByGen } from "../../lib/runs";
+import { listRuns } from "../../lib/store";
+
+export const revalidate = 300;
 
 export const metadata = {
   title: "Benchmark Runner | Slayer",
@@ -34,8 +37,8 @@ function Guard({ s }) {
   return <span className={"gdot " + s} title={s === "ok" ? "guardy OK" : "regresja EN"} />;
 }
 
-export default function Page() {
-  const rows = rankByGen(boardRows());
+export default async function Page() {
+  const rows = rankByGen(boardRows(await listRuns()));
   return (
     <div className="sec page-top">
       <style>{css}</style>

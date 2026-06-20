@@ -1,13 +1,17 @@
 import { notFound } from "next/navigation";
-import { listRunIds, loadRun, baseOf, taskRows, loadSuite } from "../../../lib/runs";
+import { taskRows } from "../../../lib/runs";
+import { getRun, getSuite, listRunIds } from "../../../lib/store";
 
-export function generateStaticParams() {
-  return listRunIds().map((id) => ({ id }));
+export const revalidate = 300;
+export const dynamicParams = true;
+
+export async function generateStaticParams() {
+  return (await listRunIds()).map((id) => ({ id }));
 }
 
 export async function generateMetadata({ params }) {
   const { id } = await params;
-  const run = loadRun(id);
+  const run = await getRun(id);
   if (!run) return {};
   return { title: `${run.model.name} | Benchmark Runner | Slayer` };
 }
@@ -58,11 +62,11 @@ function deltaSpan(d, label) {
 
 export default async function Page({ params }) {
   const { id } = await params;
-  const run = loadRun(id);
+  const run = await getRun(id);
   if (!run) notFound();
 
-  const base = baseOf(run);
-  const suite = loadSuite(run.suite);
+  const base = run.base && run.base !== run.id ? await getRun(run.base) : null;
+  const suite = await getSuite(run.suite);
   const rows = taskRows(run, base);
 
   const baseGen = base?.aggregate?.gen ?? null;
