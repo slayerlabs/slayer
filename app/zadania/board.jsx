@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 // Read-only mirror of Linear (team SLA). Real data comes from
 // /results/zadania.json (built by scripts/pull_linear.mjs); the constants below
@@ -261,31 +261,24 @@ const css = `
 @media(max-width:1080px){.zb-grid{grid-template-columns:1fr;height:auto}.zb-left,.zb-right{border:none;border-bottom:1px solid #E4E1D4}.zb-prog{flex-direction:column}.zb-cols{grid-template-columns:1fr 1fr}}
 `;
 
-export default function Board() {
+export default function Board({ initial }) {
+  // Linear mirror is baked in at build time (page.jsx reads the JSON); demo data
+  // is only used if that file is missing/empty — so there's no fake-data flash.
+  const seed = initial && Array.isArray(initial.tasks) && initial.tasks.length
+    ? { people: initial.people || {}, tasks: initial.tasks, feed: initial.feed || [] }
+    : { people: PEOPLE, tasks: INITIAL_TASKS, feed: INITIAL_FEED };
   const [state, setState] = useState({
     tab: "zadania",
     selectedId: null,
     fLevel: "all",
     fStatus: [],
     fTags: [],
-    people: PEOPLE,
-    tasks: INITIAL_TASKS,
-    feed: INITIAL_FEED,
+    people: seed.people,
+    tasks: seed.tasks,
+    feed: seed.feed,
   });
   const S = state;
   const up = (patch) => setState((s) => ({ ...s, ...(typeof patch === "function" ? patch(s) : patch) }));
-
-  // Load the live Linear mirror; keep the demo data if it isn't there yet.
-  useEffect(() => {
-    fetch("/results/zadania.json")
-      .then((r) => (r.ok ? r.json() : null))
-      .then((j) => {
-        if (j && Array.isArray(j.tasks) && j.tasks.length) {
-          up({ people: j.people || {}, tasks: j.tasks, feed: j.feed || [], selectedId: null });
-        }
-      })
-      .catch(() => {});
-  }, []);
 
   const openClaim = () => window.open(DISCORD_URL, "_blank", "noopener");
   const taskById = (id) => S.tasks.find((t) => t.id === id);
