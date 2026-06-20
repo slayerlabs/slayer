@@ -72,7 +72,7 @@ def main():
                      m["en"]["tpw"], m["en"]["cpt"], ratio))
         print(f"  zmierzono: {label}", flush=True)
 
-    rows.sort(key=lambda r: r[2])  # po fertility PL rosnąco (najlepszy u góry)
+    rows.sort(key=lambda r: r[2] if r[2] else float("inf"))  # fertility PL rosnąco; zdegenerowany 0.0 na koniec
     print("\n" + "=" * 78)
     print(f"{'Tokenizer':<30}{'vocab':>8}{'TpW_PL':>8}{'CpT_PL':>8}{'TpW_EN':>8}{'PL/EN':>8}")
     print("-" * 78)
