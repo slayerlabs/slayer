@@ -141,7 +141,7 @@ export default function Propozycja() {
           <div className="ctaband">
             <h2>Masz zdanie? Zanim to zbudujemy — powiedz.</h2>
             <p>To protokół badawczy przed runem. Dataset v3 powstaje publicznie i chcemy go poprawić z waszymi uwagami.</p>
-            <a className="btn btn-p" href="https://discord.gg/HnTkVR4c5T" rel="noopener" target="_blank">podziel się uwagami →</a>
+            <a className="btn btn-p" href="https://discord.gg/9R3RZwjPSp" rel="noopener" target="_blank">podziel się uwagami →</a>
           </div>
 
         </div>

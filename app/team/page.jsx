@@ -215,7 +215,7 @@ export default function Team() {
                 <div className="member-title-label">Member of Technical Staff</div>
                 <h2 className="member-name" style={{ color: "var(--dim)" }}>Twoje imię tutaj</h2>
                 <div className="member-specialty">Twój stack · Twoja domena</div>
-                <p className="member-bio"><a href="https://discord.gg/HnTkVR4c5T" target="_blank" rel="noopener" style={{ color: "var(--acc)" }}>Dołącz do zespołu →</a></p>
+                <p className="member-bio"><a href="https://discord.gg/9R3RZwjPSp" target="_blank" rel="noopener" style={{ color: "var(--acc)" }}>Dołącz do zespołu →</a></p>
               </div>
             </article>
           </div>
@@ -246,7 +246,7 @@ export default function Team() {
               <h2>Wejście do warsztatu</h2>
               <p>Szukamy ludzi, którzy potrafią domykać artefakty: kod, dane, evale, infra, dokumentację. Governance projektu opisują <a href="/rules" style={{ color: "var(--acc)" }}>rules</a>.</p>
             </div>
-            <a className="btn btn-p" href="https://discord.gg/HnTkVR4c5T" target="_blank" rel="noopener">wejście przez Discord →</a>
+            <a className="btn btn-p" href="https://discord.gg/9R3RZwjPSp" target="_blank" rel="noopener">wejście przez Discord →</a>
           </div>
         </div>
       </section>
