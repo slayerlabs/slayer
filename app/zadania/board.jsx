@@ -81,7 +81,7 @@ const isActive = (s) => s === "wziete" || s === "w-toku" || s === "review";
 const mapTags = (arr) => arr.map((t) => ({ label: t, color: TAG_META[t].color, bg: TAG_META[t].bg }));
 
 const css = `
-.zb{font-family:'Hanken Grotesk',sans-serif;background:#F2F1E9;color:#211F1A;font-size:13px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.zb{font-family:'Hanken Grotesk',sans-serif;background:#F2F1E9;color:#211F1A;font-size:13px;line-height:1.5;-webkit-font-smoothing:antialiased;margin-top:68px}/* ponytail: clear the fixed site nav (68px in lab.css) */
 .zb *{box-sizing:border-box}
 .zb ::selection{background:#C15F3C;color:#FBFAF5}
 @keyframes zbPulse{0%,100%{opacity:1}50%{opacity:.45}}
