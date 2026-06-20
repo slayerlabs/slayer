@@ -2,7 +2,7 @@
 .venv*
 slayer-out*
 slayer-data
-runs
+/runs
 arena
 bench
 pipeline
