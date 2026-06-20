@@ -1,0 +1,13 @@
+{
+  "id": "open-pl-v1",
+  "label": "Open PL Suite v1",
+  "status": "provisional",
+  "harness": "5-shot, jeden harness, ten sam sampling dla wszystkich modeli",
+  "guard_eps": 1.0,
+  "note": "Wersjonowany, przypięty zestaw. Liczby porównywalne TYLKO w obrębie wersji suite. Dwa protokoły (generatywny exact_match, MCQ acc) nie są porównywalne między sobą. Membership v1 i harness do domknięcia w fazie runnera; front renderuje to, co deklaruje run.",
+  "tasks": [
+    "psc", "belebele", "dyk", "polemo2_in", "cbd", "8tags", "ppc", "polemo2_out",
+    "klej_ner", "polqa", "polqa_closed_book", "polqa_open_book", "poquad_open_book"
+  ],
+  "guards": ["mmlu", "arc", "gsm8k", "belebele_en"]
+}

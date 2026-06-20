@@ -1,0 +1,26 @@
+{
+  "schema": "run/v1",
+  "id": "qwen3.5-9b-balanced-v1-dpo",
+  "model": { "name": "Qwen3.5-9B-Base + balanced_v1 DPO", "params": "9B", "org": "slayer", "kind": "adapter" },
+  "artifact": { "adapter": "qwen35_9b_dpo_balanced_v1_after_sft_cpt500_lora", "host": "lem (H100)" },
+  "suite": "open-pl-v1",
+  "base": "qwen3.5-9b",
+  "date": "2026-06-19",
+  "tasks": [
+    { "id": "psc", "label": "psc", "gen": 96.9, "mcq": 91.2, "status": "ok" },
+    { "id": "belebele", "label": "belebele", "gen": 89.9, "mcq": 89.6, "status": "ok" },
+    { "id": "dyk", "label": "dyk", "gen": 87.5, "mcq": 88.1, "status": "ok" },
+    { "id": "polemo2_in", "label": "polemo2_in", "gen": 86.7, "mcq": 84.8, "status": "ok" },
+    { "id": "cbd", "label": "cbd", "gen": 79.4, "mcq": 63.0, "status": "ok" },
+    { "id": "8tags", "label": "8tags", "gen": 78.3, "mcq": 77.6, "status": "ok" },
+    { "id": "ppc", "label": "ppc", "gen": 78.2, "mcq": 78.7, "status": "ok" },
+    { "id": "polemo2_out", "label": "polemo2_out", "gen": 75.7, "mcq": 75.9, "status": "ok" },
+    { "id": "klej_ner", "label": "klej_ner", "gen": 54.7, "mcq": 50.9, "status": "ok" },
+    { "id": "polqa", "label": "polqa (reranking MC)", "gen": null, "mcq": 82.7, "status": "ok" },
+    { "id": "polqa_closed_book", "label": "polqa_closed_book", "gen": 0.0, "mcq": null, "status": "broken" },
+    { "id": "polqa_open_book", "label": "polqa_open_book", "gen": 0.0, "mcq": null, "status": "broken" },
+    { "id": "poquad_open_book", "label": "poquad_open_book", "gen": 0.0, "mcq": null, "status": "broken" }
+  ],
+  "guards": [],
+  "aggregate": { "gen": 80.8, "mcq": 79.1, "working_tasks": 9 }
+}

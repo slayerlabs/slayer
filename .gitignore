@@ -13,6 +13,8 @@ slayer-data/
 .venv*/
 slayer-out*/
 runs/
+!public/results/runs/
+!public/results/runs/*.json
 arena/
 
 # Next.js

@@ -30,6 +30,7 @@ const GROUPS = [
   {
     label: "pomiary",
     links: [
+      ["/runner", "benchmark runner"],
       ["/leaderboard", "ranking"],
       ["/benchmarks", "metodologia"],
       ["/bench-explorer", "przeglądarka + zgłoszenia"],

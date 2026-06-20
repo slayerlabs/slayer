@@ -1,0 +1,26 @@
+{
+  "schema": "run/v1",
+  "id": "qwen3.5-9b",
+  "model": { "name": "Qwen3.5-9B", "params": "9B", "org": "Alibaba", "kind": "base" },
+  "artifact": { "adapter": null, "host": null },
+  "suite": "open-pl-v1",
+  "base": "qwen3.5-9b",
+  "date": "2026-06-19",
+  "tasks": [
+    { "id": "psc", "label": "psc", "gen": null, "mcq": null, "status": "pending" },
+    { "id": "belebele", "label": "belebele", "gen": null, "mcq": null, "status": "pending" },
+    { "id": "dyk", "label": "dyk", "gen": null, "mcq": null, "status": "pending" },
+    { "id": "polemo2_in", "label": "polemo2_in", "gen": null, "mcq": null, "status": "pending" },
+    { "id": "cbd", "label": "cbd", "gen": null, "mcq": null, "status": "pending" },
+    { "id": "8tags", "label": "8tags", "gen": null, "mcq": null, "status": "pending" },
+    { "id": "ppc", "label": "ppc", "gen": null, "mcq": null, "status": "pending" },
+    { "id": "polemo2_out", "label": "polemo2_out", "gen": null, "mcq": null, "status": "pending" },
+    { "id": "klej_ner", "label": "klej_ner", "gen": null, "mcq": null, "status": "pending" },
+    { "id": "polqa", "label": "polqa (reranking MC)", "gen": null, "mcq": null, "status": "pending" },
+    { "id": "polqa_closed_book", "label": "polqa_closed_book", "gen": null, "mcq": null, "status": "pending" },
+    { "id": "polqa_open_book", "label": "polqa_open_book", "gen": null, "mcq": null, "status": "pending" },
+    { "id": "poquad_open_book", "label": "poquad_open_book", "gen": null, "mcq": null, "status": "pending" }
+  ],
+  "guards": [],
+  "aggregate": { "gen": null, "mcq": null, "working_tasks": 0 }
+}
