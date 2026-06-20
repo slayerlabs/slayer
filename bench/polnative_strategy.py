@@ -53,6 +53,11 @@ def main():
     a = ap.parse_args()
 
     res = json.load(open(a.inp, encoding="utf-8"))["results"]
+    missing = [k for k in ("qwen27b", "bielik") if k not in res]
+    if missing:
+        raise SystemExit(f"[polnative-strategy] brak kluczy {missing} w {a.inp} "
+                         f"(Bielik wycofany z danych w 60ce78c). Ten widok strategiczny jest nieaktualny: "
+                         f"zaktualizuj zrodlo porownawcze albo usun skrypt (issue #38).")
     base = {d[4:]: v for d, v in res["qwen27b"]["score"].items() if d.startswith("dom:")}
     bie = {d[4:]: v for d, v in res["bielik"]["score"].items() if d.startswith("dom:")}
 

@@ -17,6 +17,7 @@ import argparse
 import datetime
 import html
 import json
+import os
 
 DOM_LABEL = {
     "EQ": "EQ / pragmatyka", "fleksja": "fleksja", "frazeologia": "frazeologia",
@@ -292,6 +293,7 @@ def main():
 
 </div></body></html>"""
 
+    os.makedirs(os.path.dirname(a.out) or ".", exist_ok=True)
     open(a.out, "w", encoding="utf-8").write(page)
     print(f"[polnative-report] {len(models)} modeli, {len(doms_of(models[leader]['score']))} domen -> {a.out}")
 
