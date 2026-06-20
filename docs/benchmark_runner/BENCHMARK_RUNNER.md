@@ -37,15 +37,22 @@ Dziś runy są wrzucane ręcznie jako statyczny JSON; runner/GPU wypełnia je p�
 flowchart LR
   S[(suites/*.json<br/>pinned tasks + harness)] --> L
   J[(runs/*.json<br/>run/v1)] --> L[lib/runs.js<br/>Δ + guard status<br/>at build]
-  L --> P[app/runner pages<br/>server components]
-  P --> V[Vercel<br/>static prerender]
+  L --> P[app/runner pages<br/>ISR 5 min]
+  P --> V[Vercel]
 ```
 
 - **Suite** = wersjonowany spec (`open-pl-v1`); liczby porównywalne tylko w obrębie wersji.
 - **Run** = jeden plik `run/v1`; `base` wskazuje kotwicę do Δ; `demo:true` = dane poglądowe.
-- **lib/runs.js** liczy Δ i guardy przy buildzie — strony to czyste server-components, zero backendu.
+- **lib/runs.js** = czysta logika (Δ, guardy, ranking). **lib/store.js** = źródło danych. **app/runner** = server-components z ISR.
+
+## Storage
+
+- **Źródło:** Vercel Blob w produkcji (gdy ustawione `BLOB_READ_WRITE_TOKEN` **oraz** `NEXT_PUBLIC_BLOB_BASE`), w innym wypadku pliki z `public/results/` (dev / preview działają bez konfiguracji).
+- **Layout:** `runner/runs/<id>.json` (board, publiczne), `runner/suites/<id>.json`, `runner/queue/<id>.json` (zgłoszenia — **nigdy** nie trafiają na board).
+- **Odczyt:** deterministyczny publiczny URL + `fetch` (O(1)); `list` tylko do wyliczenia id. Zapisy: `allowOverwrite` + `cacheControlMaxAge: 60`, więc nadpisania/nowe runy pojawiają się w oknie ISR (5 min), bez redeployu.
+- **Publikacja:** `node scripts/publish-run.mjs <run.json>` i `publish-suite.mjs <suite.json>` (walidują, wymagają tokenu). Zgłoszenia modeli: `POST /api/runner/submit` (cooldown per-IP, limit rozmiaru, honeypot, dedup po deterministycznym id).
 
 ## Status
 
-Front + dane poglądowe gotowe (kandydat = realny pomiar z `image.png`; baza/Bielik = placeholder).
-**Później:** realny harness + runner GPU, backend/submisja, Tier-A (diagnostyka prywatna + werdykt „keeper").
+Front + dane poglądowe + warstwa danych (Blob/store, ISR, walidatory, submisja) gotowe.
+**Później:** realny harness + runner GPU (zasysa kolejkę → `run/v1` → `putRun`), Tier-A (diagnostyka prywatna + werdykt „keeper").
