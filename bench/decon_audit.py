@@ -126,6 +126,11 @@ def shingles(ws, n):
 #   - lekko przeredagowane kopie (zmiana paru słów rozbija każdy długi ciąg).
 # MinHash + LSH daje uzupełniający, rekord-do-rekordu sygnał podobieństwa
 # (estymata Jaccarda na shingle'ach słów), skalowalny przez banding.
+# Koszt: O(N * perms * shingli) pure-python, jednowątkowo (~1.3 ms / 60-słowny
+# rekord). OK za flagą opt-in; przy dużych korpusach gen rozważ podział pracy.
+# Banding (bands/rows) jest sprzężony z progiem: domyślne perms=128/bands=32
+# (rows=4) dają recall ~0.9998 przy --jaccard 0.7; przy niższym progu zwiększ
+# --bands, inaczej część near-dup nie trafi do kandydatów (patrz ostrzeżenie).
 
 _MH_PRIME = (1 << 61) - 1  # prime Mersenne'a, mieści 64-bit hashe
 
@@ -143,11 +148,15 @@ def _shingle_hash(sh):
 
 
 def minhash_signature(ws, k, perms_ab):
-    """Sygnatura MinHash z k-słownych shingli (fallback: całe zdanie, gdy < k słów)."""
+    """Sygnatura MinHash z k-słownych shingli (fallback: całe zdanie, gdy < k słów).
+
+    sh nigdy nie jest puste (fallback na całe zdanie), więc hs zawsze ma >= 1 element.
+    Teksty < k słów dają trywialną sygnaturę (Jaccard 1.0 między sobą) - chronione
+    guardami len(ws) >= k przy budowie indeksu i w audycie, więc nie generują
+    fałszywych near-dup.
+    """
     sh = set(shingles(ws, k)) or {" ".join(ws)}
     hs = [_shingle_hash(s) for s in sh]
-    if not hs:
-        return tuple([0] * len(perms_ab))
     return tuple(min((a * h + b) % _MH_PRIME for h in hs) for (a, b) in perms_ab)
 
 
@@ -170,6 +179,11 @@ class NearDupIndex:
     def __init__(self, k=4, perms=128, bands=32, threshold=0.7, seed=1234):
         if perms % bands:
             raise ValueError(f"perms ({perms}) musi być podzielne przez bands ({bands})")
+        if threshold < 0.65:
+            print(f"[decon] !!! near-dup próg Jaccard={threshold} < 0.65: banding LSH "
+                  f"(bands={bands}, rows={perms // bands}) ma tu obniżony recall - część "
+                  f"near-dup może nie trafić do kandydatów. Zwiększ --bands dla wyższego "
+                  f"recall przy niskim progu.", flush=True)
         self.k, self.bands, self.threshold = k, bands, threshold
         self.perms_ab = make_perms(perms, seed)
         self.sigs = {}
@@ -313,7 +327,9 @@ def main():
     ap.add_argument("--report", default="public/results/decon_audit.json")
     ap.add_argument("--near-dup", action="store_true",
                     help="dodatkowy pass near-duplicate (MinHash/Jaccard) obok verbatim")
-    ap.add_argument("--jaccard", type=float, default=0.7, help="próg Jaccarda dla near-dup")
+    ap.add_argument("--jaccard", type=float, default=0.7,
+                    help="próg Jaccarda dla near-dup; sprzężony z --bands (niższy próg "
+                         "wymaga więcej bands dla recall, < 0.65 ostrzega)")
     ap.add_argument("--minhash-k", type=int, default=4, help="rozmiar shingla (słowa) dla MinHash")
     ap.add_argument("--perms", type=int, default=128, help="liczba permutacji MinHash")
     ap.add_argument("--bands", type=int, default=32, help="pasma LSH (perms %% bands == 0)")
