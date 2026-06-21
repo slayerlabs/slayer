@@ -14,6 +14,7 @@ export default function Update() {
       </div></section>
 
       <section className="sec tight"><div className="inner">
+        <div className="note" style={{ margin: "0 0 28px", borderLeftColor: "var(--acc)" }}><p><b>Teraz pracujemy nad:</b> przekrojowym setem benchmarków, żeby zmierzyć <b style={{ color: "var(--ink)" }}>Bielik vs Qwen / Gemma</b>. Pomiar to nie ranking dla rankingu — chcemy zobaczyć, gdzie są luki i jak budować dane pod <b style={{ color: "var(--ink)" }}>SFT / CPT</b>, żeby z bazy zrobić model SOTA. <a href="/benchmarks" style={{ color: "var(--acc)" }}>metodologia →</a></p></div>
         <div className="ghead"><h2>Co już działa</h2><span className="c">prawda teraz · produkty i research</span></div>
         <div className="grid auto-lg">
           <div className="cell"><div className="n">DYSTRYBUCJA</div><h3 className="sm">Codesota</h3><p>Data terminal: rejestr środowisk RL i SOTA-with-code. ~20k użytkowników / mies.</p><div className="meta"><a href="https://codesota.com" rel="noopener" target="_blank" style={{ color: "var(--acc)" }}>codesota.com ↗</a></div></div>
