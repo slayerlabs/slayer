@@ -48,36 +48,6 @@ const html = `<div style="min-height: 100vh; background: #eceef6; color: #2a2b38
     </div>
   </div>
 
-  <!-- księga pomiarów / living ledger -->
-  <div style="border-bottom: 1px solid #e0e2ee; background: #e6e8f3;">
-    <div style="max-width: 1120px; margin: 0 auto; padding: 56px 40px 64px;">
-      <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 8px;">
-        <span style="color: #5a63c0; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: .12em; display: inline-flex; align-items: center; gap: 8px;"><span style="width: 8px; height: 8px; border-radius: 50%; background: #5b9e7e; animation: lemPulse 1.6s infinite;"></span>PODGLĄD</span>
-        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #8085a0;">run-ledger/ · wpisy poglądowe · koszty szacunkowe · pełny pomiar w budowie</span>
-      </div>
-      <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 30px; font-weight: 600; letter-spacing: -.015em; margin: 0 0 8px; color: #232430;">Księga pomiarów.</h2>
-      <p style="font-size: 15px; color: #5c5f72; margin: 0 0 26px; max-width: 620px; line-height: 1.55;">Publiczny log eksperymentów, kosztów, regresji i decyzji. Liczby kosztów są na razie szacunkowe — automatyczny pomiar runów dopiero wpinamy. Docelowo widać realne życie labu: nie tylko sukcesy, ale też porażki i ich cenę.</p>
-      <div style="border: 1px solid #d6d9ea; border-radius: 6px; overflow: hidden; background: #f6f7fc; font-family: 'IBM Plex Mono', monospace;">
-        <div style="display: grid; grid-template-columns: 150px 1fr 110px 120px 1fr 150px; padding: 12px 20px; border-bottom: 1px solid #e0e2ee; font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: #9396ad; background: #eef0f8;">
-          <span>data · run</span><span>dataset</span><span>tokeny</span><span>koszt (szac.)</span><span>eval</span><span style="text-align: right;">decyzja</span>
-        </div>
-        <div style="display: grid; grid-template-columns: 150px 1fr 110px 120px 1fr 150px; padding: 14px 20px; border-bottom: 1px solid #eaecf5; font-size: 12px; color: #4a4d61; align-items: center;">
-          <span><span style="color: #232430; font-weight: 500;">2026-06-18</span><br><span style="color: #8085a0;">run/qwen27b-pol-v004</span></span><span>mix-v4.2</span><span>48.2M</span><span>1 840 PLN</span><span style="color: #6a6f86;">KLEJ ↑ · PolQA ↔ · code ↓</span><span style="text-align: right;"><span style="color: #d56a4d; background: #fbe7e0; padding: 4px 10px; border-radius: 40px; font-size: 10.5px;">reject</span></span>
-        </div>
-        <div style="display: grid; grid-template-columns: 150px 1fr 110px 120px 1fr 150px; padding: 14px 20px; border-bottom: 1px solid #eaecf5; font-size: 12px; color: #4a4d61; align-items: center;">
-          <span><span style="color: #232430; font-weight: 500;">2026-06-15</span><br><span style="color: #8085a0;">run/style-sft-v011</span></span><span>style-1.6k</span><span>6.1M</span><span>240 PLN</span><span style="color: #6a6f86;">styl ↑ · NLI ↔</span><span style="text-align: right;"><span style="color: #5b9e7e; background: #e3f0e9; padding: 4px 10px; border-radius: 40px; font-size: 10.5px;">promote</span></span>
-        </div>
-        <div style="display: grid; grid-template-columns: 150px 1fr 110px 120px 1fr 150px; padding: 14px 20px; border-bottom: 1px solid #eaecf5; font-size: 12px; color: #4a4d61; align-items: center;">
-          <span><span style="color: #232430; font-weight: 500;">2026-06-12</span><br><span style="color: #8085a0;">run/dpo-pol-v002</span></span><span>pref-9k</span><span>12.4M</span><span>520 PLN</span><span style="color: #6a6f86;">MT-Bench-PL ↑ · code ↓</span><span style="text-align: right;"><span style="color: #b07d2e; background: #f5ecd8; padding: 4px 10px; border-radius: 40px; font-size: 10.5px;">investigate</span></span>
-        </div>
-        <div style="display: grid; grid-template-columns: 150px 1fr 110px 120px 1fr 150px; padding: 14px 20px; font-size: 12px; color: #4a4d61; align-items: center;">
-          <span><span style="color: #232430; font-weight: 500;">2026-06-09</span><br><span style="color: #8085a0;">run/cpt-wiedza-v001</span></span><span>cpt-mix-v1</span><span>220M</span><span>7 300 PLN</span><span style="color: #6a6f86;">wiedza ↑ · koszt ↑</span><span style="text-align: right;"><span style="color: #b07d2e; background: #f5ecd8; padding: 4px 10px; border-radius: 40px; font-size: 10.5px;">investigate</span></span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
   <!-- co już zbudowaliśmy / ekosystem -->
   <div style="border-bottom: 1px solid #e0e2ee; background: #f4f5fa;">
     <div style="max-width: 1120px; margin: 0 auto; padding: 80px 40px;">
