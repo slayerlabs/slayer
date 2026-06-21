@@ -84,7 +84,7 @@ export default function Nav() {
             </div>
           );
         })}
-        <a className="ncta" href="https://discord.gg/9R3RZwjPSp" rel="noopener" target="_blank" onClick={close}>
+        <a className="ncta" href="https://discord.gg/HnTkVR4c5T" rel="noopener" target="_blank" onClick={close}>
           wejście →
         </a>
       </nav>
