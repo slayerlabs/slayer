@@ -6,6 +6,7 @@ const GROUPS = [
   {
     label: "protokół",
     links: [
+      ["/update", "na czym stoimy"],
       ["/kierunki", "kierunki modelu"],
       ["/propozycja", "propozycja v3"],
       ["/v3", "miks danych v3"],
