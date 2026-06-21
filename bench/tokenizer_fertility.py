@@ -66,7 +66,7 @@ def main():
         for lang in ("pl", "en"):
             t, w, c = measure(tok, txt[lang])
             m[lang] = {"tpw": t / w if w else 0.0, "cpt": c / t if t else 0.0}
-        vocab = getattr(tok, "vocab_size", len(tok))
+        vocab = tok.vocab_size if hasattr(tok, "vocab_size") else len(tok)
         rows.append((label, vocab, m["pl"]["tpw"], m["pl"]["cpt"],
                      m["en"]["tpw"], m["en"]["cpt"],
                      m["pl"]["tpw"] / m["en"]["tpw"] if m["en"]["tpw"] else 0.0))
