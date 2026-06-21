@@ -47,6 +47,19 @@ export default function Update() {
         </div>
         <div className="cta-row" style={{ marginTop: 24 }}><a className="btn btn-p" href="/zespol">Dołącz / zapisz się →</a><a className="btn btn-s" href="https://discord.gg/HnTkVR4c5T" rel="noopener" target="_blank">Discord</a></div>
       </div></section>
+
+      <section className="sec tight"><div className="inner">
+        <div className="ghead"><h2>Co realnie dostajesz</h2><span className="c">twarde korzyści, nie „fajna kultura"</span></div>
+        <div className="grid auto-lg">
+          <div className="cell"><div className="n">DOŚWIADCZENIE</div><h3 className="sm">Przyspieszony staż w ML</h3><p>Trenujesz prawdziwe modele i robisz prawdziwe eksperymenty na tanim, otwartym stacku. Od zera do reprodukowalnego wyniku w dni — nie tutorial w próżni, skondensowana praktyka.</p></div>
+          <div className="cell"><div className="n">DOROBEK</div><h3 className="sm">Publiczny, z nazwiskiem</h3><p>Repo, PR-y i wyniki są jawne, atrybuowane i cytowalne. Proof-of-work, który pokażesz pracodawcy i peerom — Twoje nazwisko przy realnych badaniach. Dla early-career to waluta.</p></div>
+          <div className="cell"><div className="n">ZASOBY</div><h3 className="sm">Czego solo nie zdobędziesz</h3><p>GPU (H100 / 3090), datasety, harness ewaluacyjny i baza wiedzy (Prophet). Działające środowisko badawcze za darmo — sam nie postawisz H100 ani nie zdobędziesz czystego korpusu IFC.</p></div>
+          <div className="cell"><div className="n">FEEDBACK</div><h3 className="sm">Niski próg, wysoki sufit</h3><p>Wchodzisz zielony (good-first-issue, tutorial) i rośniesz do realnych badań — fork + PR, zero gatekeepingu. Dostajesz prawdziwą recenzję: ktoś wejdzie w Twój pomysł głęboko. Mentoring i pętla zwrotna, nie nauka w samotności.</p></div>
+          <div className="cell"><div className="n">SENS</div><h3 className="sm">Misja + realny produkt</h3><p>Suwerenne polskie AI i model dla budownictwa (IFC). Misja, w którą można wierzyć, i zastosowanie w realu — nie zabawka.</p></div>
+        </div>
+        <div className="note" style={{ marginTop: 28, borderLeftColor: "var(--acc)" }}><p><b>Najmocniejszy pitch:</b> przyspieszone realne doświadczenie + publiczny, opisany dorobek + dostęp do zasobów, których solo nie masz. Twarde, sprawdzalne korzyści — nie „mamy fajną kulturę".</p></div>
+        <div className="cta-row" style={{ marginTop: 24 }}><a className="btn btn-p" href="/zespol">Wejdź na dowolnym poziomie →</a><a className="btn btn-s" href="/drabina">Zobacz drabinę</a></div>
+      </div></section>
     </>
   );
 }
