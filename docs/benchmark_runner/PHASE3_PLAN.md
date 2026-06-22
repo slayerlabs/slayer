@@ -59,7 +59,8 @@ public POST ─► runner/queue/<id>      (submission/v1; only the submit route 
 ## File Structure
 
 - `bench/runner/tasks/` (vendor) — pinned Open PL LLM Leaderboard task YAMLs (+ a `PINNED_COMMIT` note). Used via `--include_path`.
-- `lib/store.js` (modify) — add `delBlob(pathname)` (blob `del` + fs `unlink`); `listSubmissions(stage)`, `getSubmission(stage,id)`, `moveSubmission(fromStage,toStage,id)` (= put dest + `delBlob` src) over the prefixes `queue|approved|running|done|failed`.
+- `lib/store.js` (modify) — give the **write** path an fs branch (Phase 2 only reads fs): `putJson`/`delJson` write/delete under `FS_ROOT` when `!usingBlob()`, so publish + the whole queue work locally with no token. Add `delBlob(pathname)` (blob `del` / fs `unlink`); `listSubmissions(stage)`, `getSubmission(stage,id)`, `moveSubmission(fromStage,toStage,id)` (= put dest + `delBlob` src) over the prefixes `queue|approved|running|done|failed`.
+- `scripts/publish-run.mjs` (modify) — add `--local`: skip the token guard and let `putRun` fs-write to `public/results/runs/<id>.json` (so a GPU box with no Blob token / a laptop can publish straight to the dev board).
 - `scripts/queue-list.mjs <stage>`, `scripts/queue-approve.mjs <id>`, `scripts/queue-claim.mjs <id>`, `scripts/queue-resolve.mjs <id> done|failed` (create) — token-guarded CLIs over `moveSubmission`. `queue-claim` succeeds only if `approved/<id>` exists (moves it to `running/`).
 - `app/api/runner/submit/route.js` (modify) — validate `base` against a **static allowlist** and `suite` against `["open-pl-v1"]`; reject 400 otherwise. (No live `listRunIds()` on the public path.)
 - `BENCHMARK_RUNNER_DESIGN.md` (modify) — document the submission/v1 prefix lifecycle + legal transitions; add optional `decon_ref` to the run/v1 schema only if D7's ref is kept.
@@ -174,6 +175,18 @@ Gated on D1/D3/D6/D8 + GPU. Setup, not TDD:
 - [ ] Enable the flock cron; run submit→approve→claim→done end-to-end on one external model.
 
 ---
+
+## Local testing (no GPU cluster, no Blob) — the RTX 2000 Ada path
+
+The GPU host is "just an eval executor": *model + tasks → results JSON*. You can run the whole chain on an 8 GB card with no cloud:
+
+1. **Tiny model:** `Qwen2.5-0.5B-Instruct` (bf16 ≈ 1 GB) or 1.5B. On 8 GB use lm-eval's `--model hf` (avoids vLLM KV pre-allocation), or `--model vllm --gpu-memory-utilization 0.7 --max-model-len 2048`.
+2. **Eval a slice:** `python -m bench.runner.run_one --model Qwen/Qwen2.5-0.5B-Instruct --suite open-pl-v1 --limit 8 --backend hf --local`.
+3. `run_one --local` runs lm-eval → `to_run_v1` → `node scripts/publish-run.mjs --local`, which **fs-writes** `public/results/runs/<id>.json` (no token).
+4. `npm run dev` → the run shows on `/runner` (Phase 2 store fs-fallback). The full board/report renders locally.
+5. To exercise the queue/worker locally: submit via the form (fs-writes `runner/queue/`), `node scripts/queue-approve.mjs <id>`, `python -m bench.runner.worker` — all on fs, no Blob.
+
+This validates suite mapping → transform → board end-to-end. The H100 + Blob only add scale + the live queue later. Task 4's "real fixture" capture is exactly what your first local run produces — confirm the transform against it (filter-key forms) and backfill `suite_open_pl_v1.yaml`.
 
 ## Out of scope (Phase 4)
 Tier-A private/targeted diagnostics + verdict/"keeper" narrative; FP8/quantized + >27B tiers (separate suite version); auto-approval.
