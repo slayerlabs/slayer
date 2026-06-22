@@ -87,6 +87,45 @@ def _patch_publish(monkeypatch: pytest.MonkeyPatch):
     return mock
 
 
+# ── Suite config validation ──────────────────────────────────────────────
+
+
+class TestSuiteConfigValidation:
+    """Invalid suite config raises RunnerConfigError, not a raw KeyError."""
+
+    def test_invalid_cfg_raises_config_error(self, tmp_path):
+        """A structurally invalid cfg (missing 'id', 'tasks', 'n_shot') -> RunnerConfigError."""
+        import yaml
+
+        bad_cfg = {"wrong_key": "oops"}
+        path = tmp_path / "suite_bad.yaml"
+        path.write_text(yaml.dump(bad_cfg), encoding="utf-8")
+
+        with pytest.raises(RunnerConfigError, match="invalid suite config"):
+            run_one(
+                "Qwen/Qwen2.5-0.5B-Instruct",
+                "bad",
+                local=True,
+                suite_path=str(path),
+            )
+
+    def test_missing_tasks_raises_config_error(self, tmp_path):
+        """A cfg with id and n_shot but no tasks -> RunnerConfigError."""
+        import yaml
+
+        bad_cfg = {"id": "test", "n_shot": 5}
+        path = tmp_path / "suite_no_tasks.yaml"
+        path.write_text(yaml.dump(bad_cfg), encoding="utf-8")
+
+        with pytest.raises(RunnerConfigError, match="tasks"):
+            run_one(
+                "Qwen/Qwen2.5-0.5B-Instruct",
+                "no-tasks",
+                local=True,
+                suite_path=str(path),
+            )
+
+
 # ── Exception hierarchy ──────────────────────────────────────────────────
 
 
@@ -185,6 +224,105 @@ class TestHappyPath:
         assert isinstance(result["date"], str)
         # Date should look like YYYY-MM-DD
         assert len(result["date"]) == 10
+
+
+# ── OOM propagation ──────────────────────────────────────────────────────
+
+
+# ── vLLM tuning in model_args ────────────────────────────────────────────
+
+
+class TestVllmTuning:
+    """When backend=='vllm', _invoke_lm_eval folds suite_cfg['vllm'] into --model_args."""
+
+    def test_vllm_model_args_includes_tuning(self, monkeypatch, tmp_path):
+        """The --model_args string must contain vllm tuning params."""
+        import bench.runner.run_one as mod
+
+        suite_cfg_with_vllm: dict[str, Any] = {
+            **SUITE_CFG,
+            "vllm": {
+                "gpu_memory_utilization": 0.7,
+                "max_model_len": 2048,
+            },
+        }
+
+        captured_cmds: list[list[str]] = []
+
+        def fake_subprocess_run(cmd, **kwargs):
+            captured_cmds.append(cmd)
+            # Write a fake results JSON so _invoke_lm_eval can find it
+            results_dir = None
+            for i, arg in enumerate(cmd):
+                if arg == "--output_path" and i + 1 < len(cmd):
+                    results_dir = cmd[i + 1]
+                    break
+            if results_dir:
+                import os
+                model_dir = os.path.join(results_dir, "fake_model")
+                os.makedirs(model_dir, exist_ok=True)
+                with open(os.path.join(model_dir, "results_001.json"), "w") as f:
+                    json.dump(FAKE_LM_RESULTS, f)
+            return subprocess.CompletedProcess(args=cmd, returncode=0, stdout="", stderr="")
+
+        monkeypatch.setattr(mod.subprocess, "run", fake_subprocess_run)
+
+        result = mod._invoke_lm_eval(
+            "Qwen/Qwen2.5-0.5B-Instruct",
+            suite_cfg_with_vllm,
+            backend="vllm",
+        )
+
+        assert len(captured_cmds) == 1
+        cmd = captured_cmds[0]
+        model_args_idx = cmd.index("--model_args") + 1
+        model_args = cmd[model_args_idx]
+        assert "pretrained=Qwen/Qwen2.5-0.5B-Instruct" in model_args
+        assert "gpu_memory_utilization=0.7" in model_args
+        assert "max_model_len=2048" in model_args
+
+    def test_non_vllm_backend_no_extra_args(self, monkeypatch, tmp_path):
+        """Non-vllm backend should NOT include vllm tuning even if present in cfg."""
+        import bench.runner.run_one as mod
+
+        suite_cfg_with_vllm: dict[str, Any] = {
+            **SUITE_CFG,
+            "vllm": {
+                "gpu_memory_utilization": 0.7,
+                "max_model_len": 2048,
+            },
+        }
+
+        captured_cmds: list[list[str]] = []
+
+        def fake_subprocess_run(cmd, **kwargs):
+            captured_cmds.append(cmd)
+            results_dir = None
+            for i, arg in enumerate(cmd):
+                if arg == "--output_path" and i + 1 < len(cmd):
+                    results_dir = cmd[i + 1]
+                    break
+            if results_dir:
+                import os
+                model_dir = os.path.join(results_dir, "fake_model")
+                os.makedirs(model_dir, exist_ok=True)
+                with open(os.path.join(model_dir, "results_001.json"), "w") as f:
+                    json.dump(FAKE_LM_RESULTS, f)
+            return subprocess.CompletedProcess(args=cmd, returncode=0, stdout="", stderr="")
+
+        monkeypatch.setattr(mod.subprocess, "run", fake_subprocess_run)
+
+        result = mod._invoke_lm_eval(
+            "Qwen/Qwen2.5-0.5B-Instruct",
+            suite_cfg_with_vllm,
+            backend="hf",
+        )
+
+        assert len(captured_cmds) == 1
+        cmd = captured_cmds[0]
+        model_args_idx = cmd.index("--model_args") + 1
+        model_args = cmd[model_args_idx]
+        assert model_args == "pretrained=Qwen/Qwen2.5-0.5B-Instruct"
 
 
 # ── OOM propagation ──────────────────────────────────────────────────────

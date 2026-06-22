@@ -17,6 +17,7 @@ from pathlib import Path
 from bench.runner.run_one import (
     RunnerBadRun,
     RunnerConfigError,
+    RunnerError,
     RunnerOOM,
     run_one,
 )
@@ -45,19 +46,14 @@ def _queue_list(stage: str) -> list[str]:
 
 
 def _get_submission(stage: str, sub_id: str) -> dict | None:
-    """Fetch a single submission's data by shelling a Node one-liner."""
-    script = (
-        f'import {{ getSubmission }} from "./lib/store.js"; '
-        f'const s = await getSubmission("{stage}", "{sub_id}"); '
-        f"console.log(JSON.stringify(s));"
-    )
+    """Fetch a single submission by shelling out to `node scripts/queue-get.mjs <stage> <id>`."""
     result = subprocess.run(
-        ["node", "--input-type=module", "-e", script],
+        ["node", "scripts/queue-get.mjs", stage, sub_id],
         capture_output=True,
         text=True,
     )
     if result.returncode != 0:
-        log.error("get_submission(%s, %s) failed: %s", stage, sub_id, result.stderr)
+        log.error("get_submission(%s, %s) failed (exit %d): %s", stage, sub_id, result.returncode, result.stderr)
         return None
     try:
         return json.loads(result.stdout)
@@ -157,12 +153,14 @@ def tick() -> None:
         )
         _resolve(sub_id, "done")
         log.info("resolved %s → done", sub_id)
-    except (RunnerOOM, RunnerBadRun) as exc:
-        log.error("run failed for %s: %s", sub_id, exc)
-        _resolve(sub_id, "failed")
     except RunnerConfigError as exc:
         # Do NOT resolve — don't lose the item on a misconfig
         log.error("config error for %s (not resolving): %s", sub_id, exc)
+    except RunnerError as exc:
+        # Catches RunnerOOM, RunnerBadRun, AND bare RunnerError
+        # (e.g. lm-eval nonzero exit, missing results JSON).
+        log.error("run failed for %s: %s", sub_id, exc)
+        _resolve(sub_id, "failed")
 
 
 # ── CLI entry point ─────────────────────────────────────────────────────

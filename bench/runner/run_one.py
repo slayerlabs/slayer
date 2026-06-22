@@ -20,7 +20,7 @@ from pathlib import Path
 from typing import Any
 
 from bench.runner.lm_eval_to_run import to_run_v1
-from bench.runner.suite_cfg import load_suite_cfg
+from bench.runner.suite_cfg import load_suite_cfg, validate_suite_cfg
 
 # ── Exceptions ────────────────────────────────────────────────────────────
 
@@ -71,10 +71,20 @@ def _invoke_lm_eval(
         task_names.append(g["task"])
 
     with tempfile.TemporaryDirectory(prefix="lm_eval_") as tmpdir:
+        # Build --model_args: always includes pretrained=<model>.
+        # For vllm backend, fold in vllm tuning dict from suite config
+        # (e.g. gpu_memory_utilization=0.7,max_model_len=2048).
+        model_args_parts = [f"pretrained={model}"]
+        if backend == "vllm":
+            vllm_cfg = suite_cfg.get("vllm", {})
+            for k, v in vllm_cfg.items():
+                model_args_parts.append(f"{k}={v}")
+        model_args = ",".join(model_args_parts)
+
         cmd = [
             "lm_eval",
             "--model", backend,
-            "--model_args", f"pretrained={model}",
+            "--model_args", model_args,
             "--include_path", "bench/runner/tasks",
             "--tasks", ",".join(task_names),
             "--num_fewshot", str(suite_cfg.get("n_shot", 0)),
@@ -236,6 +246,13 @@ def run_one(
     # 1. Load suite config
     cfg_path = suite_path or f"bench/runner/suite_{suite_id}.yaml"
     suite_cfg = load_suite_cfg(cfg_path)
+
+    # 1b. Validate suite config
+    ok, errors = validate_suite_cfg(suite_cfg)
+    if not ok:
+        raise RunnerConfigError(
+            f"invalid suite config ({cfg_path}): {'; '.join(errors)}"
+        )
 
     # 2. Invoke lm-eval
     lm_results = _invoke_lm_eval(model, suite_cfg, backend=backend, limit=limit)

@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import pytest
 
-from bench.runner.run_one import RunnerBadRun, RunnerConfigError, RunnerOOM
+from bench.runner.run_one import RunnerBadRun, RunnerConfigError, RunnerError, RunnerOOM
 
 
 # ── Helpers ──────────────────────────────────────────────────────────────
@@ -141,6 +141,28 @@ class TestRunnerConfigError:
         monkeypatch.setattr(worker_mod, "_run_one", raise_cfg)
         worker_mod.tick()
         assert len(patch_seams["resolve"]) == 0
+
+
+class TestBareRunnerError:
+    """run_one raises the BASE RunnerError (not a subclass) — resolve with 'failed', not orphaned."""
+
+    def test_resolve_failed(self, worker_mod, patch_seams, monkeypatch):
+        def raise_base(*a, **kw):
+            raise RunnerError("lm_eval exited 1: unknown error")
+
+        monkeypatch.setattr(worker_mod, "_run_one", raise_base)
+        worker_mod.tick()
+        assert ("abc123", "failed") in patch_seams["resolve"]
+
+    def test_does_not_crash(self, worker_mod, patch_seams, monkeypatch):
+        """tick() must return normally — no unhandled exception."""
+        def raise_base(*a, **kw):
+            raise RunnerError("lm_eval produced no results JSON")
+
+        monkeypatch.setattr(worker_mod, "_run_one", raise_base)
+        # Should not raise
+        worker_mod.tick()
+        assert len(patch_seams["resolve"]) == 1
 
 
 class TestEmptyQueue:
