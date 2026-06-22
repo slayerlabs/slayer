@@ -86,53 +86,53 @@
         "n_seeds": 1
       },
       "layer_b": {
-        "panel_score_mean": 29.6,
+        "panel_score_mean": 47.2,
         "panel_score_var": null,
-        "naturalnosc_mean": 3.514,
+        "naturalnosc_mean": 3.883,
         "naturalnosc_var": null,
         "ija_alpha_mean": 1.0,
         "ija_alpha_var": null,
         "n_empty": 0,
         "per_domena": {
           "aspekt": {
-            "panel_score": 13.2,
-            "naturalnosc": 3.105
+            "panel_score": 40.0,
+            "naturalnosc": 3.7
           },
           "kalki": {
-            "panel_score": 25.0,
-            "naturalnosc": 3.25
+            "panel_score": 42.5,
+            "naturalnosc": 3.65
           },
           "liczebniki": {
-            "panel_score": 34.2,
-            "naturalnosc": 3.632
+            "panel_score": 50.0,
+            "naturalnosc": 3.947
           },
           "ortografia": {
-            "panel_score": 53.1,
-            "naturalnosc": 4.125
+            "panel_score": 70.6,
+            "naturalnosc": 4.824
           },
           "rejestr": {
-            "panel_score": 28.1,
-            "naturalnosc": 3.5
+            "panel_score": 52.9,
+            "naturalnosc": 4.118
           },
           "rekcja": {
-            "panel_score": 27.8,
-            "naturalnosc": 3.722
+            "panel_score": 57.9,
+            "naturalnosc": 3.895
           },
           "toponimy": {
-            "panel_score": 34.2,
-            "naturalnosc": 3.833
+            "panel_score": 50.0,
+            "naturalnosc": 4.053
           },
           "wołacz": {
-            "panel_score": 21.4,
-            "naturalnosc": 3.214
+            "panel_score": 26.9,
+            "naturalnosc": 3.154
           },
           "zaimki": {
-            "panel_score": 23.5,
-            "naturalnosc": 3.235
+            "panel_score": 41.7,
+            "naturalnosc": 3.667
           },
           "zgoda długodystansowa": {
-            "panel_score": 37.5,
-            "naturalnosc": 3.562
+            "panel_score": 35.3,
+            "naturalnosc": 3.706
           }
         },
         "n_seeds": 1
@@ -218,53 +218,53 @@
         "n_seeds": 1
       },
       "layer_b": {
-        "panel_score_mean": 32.4,
+        "panel_score_mean": 49.4,
         "panel_score_var": null,
-        "naturalnosc_mean": 3.747,
+        "naturalnosc_mean": 4.075,
         "naturalnosc_var": null,
         "ija_alpha_mean": 1.0,
         "ija_alpha_var": null,
         "n_empty": 0,
         "per_domena": {
           "aspekt": {
-            "panel_score": 34.2,
-            "naturalnosc": 3.632
+            "panel_score": 44.7,
+            "naturalnosc": 3.842
           },
           "kalki": {
-            "panel_score": 21.1,
-            "naturalnosc": 3.263
+            "panel_score": 31.6,
+            "naturalnosc": 3.579
           },
           "liczebniki": {
-            "panel_score": 14.7,
-            "naturalnosc": 3.294
+            "panel_score": 47.2,
+            "naturalnosc": 3.889
           },
           "ortografia": {
-            "panel_score": 31.2,
-            "naturalnosc": 4.062
+            "panel_score": 65.4,
+            "naturalnosc": 4.308
           },
           "rejestr": {
-            "panel_score": 27.8,
+            "panel_score": 44.4,
             "naturalnosc": 4.167
           },
           "rekcja": {
-            "panel_score": 50.0,
-            "naturalnosc": 4.125
+            "panel_score": 67.5,
+            "naturalnosc": 4.45
           },
           "toponimy": {
-            "panel_score": 50.0,
-            "naturalnosc": 3.944
+            "panel_score": 66.7,
+            "naturalnosc": 4.389
           },
           "wołacz": {
-            "panel_score": 17.9,
-            "naturalnosc": 3.429
+            "panel_score": 37.5,
+            "naturalnosc": 3.833
           },
           "zaimki": {
-            "panel_score": 41.2,
-            "naturalnosc": 3.941
+            "panel_score": 50.0,
+            "naturalnosc": 4.222
           },
           "zgoda długodystansowa": {
-            "panel_score": 34.4,
-            "naturalnosc": 3.625
+            "panel_score": 39.5,
+            "naturalnosc": 4.053
           }
         },
         "n_seeds": 1
@@ -350,53 +350,53 @@
         "n_seeds": 1
       },
       "layer_b": {
-        "panel_score_mean": 13.5,
+        "panel_score_mean": 29.9,
         "panel_score_var": null,
-        "naturalnosc_mean": 3.054,
+        "naturalnosc_mean": 3.316,
         "naturalnosc_var": null,
         "ija_alpha_mean": 1.0,
         "ija_alpha_var": null,
         "n_empty": 0,
         "per_domena": {
           "aspekt": {
-            "panel_score": 13.2,
-            "naturalnosc": 2.895
+            "panel_score": 29.4,
+            "naturalnosc": 3.0
           },
           "kalki": {
-            "panel_score": 2.6,
-            "naturalnosc": 2.789
+            "panel_score": 25.0,
+            "naturalnosc": 3.05
           },
           "liczebniki": {
-            "panel_score": 25.0,
-            "naturalnosc": 3.143
+            "panel_score": 20.6,
+            "naturalnosc": 3.0
           },
           "ortografia": {
-            "panel_score": 2.6,
-            "naturalnosc": 3.158
+            "panel_score": 23.5,
+            "naturalnosc": 3.471
           },
           "rejestr": {
-            "panel_score": 12.5,
-            "naturalnosc": 2.938
+            "panel_score": 23.3,
+            "naturalnosc": 3.4
           },
           "rekcja": {
-            "panel_score": 50.0,
-            "naturalnosc": 3.75
+            "panel_score": 52.8,
+            "naturalnosc": 3.944
           },
           "toponimy": {
-            "panel_score": 19.4,
-            "naturalnosc": 3.222
+            "panel_score": 44.4,
+            "naturalnosc": 3.722
           },
           "wołacz": {
-            "panel_score": 0.0,
-            "naturalnosc": 2.5
+            "panel_score": 21.9,
+            "naturalnosc": 3.062
           },
           "zaimki": {
-            "panel_score": 8.3,
-            "naturalnosc": 3.056
+            "panel_score": 26.3,
+            "naturalnosc": 3.421
           },
           "zgoda długodystansowa": {
-            "panel_score": 3.1,
-            "naturalnosc": 3.0
+            "panel_score": 29.4,
+            "naturalnosc": 3.059
           }
         },
         "n_seeds": 1
@@ -482,53 +482,53 @@
         "n_seeds": 1
       },
       "layer_b": {
-        "panel_score_mean": 6.7,
+        "panel_score_mean": 19.3,
         "panel_score_var": null,
-        "naturalnosc_mean": 2.703,
+        "naturalnosc_mean": 2.956,
         "naturalnosc_var": null,
         "ija_alpha_mean": 1.0,
         "ija_alpha_var": null,
         "n_empty": 0,
         "per_domena": {
           "aspekt": {
-            "panel_score": 0.0,
-            "naturalnosc": 2.65
+            "panel_score": 30.0,
+            "naturalnosc": 3.1
           },
           "kalki": {
-            "panel_score": 0.0,
-            "naturalnosc": 2.375
+            "panel_score": 17.5,
+            "naturalnosc": 2.65
           },
           "liczebniki": {
             "panel_score": 8.3,
-            "naturalnosc": 2.611
+            "naturalnosc": 2.556
           },
           "ortografia": {
-            "panel_score": 13.3,
-            "naturalnosc": 2.933
+            "panel_score": 23.5,
+            "naturalnosc": 3.529
           },
           "rejestr": {
-            "panel_score": 6.2,
-            "naturalnosc": 3.062
+            "panel_score": 22.2,
+            "naturalnosc": 3.056
           },
           "rekcja": {
-            "panel_score": 14.7,
-            "naturalnosc": 2.882
+            "panel_score": 42.1,
+            "naturalnosc": 3.474
           },
           "toponimy": {
-            "panel_score": 19.4,
+            "panel_score": 16.7,
             "naturalnosc": 3.167
           },
           "wołacz": {
-            "panel_score": 3.3,
-            "naturalnosc": 2.267
+            "panel_score": 6.7,
+            "naturalnosc": 2.467
           },
           "zaimki": {
-            "panel_score": 2.9,
-            "naturalnosc": 2.706
+            "panel_score": 13.2,
+            "naturalnosc": 2.789
           },
           "zgoda długodystansowa": {
-            "panel_score": 0.0,
-            "naturalnosc": 2.4
+            "panel_score": 8.8,
+            "naturalnosc": 2.706
           }
         },
         "n_seeds": 1

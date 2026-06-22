@@ -94,14 +94,14 @@ Warstwa A (bł./100 tok per kubełek) i Warstwa B (`panel_score` 0–100, `natur
 
 | model | LT morpho ↓ | LT spelling ↓ | LT style ↓ | panel_score 0–100 ↑ | naturalność 1–5 ↑ |
 |---|---|---|---|---|---|
-| gemma-4-31B-it | 0.050 | 0.929 | 0.030 | **32.4** | 3.75 |
-| Bielik-11B-v3 | 0.061 | 0.716 | 0.023 | 29.6 | 3.51 |
-| Qwen3.5-27B instr | 0.082 | 0.869 | 0.028 | 13.5 | 3.05 |
-| Qwen3.6-27B | 0.111 | 1.476 | 0.030 | 6.7 | 2.70 |
+| gemma-4-31B-it | 0.050 | 0.929 | 0.030 | **49.4** | 4.08 |
+| Bielik-11B-v3 | 0.061 | 0.716 | 0.023 | 47.2 | 3.88 |
+| Qwen3.5-27B instr | 0.082 | 0.869 | 0.028 | 29.9 | 3.32 |
+| Qwen3.6-27B | 0.111 | 1.476 | 0.030 | 19.3 | 2.96 |
 
-Sędzia jest **rygorystyczny** (niskie bezwzględne `panel_score`); sygnałem jest **rozrzut** (6.7–32.4),
-nie poziom — gemma-4 ≈ Bielik na czele, Qwen wyraźnie niżej. Warstwa A płaska (dolne ograniczenie) —
-zgodnie z projektem. (Generacja num_predict=1024, truncation ~34%; ten sam ranking co bieg referencyjny 50/domena.)
+Sygnałem jest **rozrzut** (19.3–49.4), nie poziom bezwzględny — gemma-4 ≈ Bielik na czele, Qwen wyraźnie
+niżej. Warstwa A płaska (dolne ograniczenie) — zgodnie z projektem. (Sędzia po rekalibracji progu
+„mixed/fail"; generacja num_predict=1024, truncation ~34%; ten sam ranking co bieg referencyjny 50/domena.)
 
 ## Koszt biegu
 
