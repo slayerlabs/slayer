@@ -169,9 +169,11 @@ JUDGE_SYS_GUIDED = (
     "WAŻNE: odpowiedź bywa UCIĘTA przez limit tokenów (artefakt harnessu). Oceniaj "
     "WYŁĄCZNIE polszczyznę tekstu, który JEST — NIE karz za brak zakończenia, "
     "niedokończone zdanie na końcu ani niekompletność. "
-    "(3) Przypisz werdykt po liczbie błędów: pass = 0 błędów (w tym wszystkie "
-    "zjawiska poprawne); mixed = 1-2 drobne błędy; fail = >=3 błędy LUB choć jeden "
-    "rażący LUB naruszenie któregokolwiek z testowanych zjawisk. (4) Oceń "
+    "(3) Przypisz werdykt po liczbie i WADZE błędów: pass = 0 błędów (wszystkie "
+    "zjawiska poprawne); mixed = 1-2 DROBNE błędy (w tym pojedyncze drobne "
+    "naruszenie testowanego zjawiska — to NADAL mixed, nie fail); fail = >=3 błędy "
+    "LUB choć jeden RAŻĄCY błąd (w tym rażące naruszenie testowanego zjawiska). "
+    "NIE failuj tekstu za jedno drobne potknięcie. (4) Oceń "
     "naturalnosc 1-5 (5 = w pełni naturalna, rodzima polszczyzna; 1 = sztuczna/"
     "kalkowana/błędna). Zwróć WYŁĄCZNIE jeden obiekt JSON, bez komentarza, bez "
     'markdown: {"bledy": [...], "werdykt": "pass"|"mixed"|"fail", '
@@ -223,8 +225,9 @@ def build_judge_prompt_guided(item, ans):
             f"{_GUIDED_CALIB}"
             f"ODPOWIEDŹ DO OCENY (może być ucięta — NIE karz za brak zakończenia):\n"
             f"{ans[:ANS_CLIP]}\n\n"
-            f"{krok} POTEM przypisz werdykt po liczbie błędów (pass=0; mixed=1-2 "
-            "drobne; fail=>=3, błąd rażący lub naruszenie testowanego zjawiska) i "
+            f"{krok} POTEM przypisz werdykt po liczbie i WADZE błędów (pass=0; "
+            "mixed=1-2 drobne, w tym pojedyncze drobne naruszenie zjawiska; "
+            "fail=>=3 LUB błąd rażący — nie failuj za jedno drobne potknięcie) i "
             "naturalnosc 1-5. Zwróć WYŁĄCZNIE jeden obiekt JSON, bez tekstu przed "
             'ani po, bez markdown: {"bledy": [...], "werdykt": '
             '"pass"|"mixed"|"fail", "naturalnosc": <1-5>, "powod": "...krótko..."}')

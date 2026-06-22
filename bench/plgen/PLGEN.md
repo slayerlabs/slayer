@@ -40,18 +40,20 @@ modelu-podmiotu.
 **Dlaczego pojedynczy DeepSeek w trybie `guided`, a nie otwarty panel 3 sędziów.** Otwarty panel
 (Llama-3.3-70B / Mistral-Large / Command-A) **niedowykrywał polskich błędów i rubber-stampował** (holistic:
 198/200 pass — brak dyskryminacji). Tryb `guided` (prompt zakotwiczony na fenomenach + rygorystyczny
-korektor + ignorowanie ucięć harnessu) naprawił to dla zdolnych sędziów. Walidacja **vs złoto ludzkie
-(n=20)**:
+korektor + ignorowanie ucięć harnessu) naprawił to dla zdolnych sędziów. Walidacja **vs samowystarczalne
+złoto ludzkie (n=30; rubryka po rekalibracji progu „mixed/fail")**:
 
-| sędzia | exact | ±1-klasa | werdykt |
+| sędzia | exact | ±1-klasa | uwaga |
 |---|---|---|---|
-| Llama-3.3-70B | 15% | 70% | wciąż rubber-stampuje → DROP |
-| Mistral-Large | 55% | 100% | dyskryminuje (drugi wybór) |
-| Qwen3.5-122B | 59% | 100% | najlepszy exact, ale parse-`None` + ryzyko Qwen-vs-Qwen |
-| **DeepSeek-V4-Pro** | **56%** | **100%** | **open-weight, dyskryminuje, zgodny z regułą → WYSYŁANY** |
+| Llama-3.3-70B | 24% | 79% | zbyt pobłażliwy (22/30 pass) → DROP |
+| Mistral-Large | 57% | 100% | wysoki exact, ale degeneracja (0 pass — wszystko mixed/fail) |
+| Qwen3.5-122B | 52% | 96% | dobry, ale rodzina Qwen (self-preference) + parse-`None` → poza regułą |
+| **DeepSeek-V4-Pro** | **52%** | **93%** | **open-weight, najlepiej skalibrowany (rozpoznaje pass), zgodny z regułą → WYSYŁANY** |
 
-DeepSeek nigdy nie odwraca pass↔fail względem człowieka (±1-klasa = 100%); pozostała luka to kalibracja
-„mixed", nie kierunek. **IJA (Krippendorff α) — N/A przy pojedynczym sędzim** (brak drugiego głosu).
+Rekalibracja (pojedyncze drobne naruszenie zjawiska = `mixed`, nie `fail`) podniosła DeepSeeka 43→52%
+exact i naprawiła środek skali: „mixed" człowieka trafia teraz w „mixed" 9/15 (było 5/15). DeepSeek
+prawie nie odwraca pass↔fail (±1 = 93%); resztkowa luka to lekka surowość na `pass`. **IJA (Krippendorff α)
+— N/A przy pojedynczym sędzim** (→ SLA-14).
 
 ## Protokół
 
@@ -109,7 +111,7 @@ wynik (zasada „koszt to wynik").
 ## Znane pułapki (uczciwie)
 
 - **Pojedynczy seed (s42)** — nie planowane 3 ziarna; wariancja generacji niezmierzona (→ SLA-15).
-- **Sędzia walidowany na n=20** złota ludzkiego — mały arbiter; kalibracja „mixed" do dostrojenia.
+- **Sędzia walidowany na n=30** złota ludzkiego — mały arbiter (brak sufitu człowiek-człowiek; "mixed" to najtrudniejsza klasa).
 - **Warstwa A = dolne ograniczenie o niskim recall** (~29% morfoskładnia) — nie ranking modeli na gramatyce.
 - **Determinizm best-effort** — DeepSeek przez OpenRouter (temp 0, przypięty model id); upstream nie
   gwarantuje powtarzalności. IJA α N/A przy jednym sędzim.
@@ -118,7 +120,7 @@ wynik (zasada „koszt to wynik").
 
 - **Czułość Warstwy A** — odciąć false-positive Stanzy albo wpiąć neuralny polski detektor GEC.
 - **Pełny bieg** 193 held-out × 3 ziarna.
-- **Rozszerzyć złoto ludzkie** (poza n=20).
+- **Rozszerzyć złoto ludzkie** (poza n=30).
 - Ewentualnie **dodać drugiego sędziego** dla IJA (α).
 
 ## Jak uruchomić
