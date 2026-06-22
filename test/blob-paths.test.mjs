@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { runPath, suitePath, queuePath, idFromPath, publicUrl } from "../lib/blob-paths.js";
+import { runPath, suitePath, queuePath, stagePath, idFromPath, publicUrl } from "../lib/blob-paths.js";
 
 test("path builders", () => {
   assert.equal(runPath("qwen3.5-9b"), "runner/runs/qwen3.5-9b.json");
@@ -14,4 +14,14 @@ test("idFromPath strips prefix + extension", () => {
 test("publicUrl joins base, throws without base", () => {
   assert.equal(publicUrl("runner/runs/x.json", "https://b.example.com"), "https://b.example.com/runner/runs/x.json");
   assert.throws(() => publicUrl("runner/runs/x.json", undefined));
+});
+test("stagePath builds correct paths for all stages", () => {
+  assert.equal(stagePath("queue", "sub-x"), "runner/queue/sub-x.json");
+  assert.equal(stagePath("approved", "sub-x"), "runner/approved/sub-x.json");
+  assert.equal(stagePath("running", "sub-x"), "runner/running/sub-x.json");
+  assert.equal(stagePath("done", "sub-x"), "runner/done/sub-x.json");
+  assert.equal(stagePath("failed", "sub-x"), "runner/failed/sub-x.json");
+});
+test("stagePath throws on invalid stage", () => {
+  assert.throws(() => stagePath("bogus", "sub-x"), /invalid stage/);
 });
