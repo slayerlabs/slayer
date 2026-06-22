@@ -1,0 +1,80 @@
+# Open PL LLM Leaderboard suite config — v1 (PROVISIONAL)
+#
+# Task names below are PROVISIONAL placeholders pending a real GPU dry-run
+# (Phase 3, Task 4).  The exact lm-eval task ids, metric filter keys, and
+# per-task protocol coverage will be backfilled from the captured fixture.
+
+id: open-pl-v1
+n_shot: 5
+
+vllm:
+  gpu_memory_utilization: 0.9
+  max_model_len: 4096
+
+param_cap_b: 14
+
+tasks:
+  - id: polemo2_in
+    gen: { task: polemo2_in_regex, metric: exact_match }
+    mcq: { task: polemo2_in, metric: acc }
+
+  - id: polemo2_out
+    gen: { task: polemo2_out_regex, metric: exact_match }
+    mcq: { task: polemo2_out, metric: acc }
+
+  - id: cbd
+    gen: { task: cbd_regex, metric: exact_match }
+    mcq: { task: cbd, metric: acc }
+
+  - id: psc
+    gen: { task: psc_regex, metric: exact_match }
+    mcq: { task: psc, metric: acc }
+
+  - id: dyk
+    gen: { task: dyk_regex, metric: exact_match }
+    mcq: { task: dyk, metric: acc }
+
+  - id: ppc
+    gen: { task: ppc_regex, metric: exact_match }
+    mcq: { task: ppc, metric: acc }
+
+  - id: 8tags
+    gen: { task: 8tags_regex, metric: exact_match }
+    mcq: { task: 8tags, metric: acc }
+
+  - id: klej_ner
+    gen: { task: klej_ner_regex, metric: exact_match }
+    mcq: null
+
+  - id: belebele_pol
+    gen: null
+    mcq: { task: belebele_pol, metric: acc }
+
+  - id: polqa
+    gen: { task: polqa, metric: exact_match }
+    mcq: null
+
+  - id: poquad
+    gen: { task: poquad, metric: exact_match }
+    mcq: null
+
+guards:
+  - id: mmlu
+    task: mmlu
+    metric: acc
+    limit: 200
+
+  - id: gsm8k
+    task: gsm8k
+    metric: exact_match
+    limit: 200
+
+  - id: arc_challenge
+    task: arc_challenge
+    metric: acc
+    limit: 200
+
+  - id: belebele_eng
+    task: belebele_eng
+    metric: acc
+    limit: 200
