@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
 
-const NB = "Bielik-11B-v3.0-Instruct";
 const NQ = "Qwen3.5-9B";
 const PRIMARY = { poquad: "judged_accuracy", llmzszl: "accuracy", belebele: "accuracy", pes: "accuracy", flores: "chrf_overall" };
 
@@ -31,17 +30,15 @@ export function ScoreBoard() {
     const t = setInterval(load, 60000);
     return () => clearInterval(t);
   }, []);
-  const wb = d?.tally?.[NB] ?? 0, wq = d?.tally?.[NQ] ?? 0;
+  const n = (d?.benchmarks || []).length;
   return (
     <div className="board">
-      <div className="team"><div className="tg">punkt odniesienia</div><div className="nm">Bielik-11B-v3</div></div>
+      <div className="team"><div className="tg">model</div><div className="nm">Qwen3.5-9B</div></div>
       <div className="cnt">
-        <span className="b" style={{ color: wb >= wq && wb > 0 ? "var(--acc)" : undefined }}>{d ? wb : "·"}</span>
-        <span className="d">:</span>
-        <span className="q" style={{ color: wq > wb ? "var(--acc)" : undefined }}>{d ? wq : "·"}</span>
+        <span className="q" style={{ color: "var(--acc)" }}>{d ? n : "·"}</span>
       </div>
-      <div className="team"><div className="tg">challenger</div><div className="nm">Qwen3.5-9B</div></div>
-      <div className="bfoot">{d ? <><b>{wb} : {wq}</b> po {(d.benchmarks || []).length} benchmarkach (live · {d.generated_at || ""})</> : "—"}</div>
+      <div className="team"><div className="tg">benchmarki</div><div className="nm">suita zewnętrzna</div></div>
+      <div className="bfoot">{d ? <><b>{n}</b> benchmarków zmierzonych (live · {d.generated_at || ""})</> : "—"}</div>
     </div>
   );
 }
@@ -65,28 +62,17 @@ export function StartingFive() {
   return (
     <div className="tbl">
       <table>
-        <thead><tr><th>Benchmark</th><th className="c">Bielik-11B-v3</th><th className="c">Qwen3.5-9B</th><th className="c">Wynik</th></tr></thead>
+        <thead><tr><th>Benchmark</th><th className="c">Qwen3.5-9B</th></tr></thead>
         <tbody>
           {ROWS.map((row) => {
             const b = by[row.id];
-            const vb = b ? val(b, NB) : null, vq = b ? val(b, NQ) : null;
+            const vq = b ? val(b, NQ) : null;
             const u = row.id === "flores" ? "" : "%";
-            const xb = b && b.winner === NB && b.margin > 0, xq = b && b.winner === NQ && b.margin > 0;
             return (
               <tr key={row.id}>
                 <td><div className="dn"><a href={row.href} rel="noopener">{row.name}</a></div><div className="ds">{row.desc}</div></td>
-                <td className="score" style={{ color: xb ? "var(--acc)" : undefined, fontWeight: xb ? 600 : undefined }}>
-                  {b ? (vb != null ? vb + u : "—") : <span className="muted mono">…</span>}
-                </td>
-                <td className="score col-q" style={{ color: xq ? "var(--acc)" : undefined, fontWeight: xq ? 600 : undefined }}>
+                <td className="score col-q">
                   {b ? (vq != null ? vq + u : "—") : <span className="muted mono">…</span>}
-                </td>
-                <td className="verdict">
-                  {b
-                    ? xb ? <span className="vb b">Bielik +{b.margin}</span>
-                      : xq ? <span className="vb b">Qwen +{b.margin}</span>
-                      : <span className="vb pend">remis</span>
-                    : <span className="vb pend">w toku</span>}
                 </td>
               </tr>
             );

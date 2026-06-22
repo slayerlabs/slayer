@@ -1,0 +1,22 @@
+{
+  "version": "v4",
+  "principle": "Każdy shard chroni lub poprawia konkretną kompetencję (skill->eval_proxy). Źródła rozłączne od evala (skill-transfer, nie benchmaxxing). Wagi ∝ ważność × luka w macierzy; regression_guard = bramka release.",
+  "schema": ["shard_id","skill","eval_proxy","source_family","language","domain","label_prior","format","contamination_status","target_weight","regression_guard"],
+  "shards": [
+    {"shard_id":"style_pl_sft","skill":"polszczyzna/naturalność + sentyment","eval_proxy":["PolEmo","judge-style"],"source_family":"style-distill (open judge)","language":"pl","domain":"general","label_prior":"n/d (generacja)","format":"chat/explained","contamination_status":"clean","target_weight":0.18,"regression_guard":"naturalność i PolEmo nie spadają"},
+    {"shard_id":"hard_neutral_nli","skill":"NLI-calibration (neutralność)","eval_proxy":["CDSC-E"],"source_family":"synthetic-teacher (deepseek) + open judge","language":"pl","domain":"general/captions","label_prior":"75 neutral / 18 entail / 7 contra","format":"single-label","contamination_status":"clean","target_weight":0.08,"regression_guard":"CDSC-E neutral-recall >= base-3pp"},
+    {"shard_id":"task_preservation_nlu","skill":"formaty zadań NLU (TAK/NIE, MCQ, klasy)","eval_proxy":["PSC","DYK","PPC","8tags","Belebele-PL"],"source_family":"self-replay-base + synthetic-PL","language":"pl","domain":"mixed","label_prior":"wg zadania","format":"single-label/letter","contamination_status":"clean","target_weight":0.12,"regression_guard":"brak zawału na KLEJ binary/MCQ"},
+    {"shard_id":"ner_pl","skill":"rozpoznawanie nazw własnych","eval_proxy":["NKJP-NER"],"source_family":"synthetic-PL + human-PL","language":"pl","domain":"news/general","label_prior":"wg klas NER","format":"single-label","contamination_status":"clean","target_weight":0.04,"regression_guard":"NKJP nie spada"},
+    {"shard_id":"toxicity_pl","skill":"wykrywanie hejtu + hard-negatywy","eval_proxy":["CBD"],"source_family":"synthetic-PL (hard neg)","language":"pl","domain":"social","label_prior":"~realny CBD","format":"single-label","contamination_status":"clean","target_weight":0.04,"regression_guard":"CBD >= base-2pp; bez nad-/pod-triggerowania"},
+    {"shard_id":"reasoning_cot_pl","skill":"rozumowanie wieloskokowe + egzaminy","eval_proxy":["LLMzSzŁ","PES"],"source_family":"synthetic-teacher CoT (izomorficzne)","language":"pl","domain":"exams/legal","label_prior":"n/d","format":"cot","contamination_status":"clean","target_weight":0.14,"regression_guard":"LLMzSzŁ rośnie (cel)"},
+    {"shard_id":"reasoning_cot_en","skill":"rozumowanie/matematyka EN","eval_proxy":["ARC-C","MMLU","GSM8K"],"source_family":"curated CoT (open)","language":"en","domain":"general/math","label_prior":"n/d","format":"cot","contamination_status":"clean","target_weight":0.10,"regression_guard":"ARC/MMLU/GSM8K >= base-2pp"},
+    {"shard_id":"en_retention","skill":"retencja angielskiego/instrukcji","eval_proxy":["ARC-C","MMLU","Belebele-EN"],"source_family":"tulu3 (open)","language":"en","domain":"general","label_prior":"n/d","format":"chat","contamination_status":"clean","target_weight":0.10,"regression_guard":"EN nie degraduje przy PL tuningu"},
+    {"shard_id":"replay_base","skill":"anti-forgetting zachowań bazy","eval_proxy":["*drift*"],"source_family":"self-replay-base (własne wyjścia bazy)","language":"pl+en","domain":"broad","label_prior":"n/d","format":"chat","contamination_status":"clean","target_weight":0.16,"regression_guard":"KL-do-bazy mały; brak driftu osobowości"},
+    {"shard_id":"knowledge_pl","skill":"wiedza długiego ogona o Polsce","eval_proxy":["LLMzSzŁ","PES","PoQuAD"],"source_family":"wiki/legal + EntiGraph (po filtrze wierności)","language":"pl","domain":"legal-admin/encyc","label_prior":"n/d","format":"qa/cpt","contamination_status":"suspect_until_faithfulness_filter","target_weight":0.04,"regression_guard":"tylko po filtrze faithfulness; PoQuAD-faithfulness"}
+  ],
+  "banned": [
+    {"what":"KLEJ train/dev/test (oficjalne splity)","why":"benchmaxxing / kontaminacja (reguła V4)"},
+    {"what":"shard z contamination_status=banned","why":"overlap n-gram/atom z którymkolwiek split benchu"},
+    {"what":"dane z Anthropic/OpenAI jako źródło lub filtr","why":"provenance 'not distilled' musi być szczelne"}
+  ]
+}

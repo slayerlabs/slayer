@@ -43,6 +43,13 @@ export default function Rules() {
           <p>Początkowy model organizacyjny Slayera to <b>BDFL</b>, czyli <b>Benevolent Dictator For Life</b> — model znany z wczesnej historii Pythona. W praktyce oznacza to, że Kacper Wikieł ma ostatnie słowo w sprawach kierunku, jakości, publikacji, nazwy, marki i konfliktów decyzyjnych.</p>
           <p>To nie jest zamknięcie projektu. To mechanizm utrzymania spójności, dopóki Slayer nie ma dojrzałego governance, stałych maintainerów i jasnych procesów rozstrzygania sporów.</p>
         </div>
+
+        <div className="rulebox">
+          <span className="kick">własność · equity</span>
+          <h2>Dziś 100% u założyciela.</h2>
+          <p>Obecnie <b>Kacper Wikieł posiada 100% projektu</b>. To stan startowy, nie docelowy — w miarę jak Slayer dojrzewa, własność będzie się otwierać dla osób, które realnie go budują.</p>
+          <p>Przewidujemy, że ścieżka <b>core membera</b> będzie wiązać się z <b>vested equity</b> (udziałami nabywanymi w czasie, za dowożoną pracę i odpowiedzialność). Pojawią się też prawdopodobnie <b>inwestorzy</b> — finansowanie compute i zespołu wymaga kapitału. Szczegóły (struktura spółki, vesting, cap table) domkniemy, gdy będą realne, i opiszemy je tutaj — bez obietnic bez pokrycia.</p>
+        </div>
       </div></section>
 
       <section className="sec tight alt"><div className="inner">

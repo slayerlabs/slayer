@@ -1,46 +1,7 @@
-"use client";
-import { useEffect, useState } from "react";
-
+// Server component (no "use client"): rendered statically at build so crawlers get full HTML.
 const SRCLABEL = { style: "styl", klej_train_split: "KLEJ train", klej_synth: "KLEJ synth", replay: "replay", distill_pl: "destylacja PL", aya_pl: "Aya-PL", oasst_pl: "OASST-PL", en_retention: "EN retencja" };
 
-function Chart({ cv }) {
-  if (!cv || ((!cv.train || !cv.train.length) && (!cv.eval || !cv.eval.length))) return null;
-  const W = 520, H = 130, pl = 34, pr = 8, pt = 10, pb = 18;
-  const all = [...(cv.train || []), ...(cv.eval || [])];
-  const xs = all.map((p) => p[0]), ys = all.map((p) => p[1]);
-  let x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys);
-  if (y1 === y0) { y1 += 0.05; y0 -= 0.05; }
-  if (x1 === x0) x1 = x0 + 1;
-  const sx = (s) => pl + ((s - x0) / (x1 - x0)) * (W - pl - pr);
-  const sy = (v) => pt + (1 - (v - y0) / (y1 - y0)) * (H - pt - pb);
-  const path = (pts) => pts.map((p, i) => (i ? "L" : "M") + sx(p[0]).toFixed(1) + " " + sy(p[1]).toFixed(1)).join(" ");
-  return (
-    <>
-      <div className="secline">krzywa loss</div>
-      <div className="chartwrap">
-        <svg viewBox={`0 0 ${W} ${H}`} className="chart" preserveAspectRatio="none">
-          <line x1={pl} y1={sy(y1).toFixed(1)} x2={W - pr} y2={sy(y1).toFixed(1)} className="grid" />
-          <line x1={pl} y1={sy(y0).toFixed(1)} x2={W - pr} y2={sy(y0).toFixed(1)} className="grid" />
-          <text x="2" y={(sy(y1) + 3).toFixed(1)} className="ax">{y1.toFixed(2)}</text>
-          <text x="2" y={(sy(y0) + 3).toFixed(1)} className="ax">{y0.toFixed(2)}</text>
-          {cv.train && cv.train.length ? <path d={path(cv.train)} className="ltrain" /> : null}
-          {cv.eval && cv.eval.length ? (
-            <>
-              <path d={path(cv.eval)} className="leval" />
-              {cv.eval.map((p, i) => <circle key={i} cx={sx(p[0]).toFixed(1)} cy={sy(p[1]).toFixed(1)} r="2.8" className="deval" />)}
-            </>
-          ) : null}
-          <text x={pl} y={H - 4} className="ax">step {x0}</text>
-          <text x={W - pr} y={H - 4} className="ax" textAnchor="end">{x1}</text>
-        </svg>
-        <div className="leg">
-          {cv.train && cv.train.length ? <span className="lg t">train loss</span> : null}
-          {cv.eval && cv.eval.length ? <span className="lg e">eval loss</span> : null}
-        </div>
-      </div>
-    </>
-  );
-}
+// (Usunięty inline-SVG Chart — krzywe loss są teraz wyłącznie matplotlib PNG via x.plot.)
 
 function Card({ x }) {
   const clean = x.status === "clean";
@@ -95,8 +56,19 @@ function Card({ x }) {
             <div className="secline">krzywa loss</div>
             <img className="lossimg" src={x.plot} alt={`loss curve ${x.name}`} loading="lazy" />
           </>
-        ) : x.curves ? (
-          <Chart cv={x.curves} />
+        ) : null}
+        {Array.isArray(x.plots) && x.plots.length ? (
+          <>
+            <div className="secline">wykresy</div>
+            <div className="gallery">
+              {x.plots.map((p, i) => (
+                <figure key={i} className="gfig">
+                  <img className="gimg" src={p.src} alt={p.cap || x.name} loading="lazy" />
+                  {p.cap ? <figcaption>{p.cap}</figcaption> : null}
+                </figure>
+              ))}
+            </div>
+          </>
         ) : null}
         {x.early_stop ? <div className="xp-es">⏹ {x.early_stop}</div> : null}
         {x.log_note ? <div className="muted mono" style={{ fontSize: ".72rem" }}>{x.log_note}</div> : null}
@@ -115,37 +87,28 @@ function Card({ x }) {
   );
 }
 
-export default function ExperimentLog() {
-  const [d, setD] = useState(null);
-  const [err, setErr] = useState(false);
-  useEffect(() => {
-    fetch("/results/experiments.json?ts=" + Date.now())
-      .then((r) => r.json())
-      .then(setD)
-      .catch(() => setErr(true));
-  }, []);
-  const xs = d ? (d.experiments || []).slice().sort((a, b) => (b.date || "").localeCompare(a.date || "")) : [];
+export default function ExperimentLog({ d }) {
+  const xs = (d?.experiments || []).slice().sort((a, b) => (b.date || "").localeCompare(a.date || ""));
   return (
     <>
       <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 16, flexWrap: "wrap" }}>
         <div><span className="kick"><span className="ac">LOG</span> — eksperymenty · co · na czym · z jakim wynikiem</span><h1>Log eksperymentów</h1></div>
-        <span className="live"><span className="d"></span><span>{d ? "zaktualizowano " + (d.updated || "—") : "—"}</span></span>
+        <span className="live"><span className="d"></span><span>{"zaktualizowano " + (d?.updated || "—")}</span></span>
       </div>
 
       <div className="banner">
         <b>Uczciwa zasada:</b> każdy model jest tu z pełnym składem danych i wynikiem. Trening na train-splicie
         benchmarku oznaczamy <b style={{ color: "#c98a78" }}>KONTAMINACJA</b> — bo zawyża wynik i jest nieporównywalny
-        z modelami liczonymi 5-shot. Realne twierdzenie stawiamy wyłącznie na <b>oficjalnym 5-shot leaderboardzie + MT-Bench-PL</b>.
+        z modelami liczonymi 5-shot. Iterujemy na otwartych benchmarkach i prywatnych proxy setach; zamknięty leaderboard
+        może być tylko końcowym zewnętrznym sprawdzeniem, nie gate'em treningowym.
       </div>
 
       <div className="log">
-        {err && <div className="muted mono" style={{ marginTop: 20 }}>brak danych (results/experiments.json)</div>}
-        {!err && !d && <div className="muted mono" style={{ marginTop: 20 }}>wczytuję log…</div>}
-        {d && (xs.length ? xs.map((x) => <Card key={x.name + x.date} x={x} />) : <div className="muted mono">brak eksperymentów</div>)}
+        {xs.length ? xs.map((x) => <Card key={x.name + x.date} x={x} />) : <div className="muted mono">brak eksperymentów</div>}
       </div>
 
       <p className="muted mono" style={{ textAlign: "center", fontSize: ".78rem", marginTop: 22 }}>
-        {d ? xs.length + " eksperymentów · log auto-aktualizowany przez pipeline (pipeline/run_daily.py)" : "—"}
+        {xs.length + " eksperymentów · log auto-aktualizowany przez pipeline (pipeline/run_daily.py)"}
       </p>
     </>
   );

@@ -11,11 +11,11 @@ const css = `
     .figbox svg{width:100%;height:auto;display:block}
     .figbox .src{font-family:var(--mono);font-size:.68rem;color:var(--dim);margin-top:10px}
     svg text{font-family:"IBM Plex Mono",monospace}
-    .axis{stroke:rgba(222,202,154,.20);stroke-width:1}
-    .gridl{stroke:rgba(222,202,154,.07);stroke-width:1}
-    .lbl{fill:#6f6653;font-size:11px}
-    .lblb{fill:#a89b82;font-size:11.5px}
-    .val{fill:#f2ead7;font-size:12px;font-weight:600}
+    .axis{stroke:rgba(90,99,192,.20);stroke-width:1}
+    .gridl{stroke:rgba(90,99,192,.07);stroke-width:1}
+    .lbl{fill:#5c5f72;font-size:11px}
+    .lblb{fill:#9396ad;font-size:11.5px}
+    .val{fill:#5a63c0;font-size:12px;font-weight:600}
     .hyp{display:grid;grid-template-columns:92px 1fr auto;gap:clamp(12px,2.5vw,28px);padding:clamp(18px,2.6vw,26px) clamp(16px,2.6vw,28px);border-top:1px solid var(--line2);align-items:start}
     .hyp:first-child{border-top:0}
     .hyp .no{font-family:var(--serif);font-style:italic;font-size:clamp(1.7rem,3vw,2.3rem);color:var(--acc);line-height:1;opacity:.85}
@@ -25,7 +25,7 @@ const css = `
     .hyp .fals b{color:var(--amber);font-weight:500}
     .st{font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:99px;white-space:nowrap}
     .st.ok{color:var(--good);border:1px solid rgba(116,163,122,.4);background:rgba(116,163,122,.08)}
-    .st.part{color:var(--amber);border:1px solid rgba(199,148,72,.4);background:var(--acc-soft)}
+    .st.part{color:var(--amber);border:1px solid rgba(90,99,192,.4);background:var(--acc-soft)}
     .st.open{color:var(--dim);border:1px solid var(--line)}
     @media(max-width:640px){.hyp{grid-template-columns:1fr}.hyp .no{font-size:1.5rem}}
     .pyr td{font-size:.92rem}
@@ -39,7 +39,7 @@ export default function Wiedza() {
       <section className="phero"><div className="inner">
         <span className="kick">program badawczy · synthetic CPT</span>
         <h1>Ile <em>wiedzy o Polsce</em> da się wstrzyknąć w model?</h1>
-        <p>Bielik przeszedł 1.1T tokenów polskiego CPT i zna 29% naszego długiego ogona. Nasza baza (Qwen3.5-27B) zna 16%.
+        <p>Nasza baza (Qwen3.5-27B) zna 16% naszego długiego ogona polskich faktów.
         Pytanie za kilka tysięcy dolarów: czy syntetyczna multiplikacja faktów (EntiGraph) wstrzykuje ogon taniej
         i głębiej niż surowy korpus? Wszystko poniżej jest mierzone, z falsyfikatorami.</p>
       </div></section>
@@ -76,20 +76,14 @@ export default function Wiedza() {
             {/* grupy: polonica (n=38) / ogólne (n=33) */}
             <text className="lblb" x="265" y="285" textAnchor="middle">polonica · fakty lokalne (n=38)</text>
             <text className="lblb" x="595" y="285" textAnchor="middle">wiedza ogólna (n=33)</text>
-            {/* polonica: bielik 28.9, q9 18.4, q27 15.8  (skala: 1% = 4.6px) */}
-            <rect x="160" y="117.06" width="60" height="132.94" fill="#c79448" />
-            <text className="val" x="190" y="109" textAnchor="middle">28.9</text>
-            <text className="lbl" x="190" y="264" textAnchor="middle">Bielik 11B</text>
+            {/* polonica: q9 18.4, q27 15.8  (skala: 1% = 4.6px) */}
             <rect x="235" y="165.36" width="60" height="84.64" fill="#7e9eb0" />
             <text className="val" x="265" y="157" textAnchor="middle">18.4</text>
             <text className="lbl" x="265" y="264" textAnchor="middle">Qwen 9B</text>
             <rect x="310" y="177.32" width="60" height="72.68" fill="#74a37a" />
             <text className="val" x="340" y="169" textAnchor="middle">15.8</text>
             <text className="lbl" x="340" y="264" textAnchor="middle">Qwen 27B</text>
-            {/* ogólne: 39.4 / 30.3 / 33.3 */}
-            <rect x="490" y="68.76" width="60" height="181.24" fill="#c79448" />
-            <text className="val" x="520" y="61" textAnchor="middle">39.4</text>
-            <text className="lbl" x="520" y="264" textAnchor="middle">Bielik 11B</text>
+            {/* ogólne: 30.3 / 33.3 */}
             <rect x="565" y="110.62" width="60" height="139.38" fill="#7e9eb0" />
             <text className="val" x="595" y="102" textAnchor="middle">30.3</text>
             <text className="lbl" x="595" y="264" textAnchor="middle">Qwen 9B</text>
@@ -97,10 +91,9 @@ export default function Wiedza() {
             <text className="val" x="670" y="89" textAnchor="middle">33.3</text>
             <text className="lbl" x="670" y="264" textAnchor="middle">Qwen 27B</text>
           </svg>
-          <div className="src">results/knowledge_probe_v1.json · itemy probe = held-out (exclusion list z treningu) · n=71, różnica Bielik↔27B na polonica jeszcze nieistotna statystycznie (potwierdzenie: probe 300–500 + drugi sędzia)</div>
+          <div className="src">results/knowledge_probe_v1.json · itemy probe = held-out (exclusion list z treningu) · n=71 (potwierdzenie: probe 300–500 + drugi sędzia)</div>
         </div>
-        <div className="note"><p><b>Odczyt:</b> długi ogon leży u wszystkich (16–29%). Bielik prowadzi: jego 1.1T CPT częściowo
-        kupiło ogon. Nasza baza 27B ma najlepszą wiedzę ogólną (transfer z EN/ZH) i najsłabszą lokalną: faktów
+        <div className="note"><p><b>Odczyt:</b> długi ogon leży u obu modeli bazowych (16–18% na polonica). Nasza baza 27B ma najlepszą wiedzę ogólną (transfer z EN/ZH) i najsłabszą lokalną: faktów
         o eksporcie piwa z Mławy nie ma w żadnym nie-polskim korpusie. Tej luki nie da się przetransferować; można ją tylko wstrzyknąć.</p></div>
       </div></section>
 
@@ -124,23 +117,20 @@ export default function Wiedza() {
             <text className="lbl" x="540" y="276" textAnchor="middle">$1.5k</text>
             <text className="lbl" x="665" y="276" textAnchor="middle">$3.5k</text>
             {/* krzywa log-liniowa (hipoteza H1) */}
-            <path d="M150,252 C 240,244 270,222 295,212 C 420,164 470,140 540,110 C 600,84 640,44 665,24" fill="none" stroke="#c79448" strokeWidth="2.5" strokeDasharray="1 0" />
+            <path d="M150,252 C 240,244 270,222 295,212 C 420,164 470,140 540,110 C 600,84 640,44 665,24" fill="none" stroke="#5a63c0" strokeWidth="2.5" strokeDasharray="1 0" />
             {/* punkty */}
             <circle cx="150" cy="252" r="6" fill="#74a37a" />
             <text className="val" x="150" y="236" textAnchor="middle">10M tok</text>
             <text className="lbl" x="150" y="222" textAnchor="middle">~3% · MAMY</text>
-            <circle cx="295" cy="212" r="6" fill="#c79448" />
+            <circle cx="295" cy="212" r="6" fill="#5a63c0" />
             <text className="val" x="295" y="194" textAnchor="middle">50M</text>
             <text className="lbl" x="295" y="180" textAnchor="middle">10–30%</text>
-            <circle cx="540" cy="110" r="6" fill="#c79448" />
+            <circle cx="540" cy="110" r="6" fill="#5a63c0" />
             <text className="val" x="540" y="93" textAnchor="middle">2B</text>
             <text className="lbl" x="540" y="79" textAnchor="middle">~50%</text>
             <circle cx="665" cy="24" r="6" fill="#7e9eb0" />
             <text className="val" x="640" y="40" textAnchor="end">5B tok</text>
             <text className="lbl" x="640" y="54" textAnchor="end">~100% jądra</text>
-            {/* adnotacja Bielik CPT */}
-            <line className="gridl" x1="90" y1="232" x2="730" y2="232" strokeDasharray="4 4" />
-            <text className="lbl" x="726" y="226" textAnchor="end">poziom Bielika na probe (28.9% ogona): cel minimum po pierwszym CPT</text>
           </svg>
           <div className="src">kształt krzywej = hipoteza H1 (log-liniowość, EntiGraph); pozycje punktów 50M+ to prognoza do zmierzenia, nie wynik · pełne jądro ≈ $2k generacji + $0.7–1.5k treningu, czyli mieści się w tezie „model za 15–20k zł&quot;</div>
         </div>
@@ -161,8 +151,8 @@ export default function Wiedza() {
           </div><span className="st part">wstępnie potwierdzona</span></div>
           <div className="hyp"><div className="no">H3</div><div>
             <h3>Surowy korpus kupuje ogon fragmentarycznie</h3>
-            <p>1.1T polskich tokenów CPT (Bielik) daje 28.9% ogona: fakt występujący w korpusie raz, w jednym sformułowaniu, zwykle nie zapisuje się w wagach. Multiplikacja sformułowań (×10) powinna być radykalnie tańsza na fakt niż skala surowa.</p>
-            <div className="fals"><b>falsyfikator:</b> nasz CPT na 10M tokenów syntetycznych nie zbliża się do poziomu Bielika (≤22%) na polonica</div>
+            <p>Surowy korpus kupuje ogon nieefektywnie: fakt występujący w korpusie raz, w jednym sformułowaniu, zwykle nie zapisuje się w wagach. Multiplikacja sformułowań (×10) powinna być radykalnie tańsza na fakt niż skala surowa.</p>
+            <div className="fals"><b>falsyfikator:</b> nasz CPT na 10M tokenów syntetycznych nie podnosi accuracy na polonica powyżej bazy 27B (≤16%)</div>
           </div><span className="st part">wstępnie potwierdzona</span></div>
           <div className="hyp"><div className="no">H4</div><div>
             <h3>Pytalne jądro polskiej wiedzy mieści się w budżecie hobbystycznym</h3>
@@ -184,7 +174,7 @@ export default function Wiedza() {
           <div className="cell"><div className="top"><span>sędzia</span></div><h3 className="sm">Otwarte wagi, gold w źródle</h3><p>Otwarty Qwen3.5-122B porównuje odpowiedź z goldem ugruntowanym w akapicie źródłowym. Pusta odpowiedź = błędna. W planie: drugi niezależny sędzia (gpt-oss-120b) i raport zgodności.</p></div>
           <div className="cell"><div className="top"><span>anty-kontaminacja</span></div><h3 className="sm">Audyt verbatim 8-gram</h3><p>Każdy wygenerowany dokument przechodzi przez indeks n-gramów wszystkich zbiorów testowych (KLEJ, LLMzSzŁ, PolKnowledge, held-outy). Kopie wypadają; fakty zostają.</p></div>
         </div>
-        <div className="note" style={{ marginTop: 18 }}><p><b>Pipeline (stan na 2026-06-11):</b> korpus EntiGraph 10M tokenów / 92k dokumentów z 6.5k artykułów (PL-focus Wikipedia) · ZPE: 50k+ akapitów materiałów egzaminacyjnych w kolejce do multiplikacji · zewnętrzny zbiór destylacji z Bielika: przyjęte 4 091 z 9 769 po weryfikacji faktów otwartym sędzią (51% surowych odpadło jako konfabulacje). Następny krok: pilot CPT (high-rank QLoRA, 27B) na 10M → probe przed/po → decyzja o skali ze slope&apos;u, nie z wiary.</p></div>
+        <div className="note" style={{ marginTop: 18 }}><p><b>Pipeline (stan na 2026-06-11):</b> korpus EntiGraph 10M tokenów / 92k dokumentów z 6.5k artykułów (PL-focus Wikipedia) · ZPE: 50k+ akapitów materiałów egzaminacyjnych w kolejce do multiplikacji · zewnętrzny zbiór destylacji: przyjęte 4 091 z 9 769 po weryfikacji faktów otwartym sędzią (51% surowych odpadło jako konfabulacje). Następny krok: pilot CPT (high-rank QLoRA, 27B) na 10M → probe przed/po → decyzja o skali ze slope&apos;u, nie z wiary.</p></div>
       </div></section>
     </>
   );

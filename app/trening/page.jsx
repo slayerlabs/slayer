@@ -71,37 +71,13 @@ export default function Trening() {
       </div></section>
 
       <section className="sec tight"><div className="inner">
-        <div className="ghead"><h2>Jak trenowano <em>Bielika</em></h2><span className="c">referencja · raport techniczny 11B v3</span></div>
-        <p className="muted" style={{ maxWidth: "72ch", margin: "0 0 20px" }}>Pełny, kosztowny pipeline. My startujemy z mocniejszej bazy (Qwen3.5-27B) i <b style={{ color: "var(--ink)" }}>pomijamy najdroższy etap (CPT)</b> — to sedno „super tanio + epsilon&quot;.</p>
-        <div className="grid c2">
-          <div className="cell"><div className="n">BIELIK 11B v3 (referencja)</div>
-            <ul style={{ margin: "8px 0 0", paddingLeft: 18, color: "var(--mut)", fontSize: ".94rem", lineHeight: 1.7 }}>
-              <li>Baza: Mistral 7B, <b>Depth Up-Scaling</b> do 11B; tokenizer Mistral (<b>bez rozszerzania PL</b>)</li>
-              <li><b>CPT ~1.1T tokenów</b> (54% PL/20% EN; akty prawne, orzeczenia, sejm, Wikipedia) + merging</li>
-              <li><b>SFT</b> ~20M instrukcji, instruction-masking, sample-packing</li>
-              <li><b>DPO + DPO-P</b> 114k par (pary gen. m.in. <b>DeepSeek-V3</b>)</li>
-              <li><b>GRPO + Dr.GRPO / RLVR</b> 143k zadań; weryfikatory: matma <code>\boxed</code>, <b>STEM MCQ</b>, tool-use</li>
-            </ul></div>
-          <div className="cell" style={{ borderLeft: "3px solid var(--acc)" }}><div className="n">NASZA TAŃSZA ŚCIEŻKA</div>
-            <ul style={{ margin: "8px 0 0", paddingLeft: 18, color: "var(--mut)", fontSize: ".94rem", lineHeight: 1.7 }}>
-              <li>Baza: <b>Qwen3.5-27B</b> — bije Bielika już off-the-shelf → <b>pomijamy CPT</b> (największy koszt); 9B służy tylko do tanich iteracji</li>
-              <li><b>QLoRA SFT</b> na kurowanych PL + arkuszach zawodowych (nie pełne 20M)</li>
-              <li><b>ORPO/DPO</b> na mniejszym, celowanym zbiorze par</li>
-              <li><b>GRPO/RLVR z weryfikatorem MCQ</b> — dokładnie dźwignia pod <b style={{ color: "var(--ink)" }}>LLMzSzŁ</b></li>
-              <li>Generowanie danych: <b>DeepSeek</b> (jak Bielik) — <a href="/datasety" style={{ color: "var(--acc)" }}>dane pod LLMzSzŁ</a></li>
-            </ul></div>
-        </div>
-        <div className="note"><p><b>Wniosek z raportu:</b> rozszerzanie tokenizera PL okazało się zbędne (Bielik go nie ruszał), a RLVR z weryfikatorem MCQ to sprawdzona dźwignia na egzaminy — zgodne z naszym planem.</p></div>
-      </div></section>
-
-      <section className="sec tight"><div className="inner">
         <div className="ghead"><h2>Tokenizer — dlaczego <em>nie</em> rozszerzamy</h2><span className="c">fertility (tokeny/słowo) · niżej = wydajniej</span></div>
-        <p className="muted" style={{ maxWidth: "74ch", margin: "0 0 18px" }}>Zmierzyliśmy fertility na tej samej próbce Wikipedii (PL+EN). Tokenizer Qwena jest <b style={{ color: "var(--ink)" }}>~23% wydajniejszy na polskim</b> niż Bielika/Mistrala — tańszy inference i dłuższy efektywny kontekst (ważne dla długich pism). Przewagę dostajemy <b style={{ color: "var(--ink)" }}>za darmo, wyborem bazy</b>. Skrypt: <a href="https://github.com/slayerlabs/slayer/blob/main/bench/tokenizer_fertility.py" rel="noopener" style={{ color: "var(--acc)" }}>tokenizer_fertility.py</a>.</p>
+        <p className="muted" style={{ maxWidth: "74ch", margin: "0 0 18px" }}>Zmierzyliśmy fertility na tej samej próbce Wikipedii (PL+EN). Tokenizer Qwena jest <b style={{ color: "var(--ink)" }}>~23% wydajniejszy na polskim</b> niż tokenizer Mistrala — tańszy inference i dłuższy efektywny kontekst (ważne dla długich pism). Przewagę dostajemy <b style={{ color: "var(--ink)" }}>za darmo, wyborem bazy</b>. Skrypt: <a href="https://github.com/slayerlabs/slayer/blob/main/bench/tokenizer_fertility.py" rel="noopener" style={{ color: "var(--acc)" }}>tokenizer_fertility.py</a>.</p>
         <div className="tbl"><table><thead><tr><th>Tokenizer</th><th className="c">vocab</th><th className="c">TpW&nbsp;PL ↓</th><th className="c">CpT&nbsp;PL ↑</th><th className="c">TpW&nbsp;EN</th><th className="c">PL/EN</th></tr></thead><tbody>
           <tr><td className="dn">Gemma-2-9B</td><td className="s">256k</td><td className="s">2.244</td><td className="s">3.31</td><td className="s">1.340</td><td className="s">1.68</td></tr>
           <tr><td className="dn">Qwen3.5 (9B/27B) <span className="chip acc">nasza baza: 27B</span></td><td className="s">248k</td><td className="s win">2.357</td><td className="s">3.15</td><td className="s">1.385</td><td className="s">1.70</td></tr>
           <tr><td className="dn">Llama-3.1-8B</td><td className="s">128k</td><td className="s">2.743</td><td className="s">2.71</td><td className="s">1.343</td><td className="s">2.04</td></tr>
-          <tr><td><div className="dn">Bielik-11B-v3 = Mistral-7B</div><div className="ds">Bielik zostawił tokenizer Mistrala (32k)</div></td><td className="s">32k</td><td className="s">3.060</td><td className="s">2.43</td><td className="s">1.544</td><td className="s">1.98</td></tr>
+          <tr><td><div className="dn">Mistral-7B</div><div className="ds">tokenizer Mistrala (32k)</div></td><td className="s">32k</td><td className="s">3.060</td><td className="s">2.43</td><td className="s">1.544</td><td className="s">1.98</td></tr>
         </tbody></table></div>
         <p className="muted" style={{ marginTop: 10, fontSize: ".86rem" }}>TpW = tokeny/słowo (niżej = wydajniej) · CpT = znaki/token (wyżej = wydajniej) · PL/EN = o ile bardziej token-głodny polski. Próbka: ~200 akapitów Wikipedii PL i EN.</p>
       </div></section>

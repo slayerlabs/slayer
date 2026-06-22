@@ -1,222 +1,327 @@
-import { BenchCount, MeasureNote } from "./home-live";
-
 export const metadata = {
-  title: "Slayer — applied research lab dla polskich modeli",
+  title: "Slayer / LEM — otwarte laboratorium polskiej AI",
   description:
-    "Slayer to niezależne applied research lab dla polskich modeli językowych: protokoły ewaluacji, lineage danych, recepty treningowe i jawne koszty. Dobry smak plus twardy pomiar.",
+    "Open lab dla polskiej inteligencji: jawna receptura, held-out ewaluacja, lineage danych i koszt wpisany w wynik. Publikujemy artefakty, nie obietnice.",
 };
 
-const css = `
-    /* ---------- hero ---------- */
-    .hero{position:relative;padding:132px clamp(18px,5vw,72px) 0;overflow:hidden;min-height:96vh}
-    .hero::before{content:"";position:absolute;inset:0;background:
-      linear-gradient(90deg,rgba(9,9,7,.95) 0%,rgba(9,9,7,.80) 38%,rgba(9,9,7,.36) 72%,rgba(9,9,7,.82) 100%),
-      linear-gradient(180deg,rgba(9,9,7,.18) 0%,rgba(9,9,7,.64) 72%,var(--bg) 100%),
-      url('/assets/img/hermes-lab-threshold.png') center right/cover no-repeat;
-      pointer-events:none;filter:saturate(.88) contrast(1.05)}
-    .hero::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.38;background:
-      repeating-linear-gradient(90deg,transparent 0 56px,rgba(222,202,154,.08) 56px 57px),
-      repeating-linear-gradient(0deg,transparent 0 56px,rgba(222,202,154,.055) 56px 57px);
-      -webkit-mask-image:radial-gradient(ellipse 82% 72% at 58% 22%,#000 0%,transparent 76%);
-      mask-image:radial-gradient(ellipse 82% 72% at 58% 22%,#000 0%,transparent 76%)}
-    /* hero jednoszpaltowy: prawa strona w całości dla obrazu pracowni */
-    .hgrid{position:relative;z-index:1;width:min(var(--max),100%);margin:0 auto;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);align-items:center;min-height:72vh;padding-bottom:clamp(54px,7vw,84px)}
-    @media(max-width:940px){.hgrid{grid-template-columns:1fr;min-height:0}}
-    /* księga pomiarów pod hero: wpisy w dwóch kolumnach */
-    .loggrid{display:grid;grid-template-columns:1fr 1fr;gap:0 34px;padding:6px 18px 8px}
-    @media(max-width:820px){.loggrid{grid-template-columns:1fr}}
-    .loggrid .logrow:nth-child(2){border-top:0}
-    .htag{display:inline-flex;align-items:center;gap:10px;margin-bottom:26px}
-    .htag .dot{width:7px;height:7px;border-radius:50%;background:var(--acc);animation:pl 2s infinite}
-    .hero h1{margin:0 0 24px;font-family:var(--serif);font-size:clamp(3rem,6.8vw,5.9rem);line-height:.96;font-weight:360;letter-spacing:-.018em;color:var(--ink);max-width:10.6ch;text-wrap:balance;text-shadow:0 18px 70px rgba(0,0,0,.55)}
-    .hero h1 em{font-style:italic;color:var(--acc)}
-    .lede{max-width:620px;margin:0 0 32px;color:#cfc1a5;font-size:clamp(1.08rem,1.7vw,1.3rem);line-height:1.55;text-shadow:0 10px 34px rgba(0,0,0,.5)}
-    .lede b{color:var(--ink);font-weight:600}
-    .lede a{color:var(--acc);border-bottom:1px solid var(--acc-soft)}
+// ponytail: design imported verbatim from Claude Design (Slayer-LEM open lab) as inline-styled HTML;
+// rendered via dangerouslySetInnerHTML to avoid hand-porting 53KB of inline styles to JSX. Edit the
+// source design + re-sync to change it. Global Nav/Footer are hidden on "/" (see Nav/Footer).
 
-    /* staggered reveal */
-    .rv{opacity:0;transform:translateY(14px);animation:rv .7s cubic-bezier(.2,.7,.3,1) forwards}
-    .rv.d1{animation-delay:.06s}.rv.d2{animation-delay:.16s}.rv.d3{animation-delay:.26s}
-    .rv.d4{animation-delay:.36s}.rv.d5{animation-delay:.48s}
-    @keyframes rv{to{opacity:1;transform:none}}
-    @media(prefers-reduced-motion:reduce){.rv{animation:none;opacity:1;transform:none}}
-
-    /* lab log panel */
-    .loghead{display:flex;align-items:center;gap:8px}
-    .logrow{display:grid;grid-template-columns:86px 1fr auto;gap:12px;align-items:baseline;padding:13px 2px;border-top:1px solid var(--line2);font-size:.92rem}
-    .logrow:first-child{border-top:0}
-    .logrow .dt{font-family:var(--mono);font-size:.72rem;color:var(--dim);letter-spacing:.04em}
-    .logrow .what{color:var(--txt)}
-    .logrow .what b{font-weight:600;color:var(--ink)}
-    .logrow .what .sub{display:block;font-family:var(--mono);font-size:.72rem;color:var(--dim);margin-top:2px}
-    .logrow .go{font-family:var(--mono);font-size:.78rem;color:var(--acc);white-space:nowrap}
-    a.logrow{transition:background .15s}
-    a.logrow:hover{background:rgba(199,148,72,.07)}
-    @media(max-width:480px){.logrow{grid-template-columns:1fr auto}.logrow .dt{display:none}}
-
-    /* stat strip */
-    .stats{position:relative;z-index:1;border-top:1px solid var(--line);background:rgba(9,9,7,.78);backdrop-filter:blur(14px)}
-    .stats .inner{display:grid;grid-template-columns:repeat(4,1fr);width:min(var(--max),100%);margin:0 auto}
-    @media(max-width:820px){.stats .inner{grid-template-columns:repeat(2,1fr)}}
-    .stat{padding:22px clamp(14px,2vw,28px);border-left:1px solid var(--line2)}
-    .stat:first-child{border-left:0}
-    @media(max-width:820px){.stat:nth-child(3){border-left:0}.stat:nth-child(n+3){border-top:1px solid var(--line2)}}
-    .stat .v{font-family:var(--serif);font-size:clamp(1.7rem,3vw,2.3rem);color:var(--ink);line-height:1.1}
-    .stat .v .ac{color:var(--acc)}
-    .stat .k{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-top:5px}
-
-    /* principles: editorial numbered list */
-    .princ{display:grid;gap:0;border:1px solid var(--line);border-radius:var(--rad);background:linear-gradient(180deg,rgba(199,148,72,.06),rgba(255,255,255,.012)),var(--panel);overflow:hidden}
-    .pr{display:grid;grid-template-columns:92px 1fr;gap:clamp(14px,3vw,34px);padding:clamp(20px,3vw,30px) clamp(18px,3vw,32px);border-top:1px solid var(--line2)}
-    .pr:first-child{border-top:0}
-    .pr .no{font-family:var(--serif);font-style:italic;font-size:clamp(1.9rem,3.4vw,2.7rem);color:var(--acc);line-height:1;opacity:.85}
-    .pr h3{margin:2px 0 6px;font-size:1.16rem;font-weight:600;letter-spacing:0}
-    .pr p{margin:0;color:var(--mut);font-size:.97rem;max-width:74ch}
-    .pr p b{color:var(--ink)}
-    @media(max-width:560px){.pr{grid-template-columns:1fr;gap:8px}}
-
-    /* research areas */
-    .area h3{font-family:var(--serif);font-weight:400;font-size:1.42rem;letter-spacing:-.01em;margin:12px 0 8px}
-    .area .meta{margin-top:auto;padding-top:16px}
+const lemCss = `
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap');
+  @keyframes lemPulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: .35; transform: scale(.75); } }
+  .showcard{transition:transform .16s,box-shadow .16s,border-color .16s}
+  .showcard:hover{transform:translateY(-3px);box-shadow:0 18px 44px rgba(35,36,48,.13);border-color:#c8cde8}
+  .showcard:hover img{transform:scale(1.025)}
+  .showcard img{transition:transform .3s ease}
+  @keyframes lemBlink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
 `;
+
+const html = `<div style="min-height: 100vh; background: #eceef6; color: #2a2b38; font-family: 'IBM Plex Sans', sans-serif;">
+
+  <!-- nav -->
+  <div style="border-bottom: 1px solid #e0e2ee; background: rgba(236,238,246,.85);">
+    <div style="max-width: 1120px; margin: 0 auto; padding: 18px 40px; display: flex; align-items: center; justify-content: space-between;">
+      <a href="/" style="display: flex; align-items: center; gap: 11px; text-decoration: none;">
+        <span style="width: 10px; height: 10px; border-radius: 50%; background: #ef8a6e; display: inline-block; animation: lemPulse 2.4s ease-in-out infinite;"></span>
+        <span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 18px; letter-spacing: -.01em;"><span style="color: #d56a4d;">Slayer</span> <span style="color: #b9bccd;">/</span> <span style="color: #5a63c0;">LEM</span></span>
+      </a>
+      <div style="display: flex; align-items: center; gap: 26px; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #6a6f86;">
+        <a href="/rules">protokół</a><a href="/eksperymenty">księga pomiarów</a><a href="/drabina">drabina</a><a href="/benchmarks">artefakty</a>
+        <a href="https://discord.gg/HnTkVR4c5T" target="_blank" rel="noopener" style="background: #ef8a6e; color: #fff; padding: 8px 16px; border-radius: 40px; font-weight: 500;">wejdź do labu →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- hero -->
+  <div style="border-bottom: 1px solid #e0e2ee; background-image: linear-gradient(rgba(123,132,212,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(123,132,212,.06) 1px, transparent 1px); background-size: 44px 44px;">
+    <div style="max-width: 1120px; margin: 0 auto; padding: 88px 40px 76px;">
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: .22em; color: #5a63c0; text-transform: uppercase; margin-bottom: 32px; display: flex; align-items: center; gap: 12px;"><span style="width: 26px; height: 1px; background: #5a63c0; display: inline-block;"></span>Open weights · open protocol · applied AI</div>
+      <h1 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 76px; line-height: 1.0; letter-spacing: -.03em; margin: 0 0 30px; max-width: 980px; color: #232430;">Protokół dla polskiej <span style="font-family: 'Newsreader', serif; font-style: italic; font-weight: 500; color: #5a63c0;">inteligencji</span>.</h1>
+      <p style="font-size: 20px; line-height: 1.55; color: #3f4154; max-width: 700px; margin: 0 0 18px; font-weight: 500;">Robimy research i budujemy ekosystem wokół polskiej AI. Teraz zbieramy ludzi, żeby zrobić własny model — na widoku, od zera, razem.</p>
+      <p style="font-size: 16.5px; line-height: 1.62; color: #5c5f72; max-width: 660px; margin: 0 0 36px;">To nasz pierwszy cel i pretekst, żeby zebrać ludzi. Nie mamy jeszcze modelu — mamy protokół, warsztat i społeczność, w której ten model ma powstać: jawna receptura, uczciwy pomiar, koszt podany wprost. Na start zrobiliśmy już kilka eksperymentów: trening małego LLM w 100% from scratch, do celów edukacyjnych. Wchodzisz do laboratorium, w którym wspólnie uczymy się, jak trenować LLM.</p>
+      <div style="display: flex; gap: 14px; align-items: center; flex-wrap: wrap;">
+        <a href="https://discord.gg/HnTkVR4c5T" target="_blank" rel="noopener" style="background: #ef8a6e; color: #fff; font-weight: 600; padding: 15px 26px; border-radius: 40px; font-size: 15px;">Wejdź do labu →</a>
+        <a href="/rules" style="border: 1px solid #c8cbdc; color: #3f4154; padding: 15px 26px; border-radius: 40px; font-size: 15px; font-weight: 500;">Zobacz protokoły →</a><a href="https://ort.fabryka.ai" target="_blank" rel="noopener" style="color: #5a63c0; padding: 15px 6px; font-size: 15px; font-weight: 600;">Wczesne badania ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- co już zbudowaliśmy / ekosystem -->
+  <div style="border-bottom: 1px solid #e0e2ee; background: #f4f5fa;">
+    <div style="max-width: 1120px; margin: 0 auto; padding: 80px 40px;">
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: .22em; color: #5a63c0; text-transform: uppercase; margin-bottom: 16px;">ekosystem · co już zbudowaliśmy</div>
+      <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 40px; font-weight: 600; letter-spacing: -.02em; margin: 0 0 14px; color: #232430;">Nie zaczynamy od zera.</h2>
+      <p style="font-size: 16.5px; line-height: 1.62; color: #5c5f72; max-width: 700px; margin: 0 0 36px;">Działające produkty, narzędzia i badania wokół modeli — dystrybucja, pomiar popytu i compute, agenci, token API, SDK i research. Dowód, że potrafimy dowozić, nie tylko deklarować.</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px;"><a href="https://ort.fabryka.ai" target="_blank" rel="noopener" class="showcard" style="display: block; text-decoration: none; background: #fff; border: 1px solid #e4e6f0; border-radius: 12px; overflow: hidden;"><div style="aspect-ratio: 16 / 10; overflow: hidden; border-bottom: 1px solid #eef0f8; background: #eceef6;"><img src="/assets/showcase/ort.jpg" alt="CodeSOTA Intelligence" style="width: 100%; height: 100%; object-fit: cover; object-position: top; display: block;"></div><div style="padding: 20px 22px;"><div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 6px;"><span style="font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 600; color: #232430;">CodeSOTA Intelligence</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: #5a63c0; white-space: nowrap;">ort.fabryka.ai ↗</span></div><p style="font-size: 14px; color: #5c5f72; line-height: 1.55; margin: 0;">Codzienny pomiar popytu na modele na OpenRouter — kto wygrywa użycie, kogo się podmienia.</p></div></a><a href="https://codesota.com" target="_blank" rel="noopener" class="showcard" style="display: block; text-decoration: none; background: #fff; border: 1px solid #e4e6f0; border-radius: 12px; overflow: hidden;"><div style="aspect-ratio: 16 / 10; overflow: hidden; border-bottom: 1px solid #eef0f8; background: #eceef6;"><img src="/assets/showcase/codesota.jpg" alt="Codesota" style="width: 100%; height: 100%; object-fit: cover; object-position: top; display: block;"></div><div style="padding: 20px 22px;"><div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 6px;"><span style="font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 600; color: #232430;">Codesota</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: #5a63c0; white-space: nowrap;">codesota.com ↗</span></div><p style="font-size: 14px; color: #5c5f72; line-height: 1.55; margin: 0;">Data terminal: rejestr środowisk RL i SOTA-with-code. ~20k użytkowników / mies.</p></div></a><a href="https://gpu-price-index.vercel.app" target="_blank" rel="noopener" class="showcard" style="display: block; text-decoration: none; background: #fff; border: 1px solid #e4e6f0; border-radius: 12px; overflow: hidden;"><div style="aspect-ratio: 16 / 10; overflow: hidden; border-bottom: 1px solid #eef0f8; background: #eceef6;"><img src="/assets/showcase/gpu.jpg" alt="GPU Price Index" style="width: 100%; height: 100%; object-fit: cover; object-position: top; display: block;"></div><div style="padding: 20px 22px;"><div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 6px;"><span style="font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 600; color: #232430;">GPU Price Index</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: #5a63c0; white-space: nowrap;">gpu-price-index ↗</span></div><p style="font-size: 14px; color: #5c5f72; line-height: 1.55; margin: 0;">Dzienny indeks ceny compute (H100-equiv / GPU-godz.), normalizowany przez MLPerf.</p></div></a><a href="https://meta.fabryka.ai" target="_blank" rel="noopener" class="showcard" style="display: block; text-decoration: none; background: #fff; border: 1px solid #e4e6f0; border-radius: 12px; overflow: hidden;"><div style="aspect-ratio: 16 / 10; overflow: hidden; border-bottom: 1px solid #eef0f8; background: #eceef6;"><img src="/assets/showcase/meta.jpg" alt="Fabryka Tokenów" style="width: 100%; height: 100%; object-fit: cover; object-position: top; display: block;"></div><div style="padding: 20px 22px;"><div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 6px;"><span style="font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 600; color: #232430;">Fabryka Tokenów</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: #5a63c0; white-space: nowrap;">meta.fabryka.ai ↗</span></div><p style="font-size: 14px; color: #5c5f72; line-height: 1.55; margin: 0;">Polskie modele jako OpenAI-compatible API — płatność w PLN za 1M tokenów, zero kosztów stałych.</p></div></a><a href="https://router.fabryka.ai" target="_blank" rel="noopener" class="showcard" style="display: block; text-decoration: none; background: #fff; border: 1px solid #e4e6f0; border-radius: 12px; overflow: hidden;"><div style="aspect-ratio: 16 / 10; overflow: hidden; border-bottom: 1px solid #eef0f8; background: #eceef6;"><img src="/assets/showcase/router.jpg" alt="Fabryka Router" style="width: 100%; height: 100%; object-fit: cover; object-position: top; display: block;"></div><div style="padding: 20px 22px;"><div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 6px;"><span style="font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 600; color: #232430;">Fabryka Router</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: #5a63c0; white-space: nowrap;">router.fabryka.ai ↗</span></div><p style="font-size: 14px; color: #5c5f72; line-height: 1.55; margin: 0;">Frontier reasoning przez jeden OpenAI-compatible endpoint — 35B MoE, 128K kontekstu, rozliczenie per token.</p></div></a><a href="https://sdk.fabryka.ai" target="_blank" rel="noopener" class="showcard" style="display: block; text-decoration: none; background: #fff; border: 1px solid #e4e6f0; border-radius: 12px; overflow: hidden;"><div style="aspect-ratio: 16 / 10; overflow: hidden; border-bottom: 1px solid #eef0f8; background: #eceef6;"><img src="/assets/showcase/sdk.jpg" alt="Hermes SDK" style="width: 100%; height: 100%; object-fit: cover; object-position: top; display: block;"></div><div style="padding: 20px 22px;"><div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 6px;"><span style="font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 600; color: #232430;">Hermes SDK</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: #5a63c0; white-space: nowrap;">sdk.fabryka.ai ↗</span></div><p style="font-size: 14px; color: #5c5f72; line-height: 1.55; margin: 0;">Jeden autonomiczny agent, każde narzędzie — trzy linie do działającego agenta.</p></div></a><a href="https://robotnik.fabryka.ai" target="_blank" rel="noopener" class="showcard" style="display: block; text-decoration: none; background: #fff; border: 1px solid #e4e6f0; border-radius: 12px; overflow: hidden;"><div style="aspect-ratio: 16 / 10; overflow: hidden; border-bottom: 1px solid #eef0f8; background: #eceef6;"><img src="/assets/showcase/robotnik.jpg" alt="ROBOTNIK" style="width: 100%; height: 100%; object-fit: cover; object-position: top; display: block;"></div><div style="padding: 20px 22px;"><div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 6px;"><span style="font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 600; color: #232430;">ROBOTNIK</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: #5a63c0; white-space: nowrap;">robotnik.fabryka.ai ↗</span></div><p style="font-size: 14px; color: #5c5f72; line-height: 1.55; margin: 0;">Agent w Microsoft Teams — żywy kontekst Graph: kanały, wiadomości, pliki SharePoint.</p></div></a><a href="https://rocky.fabryka.ai" target="_blank" rel="noopener" class="showcard" style="display: block; text-decoration: none; background: #fff; border: 1px solid #e4e6f0; border-radius: 12px; overflow: hidden;"><div style="aspect-ratio: 16 / 10; overflow: hidden; border-bottom: 1px solid #eef0f8; background: #eceef6;"><img src="/assets/showcase/rocky.jpg" alt="Rocky" style="width: 100%; height: 100%; object-fit: cover; object-position: top; display: block;"></div><div style="padding: 20px 22px;"><div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 6px;"><span style="font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 600; color: #232430;">Rocky</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: #5a63c0; white-space: nowrap;">rocky.fabryka.ai ↗</span></div><p style="font-size: 14px; color: #5c5f72; line-height: 1.55; margin: 0;">AI-współpracownik: Word in, Word out — prywatne, zespołowe i firmowe namespace'y.</p></div></a><a href="https://wittgenstein.fabryka.ai" target="_blank" rel="noopener" class="showcard" style="display: block; text-decoration: none; background: #fff; border: 1px solid #e4e6f0; border-radius: 12px; overflow: hidden;"><div style="aspect-ratio: 16 / 10; overflow: hidden; border-bottom: 1px solid #eef0f8; background: #eceef6;"><img src="/assets/showcase/wittgenstein.jpg" alt="Wittgenstein" style="width: 100%; height: 100%; object-fit: cover; object-position: top; display: block;"></div><div style="padding: 20px 22px;"><div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 6px;"><span style="font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 600; color: #232430;">Wittgenstein</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: #5a63c0; white-space: nowrap;">wittgenstein.fabryka.ai ↗</span></div><p style="font-size: 14px; color: #5c5f72; line-height: 1.55; margin: 0;">Graf pojęć: trójki semantyczne pojęcie → relacja → pojęcie nad polską wiedzą.</p></div></a><a href="https://chomsky-pi.vercel.app" target="_blank" rel="noopener" class="showcard" style="display: block; text-decoration: none; background: #fff; border: 1px solid #e4e6f0; border-radius: 12px; overflow: hidden;"><div style="aspect-ratio: 16 / 10; overflow: hidden; border-bottom: 1px solid #eef0f8; background: #eceef6;"><img src="/assets/showcase/chomsky.jpg" alt="Polish Morph Tokenizer" style="width: 100%; height: 100%; object-fit: cover; object-position: top; display: block;"></div><div style="padding: 20px 22px;"><div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 6px;"><span style="font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 600; color: #232430;">Polish Morph Tokenizer</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: #5a63c0; white-space: nowrap;">chomsky-pi ↗</span></div><p style="font-size: 14px; color: #5c5f72; line-height: 1.55; margin: 0;">Tokenizer tnący polskie słowa po prefiksach, rdzeniach i końcówkach, a potem na fonemy.</p></div></a><a href="https://kwikiel.github.io/ZusWaveBench/" target="_blank" rel="noopener" class="showcard" style="display: block; text-decoration: none; background: #fff; border: 1px solid #e4e6f0; border-radius: 12px; overflow: hidden;"><div style="aspect-ratio: 16 / 10; overflow: hidden; border-bottom: 1px solid #eef0f8; background: #eceef6;"><img src="/assets/showcase/zuswavebench.jpg" alt="ZusWave Benchmark" style="width: 100%; height: 100%; object-fit: cover; object-position: top; display: block;"></div><div style="padding: 20px 22px;"><div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 6px;"><span style="font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 600; color: #232430;">ZusWave Benchmark</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: #5a63c0; white-space: nowrap;">ZusWaveBench ↗</span></div><p style="font-size: 14px; color: #5c5f72; line-height: 1.55; margin: 0;">Benchmark polskiego rozumowania urzędowego: administracja, podatki, ZUS, e-government — realne mikro-przypadki.</p></div></a><a href="/research/ricardo.pdf" target="_blank" rel="noopener" class="showcard" style="display: block; text-decoration: none; background: #fff; border: 1px solid #e4e6f0; border-radius: 12px; overflow: hidden;"><div style="aspect-ratio: 16 / 10; overflow: hidden; border-bottom: 1px solid #eef0f8; background: #eceef6;"><img src="/assets/showcase/ricardo.jpg" alt="Ricardo — paper" style="width: 100%; height: 100%; object-fit: cover; object-position: top; display: block;"></div><div style="padding: 20px 22px;"><div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 6px;"><span style="font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 600; color: #232430;">Ricardo — paper</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: #5a63c0; white-space: nowrap;">PDF · research ↗</span></div><p style="font-size: 14px; color: #5c5f72; line-height: 1.55; margin: 0;">Outcome-Grounded Routing for Multimodal LLM Agents — teoria, symulacja flywheel, dane z własnego ruchu.</p></div></a><a href="/research/my-little-llm.pdf" target="_blank" rel="noopener" class="showcard" style="display: block; text-decoration: none; background: #fff; border: 1px solid #e4e6f0; border-radius: 12px; overflow: hidden;"><div style="aspect-ratio: 16 / 10; overflow: hidden; border-bottom: 1px solid #eef0f8; background: #eceef6;"><img src="/assets/showcase/mylittlellm.jpg" alt="My Little LLM — kurs" style="width: 100%; height: 100%; object-fit: cover; object-position: top; display: block;"></div><div style="padding: 20px 22px;"><div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 6px;"><span style="font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 600; color: #232430;">My Little LLM — kurs</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: #5a63c0; white-space: nowrap;">PDF · kurs ↗</span></div><p style="font-size: 14px; color: #5c5f72; line-height: 1.55; margin: 0;">Skryptum kursu wideo: wytrenuj własny model językowy od zera, 100% from scratch, po polsku.</p></div></a></div>
+    </div>
+  </div>
+
+  <!-- dlaczego to ma sens -->
+  <div style="border-bottom: 1px solid #e0e2ee;">
+    <div style="max-width: 1120px; margin: 0 auto; padding: 84px 40px;">
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: .22em; color: #5a63c0; text-transform: uppercase; margin-bottom: 16px;">01 · dlaczego to ma sens</div>
+      <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 46px; font-weight: 600; letter-spacing: -.025em; margin: 0 0 24px; max-width: 820px; color: #232430; line-height: 1.05;">Gdzie pracuje najlepszy polski inżynier AI?</h2>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px; max-width: 940px; margin-bottom: 28px;">
+        <p style="font-size: 16.5px; line-height: 1.65; color: #5c5f72; margin: 0;">W San Francisco, w Londynie albo pod NDA w korporacji. Talent mamy — i to nie opinia. Na olimpiadzie informatycznej Polska jest druga na świecie w historii klasyfikacji, ze 135 medalami, piąta wszech czasów w złocie. To nie przypadek ani dobry rok — to dekady, które wyprodukowały ludzi budujących dziś modele dla największych labów świata. Tyle że budują je gdzie indziej.</p>
+        <p style="font-size: 16.5px; line-height: 1.65; color: #5c5f72; margin: 0;">Brakuje jednego: otwartego labu w kraju, do którego ten talent może przyjść i od razu coś zbudować — na widoku, z realnym creditem za wkład. I nie ścigamy się tam, gdzie wygrywa sam portfel. Pretrening frontier modeli kosztuje dziś setki milionów dolarów i należy do garstki firm z największym compute. Tej gry nie wygra żaden polski lab i nie udajemy, że jest inaczej.</p>
+      </div>
+      <div style="background: #eef0fb; border: 1px solid #d3d6f0; border-radius: 8px; padding: 18px 22px; max-width: 940px; margin: 0 0 44px; font-size: 16px; line-height: 1.6; color: #3f4154;">Gramy na drugim polu: post-trening, reasoning, ewaluacje, agenci, wdrożenia. Tam o wyniku decyduje receptura, jakość danych i tempo iteracji — nie rozmiar budżetu. To pole jest otwarte. I mamy ludzi, żeby je zająć.</div>
+      <div style="font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 600; color: #232430; margin: 0 0 20px;">Trzy rzeczy robimy inaczej.</div>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;">
+        <div style="background: #fff; border: 1px solid #e4e6f0; border-radius: 8px; padding: 26px;">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: #9396ad; margin-bottom: 12px;">open core</div>
+          <div style="font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 600; color: #232430; margin-bottom: 10px;">Rdzeń jest otwarty.</div>
+          <p style="font-size: 14px; color: #5c5f72; line-height: 1.6; margin: 0;">Pieniądz przychodzi z warstwy zbudowanej na wierzchu — wdrożeń, wsparcia, modeli pod konkretny problem. Nie każemy nikomu płacić za dostęp do wiedzy.</p>
+        </div>
+        <div style="background: #fff; border: 1px solid #e4e6f0; border-radius: 8px; padding: 26px;">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: #9396ad; margin-bottom: 12px;">artefakt, nie deklaracja</div>
+          <div style="font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 600; color: #232430; margin-bottom: 10px;">Zostaje coś do sprawdzenia.</div>
+          <p style="font-size: 14px; color: #5c5f72; line-height: 1.6; margin: 0;">Po każdym badaniu obcy człowiek może przeczytać, sprawdzić i rozwinąć to, co zrobiliśmy: receptura, dane, raport. Mocniejsze niż słowo „open source” na slajdzie.</p>
+        </div>
+        <div style="background: #fff; border: 1px solid #e4e6f0; border-radius: 8px; padding: 26px;">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: #9396ad; margin-bottom: 12px;">pomiar zamiast opinii</div>
+          <div style="font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 600; color: #232430; margin-bottom: 10px;">Mierzymy uczciwie.</div>
+          <p style="font-size: 14px; color: #5c5f72; line-height: 1.6; margin: 0;">Held-out, jawni sędziowie, publiczne porażki. Gdzie znamy koszt, podajemy koszt. Gdzie go nie znamy, nie udajemy liczby.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- o co gramy -->
+  <div style="border-bottom: 1px solid #e0e2ee;">
+    <div style="max-width: 1120px; margin: 0 auto; padding: 84px 40px;">
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: .22em; color: #5a63c0; text-transform: uppercase; margin-bottom: 16px;">02 · o co gramy</div>
+      <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 46px; font-weight: 600; letter-spacing: -.025em; margin: 0 0 24px; max-width: 820px; color: #232430; line-height: 1.05;">Model jest pretekstem. Produktem jest warsztat.</h2>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px; max-width: 940px; margin-bottom: 40px;">
+        <p style="font-size: 16.5px; line-height: 1.65; color: #5c5f72; margin: 0;">Polska może mieć własne applied AI lab — nie przez największy budżet, tylko przez lepszy warsztat: community, tanie iteracje, publiczne benchmarki, rygor pomiaru i realne use case'y.</p>
+        <p style="font-size: 16.5px; line-height: 1.65; color: #5c5f72; margin: 0;">Pierwszym celem jest model. Ale model nie jest końcem gry — jest pierwszym publicznym eksperymentem, na którym budujemy cały warsztat: dataset pipeline, eval harness, training recipes, inference stack i wdrożenia.</p>
+      </div>
+      <div style="font-family: 'Space Grotesk', sans-serif; font-size: 26px; font-weight: 500; color: #232430; letter-spacing: -.01em;">Najpierw najlepszy polski model. <span style="color: #8085a0;">Potem lab stosowanej AI.</span></div>
+    </div>
+  </div>
+
+  <!-- fazy -->
+  <div style="border-bottom: 1px solid #e0e2ee; background: #f4f5fa;">
+    <div style="max-width: 1120px; margin: 0 auto; padding: 80px 40px;">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+        <div style="background: #fff; border: 1px solid #e4e6f0; border-radius: 8px; padding: 36px;">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 18px;"><span style="font-family: 'IBM Plex Mono', monospace; color: #5a63c0; font-size: 13px; letter-spacing: .1em;">FAZA 01 — MODEL</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #9396ad;">w toku</span></div>
+          <div style="font-family: 'Space Grotesk', sans-serif; font-size: 24px; font-weight: 600; color: #232430; margin-bottom: 14px;">Konkurencyjny polski open-weight</div>
+          <p style="font-size: 15px; line-height: 1.6; color: #5c5f72; margin: 0 0 20px;">Budujemy na mocnym modelu bazowym. Ambicja: pobić najlepsze polskie baseline'y na wybranych osiach — bez benchmarkowego teatru i bez ukrywania kosztów.</p>
+          <div style="display: flex; flex-direction: column; gap: 9px;">
+            <div style="font-size: 13.5px; color: #4a4d61; display: flex; align-items: center; gap: 10px;"><span style="color: #5b9e7e;">✓</span>held-out albo nic</div>
+            <div style="font-size: 13.5px; color: #4a4d61; display: flex; align-items: center; gap: 10px;"><span style="color: #5b9e7e;">✓</span>jawna receptura i lineage danych</div>
+            <div style="font-size: 13.5px; color: #4a4d61; display: flex; align-items: center; gap: 10px;"><span style="color: #5b9e7e;">✓</span>koszt wpisany w wynik</div>
+            <div style="font-size: 13.5px; color: #4a4d61; display: flex; align-items: center; gap: 10px;"><span style="color: #5b9e7e;">✓</span>publiczne regresje i decyzje: promote / reject / investigate</div>
+          </div>
+        </div>
+        <div style="background: #fff; border: 1px solid #e4e6f0; border-radius: 8px; padding: 36px;">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 18px;"><span style="font-family: 'IBM Plex Mono', monospace; color: #d56a4d; font-size: 13px; letter-spacing: .1em;">FAZA 02 — LAB</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #9396ad;">następnie</span></div>
+          <div style="font-family: 'Space Grotesk', sans-serif; font-size: 24px; font-weight: 600; color: #232430; margin-bottom: 14px;">Applied research lab</div>
+          <p style="font-size: 15px; line-height: 1.6; color: #5c5f72; margin: 0 0 20px;">Warsztat modelowy zmienia się w lab stosowanej AI. Ten sam rygor, szersze zastosowania — dla firm, instytucji i polskiego software'u.</p>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+            <span style="display: inline-flex; padding: 6px 12px; border-radius: 40px; background: #f1f2f9; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: #5c5f72;">evale dla firm</span><span style="display: inline-flex; padding: 6px 12px; border-radius: 40px; background: #f1f2f9; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: #5c5f72;">adaptacja do domen</span><span style="display: inline-flex; padding: 6px 12px; border-radius: 40px; background: #f1f2f9; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: #5c5f72;">pipeline'y danych</span><span style="display: inline-flex; padding: 6px 12px; border-radius: 40px; background: #f1f2f9; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: #5c5f72;">deployment open-weight</span><span style="display: inline-flex; padding: 6px 12px; border-radius: 40px; background: #f1f2f9; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: #5c5f72;">inference on-prem</span><span style="display: inline-flex; padding: 6px 12px; border-radius: 40px; background: #f1f2f9; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: #5c5f72;">audyt jakości</span><span style="display: inline-flex; padding: 6px 12px; border-radius: 40px; background: #f1f2f9; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: #5c5f72;">redukcja kosztów AI</span><span style="display: inline-flex; padding: 6px 12px; border-radius: 40px; background: #f1f2f9; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: #5c5f72;">prawo · administracja · edukacja</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- reguły labu -->
+  <div style="border-bottom: 1px solid #e0e2ee;">
+    <div style="max-width: 1120px; margin: 0 auto; padding: 84px 40px;">
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: .22em; color: #5a63c0; text-transform: uppercase; margin-bottom: 16px;">03 · reguły labu</div>
+      <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 40px; font-weight: 600; letter-spacing: -.02em; margin: 0 0 40px; color: #232430;">Rygor jest częścią smaku.</h2>
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px 40px;">
+        <div style="padding: 26px 0; border-top: 1px solid #d8dbe9;"><div style="font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 600; color: #232430; margin-bottom: 10px;"><span style="font-family: 'IBM Plex Mono', monospace; color: #5a63c0; font-size: 13px; margin-right: 10px;">01</span>Held-out albo nic</div><p style="font-size: 14px; line-height: 1.6; color: #5c5f72; margin: 0;">Publiczne claimy tylko na danych, których model nie widział. Ten sam protokół dla baseline'u i naszego modelu.</p></div>
+        <div style="padding: 26px 0; border-top: 1px solid #d8dbe9;"><div style="font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 600; color: #232430; margin-bottom: 10px;"><span style="font-family: 'IBM Plex Mono', monospace; color: #5a63c0; font-size: 13px; margin-right: 10px;">02</span>Lineage danych</div><p style="font-size: 14px; line-height: 1.6; color: #5c5f72; margin: 0;">Każdy zbiór ma źródło, licencję, transformacje i powód użycia. Dataset bez rodowodu to nie dataset, tylko ryzyko.</p></div>
+        <div style="padding: 26px 0; border-top: 1px solid #d8dbe9;"><div style="font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 600; color: #232430; margin-bottom: 10px;"><span style="font-family: 'IBM Plex Mono', monospace; color: #5a63c0; font-size: 13px; margin-right: 10px;">03</span>Koszt jest wynikiem</div><p style="font-size: 14px; line-height: 1.6; color: #5c5f72; margin: 0;">Publikujemy koszt, sprzęt, czas, liczbę tokenów i decyzję. Tani wynik, którego nie da się odtworzyć, nie jest wynikiem.</p></div>
+        <div style="padding: 26px 0; border-top: 1px solid #d8dbe9;"><div style="font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 600; color: #232430; margin-bottom: 10px;"><span style="font-family: 'IBM Plex Mono', monospace; color: #5a63c0; font-size: 13px; margin-right: 10px;">04</span>Otwarci sędziowie</div><p style="font-size: 14px; line-height: 1.6; color: #5c5f72; margin: 0;">Jeśli ocenia LLM, sędzia ma otwarte wagi albo jawny prompt, wersję i konfigurację. Bez magicznych rankingów z zamkniętego API.</p></div>
+        <div style="padding: 26px 0; border-top: 1px solid #d8dbe9;"><div style="font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 600; color: #232430; margin-bottom: 10px;"><span style="font-family: 'IBM Plex Mono', monospace; color: #5a63c0; font-size: 13px; margin-right: 10px;">05</span>Regresje są publiczne</div><p style="font-size: 14px; line-height: 1.6; color: #5c5f72; margin: 0;">Nie chowamy porażek. Jeśli model poprawia styl, ale psuje NLI, kod albo matmę — trafia to do ledgeru. Failure log jest częścią labu.</p></div>
+        <div style="padding: 26px 0; border-top: 1px solid #d8dbe9; display: flex; align-items: center;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #9396ad; line-height: 1.6;">→ Reguły obowiązują<br>w każdym runie. Bez wyjątków.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- co zostaje po runie -->
+  <div style="border-bottom: 1px solid #e0e2ee; background: #f4f5fa;">
+    <div style="max-width: 1120px; margin: 0 auto; padding: 80px 40px;">
+      <div style="display: grid; grid-template-columns: 360px 1fr; gap: 56px; align-items: start;">
+        <div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: .22em; color: #5a63c0; text-transform: uppercase; margin-bottom: 16px;">04 · publiczne artefakty</div>
+          <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 34px; font-weight: 600; letter-spacing: -.02em; margin: 0 0 18px; color: #232430; line-height: 1.1;">Co zostaje po każdym eksperymencie.</h2>
+          <p style="font-size: 15px; line-height: 1.65; color: #5c5f72; margin: 0;">Ktoś z zewnątrz ma móc powiedzieć: „rozumiem, co zrobiliście, ile to kosztowało, co weszło do treningu, co się poprawiło, co zepsuło — i czy da się to odtworzyć”. To mocniejsze niż „open source”.</p>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <span style="background: #fff; border: 1px solid #e4e6f0; border-radius: 4px; padding: 14px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #3f4154;">model card</span><span style="background: #fff; border: 1px solid #e4e6f0; border-radius: 4px; padding: 14px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #3f4154;">dataset card</span><span style="background: #fff; border: 1px solid #e4e6f0; border-radius: 4px; padding: 14px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #3f4154;">training recipe</span><span style="background: #fff; border: 1px solid #e4e6f0; border-radius: 4px; padding: 14px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #3f4154;">eval report</span><span style="background: #fff; border: 1px solid #e4e6f0; border-radius: 4px; padding: 14px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #3f4154;">held-out split hash</span><span style="background: #fff; border: 1px solid #e4e6f0; border-radius: 4px; padding: 14px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #3f4154;">koszt runu</span><span style="background: #fff; border: 1px solid #e4e6f0; border-radius: 4px; padding: 14px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #3f4154;">hardware config</span><span style="background: #fff; border: 1px solid #e4e6f0; border-radius: 4px; padding: 14px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #3f4154;">commit hash</span><span style="background: #fff; border: 1px solid #e4e6f0; border-radius: 4px; padding: 14px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #3f4154;">prompt sędziego</span><span style="background: #fff; border: 1px solid #e4e6f0; border-radius: 4px; padding: 14px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #3f4154;">error analysis</span><span style="background: #fff; border: 1px solid #e4e6f0; border-radius: 4px; padding: 14px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #3f4154;">regression table</span><span style="background: #eef0fb; border: 1px solid #d3d6f0; border-radius: 4px; padding: 14px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #5a63c0;">decyzja: promote / reject / investigate</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- dlaczego to zadziała -->
+  <div style="border-bottom: 1px solid #e0e2ee;">
+    <div style="max-width: 1120px; margin: 0 auto; padding: 84px 40px;">
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: .22em; color: #5a63c0; text-transform: uppercase; margin-bottom: 16px;">05 · dlaczego to zadziała</div>
+      <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 40px; font-weight: 600; letter-spacing: -.02em; margin: 0 0 18px; color: #232430;">Talent i dystrybucja, nie budżet.</h2>
+      <p style="font-size: 16.5px; line-height: 1.62; color: #5c5f72; max-width: 680px; margin: 0 0 32px;">Frontier coding model powstaje na styku talentu i realnej dystrybucji. Polska ma talent — medale w informatyce, olimpijczyków i mocnych inżynierów AI. Brakuje otwartego miejsca, w którym ten talent realnie buduje. To chcemy stworzyć — i mamy już kanał, przez który widać efekty.</p>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start;">
+        <!-- co mamy -->
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .2em; color: #9396ad; text-transform: uppercase;">co już mamy</div>
+          <div style="background: #fff; border: 1px solid #e4e6f0; border-radius: 8px; padding: 28px;">
+            <div style="display: flex; align-items: baseline; gap: 12px; margin-bottom: 10px;">
+              <span style="font-family: 'Space Grotesk', sans-serif; font-size: 44px; font-weight: 700; color: #d56a4d; line-height: 1;">20k</span>
+              <span style="font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 600; color: #232430;">UU / mies. na codesota.com</span>
+            </div>
+            <p style="font-size: 14px; color: #5c5f72; line-height: 1.6; margin: 0 0 16px;">Realna dystrybucja i społeczność open research wokół analizy benchmarków — pętla zwrotna z użytkownikami, a nie tylko Discord do komentowania newsów.</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+              <span style="display: inline-flex; padding: 6px 12px; border-radius: 40px; background: #fbe9e3; color: #c0573b; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px;">distribution</span><span style="display: inline-flex; padding: 6px 12px; border-radius: 40px; background: #fbe9e3; color: #c0573b; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px;">user telemetry</span><span style="display: inline-flex; padding: 6px 12px; border-radius: 40px; background: #fbe9e3; color: #c0573b; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px;">benchmark analysis</span>
+            </div>
+          </div>
+          <div style="background: #fff; border: 1px solid #e4e6f0; border-radius: 8px; padding: 28px;">
+            <div style="font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 600; color: #232430; margin-bottom: 10px;">Otwarty protokół + tanie iteracje</div>
+            <p style="font-size: 14px; color: #5c5f72; line-height: 1.6; margin: 0;">Publiczny warsztat, do którego talent może dołączyć i od razu widzieć wpływ swojej pracy. Niski koszt runu = dużo eksperymentów, mierzonych tym samym rygorem.</p>
+          </div>
+        </div>
+        <!-- czego wymaga -->
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .2em; color: #9396ad; text-transform: uppercase;">czego wymaga frontier coding model</div>
+          <div style="background: #fff; border: 1px solid #e4e6f0; border-radius: 8px; overflow: hidden;">
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: 13px 20px; border-bottom: 1px solid #eef0f8; gap: 12px;"><span style="font-family: 'Space Grotesk', sans-serif; font-size: 14.5px; font-weight: 600; color: #232430;">compute</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: #9396ad; background: #f1f2f9; padding: 4px 10px; border-radius: 40px; white-space: nowrap;">partner / fundator</span></div>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: 13px 20px; border-bottom: 1px solid #eef0f8; gap: 12px;"><span style="font-family: 'Space Grotesk', sans-serif; font-size: 14.5px; font-weight: 600; color: #232430;">dane z repozytoriów</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: #c0573b; background: #fbe9e3; padding: 4px 10px; border-radius: 40px; white-space: nowrap;">codesota</span></div>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: 13px 20px; border-bottom: 1px solid #eef0f8; gap: 12px;"><span style="font-family: 'Space Grotesk', sans-serif; font-size: 14.5px; font-weight: 600; color: #232430;">test harnessy</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: #5a63c0; background: #eef0fb; padding: 4px 10px; border-radius: 40px; white-space: nowrap;">community</span></div>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: 13px 20px; border-bottom: 1px solid #eef0f8; gap: 12px;"><span style="font-family: 'Space Grotesk', sans-serif; font-size: 14.5px; font-weight: 600; color: #232430;">post-training</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: #5a63c0; background: #eef0fb; padding: 4px 10px; border-radius: 40px; white-space: nowrap;">talent — zapraszamy</span></div>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: 13px 20px; border-bottom: 1px solid #eef0f8; gap: 12px;"><span style="font-family: 'Space Grotesk', sans-serif; font-size: 14.5px; font-weight: 600; color: #232430;">RL / verifier loops</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: #5a63c0; background: #eef0fb; padding: 4px 10px; border-radius: 40px; white-space: nowrap;">talent — zapraszamy</span></div>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: 13px 20px; border-bottom: 1px solid #eef0f8; gap: 12px;"><span style="font-family: 'Space Grotesk', sans-serif; font-size: 14.5px; font-weight: 600; color: #232430;">eval infrastructure</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: #5a63c0; background: #eef0fb; padding: 4px 10px; border-radius: 40px; white-space: nowrap;">community</span></div>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: 13px 20px; border-bottom: 1px solid #eef0f8; gap: 12px;"><span style="font-family: 'Space Grotesk', sans-serif; font-size: 14.5px; font-weight: 600; color: #232430;">distribution</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: #c0573b; background: #fbe9e3; padding: 4px 10px; border-radius: 40px; white-space: nowrap;">codesota</span></div>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: 13px 20px; gap: 12px;"><span style="font-family: 'Space Grotesk', sans-serif; font-size: 14.5px; font-weight: 600; color: #232430;">user telemetry</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: #c0573b; background: #fbe9e3; padding: 4px 10px; border-radius: 40px; white-space: nowrap;">codesota</span></div>
+          </div>
+          <div style="background: #eef0fb; border: 1px solid #d3d6f0; border-radius: 8px; padding: 16px 20px; font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 600; color: #5a63c0;">→ Compute fundujemy z partnerami. Resztę budujemy w otwartym polu.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- drabina uczestnictwa -->
+  <div style="border-bottom: 1px solid #e0e2ee; background: #f4f5fa;">
+    <div style="max-width: 1120px; margin: 0 auto; padding: 84px 40px;">
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: .22em; color: #d56a4d; text-transform: uppercase; margin-bottom: 16px;">06 · drabina uczestnictwa</div>
+      <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 46px; font-weight: 600; letter-spacing: -.025em; margin: 0 0 18px; max-width: 820px; color: #232430; line-height: 1.05;">Wchodzisz na dowolnym poziomie.</h2>
+      <p style="font-size: 16.5px; line-height: 1.62; color: #5c5f72; max-width: 700px; margin: 0 0 14px;">Nie każdy musi być researcherem. Lab potrzebuje wielu typów wkładu — a każdy poziom dostaje realny credit, ownership i ścieżkę głębiej. To nie darmowa praca dla startupu.</p>
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #9396ad; margin-bottom: 40px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">lurker <span style="color: #c8cbdc;">→</span> tester <span style="color: #c8cbdc;">→</span> contributor <span style="color: #c8cbdc;">→</span> operator <span style="color: #c8cbdc;">→</span> core team</div>
+      <div style="display: flex; flex-direction: column; gap: 14px;">
+        <div style="background: #fff; border: 1px solid #e4e6f0; border-radius: 10px; padding: 28px 30px; display: grid; grid-template-columns: 250px 1fr 1fr; gap: 32px; align-items: start;">
+          <div>
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;"><span style="width: 26px; height: 26px; border-radius: 50%; background: #fbe9e3; color: #d56a4d; font-family: 'IBM Plex Mono', monospace; font-size: 12px; display: inline-flex; align-items: center; justify-content: center;">01</span><span style="font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 600; color: #232430;">Lurker</span></div>
+            <p style="font-size: 14px; line-height: 1.55; color: #5c5f72; margin: 0;">Obserwujesz, czytasz logi, uczysz się języka projektu.</p>
+          </div>
+          <div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: #5b9e7e; margin-bottom: 12px;">dostajesz</div><div style="display: flex; flex-wrap: wrap; gap: 7px;"><span style="background: #edf6f1; color: #4e8a6f; padding: 5px 11px; border-radius: 40px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px;">publiczne update'y</span><span style="background: #edf6f1; color: #4e8a6f; padding: 5px 11px; border-radius: 40px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px;">roadmapa</span><span style="background: #edf6f1; color: #4e8a6f; padding: 5px 11px; border-radius: 40px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px;">dostęp do demo</span><span style="background: #edf6f1; color: #4e8a6f; padding: 5px 11px; border-radius: 40px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px;">leaderboardy</span><span style="background: #edf6f1; color: #4e8a6f; padding: 5px 11px; border-radius: 40px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px;">reading listy</span></div></div>
+          <div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: #5a63c0; margin-bottom: 12px;">oczekujemy</div><div style="display: flex; flex-wrap: wrap; gap: 7px;"><span style="background: #eef0fb; color: #5a63c0; padding: 5px 11px; border-radius: 40px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px;">zero presji</span><span style="background: #eef0fb; color: #5a63c0; padding: 5px 11px; border-radius: 40px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px;">pytania</span><span style="background: #eef0fb; color: #5a63c0; padding: 5px 11px; border-radius: 40px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px;">reakcje</span><span style="background: #eef0fb; color: #5a63c0; padding: 5px 11px; border-radius: 40px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px;">sygnały, co niejasne</span></div></div>
+        </div>
+
+        <div style="background: #fff; border: 1px solid #e4e6f0; border-radius: 10px; padding: 28px 30px; display: grid; grid-template-columns: 250px 1fr 1fr; gap: 32px; align-items: start;">
+          <div>
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;"><span style="width: 26px; height: 26px; border-radius: 50%; background: #fbe0d6; color: #d56a4d; font-family: 'IBM Plex Mono', monospace; font-size: 12px; display: inline-flex; align-items: center; justify-content: center;">02</span><span style="font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 600; color: #232430;">Tester</span></div>
+            <p style="font-size: 14px; line-height: 1.55; color: #5c5f72; margin: 0;">Używasz modeli i łamiesz je na realnych zadaniach.</p>
+          </div>
+          <div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: #5b9e7e; margin-bottom: 12px;">dostajesz</div><div style="display: flex; flex-wrap: wrap; gap: 7px;"><span style="background: #edf6f1; color: #4e8a6f; padding: 5px 11px; border-radius: 40px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px;">playground</span><span style="background: #edf6f1; color: #4e8a6f; padding: 5px 11px; border-radius: 40px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px;">early access</span><span style="background: #edf6f1; color: #4e8a6f; padding: 5px 11px; border-radius: 40px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px;">kanał feedbackowy</span><span style="background: #edf6f1; color: #4e8a6f; padding: 5px 11px; border-radius: 40px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px;">proponowanie testów</span></div></div>
+          <div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: #5a63c0; margin-bottom: 12px;">oczekujemy</div><div style="display: flex; flex-wrap: wrap; gap: 7px;"><span style="background: #eef0fb; color: #5a63c0; padding: 5px 11px; border-radius: 40px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px;">prompty</span><span style="background: #eef0fb; color: #5a63c0; padding: 5px 11px; border-radius: 40px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px;">przykłady porażek</span><span style="background: #eef0fb; color: #5a63c0; padding: 5px 11px; border-radius: 40px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px;">edge case'y</span><span style="background: #eef0fb; color: #5a63c0; padding: 5px 11px; border-radius: 40px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px;">porównania z baseline'ami</span></div></div>
+        </div>
+
+        <div style="background: #fff; border: 1px solid #e4e6f0; border-radius: 10px; padding: 28px 30px; display: grid; grid-template-columns: 250px 1fr 1fr; gap: 32px; align-items: start;">
+          <div>
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;"><span style="width: 26px; height: 26px; border-radius: 50%; background: #f6cfc0; color: #c0573b; font-family: 'IBM Plex Mono', monospace; font-size: 12px; display: inline-flex; align-items: center; justify-content: center;">03</span><span style="font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 600; color: #232430;">Contributor</span></div>
+            <p style="font-size: 14px; line-height: 1.55; color: #5c5f72; margin: 0;">Dokładasz mierzalne cegły.</p>
+          </div>
+          <div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: #5b9e7e; margin-bottom: 12px;">dostajesz</div><div style="display: flex; flex-wrap: wrap; gap: 7px;"><span style="background: #edf6f1; color: #4e8a6f; padding: 5px 11px; border-radius: 40px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px;">zadania z backlogu</span><span style="background: #edf6f1; color: #4e8a6f; padding: 5px 11px; border-radius: 40px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px;">credit w changelogu</span><span style="background: #edf6f1; color: #4e8a6f; padding: 5px 11px; border-radius: 40px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px;">publiczny profil wkładu</span><span style="background: #edf6f1; color: #4e8a6f; padding: 5px 11px; border-radius: 40px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px;">bounty</span><span style="background: #edf6f1; color: #4e8a6f; padding: 5px 11px; border-radius: 40px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px;">wejście głębiej</span></div></div>
+          <div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: #5a63c0; margin-bottom: 12px;">oczekujemy</div><div style="display: flex; flex-wrap: wrap; gap: 7px;"><span style="background: #eef0fb; color: #5a63c0; padding: 5px 11px; border-radius: 40px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px;">datasety</span><span style="background: #eef0fb; color: #5a63c0; padding: 5px 11px; border-radius: 40px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px;">evale</span><span style="background: #eef0fb; color: #5a63c0; padding: 5px 11px; border-radius: 40px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px;">skrypty</span><span style="background: #eef0fb; color: #5a63c0; padding: 5px 11px; border-radius: 40px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px;">research notes</span><span style="background: #eef0fb; color: #5a63c0; padding: 5px 11px; border-radius: 40px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px;">PR-y</span><span style="background: #eef0fb; color: #5a63c0; padding: 5px 11px; border-radius: 40px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px;">reprodukcje wyników</span></div></div>
+        </div>
+
+        <div style="background: #fff; border: 1px solid #e4e6f0; border-radius: 10px; padding: 28px 30px; display: grid; grid-template-columns: 250px 1fr 1fr; gap: 32px; align-items: start;">
+          <div>
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;"><span style="width: 26px; height: 26px; border-radius: 50%; background: #ef8a6e; color: #fff; font-family: 'IBM Plex Mono', monospace; font-size: 12px; display: inline-flex; align-items: center; justify-content: center;">04</span><span style="font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 600; color: #232430;">Operator</span></div>
+            <p style="font-size: 14px; line-height: 1.55; color: #5c5f72; margin: 0 0 12px;">Prowadzisz konkretny fragment labu.</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 6px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: #9396ad; background: #f1f2f9; padding: 3px 8px; border-radius: 3px;">eval harness</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: #9396ad; background: #f1f2f9; padding: 3px 8px; border-radius: 3px;">dataset lineage</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: #9396ad; background: #f1f2f9; padding: 3px 8px; border-radius: 3px;">inference stack</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: #9396ad; background: #f1f2f9; padding: 3px 8px; border-radius: 3px;">bounty board</span></div>
+          </div>
+          <div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: #5b9e7e; margin-bottom: 12px;">dostajesz</div><div style="display: flex; flex-wrap: wrap; gap: 7px;"><span style="background: #edf6f1; color: #4e8a6f; padding: 5px 11px; border-radius: 40px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px;">ownership modułu</span><span style="background: #edf6f1; color: #4e8a6f; padding: 5px 11px; border-radius: 40px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px;">wpływ na roadmapę</span><span style="background: #edf6f1; color: #4e8a6f; padding: 5px 11px; border-radius: 40px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px;">miejsce w core calls</span><span style="background: #edf6f1; color: #4e8a6f; padding: 5px 11px; border-radius: 40px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px;">płatna współpraca</span></div></div>
+          <div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: #5a63c0; margin-bottom: 12px;">oczekujemy</div><div style="display: flex; flex-wrap: wrap; gap: 7px;"><span style="background: #eef0fb; color: #5a63c0; padding: 5px 11px; border-radius: 40px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px;">dowożenie protokołu</span><span style="background: #eef0fb; color: #5a63c0; padding: 5px 11px; border-radius: 40px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px;">utrzymywanie jakości</span><span style="background: #eef0fb; color: #5a63c0; padding: 5px 11px; border-radius: 40px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px;">review wkładu</span><span style="background: #eef0fb; color: #5a63c0; padding: 5px 11px; border-radius: 40px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px;">prowadzenie ludzi niżej</span></div></div>
+        </div>
+
+        <div style="background: #232430; border: 1px solid #232430; border-radius: 10px; padding: 30px; display: grid; grid-template-columns: 250px 1fr 1fr; gap: 32px; align-items: start;">
+          <div>
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;"><span style="width: 26px; height: 26px; border-radius: 50%; background: #ef8a6e; color: #fff; font-family: 'IBM Plex Mono', monospace; font-size: 12px; display: inline-flex; align-items: center; justify-content: center;">05</span><span style="font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 600; color: #fff;">Core Team</span></div>
+            <p style="font-size: 14px; line-height: 1.55; color: #b9bccd; margin: 0;">Budujesz lab jako instytucję — model, firmę, community, klientów, funding, compute i dystrybucję.</p>
+          </div>
+          <div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: #7fc5a3; margin-bottom: 12px;">dostajesz</div><div style="display: flex; flex-wrap: wrap; gap: 7px;"><span style="background: rgba(127,197,163,.14); color: #8fd0ad; padding: 5px 11px; border-radius: 40px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px;">equity / wynagrodzenie / grant</span><span style="background: rgba(127,197,163,.14); color: #8fd0ad; padding: 5px 11px; border-radius: 40px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px;">revenue share</span><span style="background: rgba(127,197,163,.14); color: #8fd0ad; padding: 5px 11px; border-radius: 40px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px;">decyzyjność</span><span style="background: rgba(127,197,163,.14); color: #8fd0ad; padding: 5px 11px; border-radius: 40px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px;">współautorstwo wyników</span></div></div>
+          <div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: #9aa0e0; margin-bottom: 12px;">oczekujemy</div><div style="display: flex; flex-wrap: wrap; gap: 7px;"><span style="background: rgba(154,160,224,.16); color: #aab0ec; padding: 5px 11px; border-radius: 40px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px;">odpowiedzialność za wynik</span><span style="background: rgba(154,160,224,.16); color: #aab0ec; padding: 5px 11px; border-radius: 40px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px;">praca nad modelem i firmą</span><span style="background: rgba(154,160,224,.16); color: #aab0ec; padding: 5px 11px; border-radius: 40px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px;">community i klienci</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- rytuały + kanały -->
+  <div style="border-bottom: 1px solid #e0e2ee;">
+    <div style="max-width: 1120px; margin: 0 auto; padding: 80px 40px;">
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: .22em; color: #5a63c0; text-transform: uppercase; margin-bottom: 16px;">07 · publiczne laboratorium</div>
+      <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 34px; font-weight: 600; letter-spacing: -.02em; margin: 0 0 36px; color: #232430;">Działa jak lab, nie jak Discord do newsów.</h2>
+      <div style="display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px;">
+        <div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: #9396ad; margin-bottom: 18px;">rytuały</div>
+          <div style="display: flex; flex-direction: column; gap: 16px;">
+            <div style="display: flex; gap: 14px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #d56a4d; padding-top: 3px; white-space: nowrap;">pon</span><div><div style="font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 600; color: #232430;">Weekly Lab Note</div><div style="font-size: 13.5px; color: #5c5f72; line-height: 1.5;">Co zrobiliśmy, co się zepsuło, co mierzymy dalej.</div></div></div>
+            <div style="display: flex; gap: 14px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #d56a4d; padding-top: 3px; white-space: nowrap;">pt</span><div><div style="font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 600; color: #232430;">Friday Eval Drop</div><div style="font-size: 13.5px; color: #5c5f72; line-height: 1.5;">Tabela wyników, regresje, decyzje.</div></div></div>
+            <div style="display: flex; gap: 14px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #d56a4d; padding-top: 3px; white-space: nowrap;">2tyg</span><div><div style="font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 600; color: #232430;">Open Protocol Review</div><div style="font-size: 13.5px; color: #5c5f72; line-height: 1.5;">Przegląd zasad: dane, evale, contamination, release policy.</div></div></div>
+            <div style="display: flex; gap: 14px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #d56a4d; padding-top: 3px; white-space: nowrap;">ad-hoc</span><div><div style="font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 600; color: #232430;">Failure Postmortem</div><div style="font-size: 13.5px; color: #5c5f72; line-height: 1.5;">Jeśli run nie działa — publikujemy dlaczego. Bez udawania sukcesu.</div></div></div>
+          </div>
+        </div>
+        <div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: #9396ad; margin-bottom: 18px;">kanały</div>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #4a4d61; background: #f1f2f9; padding: 7px 12px; border-radius: 4px;">#lab-log</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #4a4d61; background: #f1f2f9; padding: 7px 12px; border-radius: 4px;">#eval-results</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #4a4d61; background: #f1f2f9; padding: 7px 12px; border-radius: 4px;">#dataset-lineage</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #4a4d61; background: #f1f2f9; padding: 7px 12px; border-radius: 4px;">#model-testing</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #4a4d61; background: #f1f2f9; padding: 7px 12px; border-radius: 4px;">#bugs-regressions</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #4a4d61; background: #f1f2f9; padding: 7px 12px; border-radius: 4px;">#contribute</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #4a4d61; background: #f1f2f9; padding: 7px 12px; border-radius: 4px;">#bounties</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #4a4d61; background: #f1f2f9; padding: 7px 12px; border-radius: 4px;">#use-cases</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #4a4d61; background: #f1f2f9; padding: 7px 12px; border-radius: 4px;">#compute</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #4a4d61; background: #f1f2f9; padding: 7px 12px; border-radius: 4px;">#papers</span>
+          </div>
+          <div style="margin-top: 26px; border: 1px solid #e4e6f0; border-radius: 8px; background: #f6f7fc; padding: 18px 20px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #5c5f72; line-height: 1.7;">lem-protocol/<br>&nbsp;&nbsp;evals/ · datasets/ · training/<br>&nbsp;&nbsp;model-cards/ · run-ledger/ · governance/</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- join CTA -->
+  <div style="background: #ef8a6e;">
+    <div style="max-width: 1120px; margin: 0 auto; padding: 88px 40px; text-align: center;">
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color: #7a2f1a; margin-bottom: 20px;">dołącz</div>
+      <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 56px; font-weight: 600; letter-spacing: -.025em; margin: 0 0 18px; color: #3a160b; line-height: 1.02;">Wejdź do labu na swoim poziomie.</h2>
+      <p style="font-size: 17px; line-height: 1.6; color: #6e3422; max-width: 560px; margin: 0 auto 32px;">Obserwuj, testuj, zgłaszaj błędy, rób dane, pisz evale, trenuj adaptery, sponsoruj compute albo wnoś use case. Realny credit, ownership i ścieżka głębiej — nie darmowa praca dla startupu.</p>
+      <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+        <a href="https://discord.gg/HnTkVR4c5T" target="_blank" rel="noopener" style="background: #3a160b; color: #fff; font-weight: 600; padding: 15px 30px; border-radius: 40px; font-size: 15px;">Wejście do labu (Discord) →</a>
+        <a href="https://github.com/slayerlabs" target="_blank" rel="noopener" style="border: 1px solid #9a4a30; color: #3a160b; padding: 15px 30px; border-radius: 40px; font-size: 15px; font-weight: 600;">GitHub: lem-protocol</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- footer -->
+  <div style="background: #232430; color: #b9bccd;">
+    <div style="max-width: 1120px; margin: 0 auto; padding: 44px 40px; display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; flex-wrap: wrap;">
+      <div>
+        <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 18px; margin-bottom: 10px;"><span style="color: #ef8a6e;">Slayer</span> <span style="color: #555a72;">/</span> <span style="color: #8b93e0;">LEM</span></div>
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #7b7f98; max-width: 420px; line-height: 1.6;">Community-driven applied AI lab. Open weights · open protocol · publiczne artefakty. 2026.</div>
+      </div>
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #8b8fa8; display: flex; gap: 28px; flex-wrap: wrap;">
+        <a href="https://github.com/slayerlabs" target="_blank" rel="noopener">GitHub: lem-protocol</a><a href="/eksperymenty">księga pomiarów</a><a href="/drabina">drabina</a><a href="/roadmap">roadmap</a><a href="https://discord.gg/HnTkVR4c5T" target="_blank" rel="noopener">discord</a><a href="https://ort.fabryka.ai" target="_blank" rel="noopener">wczesne badania</a>
+      </div>
+    </div>
+  </div>
+
+</div>`;
 
 export default function Home() {
   return (
     <>
-      <style>{css}</style>
-
-      <section className="hero">
-        <div className="hgrid">
-          <div>
-            <div className="htag rv"><span className="dot"></span><span className="kick"><span className="ac">GOOD TASTE APPLIED RESEARCH LAB</span> · POLSKIE MODELE</span></div>
-            <h1 className="rv d1">Protokół dla polskiej inteligencji.</h1>
-            <p className="lede rv d2">Slayer bada modele językowe jak rzemiosło: smak odpowiedzi, czystość pomiaru, koszt treningu i ślady danych. Nie robimy widowiska. Zostawiamy <b>artefakty</b>: harnessy, lineage, recepty, modele i wyniki, które da się odtworzyć.</p>
-            <div className="cta-row rv d3">
-              <a className="btn btn-p" href="/benchmarks">otwórz protokoły →</a>
-              <a className="btn btn-s" href="https://discord.gg/HnTkVR4c5T" rel="noopener" target="_blank">wejście do labu</a>
-            </div>
-          </div>
-        </div>
-        <div className="stats rv d5" style={{ margin: "0 calc(clamp(18px,5vw,72px) * -1)" }}>
-          <div className="inner">
-            <div className="stat"><BenchCount /><div className="k">osi ewaluacji</div></div>
-            <div className="stat"><div className="v">24<span className="ac">k</span></div><div className="k">rekordów z widocznym rodowodem</div></div>
-            <div className="stat"><div className="v">100<span className="ac">%</span></div><div className="k">claimów z held-out</div></div>
-            <div className="stat"><div className="v">~18<span className="ac">k zł</span></div><div className="k">koszt wpisany w wynik</div></div>
-          </div>
-        </div>
-      </section>
-
-      <section className="sec tight">
-        <div className="inner">
-          <div className="panel rv d4">
-            <div className="panel-top"><span className="loghead">księga pomiarów</span><span className="live"><span className="d"></span>NA ŻYWO</span></div>
-            <div className="panel-bd loggrid">
-              <a className="logrow" href="/eksperymenty">
-                <span className="dt">2026-06</span>
-                <span className="what"><b>slayer-style-27b</b>: smak odpowiedzi bez amnezji<span className="sub">LLMzSzŁ 65.0 vs baza 58.5 (likelihood, n=400)</span></span>
-                <span className="go">otwórz →</span>
-              </a>
-              <a className="logrow" href="/datasety">
-                <span className="dt">2026-06</span>
-                <span className="what"><b>datasets</b>: dane treningowe + karty + lineage<span className="sub">miksy 1:1, disclosure kontaminacji v2</span></span>
-                <span className="go">ślady →</span>
-              </a>
-              <a className="logrow" href="/benchmarks">
-                <span className="dt">2026-06</span>
-                <span className="what"><b>benchmarks</b>: karty 10 osi pomiaru<span className="sub">metryki, train policy, znane pułapki</span></span>
-                <span className="go">osie →</span>
-              </a>
-              <a className="logrow" href="https://arena.fabryka.ai" rel="noopener" target="_blank">
-                <span className="dt">2026-06</span>
-                <span className="what"><b>arena</b>: ślepe porównania modeli PL<span className="sub">oceniaj odpowiedzi bez etykiet</span></span>
-                <span className="go">wejdź →</span>
-              </a>
-            </div>
-            <MeasureNote />
-          </div>
-        </div>
-      </section>
-
-      <section className="sec">
-        <div className="inner">
-          <div className="shead"><div><span className="kick">01 · komnaty</span><h2>Cztery drzwi, jeden warsztat.</h2></div>
-            <p>Każdy obszar ma własny protokół, artefakty i ślady. Bez ozdobnych deklaracji, bez wyników na słowo.</p></div>
-          <div className="grid c2">
-            <a className="cell area" href="/benchmarks"><div className="top"><span>ewaluacja</span><span className="ar">→</span></div>
-              <h3>Czysty pomiar polszczyzny</h3>
-              <p>Karty benchmarków: co mierzy każda oś, jaka metryka decyduje, gdzie leży pułapka. Likelihood i generacja rozdzielone, stały seed, tylko agregaty.</p>
-              <div className="meta"><div><span className="k">artefakt</span>harness + karty 10 osi (LLMzSzŁ, KLEJ, PoQuAD…)</div></div></a>
-            <a className="cell area" href="/datasety"><div className="top"><span>dane</span><span className="ar">→</span></div>
-              <h3>Kuracja zamiast masy</h3>
-              <p>Małe, świetne zbiory biją duże i brudne. Pełny lineage każdego miksu treningowego, dekontaminacja względem ewaluacji, provenance per rekord.</p>
-              <div className="meta"><div><span className="k">artefakt</span>karty datasetów + miksy treningowe 1:1 z lineage</div></div></a>
-            <a className="cell area" href="/trening"><div className="top"><span>trening</span><span className="ar">→</span></div>
-              <h3>Recepty, które przechodzą próg</h3>
-              <p>QLoRA SFT, preferencje (DPO/ORPO), RL na weryfikowalnych nagrodach. Każdy run z gate&apos;ami regresji: zysk na celu bez utraty kompetencji bazowych.</p>
-              <div className="meta"><div><span className="k">artefakt</span>cooking recipe + training log + decyzje z pomiarów</div></div></a>
-            <a className="cell area" href="/kierunki"><div className="top"><span>styl</span><span className="ar">→</span></div>
-              <h3>Naturalna polszczyzna</h3>
-              <p>Model ma pisać jak ktoś, kto ma ucho: bez kalek z angielskiego, bez asystenckiej waty, z natywną fleksją. Mierzone twardymi metrykami i otwartym sędzią.</p>
-              <div className="meta"><div><span className="k">artefakt</span>style-SFT 1.6k przykładów + eval stylu held-out</div></div></a>
-          </div>
-        </div>
-      </section>
-
-      <hr className="rule" />
-
-      <section className="sec alt">
-        <div className="inner">
-          <div className="shead"><div><span className="kick">02 · reguły przejścia</span><h2>Co wpuszczamy do twierdzeń.</h2></div>
-            <p>Rygor ewaluacyjny jest częścią smaku. Te reguły obowiązują w każdym runie.</p></div>
-          <div className="princ">
-            <div className="pr"><div className="no">01</div><div><h3>Held-out albo nic</h3><p>Publiczne twierdzenia wyłącznie z danych, których model nie widział, mierzone tym samym protokołem co baseline&apos;y. Wynik na zadaniu trenowanym oznaczamy jako trenowany i nie liczymy do claimów.</p></div></div>
-            <div className="pr"><div className="no">02</div><div><h3>Agregaty, nie itemy</h3><p>Analizujemy accuracy per kategoria, domena, rok. Nie oglądamy pojedynczych pytań benchmarków i nie piszemy na ich podstawie danych treningowych. Pliki ewaluacji wchodzą do pipeline&apos;u wyłącznie jako wejście dekontaminacji.</p></div></div>
-            <div className="pr"><div className="no">03</div><div><h3>Lineage i disclosure</h3><p>Każdy model ma audytowalną listę: co dokładnie weszło do treningu, skąd, z jaką licencją. Gdy popełniliśmy błąd (skażony miks v2), <b>opublikowaliśmy go z pełnym disclosure</b> zamiast chować.</p></div></div>
-            <div className="pr"><div className="no">04</div><div><h3>Otwarci sędziowie</h3><p>Tam, gdzie ocenia LLM, sędzią jest model o otwartych wagach, z podanym promptem i wersją. Zamknięte API nie filtrują danych i nie wystawiają ocen, na których stoi wynik.</p></div></div>
-            <div className="pr"><div className="no">05</div><div><h3>Koszt jest wynikiem</h3><p>Budżet, sprzęt i czas każdego runu są częścią publikacji. Teza kosztowa (konkurencyjny model za ~15–20k zł) jest falsyfikowalna jak każda inna.</p></div></div>
-          </div>
-        </div>
-      </section>
-
-      <hr className="rule" />
-
-      <section className="sec">
-        <div className="inner">
-          <div className="shead"><div><span className="kick">03 · wejścia</span><h2>Wybierz ślad.</h2></div>
-            <p>Sześć modułów na żywo. Pomiary aktualizują się automatycznie, logi pisze pipeline.</p></div>
-          <div className="grid auto">
-            <a className="cell" href="/leaderboard"><div className="top"><span>pomiary</span><span className="ar">→</span></div><h3 className="sm">Ewaluacje na żywo</h3><p>Wyniki wszystkich mierzonych modeli, oś po osi.</p></a>
-            <a className="cell" href="/eksperymenty"><div className="top"><span>log</span><span className="ar">→</span></div><h3 className="sm">Eksperymenty</h3><p>Dziennik runów: hipoteza, setup, wynik, decyzja.</p></a>
-            <a className="cell" href="/benchmarks"><div className="top"><span>metoda</span><span className="ar">→</span></div><h3 className="sm">Benchmarki</h3><p>Karty osi pomiaru i zasady czystości.</p></a>
-            <a className="cell" href="/datasety"><div className="top"><span>dane</span><span className="ar">→</span></div><h3 className="sm">Datasety</h3><p>Ewaluacja vs trening, lineage, licencje.</p></a>
-            <a className="cell" href="/trening"><div className="top"><span>recepty</span><span className="ar">→</span></div><h3 className="sm">Trening</h3><p>SFT, DPO/ORPO, GRPO/RLVR i gate&apos;y regresji.</p></a>
-            <a className="cell" href="/zespol"><div className="top"><span>ludzie</span><span className="ar">→</span></div><h3 className="sm">Zespół</h3><p>Kto buduje i jak dołączyć.</p></a>
-          </div>
-        </div>
-      </section>
-
-      <hr className="rule" />
-
-      <section className="sec">
-        <div className="inner">
-          <div className="shead"><div><span className="kick">04 · kontekst</span><h2>Bez teatru zwycięstwa.</h2></div>
-            <p>Polska scena AI rośnie wtedy, gdy laby publikują i weryfikują nawzajem swoje wyniki.</p></div>
-          <div className="grid c2">
-            <div className="cell"><h3 className="sm">Ekosystem, nie pojedynek</h3><p>Bielik (SpeakLeash) to ważny punkt odniesienia w naszych ewaluacjach i wzór otwartego raportowania. Nasz wkład jest komplementarny: niezależna replikacja, tańsza ścieżka treningu i publiczny warsztat pomiarowy, z którego może korzystać każdy polski projekt.</p></div>
-            <div className="cell"><h3 className="sm">Baza i licencja</h3><p>Budujemy na Qwen3.5-27B (Apache 2.0): pochodne można trenować, wydawać i komercjalizować otwarcie. Mniejsze modele nie wystarczają jeszcze na polskie SOTA; 9B służy nam tylko do tanich iteracji. Trening i hosting w Polsce, receptura jawna.</p></div>
-          </div>
-        </div>
-      </section>
-
-      <section className="sec alt">
-        <div className="inner narrow" style={{ textAlign: "center" }}>
-          <span className="kick">dołącz</span>
-          <h2 className="serif" style={{ fontSize: "clamp(2.1rem,4.2vw,3.1rem)", fontWeight: 400, letterSpacing: "-.015em", margin: "14px 0 14px" }}>Wejdź, jeśli chcesz mierzyć.</h2>
-          <p className="muted" style={{ maxWidth: "54ch", margin: "0 auto 26px", fontSize: "1.06rem" }}>Kontrybutorzy, naukowcy, firmy z use case&apos;ami i fundatorzy compute. Publiczny zapis: od razu widać, kto już jest.</p>
-          <div className="cta-row" style={{ justifyContent: "center" }}><a className="btn btn-p" href="https://discord.gg/HnTkVR4c5T" rel="noopener" target="_blank">wejście do labu →</a><a className="btn btn-s" href="/zespol">zapisz się</a></div>
-        </div>
-      </section>
+      <style>{lemCss}</style>
+      <div dangerouslySetInnerHTML={{ __html: html }} />
     </>
   );
 }

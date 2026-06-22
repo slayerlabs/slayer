@@ -5,9 +5,9 @@ import Footer from "../components/Footer";
 import "../styles/lab.css";
 
 export const metadata = {
-  title: "Slayer — applied research lab dla polskich modeli",
+  title: "Slayer — laboratorium stosowanej AI",
   description:
-    "Slayer to niezależne applied research lab dla polskich modeli językowych: protokoły ewaluacji, lineage danych, recepty treningowe i jawne koszty.",
+    "Slayer to laboratorium stosowanej AI: dostrajanie modeli, RL, ewaluacje, agenci, narzędzia badawcze i otwarte artefakty.",
 };
 
 export default function RootLayout({ children }) {

@@ -36,13 +36,18 @@ export default function Benchmarks() {
       </div></section>
 
       <section className="sec tight alt"><div className="inner">
-        <div className="ghead"><h2>Zasady pomiaru</h2></div>
+        <div className="ghead"><h2>Zasady pomiaru</h2><span className="c">czego nauczył nas V4</span></div>
         <div className="grid auto">
-          <div className="cell"><div className="n">RÓWNE WARUNKI</div><h3 className="sm">Ten sam harness</h3><p>Identyczny tryb, few-shot i szablon promptu dla obu modeli.</p></div>
-          <div className="cell"><div className="n">CZYSTOŚĆ</div><h3 className="sm">Tylko liczymy</h3><p>Bez inspekcji pojedynczych itemów: tylko agregaty. Zero benchmaxxingu.</p></div>
-          <div className="cell"><div className="n">REGRESJA</div><h3 className="sm">Pod kontrolą</h3><p>Belebele (PL/EN) i FLORES pilnują, by zysk na PL nie zjadł angielskiego.</p></div>
-          <div className="cell"><div className="n">ODTWARZALNOŚĆ</div><h3 className="sm">Publiczny kod</h3><p>Skrypty, configi i wersje datasetów do repo. Każdy wynik da się powtórzyć.</p></div>
+          <div className="cell"><div className="n">RÓWNE WARUNKI</div><h3 className="sm">Ten sam harness</h3><p>Identyczny tryb, few-shot, szablon promptu i seed dla wszystkich modeli.</p></div>
+          <div className="cell"><div className="n">METODA PER ZADANIE</div><h3 className="sm">Likelihood vs generacja</h3><p>NLI/MCQ scoringujemy <strong style={{ color: "var(--txt)" }}>likelihood</strong> (log-prob etykiet), binarne i sentyment <strong style={{ color: "var(--txt)" }}>generacją</strong>. Zła metoda daje fałszywą regresję: CDSC-E to −22.5 w generacji, ale tylko −6.0 w likelihood.</p></div>
+          <div className="cell"><div className="n">PRÓBKA</div><h3 className="sm">Decyzje na n≥400</h3><p>Mały n potrafi skłamać (kalibracja, która na n=200 dawała +3, na n=400 = 0). n=100 tylko jako szybki screen, nigdy do release.</p></div>
+          <div className="cell"><div className="n">CZYSTOŚĆ</div><h3 className="sm">Tylko agregaty</h3><p>Bez inspekcji itemów, zero benchmaxxingu. Dane treningowe ze źródeł <strong style={{ color: "var(--txt)" }}>rozłącznych</strong> od evala — skill-transfer, nie zapamiętywanie pytań.</p></div>
+          <div className="cell"><div className="n">DEKONTAMINACJA</div><h3 className="sm">vs train+dev+test</h3><p>Każdy shard sprawdzany n-gramowo i atom-overlapem przeciw wszystkim splitom — także <strong style={{ color: "var(--txt)" }}>train</strong>. Train-split jako paliwo = kontaminacja.</p></div>
+          <div className="cell"><div className="n">REGRESJA</div><h3 className="sm">Bramki + Pareto</h3><p>Per-zadanie progi (CDSC-E ≤−3pp, parser=0), EN-retencja (ARC/MMLU/GSM8K) pilnuje angielskiego. Release wybiera Pareto-front, nie jeden score.</p></div>
         </div>
+        <p className="muted" style={{ marginTop: 16, fontSize: ".92rem", lineHeight: 1.6 }}>
+          <strong style={{ color: "var(--txt)" }}>Best-of per zadanie:</strong> dla każdego zadania jedna, właściwa metoda — ta sama dla wszystkich modeli, żeby Δ było porównywalne. Pełna macierz base vs v3 vs v4 × benchmarki (kolor = Δ): <a href="/eksperymenty" style={{ color: "var(--acc)" }}>/eksperymenty</a>. Projektowanie danych pod brak regresji prowadzi jawny manifest <code>skill → eval_proxy → źródło → waga → regression_guard</code>.
+        </p>
       </div></section>
     </>
   );

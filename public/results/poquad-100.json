@@ -8,18 +8,7 @@
   "judge": "Qwen3.5-35B-A3B (llama.cpp :8088), reference-based TAK/NIE correctness, enable_thinking=false",
   "decisive_metric": "judged_accuracy",
   "date": "2026-06-04",
-  "winner": "Bielik-11B-v3.0-Instruct (+9.0 pkt na trafnosci)",
   "models": {
-    "Bielik-11B-v3.0-Instruct": {
-      "tag": "hf.co/speakleash/Bielik-11B-v3.0-Instruct-GGUF:Q4_K_M",
-      "judged_accuracy": 86.0,
-      "judged_answerable_acc": 95.3,
-      "unanswerable_abstain": "5/15",
-      "overall_F1": 34.1,
-      "answerable_F1": 34.2,
-      "answer_recall": 88.6,
-      "secs": 92.8
-    },
     "Qwen3.5-9B": {
       "tag": "qwen3.5:9b",
       "judged_accuracy": 77.0,
@@ -31,5 +20,5 @@
       "secs": 53.5
     }
   },
-  "interpretation": "Metryka rozstrzygajaca = trafnosc oceniona przez sedziego-LLM (Qwen3.5-35B ocenia poprawnosc merytoryczna niezaleznie od formy/odmiany). Bielik wygrywa 86.0 vs 77.0 (odpowiadalne 95.3 vs 87.1). PODKATEGORIA: surowy SQuAD token-F1 dawal Qwenowi 68.5 vs 34.2, ale to artefakt formatu - Qwen odpowiada zwiezle/ekstraktywnie, Bielik pelnym zdaniem, co rozciencza precyzje tokenowa. Po ocenie tresci przewaga jest po stronie Bielika. Sedzia byl modelem Qwen, wiec nie ma pro-Bielikowego biasu. Odmowa na pytania nieodpowiadalne slaba u obu (Bielik 5/15, Qwen 3/15)."
+  "interpretation": "Metryka rozstrzygajaca = trafnosc oceniona przez sedziego-LLM (Qwen3.5-35B ocenia poprawnosc merytoryczna niezaleznie od formy/odmiany): Qwen3.5-9B 77.0 (odpowiadalne 87.1). PODKATEGORIA: surowy SQuAD token-F1 = 68.5 na odpowiadalnych - Qwen odpowiada zwiezle/ekstraktywnie. Odmowa na pytania nieodpowiadalne slaba (3/15)."
 }

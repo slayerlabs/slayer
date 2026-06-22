@@ -6,40 +6,41 @@ const GROUPS = [
   {
     label: "protokół",
     links: [
+      ["/update", "na czym stoimy"],
       ["/kierunki", "kierunki modelu"],
       ["/propozycja", "propozycja v3"],
       ["/v3", "miks danych v3"],
+      ["/v4", "plan V4 + feedback"],
+      ["/sota", "SOTA 2026 + komentarze"],
       ["/rules", "zasady"],
       ["/roadmap", "harmonogram"],
       ["/drabina", "drabina kontrybutora"],
     ],
   },
   {
-    label: "dane & trening",
+    label: "badania",
     links: [
-      ["/datasety", "datasety"],
+      ["/datasety", "zbiory danych"],
       ["/trening", "trening"],
       ["/styl", "styl"],
       ["/zadania", "zadania"],
       ["/wiedza", "wiedza (CPT)"],
-      ["/eng-log", "eng log (notatki)"],
-      ["/bielik-dane", "dane Bielika (analiza)"],
+      ["/eng-log", "dziennik badawczy"],
     ],
   },
   {
-    label: "benchmarki",
+    label: "pomiary",
     links: [
-      ["/leaderboard", "leaderboard"],
+      ["/leaderboard", "ranking"],
       ["/benchmarks", "metodologia"],
       ["/bench-explorer", "przeglądarka + zgłoszenia"],
       ["/closed-benchmarks", "benchmarki zamknięte"],
       ["/progress", "pomiar na żywo"],
       ["/eksperymenty", "log eksperymentów"],
-      ["/bielik-benchmarki", "Bielik v3 (porównanie)"],
     ],
   },
   {
-    label: "zespół",
+    label: "ludzie",
     links: [
       ["/team", "zespół"],
       ["/zespol", "dołącz"],
@@ -51,10 +52,12 @@ export default function Nav() {
   const pathname = (usePathname() || "/").replace(/\/+$/, "") || "/";
   const [open, setOpen] = useState(false);
   const close = () => setOpen(false);
+  if (pathname === "/") return null; // ponytail: landing page (LEM) ships its own nav
   return (
     <header className="nav">
       <a className="brand" href="/" onClick={close}>
-        <span className="mk">S</span>slayer<span className="sl">·</span>protocol
+        <span className="bdot" />
+        <span><span style={{ color: "#d56a4d" }}>Slayer</span> <span style={{ color: "var(--dim)" }}>/</span> <span style={{ color: "#5a63c0" }}>LEM</span></span>
       </a>
       <button
         className="navtoggle"

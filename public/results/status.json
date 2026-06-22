@@ -67,7 +67,6 @@
   "keep_warm": true,
   "hermes": "paused",
   "tally": {
-    "Bielik-11B-v3.0-Instruct": 1,
     "Qwen3.5-9B": 8
   },
   "benchmarks_done": 9,
@@ -79,10 +78,7 @@
       "metric": "accuracy (MCQ, exact letter)",
       "n": 18821,
       "runs": 4,
-      "bielik": 61.1,
-      "qwen": 58.2,
-      "winner": "Bielik-11B-v3.0-Instruct",
-      "margin": 2.9
+      "qwen": 58.2
     },
     {
       "benchmark": "pes",
@@ -91,10 +87,7 @@
       "metric": "accuracy (MCQ, exact letter)",
       "n": 70010,
       "runs": 4,
-      "bielik": 48.0,
-      "qwen": 52.7,
-      "winner": "Qwen3.5-9B",
-      "margin": 4.7
+      "qwen": 52.7
     },
     {
       "benchmark": "belebele",
@@ -103,10 +96,7 @@
       "metric": "accuracy (MCQ, exact letter)",
       "n": 900,
       "runs": 4,
-      "bielik": 86.3,
-      "qwen": 89.4,
-      "winner": "Qwen3.5-9B",
-      "margin": 3.1
+      "qwen": 89.4
     },
     {
       "benchmark": "poquad",
@@ -115,10 +105,7 @@
       "metric": "judged_accuracy (sędzia-LLM)",
       "n": 1500,
       "runs": 4,
-      "bielik": 80.6,
-      "qwen": 82.8,
-      "winner": "Qwen3.5-9B",
-      "margin": 2.2
+      "qwen": 82.8
     },
     {
       "benchmark": "flores",
@@ -127,10 +114,7 @@
       "metric": "chrF (PL↔EN, sacrebleu)",
       "n": 600,
       "runs": 3,
-      "bielik": 53.0,
-      "qwen": 55.0,
-      "winner": "Qwen3.5-9B",
-      "margin": 2.0
+      "qwen": 55.0
     },
     {
       "benchmark": "belebele_en",
@@ -139,10 +123,7 @@
       "metric": "accuracy (MCQ, exact letter) [EN regresja]",
       "n": 900,
       "runs": 4,
-      "bielik": 92.4,
-      "qwen": 94.9,
-      "winner": "Qwen3.5-9B",
-      "margin": 2.5
+      "qwen": 94.9
     },
     {
       "benchmark": "arc",
@@ -151,10 +132,7 @@
       "metric": "accuracy (MCQ, exact letter) [EN regresja]",
       "n": 1172,
       "runs": 4,
-      "bielik": 89.2,
-      "qwen": 94.1,
-      "winner": "Qwen3.5-9B",
-      "margin": 4.9
+      "qwen": 94.1
     },
     {
       "benchmark": "mmlu",
@@ -163,10 +141,7 @@
       "metric": "accuracy (MCQ, exact letter) [EN regresja]",
       "n": 2000,
       "runs": 3,
-      "bielik": 67.2,
-      "qwen": 77.1,
-      "winner": "Qwen3.5-9B",
-      "margin": 9.9
+      "qwen": 77.1
     },
     {
       "benchmark": "gsm8k",
@@ -175,10 +150,7 @@
       "metric": "accuracy (exact, final int) [EN regresja]",
       "n": 600,
       "runs": 3,
-      "bielik": 56.0,
-      "qwen": 90.5,
-      "winner": "Qwen3.5-9B",
-      "margin": 34.5
+      "qwen": 90.5
     }
   ],
   "faza_a": {
