@@ -5,6 +5,8 @@ import { validateSubmission } from "../../../../lib/run-schema.js";
 const HF = /^[\w.-]+\/[\w.-]+$/;
 const MAX_BODY = 2048; // bytes
 const COOLDOWN_MS = 20_000;
+const ALLOWED_BASE = ["qwen3.5-9b"];
+const ALLOWED_SUITE = ["open-pl-v1"];
 // ponytail: per-instance in-memory cooldown; mirrors signup_server. Swap for KV if it must be global.
 const seen = new Map();
 // Collision-free id: slash is the only char in an HF name outside the SLUG set; map it to "--".
@@ -29,9 +31,14 @@ export async function POST(req) {
   const hfModel = String(body?.hfModel || "").trim();
   if (!HF.test(hfModel)) return Response.json({ error: "hfModel must be org/name" }, { status: 400 });
 
+  const base = String(body?.base || "qwen3.5-9b");
+  if (!ALLOWED_BASE.includes(base)) return Response.json({ error: "invalid base" }, { status: 400 });
+  const suite = String(body?.suite || "open-pl-v1");
+  if (!ALLOWED_SUITE.includes(suite)) return Response.json({ error: "invalid suite" }, { status: 400 });
+
   const sub = {
     schema: "submission/v1", id: subId(hfModel), hfModel,
-    base: String(body?.base || "qwen3.5-9b"), suite: String(body?.suite || "open-pl-v1"),
+    base, suite,
     status: "queued", requested_at: new Date().toISOString(),
   };
   const { ok, errors } = validateSubmission(sub);
