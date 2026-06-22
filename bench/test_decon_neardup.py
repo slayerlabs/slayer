@@ -55,6 +55,18 @@ short_idx.add(short_eval, "eval_fixture", "ile to jest dwa razy dwa")
 copy_hit = short_idx.query(words("ile to jest dwa razy dwa"))
 check(copy_hit is not None, "near-dup łapie kopię krótkiego itemu, której verbatim nie widzi")
 
+print("[test] fold diakrytyków: kopia bez polskich znaków")
+diac = words("zażółć gęślą jaźń a potem zważ różne źdźbła trawy na łące")
+stripped = words("zazolc gesla jazn a potem zwaz rozne zdzbla trawy na lace")
+no_fold = NearDupIndex(k=4, perms=128, bands=32, threshold=0.7, fold=False)
+no_fold.add(diac, "eval_fixture", "zażółć...")
+check(no_fold.query(stripped) is None, "bez fold: kopia bez diakrytyków NIE jest łapana")
+with_fold = NearDupIndex(k=4, perms=128, bands=32, threshold=0.7, fold=True)
+with_fold.add(diac, "eval_fixture", "zażółć...")
+check(with_fold.query(stripped) is not None, "z fold: kopia bez diakrytyków jest łapana")
+check(with_fold.query(words("zupelnie inny tekst o pogodzie i wakacjach nad morzem")) is None,
+      "z fold: niezwiązany tekst nadal bez trafienia")
+
 print()
 if FAILS:
     print(f"[test] FAIL: {len(FAILS)} asercji nie przeszło")

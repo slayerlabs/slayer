@@ -29,7 +29,7 @@ Usage:
   python3 bench/decon_audit.py <plik.jsonl> --near-dup       # + pass MinHash/Jaccard
   python3 bench/decon_audit.py --all                         # audyt wszystkich artefaktów gen
 Opcje: --ngram 8 --report results/decon_audit.json
-       --near-dup --jaccard 0.7 --minhash-k 4 --perms 128 --bands 32
+       --near-dup --jaccard 0.7 --minhash-k 4 --perms 128 --bands 32 --fold-diacritics
 Raport bieżący jest nadpisywany, ale każdy przebieg dopisuje się też do
 results/decon_audit_history.jsonl (trwały ślad audytu).
 """
@@ -173,10 +173,28 @@ def lsh_keys(sig, bands):
     return [(b, sig[b * rows:(b + 1) * rows]) for b in range(bands)]
 
 
-class NearDupIndex:
-    """Indeks LSH nad rekordami ewaluacyjnymi; query zwraca najlepszy near-dup >= próg."""
+# Zwijanie polskich diakrytyków do ASCII - łapie kopie pozbawione polskich znaków
+# (zażółć -> zazolc). Uwaga: over-collapse (łoś -> los, sąd -> sad); dla bramki
+# kontaminacji to bezpieczny kierunek (wyższy recall, a weryfikacja Jaccardem i tak filtruje).
+_PL_FOLD = str.maketrans({
+    "ą": "a", "ć": "c", "ę": "e", "ł": "l", "ń": "n",
+    "ó": "o", "ś": "s", "ź": "z", "ż": "z",
+})
 
-    def __init__(self, k=4, perms=128, bands=32, threshold=0.7, seed=1234):
+
+def fold_ws(ws):
+    """Tokeny ze zwiniętymi diakrytykami do ASCII (zachowuje liczbę tokenów)."""
+    return [w.translate(_PL_FOLD) for w in ws]
+
+
+class NearDupIndex:
+    """Indeks LSH nad rekordami ewaluacyjnymi; query zwraca najlepszy near-dup >= próg.
+
+    fold=True zwija diakrytyki do ASCII przed shinglingiem (symetrycznie dla indeksu
+    i zapytań), więc łapie też kopie pozbawione polskich znaków (zażółć -> zazolc).
+    """
+
+    def __init__(self, k=4, perms=128, bands=32, threshold=0.7, seed=1234, fold=False):
         if perms % bands:
             raise ValueError(f"perms ({perms}) musi być podzielne przez bands ({bands})")
         if threshold < 0.65:
@@ -184,15 +202,18 @@ class NearDupIndex:
                   f"(bands={bands}, rows={perms // bands}) ma tu obniżony recall - część "
                   f"near-dup może nie trafić do kandydatów. Zwiększ --bands dla wyższego "
                   f"recall przy niskim progu.", flush=True)
-        self.k, self.bands, self.threshold = k, bands, threshold
+        self.k, self.bands, self.threshold, self.fold = k, bands, threshold, fold
         self.perms_ab = make_perms(perms, seed)
         self.sigs = {}
         self.meta = {}
         self.buckets = defaultdict(set)
         self._rid = 0
 
+    def _sig(self, ws):
+        return minhash_signature(fold_ws(ws) if self.fold else ws, self.k, self.perms_ab)
+
     def add(self, ws, src, sample):
-        sig = minhash_signature(ws, self.k, self.perms_ab)
+        sig = self._sig(ws)
         rid = self._rid
         self._rid += 1
         self.sigs[rid] = sig
@@ -201,7 +222,7 @@ class NearDupIndex:
             self.buckets[key].add(rid)
 
     def query(self, ws):
-        sig = minhash_signature(ws, self.k, self.perms_ab)
+        sig = self._sig(ws)
         cand = set()
         for key in lsh_keys(sig, self.bands):
             cand |= self.buckets.get(key, set())
@@ -216,8 +237,8 @@ class NearDupIndex:
         return self._rid
 
 
-def build_neardup_index(k, perms, bands, threshold):
-    ndx = NearDupIndex(k=k, perms=perms, bands=bands, threshold=threshold)
+def build_neardup_index(k, perms, bands, threshold, fold=False):
+    ndx = NearDupIndex(k=k, perms=perms, bands=bands, threshold=threshold, fold=fold)
     per_src = {}
     for src in EVAL_SOURCES + [llmzszl_test_path()]:
         if not os.path.exists(src):
@@ -333,6 +354,10 @@ def main():
     ap.add_argument("--minhash-k", type=int, default=4, help="rozmiar shingla (słowa) dla MinHash")
     ap.add_argument("--perms", type=int, default=128, help="liczba permutacji MinHash")
     ap.add_argument("--bands", type=int, default=32, help="pasma LSH (perms %% bands == 0)")
+    ap.add_argument("--fold-diacritics", action="store_true",
+                    help="near-dup: zwiń polskie diakrytyki do ASCII przed shinglingiem "
+                         "(łapie kopie bez polskich znaków, zażółć->zazolc; over-collapse "
+                         "łoś->los akceptowalny dla bramki kontaminacji)")
     a = ap.parse_args()
 
     paths = a.paths or []
@@ -350,9 +375,11 @@ def main():
 
     ndup = None
     if a.near_dup:
-        ndup, nd_src = build_neardup_index(a.minhash_k, a.perms, a.bands, a.jaccard)
+        ndup, nd_src = build_neardup_index(a.minhash_k, a.perms, a.bands, a.jaccard,
+                                           fold=a.fold_diacritics)
         print(f"[decon] near-dup: {len(ndup)} rekordów eval | MinHash k={a.minhash_k} "
-              f"perms={a.perms} bands={a.bands} próg Jaccard={a.jaccard}")
+              f"perms={a.perms} bands={a.bands} próg Jaccard={a.jaccard} "
+              f"fold-diacritics={a.fold_diacritics}")
 
     results = []
     for p in paths:
@@ -369,7 +396,8 @@ def main():
     report = {"ts": time.strftime("%Y-%m-%dT%H:%M:%S"), "ngram": a.ngram,
               "index_size": len(idx), "excl_hashes": len(excl_hashes),
               "near_dup": ({"k": a.minhash_k, "perms": a.perms, "bands": a.bands,
-                            "jaccard": a.jaccard, "eval_records": len(ndup)}
+                            "jaccard": a.jaccard, "fold_diacritics": a.fold_diacritics,
+                            "eval_records": len(ndup)}
                            if ndup is not None else None),
               "eval_sources": per_src, "results": results}
     os.makedirs(os.path.dirname(a.report), exist_ok=True)
