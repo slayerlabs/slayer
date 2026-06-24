@@ -6,6 +6,7 @@ benches: llmzszl belebele belebele_en pes include mmlu arc
 """
 import json, re, sys, time, random, csv, urllib.request, os, glob
 from collections import defaultdict
+from _bench_common import winner_margin
 from huggingface_hub import hf_hub_download, HfApi
 
 OLLAMA = "http://127.0.0.1:11434/api/chat"
@@ -156,14 +157,12 @@ def run(bench, n, seed):
                         "category_n": {c: ct_n[c] for c in ct_n if ct_n[c] >= 15},
                         "secs": round(time.time()-t0, 1)})
         print(f"  [{name}] DONE acc={results[-1]['accuracy']}%", flush=True)
-    winner = max(results, key=lambda r: r["accuracy"])
     payload = {"benchmark": bench, "metric": "accuracy (MCQ, exact letter)" + (" [EN regresja]" if lang == "en" else ""),
                "n": len(sample), "seed": seed, "lang": lang, "date": os.environ.get("RUN_DATE", ""),
-               "models": results, "winner": winner["display_name"],
-               "margin": round(abs(results[0]["accuracy"]-results[1]["accuracy"]), 1)}
+               "models": results, **winner_margin(results, "accuracy")}
     os.makedirs(OUT, exist_ok=True)
     json.dump(payload, open(f"{OUT}/{bench}_n{len(sample)}_s{seed}.json", "w"), ensure_ascii=False, indent=2)
-    print(f"[{bench}] winner={winner['display_name']} +{payload['margin']}", flush=True)
+    print(f"[{bench}] winner={payload.get('winner','-')} +{payload.get('margin','-')}", flush=True)
 
 if __name__ == "__main__":
     run(sys.argv[1], int(sys.argv[2]) if len(sys.argv) > 2 else 0, int(sys.argv[3]) if len(sys.argv) > 3 else 42)
