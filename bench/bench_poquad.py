@@ -114,14 +114,19 @@ def main():
                         "unanswerable_abstain": f"{no_ok}/{no_n}",
                         "secs": round(raw[name]["infer_secs"] + time.time()-t0, 1)})
         print(f"  [{name}] judged_acc={results[-1]['judged_accuracy']}%", flush=True)
-    winner = max(results, key=lambda r: r["judged_accuracy"])
     payload = {"benchmark": "poquad", "metric": "judged_accuracy (sędzia-LLM)", "judge": JUDGE_TAG,
                "n": len(smp), "seed": SEED, "date": os.environ.get("RUN_DATE", ""),
-               "models": results, "winner": winner["display_name"],
-               "margin": round(abs(results[0]["judged_accuracy"]-results[1]["judged_accuracy"]), 1)}
+               "models": results}
+    sr = sorted(results, key=lambda r: r["judged_accuracy"], reverse=True)
+    if len(sr) > 1:
+        payload["winner"] = sr[0]["display_name"]
+        payload["margin"] = round(sr[0]["judged_accuracy"] - sr[1]["judged_accuracy"], 1)
     os.makedirs(OUT, exist_ok=True)
     json.dump(payload, open(f"{OUT}/poquad_n{len(smp)}_s{SEED}.json", "w"), ensure_ascii=False, indent=2)
-    print(f"[poquad] winner={winner['display_name']} +{payload['margin']}", flush=True)
+    if "winner" in payload:
+        print(f"[poquad] winner={payload['winner']} +{payload['margin']}", flush=True)
+    else:
+        print(f"[poquad] single-model ({sr[0]['display_name']}) - brak winner/margin", flush=True)
 
 if __name__ == "__main__":
     main()
