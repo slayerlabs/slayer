@@ -306,11 +306,11 @@ const html = `<div style="min-height: 100vh; background: #eceef6; color: #2a2b38
   <div style="background: #232430; color: #b9bccd;">
     <div style="max-width: 1120px; margin: 0 auto; padding: 44px 40px; display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; flex-wrap: wrap;">
       <div>
-        <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 18px; margin-bottom: 10px;"><span style="color: #ef8a6e;">Slayer</span> <span style="color: #555a72;">/</span> <span style="color: #8b93e0;">LEM</span></div>
+        <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 18px; margin-bottom: 10px;"><span style="color: #ef8a6e;">Fabryka</span> <span style="color: #8b93e0;">AI</span></div>
         <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #7b7f98; max-width: 420px; line-height: 1.6;">Community-driven applied AI lab. Open weights · open protocol · publiczne artefakty. 2026.</div>
       </div>
       <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #8b8fa8; display: flex; gap: 28px; flex-wrap: wrap;">
-        <a href="https://github.com/slayerlabs" target="_blank" rel="noopener">GitHub: lem-protocol</a><a href="/eksperymenty">księga pomiarów</a><a href="/drabina">drabina</a><a href="/roadmap">roadmap</a><a href="https://discord.gg/HnTkVR4c5T" target="_blank" rel="noopener">discord</a><a href="https://ort.fabryka.ai" target="_blank" rel="noopener">wczesne badania</a>
+        <a href="https://github.com/slayerlabs" target="_blank" rel="noopener">GitHub: lem-protocol</a><a href="/eksperymenty">księga pomiarów</a><a href="/drabina">drabina</a><a href="/roadmap">roadmap</a><a href="https://discord.gg/HnTkVR4c5T" target="_blank" rel="noopener">discord</a><a href="https://ort.fabryka.ai" target="_blank" rel="noopener">wczesne badania</a><a href="/regulamin">regulamin</a><a href="/regulamin-discord">regulamin Discord</a><a href="/wspolpraca">współpraca</a><a href="/zgoda">zgoda RODO</a><a href="/polityka-prywatnosci">prywatność</a>
       </div>
     </div>
   </div>
