@@ -318,6 +318,14 @@ const html = `<div id="top" style="background:#0F0F10;color:#F2F1EC;font-family:
             <a href="${HF}" target="_blank" rel="noopener" class="flink" style="text-decoration:none;color:#A6A5A0;">Hugging Face</a>
             <a href="${DISCORD}" target="_blank" rel="noopener" class="flink" style="text-decoration:none;color:#A6A5A0;">Discord</a>
           </div>
+          <div style="display:flex;flex-direction:column;gap:9px;">
+            <span style="color:#5C5C5C;font-size:10px;letter-spacing:0.2em;margin-bottom:3px;">LEGAL</span>
+            <a href="/regulamin" class="flink" style="text-decoration:none;color:#A6A5A0;">Regulamin</a>
+            <a href="/polityka-prywatnosci" class="flink" style="text-decoration:none;color:#A6A5A0;">Prywatność</a>
+            <a href="/zgoda" class="flink" style="text-decoration:none;color:#A6A5A0;">Zgoda RODO</a>
+            <a href="/regulamin-discord" class="flink" style="text-decoration:none;color:#A6A5A0;">Regulamin Discord</a>
+            <a href="/wspolpraca" class="flink" style="text-decoration:none;color:#A6A5A0;">Współpraca</a>
+          </div>
         </div>
       </div>
       <div style="display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;padding-top:18px;border-top:1px solid rgba(242,241,236,0.12);font-family:'Space Mono';font-size:10px;letter-spacing:0.14em;color:#5C5C5C;">
