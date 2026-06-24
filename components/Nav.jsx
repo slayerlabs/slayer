@@ -46,6 +46,15 @@ const GROUPS = [
       ["/zespol", "dołącz"],
     ],
   },
+  {
+    label: "dokumenty",
+    links: [
+      ["/regulamin", "regulamin kursu"],
+      ["/regulamin-discord", "regulamin Discord"],
+      ["/wspolpraca", "zasady współpracy"],
+      ["/polityka-prywatnosci", "polityka prywatności"],
+    ],
+  },
 ];
 
 export default function Nav() {
@@ -57,7 +66,7 @@ export default function Nav() {
     <header className="nav">
       <a className="brand" href="/" onClick={close}>
         <span className="bdot" />
-        <span><span style={{ color: "#d56a4d" }}>Slayer</span> <span style={{ color: "var(--dim)" }}>/</span> <span style={{ color: "#5a63c0" }}>LEM</span></span>
+        <span><span style={{ color: "#d56a4d" }}>Fabryka</span> <span style={{ color: "#5a63c0" }}>AI</span></span>
       </a>
       <button
         className="navtoggle"
