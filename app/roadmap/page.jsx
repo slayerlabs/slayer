@@ -34,7 +34,7 @@ export default function Roadmap() {
           <div className="cell"><div className="n">ZASOBY</div><h3 className="sm">Fundatorzy</h3><p>GPU lub kredyty (RunPod/Vast). Budżet 15–20k zł, każda złotówka jawna.</p><div className="meta"><a href="/zespol" style={{ color: "var(--acc)" }}>Wesprzyj →</a></div></div>
           <div className="cell"><div className="n">NAUKA</div><h3 className="sm">Naukowcy</h3><p>Metodyka, ewaluacje, współautorstwo wyników.</p><div className="meta"><a href="/zespol" style={{ color: "var(--acc)" }}>Dołącz →</a></div></div>
         </div>
-        <div className="cta-row" style={{ marginTop: 24 }}><a className="btn btn-p" href="/zespol">Dołącz / zapisz się →</a><a className="btn btn-s" href="https://discord.gg/HnTkVR4c5T" rel="noopener">Discord</a></div>
+        <div className="cta-row" style={{ marginTop: 24 }}><a className="btn btn-p" href="/zespol">Dołącz / zapisz się →</a><a className="btn btn-s" href="https://discord.gg/jQ3kZ7JK6M" rel="noopener">Discord</a></div>
       </div></section>
     </>
   );

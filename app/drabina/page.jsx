@@ -163,7 +163,7 @@ export default function Drabina() {
         <span className="kick">start</span>
         <h2 className="serif" style={{ fontSize: "clamp(2rem,4vw,2.9rem)", fontWeight: 400, letterSpacing: "-.015em", margin: "14px 0 14px" }}>Wejdź na drabinę.</h2>
         <p className="muted" style={{ maxWidth: "54ch", margin: "0 auto 26px" }}>Pierwszy szczebel to jedna sensowna wiadomość albo jeden starter task. Reszta to powtarzalne artefakty.</p>
-        <div className="cta-row" style={{ justifyContent: "center" }}><a className="btn btn-p" href="https://discord.gg/HnTkVR4c5T" rel="noopener" target="_blank">Dołącz na Discord →</a><a className="btn btn-s" href="/zadania">zobacz zadania</a></div>
+        <div className="cta-row" style={{ justifyContent: "center" }}><a className="btn btn-p" href="https://discord.gg/jQ3kZ7JK6M" rel="noopener" target="_blank">Dołącz na Discord →</a><a className="btn btn-s" href="/zadania">zobacz zadania</a></div>
       </div></section>
     </>
   );

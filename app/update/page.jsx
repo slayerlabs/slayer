@@ -45,7 +45,7 @@ export default function Update() {
           <div className="cell"><div className="n">DANE</div><h3 className="sm">Korpusy PL</h3><p>Prawno-urzędowe i egzaminacyjne — dekontaminacja, held-out. To nasz moat.</p><div className="meta"><a href="/datasety" style={{ color: "var(--acc)" }}>datasety →</a></div></div>
           <div className="cell"><div className="n">LUDZIE</div><h3 className="sm">Drabina kontrybutora</h3><p>Wchodzisz na dowolnym poziomie — z realnym creditem za wkład.</p><div className="meta"><a href="/drabina" style={{ color: "var(--acc)" }}>drabina →</a></div></div>
         </div>
-        <div className="cta-row" style={{ marginTop: 24 }}><a className="btn btn-p" href="/zespol">Dołącz / zapisz się →</a><a className="btn btn-s" href="https://discord.gg/HnTkVR4c5T" rel="noopener" target="_blank">Discord</a></div>
+        <div className="cta-row" style={{ marginTop: 24 }}><a className="btn btn-p" href="/zespol">Dołącz / zapisz się →</a><a className="btn btn-s" href="https://discord.gg/jQ3kZ7JK6M" rel="noopener" target="_blank">Discord</a></div>
       </div></section>
 
       <section className="sec tight"><div className="inner">
