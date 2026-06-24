@@ -6,6 +6,7 @@ as a subcategory. Writes /home/kacper/bench_results/poquad.json
 """
 import json, re, sys, time, random, os, urllib.request
 from collections import Counter
+from _bench_common import winner_margin
 from huggingface_hub import hf_hub_download
 
 OLLAMA = "http://127.0.0.1:11434/api/chat"
@@ -114,14 +115,12 @@ def main():
                         "unanswerable_abstain": f"{no_ok}/{no_n}",
                         "secs": round(raw[name]["infer_secs"] + time.time()-t0, 1)})
         print(f"  [{name}] judged_acc={results[-1]['judged_accuracy']}%", flush=True)
-    winner = max(results, key=lambda r: r["judged_accuracy"])
     payload = {"benchmark": "poquad", "metric": "judged_accuracy (sędzia-LLM)", "judge": JUDGE_TAG,
                "n": len(smp), "seed": SEED, "date": os.environ.get("RUN_DATE", ""),
-               "models": results, "winner": winner["display_name"],
-               "margin": round(abs(results[0]["judged_accuracy"]-results[1]["judged_accuracy"]), 1)}
+               "models": results, **winner_margin(results, "judged_accuracy")}
     os.makedirs(OUT, exist_ok=True)
     json.dump(payload, open(f"{OUT}/poquad_n{len(smp)}_s{SEED}.json", "w"), ensure_ascii=False, indent=2)
-    print(f"[poquad] winner={winner['display_name']} +{payload['margin']}", flush=True)
+    print(f"[poquad] winner={payload.get('winner','-')} +{payload.get('margin','-')}", flush=True)
 
 if __name__ == "__main__":
     main()

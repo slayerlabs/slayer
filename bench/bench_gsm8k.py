@@ -3,6 +3,7 @@
 Aggregate accuracy only. Idempotent. Usage: bench_gsm8k.py [N] [seed]"""
 import json, re, sys, os, time, random, glob, urllib.request
 from datasets import load_dataset
+from _bench_common import winner_margin
 
 OLLAMA = "http://127.0.0.1:11434/api/chat"
 OUT = "/home/kacper/bench_results"
@@ -57,14 +58,12 @@ def main():
         results.append({"display_name": name, "tag": tag, "n": len(ds),
                         "accuracy": round(ok/len(ds)*100, 1), "secs": round(time.time()-t0, 1)})
         print(f"  [{name}] DONE acc={results[-1]['accuracy']}%", flush=True)
-    winner = max(results, key=lambda r: r["accuracy"])
     payload = {"benchmark": "gsm8k", "metric": "accuracy (exact, final int) [EN regresja]",
                "n": len(ds), "seed": SEED, "lang": "en", "date": os.environ.get("RUN_DATE", ""),
-               "models": results, "winner": winner["display_name"],
-               "margin": round(abs(results[0]["accuracy"]-results[1]["accuracy"]), 1)}
+               "models": results, **winner_margin(results, "accuracy")}
     os.makedirs(OUT, exist_ok=True)
     json.dump(payload, open(f"{OUT}/gsm8k_n{len(ds)}_s{SEED}.json", "w"), ensure_ascii=False, indent=2)
-    print(f"[gsm8k] winner={winner['display_name']} +{payload['margin']}", flush=True)
+    print(f"[gsm8k] winner={payload.get('winner','-')} +{payload.get('margin','-')}", flush=True)
 
 if __name__ == "__main__":
     main()

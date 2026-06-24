@@ -65,8 +65,10 @@ def main():
     lines.append("-" * 70)
     for p in benches:
         b, q = val(p, NAMES[0]), val(p, NAMES[1])
+        w, m = p.get("winner"), p.get("margin")
+        zwy = f"{SHORT.get(w, w)} +{m}" if w is not None and m is not None else "-"
         lines.append(f"{LABEL.get(p['benchmark'],p['benchmark']):<16}{p['metric'][:21]:<22}"
-                     f"{(str(b)):>8}{(str(q)):>8}{SHORT.get(p['winner'],p['winner'])+' +'+str(p['margin']):>16}")
+                     f"{(str(b)):>8}{(str(q)):>8}{zwy:>16}")
     lines.append("")
     for p in benches:
         lines.append(f"[{LABEL.get(p['benchmark'],p['benchmark'])}] n={p['n']} seed={p.get('seed','-')} "
@@ -77,12 +79,14 @@ def main():
     rows = ""
     for p in benches:
         b, q = val(p, NAMES[0]), val(p, NAMES[1])
-        wb = "win" if p["winner"] == NAMES[0] else ""
-        wq = "win" if p["winner"] == NAMES[1] else ""
+        w, m = p.get("winner"), p.get("margin")
+        wb = "win" if w == NAMES[0] else ""
+        wq = "win" if w == NAMES[1] else ""
+        zwy = f"{SHORT.get(w, w)} +{m}" if w is not None and m is not None else "-"
         rows += (f"<tr><td><b>{LABEL.get(p['benchmark'],p['benchmark'])}</b>"
                  f"<div class=meta>{p['metric']} · n={p['n']}</div></td>"
                  f"<td class='s {wb}'>{b}</td><td class='s {wq}'>{q}</td>"
-                 f"<td>{SHORT.get(p['winner'],p['winner'])} +{p['margin']}</td></tr>")
+                 f"<td>{zwy}</td></tr>")
     html = f"""<!doctype html><html lang=pl><head><meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
 <title>Bielik Slayer — Leaderboard</title><style>
