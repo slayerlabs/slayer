@@ -34,7 +34,12 @@ def ask(model, q):
     for a in range(3):
         try:
             with urllib.request.urlopen(req, timeout=180) as r:
-                return json.loads(r.read())["message"]["content"]
+                d = json.loads(r.read())
+            if isinstance(d, dict) and "error" in d:      # ollama: 200 + {'error':...} (np. brak modelu)
+                raise RuntimeError(f"ollama: {d['error']}")
+            return d["message"]["content"]
+        except RuntimeError:
+            raise                                          # twardy fail (np. brak modelu), nie ciche 0%
         except Exception as e:
             if a == 2: return ""
             time.sleep(2)

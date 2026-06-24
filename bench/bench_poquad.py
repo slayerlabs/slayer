@@ -91,8 +91,10 @@ def main():
     results = []
     for name, tag in MODELS:
         rows = raw[name]["rows"]
-        ans_ok = ans_n = no_ok = no_n = 0; f1s = []; t0 = time.time()
+        ans_ok = ans_n = no_ok = no_n = infer_errors = 0; f1s = []; t0 = time.time()
         for i, r in enumerate(rows):
+            if isinstance(r["pred"], str) and r["pred"].startswith("__ERR__"):
+                infer_errors += 1; continue       # blad inferencji poza ans_n/judged/F1
             if r["impossible"]:
                 no_n += 1; no_ok += int(is_abstain(r["pred"]))
             else:
@@ -107,8 +109,8 @@ def main():
             if (i+1) % 200 == 0: print(f"  [{name}] judge {i+1}/{len(rows)} ({time.time()-t0:.0f}s)", flush=True)
         n = ans_n + no_n
         # aggregate metrics only — no per-item inspection / sample dumps
-        results.append({"display_name": name, "tag": tag, "n": n,
-                        "judged_accuracy": round((ans_ok+no_ok)/n*100, 1),
+        results.append({"display_name": name, "tag": tag, "n": n, "infer_errors": infer_errors,
+                        "judged_accuracy": round((ans_ok+no_ok)/n*100, 1) if n else 0.0,
                         "judged_answerable_acc": round(ans_ok/ans_n*100, 1) if ans_n else None,
                         "squad_f1_answerable": round(sum(f1s)/len(f1s)*100, 1) if f1s else None,
                         "unanswerable_abstain": f"{no_ok}/{no_n}",
