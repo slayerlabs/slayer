@@ -2,7 +2,7 @@ import LeaderboardLive from "./live";
 import PolNativeBoard from "./polnative";
 
 export const metadata = {
-  title: "Leaderboard — Qwen3.5-9B | Slayer",
+  title: "Leaderboard — Qwen3.5-9B | Fabryka AI",
   description: "Wyniki na żywo: Qwen3.5-9B na 10 benchmarkach. Autonomiczna kolejka, czysty pomiar.",
 };
 

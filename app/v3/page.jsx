@@ -1,7 +1,7 @@
 export const metadata = {
-  title: "v3 — propozycja miksu danych (czysta linia) | Slayer",
+  title: "v3 — propozycja miksu danych (czysta linia) | Fabryka AI",
   description:
-    "Slayer v3: czysty miks SFT (zero train/test splitów benchmarków), program wiedzy synthetic CPT i plan DPO. Skład, proporcje, provenance i bramki jakości — wszystko audytowalne.",
+    "Fabryka AI v3: czysty miks SFT (zero train/test splitów benchmarków), program wiedzy synthetic CPT i plan DPO. Skład, proporcje, provenance i bramki jakości — wszystko audytowalne.",
 };
 
 const css = `

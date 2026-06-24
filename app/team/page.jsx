@@ -1,6 +1,6 @@
 export const metadata = {
-  title: "Zespół — Slayer",
-  description: "Ludzie budujący Slayer — applied research lab dla polskich modeli językowych.",
+  title: "Zespół — Fabryka AI",
+  description: "Ludzie budujący Fabryka AI — applied research lab dla polskich modeli językowych.",
 };
 
 const css = `
@@ -112,12 +112,12 @@ const css = `
     }
 `;
 
-const FOUNDER = { img: "/assets/team/kacper-wikiel.png", name: "Kacper Wikieł", specialty: "ML · Infrastruktura", bio: "ML, infrastruktura treningowa i optymalizacja modeli. Założyciel i lider Slayera." };
+const FOUNDER = { img: "/assets/team/kacper-wikiel.png", name: "Kacper Wikieł", specialty: "ML · Infrastruktura", bio: "ML, infrastruktura treningowa i optymalizacja modeli. Założyciel i lider Fabryki AI." };
 
 const MEMBERS = [
   { img: "/assets/team/piotr-nalepa.webp", name: "Piotr Nalepa", specialty: "Fullstack · Narzędzia developerskie", bio: "Fullstack, zarządzanie projektem i tworzenie narzędzi dla developerów." },
   { img: "/assets/team/piotr-rozek.jpeg", name: "Piotr Rożek", specialty: "Python · Fizyka", bio: "Fizyk z wykształcenia, Python developer, człowiek renesansu." },
-  { img: "/assets/team/piotr-styla.webp", name: "Piotr Styła", specialty: "Rekrutacja · Agenci LLM", bio: "Za dnia rekrutuje i onboarduje talenty, po zmroku LLM Slayer: buduje zespoły agentów (call center dla branży medycznej) oraz aplikacje webowe i na Androida. AGH." },
+  { img: "/assets/team/piotr-styla.webp", name: "Piotr Styła", specialty: "Rekrutacja · Agenci LLM", bio: "Za dnia rekrutuje i onboarduje talenty, po zmroku LLM Fabryka AI: buduje zespoły agentów (call center dla branży medycznej) oraz aplikacje webowe i na Androida. AGH." },
   { img: "/assets/team/bartlomiej-boczylo.jpg", name: "Bartłomiej Boczyło", specialty: "ML · Frontend", bio: "Student II roku inżynierii AI. Frontend dev, rozwija się w ML/DL, CV, NLP, RL i modelach generatywnych. Stack: Python, TensorFlow, PyTorch, MLOps." },
   { img: "/assets/team/michal-konieczka.jpeg", name: "Michał Konieczka", specialty: "Fullstack · UX · Product development", bio: "Fullstack, UX i product development." },
   { img: "/assets/team/kuba6.jpg", name: "Kuba", specialty: "AI Engineer · Fullstack", bio: "Fizyk-teoretyk z wykształcenia. AI Engineer w projekcie onkologicznym (CV), ostatnie 2 lata w GenAI i agentach. Chce trenować LLM, robi datasety i benchmarki." },
@@ -160,7 +160,7 @@ export default function Team() {
           <span className="kick">zespół · operatorzy protokołu</span>
           <h1>Ludzie przy<br /><em>warsztacie</em></h1>
           <p className="hero-lead">
-            Slayer to praktyczne laboratorium modeli. Każda osoba tutaj zostawia
+            Fabryka AI to praktyczne laboratorium modeli. Każda osoba tutaj zostawia
             ślad w danych, treningu, ewaluacji albo infrastrukturze. Mniej manifestu,
             więcej pomiaru.
           </p>

@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "Na czym stoimy — update | Slayer",
+  title: "Na czym stoimy — update | Fabryka AI",
   description:
     "Uczciwy stan projektu: co już działa (research i produkty), co dopiero robimy (zbieramy ludzi do własnego modelu) i czego jeszcze nie ma.",
 };

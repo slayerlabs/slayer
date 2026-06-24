@@ -1,4 +1,4 @@
-// Engineering log — notatki z treningu Slayera.
+// Engineering log — notatki z treningu Fabryki AI.
 // Nowy wpis = nowy obiekt na POCZĄTKU tablicy. Body w markdown-lite:
 // "## " nagłówek, "- " lista, ``` blok kodu, **bold**, `code`, [tekst](url), puste linie dzielą akapity.
 // Numer wpisu (LOG 001…) liczy się z pozycji w tablicy: najstarszy = 001.
@@ -41,7 +41,7 @@ Około 3/4 spadku to styl i gadatliwość po SFT plus kruchy parser: zwracał pi
 \`\`\`
 LLMzSzŁ  likelihood  n=400
   base Qwen3.5-27B   63.5
-  Slayer v3          66.8   (+3.3)
+  Fabryka AI v3          66.8   (+3.3)
 \`\`\`
 
 Pełny KLEJ (generacja) potwierdza brak szerokiej regresji — makro płaskie, a sentyment wręcz w górę:
@@ -102,7 +102,7 @@ Przekrojowy screen no-regression **base vs v3 vs cal-l030**: KLEJ ×12 (likeliho
   {
     slug: "v3-cdsc-e-regresja",
     date: "2026-06-13",
-    title: "Slayer v3 poprawił LLMzSzŁ, ale uderzył w CDSC-E. To jest czerwona flaga",
+    title: "Fabryka AI v3 poprawił LLMzSzŁ, ale uderzył w CDSC-E. To jest czerwona flaga",
     tags: ["v3", "regresja", "KLEJ", "NLI", "gate"],
     lead:
       "Pierwszy czysty trening v3 dał mocny sygnał na LLMzSzŁ: 66.8 vs 63.5 dla gołej bazy Qwen3.5-27B. Ale po poprawieniu kierunku promptu CDSC-E spadł z 87.0 do 64.5. To nie jest kosmetyka metryki, tylko realna regresja NLI do zbadania przed jakimkolwiek finalnym claimem.",
@@ -111,8 +111,8 @@ Przekrojowy screen no-regression **base vs v3 vs cal-l030**: KLEJ ×12 (likeliho
 
 Po treningu v3 na H100 zrobiliśmy dwa typy szybkich bramek:
 
-- **LLMzSzŁ likelihood n=400 seed 42:** base Qwen3.5-27B **63.5**, Slayer v3 **66.8**. Zysk: **+3.3 pp**.
-- **KLEJ sample n=200/task:** makro prawie płaskie, base **77.36**, Slayer v3 **77.27**.
+- **LLMzSzŁ likelihood n=400 seed 42:** base Qwen3.5-27B **63.5**, Fabryka AI v3 **66.8**. Zysk: **+3.3 pp**.
+- **KLEJ sample n=200/task:** makro prawie płaskie, base **77.36**, Fabryka AI v3 **77.27**.
 - Pierwszy pomiar CDSC-E na starym promptcie pokazał **75.0 → 57.0**, ale prompt miał prawdopodobnie odwrócony kierunek wynikania.
 - Po poprawce kierunku promptu na oficjalny sens **b entails a / a wynika z b**, czysty rerun pokazał **87.0 → 64.5**.
 
@@ -194,7 +194,7 @@ To trzeba sprawdzić, nie zgadywać. Sama liczba 64.5 mówi, że jest problem; n
 
 ## Decyzja
 
-**Nie traktujemy v3 jako finalnego modelu tylko dlatego, że LLMzSzŁ wzrósł.** LLMzSzŁ jest ważny, ale CDSC-E jest ważną regresją logiczną. Dla Slayera bramka musi być Pareto: styl i LLMzSzŁ w górę, bez rozwalenia NLI/EN/long-context.
+**Nie traktujemy v3 jako finalnego modelu tylko dlatego, że LLMzSzŁ wzrósł.** LLMzSzŁ jest ważny, ale CDSC-E jest ważną regresją logiczną. Dla Fabryki AI bramka musi być Pareto: styl i LLMzSzŁ w górę, bez rozwalenia NLI/EN/long-context.
 
 Najkrótszy opis stanu: **v3 jest ciekawym checkpointem badawczym, nie zamkniętym release'em.**
 
@@ -244,7 +244,7 @@ Wyniki vs goła baza (EuroEval, z ich pełnego raportu):
 
 Zysk narodowy jest realny, ale replay (apertus + wildchat + code) nie uratował trudnych zdolności ogólnych. Przy LR 1e-4 na pełnym SFT wygląda to na przepalenie.
 
-## Co z tego bierzemy dla Slayera
+## Co z tego bierzemy dla Fabryki AI
 
 1. **Walidacja sekwencji SFT-first.** Narodowy projekt z superkomputerem pod ręką też zaczął od post-trainingu na mocnej bazie, nie od drogiego CPT. Nasza kolejność v3 (styl SFT teraz, CPT wiedzy jako następna faza) dostała zewnętrzne potwierdzenie.
 2. **LR ma znaczenie.** Ich 1e-4 kosztowało 20 punktów MMLU-Pro. Nasz QLoRA z niższym efektywnym LR jest z natury łagodniejszy, ale bramka en-regression zostaje obowiązkowa przy każdym runie.

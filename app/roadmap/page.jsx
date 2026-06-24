@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "Harmonogram & call for contributions | Slayer",
+  title: "Harmonogram & call for contributions | Fabryka AI",
   description: "Harmonogram: od pomiaru baseline, przez dane i pierwszy trening, po RL na egzaminach. Plus call for contributions.",
 };
 

@@ -13,8 +13,8 @@ function loadExperiments() {
 }
 
 export const metadata = {
-  title: "Log eksperymentów | Slayer",
-  description: "Uczciwy log eksperymentów Slayer: każdy model, co trenowane, na czym, z jakim wynikiem. Kontaminacja benchmarkowa oznaczona jawnie.",
+  title: "Log eksperymentów | Fabryka AI",
+  description: "Uczciwy log eksperymentów Fabryka AI: każdy model, co trenowane, na czym, z jakim wynikiem. Kontaminacja benchmarkowa oznaczona jawnie.",
 };
 
 const css = `

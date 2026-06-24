@@ -1,7 +1,7 @@
 import StyleExamples from "./examples";
 
 export const metadata = {
-  title: "Styl: co base Qwen robi źle po polsku · Slayer",
+  title: "Styl: co base Qwen robi źle po polsku · Fabryka AI",
   description:
     "Ręczny przegląd odpowiedzi base Qwen3.5-27B po polsku: rażące błędy gramatyczne (Hipoza, Bezpośrednie sprzedaż, samodzielną rozwiązywanie), kalki, liczenie w dolarach, szablon. Fine-tuned v1 obok. Bez regexu, przejrzane ręcznie.",
 };

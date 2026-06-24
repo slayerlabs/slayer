@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "Propozycja v3 — czysty model PL | Slayer",
+  title: "Propozycja v3 — czysty model PL | Fabryka AI",
   description: "Protokół v3: czysty korpus PL, CPT, SFT, DPO, dekontaminacja i claimy tylko z held-out. Applied research plan przed właściwym runem.",
 };
 

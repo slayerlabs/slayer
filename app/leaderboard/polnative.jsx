@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 const META = {
   qwen27b: { name: "Qwen3.5-27B", tag: "nasza baza", params: "27B" },
   qwen27b_local: { name: "Qwen3.5-27B", tag: "nasza baza", params: "27B" },
-  slayer: { name: "Slayer-27B v3", tag: "nasz model", params: "27B" },
-  slayer_v3: { name: "Slayer-27B v3", tag: "nasz model", params: "27B" },
+  slayer: { name: "Fabryka AI-27B v3", tag: "nasz model", params: "27B" },
+  slayer_v3: { name: "Fabryka AI-27B v3", tag: "nasz model", params: "27B" },
   qwen9b: { name: "Qwen3.5-9B", tag: "", params: "9B" },
 };
 const meta = (k) => META[k] || { name: k, tag: "", params: "—" };

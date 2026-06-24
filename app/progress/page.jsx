@@ -3,7 +3,7 @@ import CptProgress from "./cpt";
 import CptHistory from "./history";
 
 export const metadata = {
-  title: "Pomiar na żywo | Slayer",
+  title: "Pomiar na żywo | Fabryka AI",
   description: "Podgląd na żywo: postęp korpusu CPT do 2B tokenów oraz autonomiczna kolejka benchmarków na simp.",
 };
 

@@ -1,9 +1,9 @@
 import V4Comments from "./comments";
 
 export const metadata = {
-  title: "V4 plan — autopsja regresji i bezpieczny harness | Slayer",
+  title: "V4 plan — autopsja regresji i bezpieczny harness | Fabryka AI",
   description:
-    "Plan Slayer V4 po regresji CDSC-E: autopsja, likelihood eval, adapter scale sweep, regression gates, replay mix i komentarze do planu.",
+    "Plan Fabryka AI V4 po regresji CDSC-E: autopsja, likelihood eval, adapter scale sweep, regression gates, replay mix i komentarze do planu.",
 };
 
 const css = `

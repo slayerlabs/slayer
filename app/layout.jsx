@@ -5,9 +5,9 @@ import Footer from "../components/Footer";
 import "../styles/lab.css";
 
 export const metadata = {
-  title: "Slayer — laboratorium stosowanej AI",
+  title: "Fabryka AI — laboratorium stosowanej AI",
   description:
-    "Slayer to laboratorium stosowanej AI: dostrajanie modeli, RL, ewaluacje, agenci, narzędzia badawcze i otwarte artefakty.",
+    "Fabryka AI to laboratorium stosowanej AI: dostrajanie modeli, RL, ewaluacje, agenci, narzędzia badawcze i otwarte artefakty.",
 };
 
 export default function RootLayout({ children }) {

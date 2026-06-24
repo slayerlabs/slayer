@@ -1,7 +1,7 @@
 import Join from "./join";
 
 export const metadata = {
-  title: "Dołącz — zespół, fundatorzy, firmy, naukowcy | Slayer",
+  title: "Dołącz — zespół, fundatorzy, firmy, naukowcy | Fabryka AI",
   description: "Publiczny zapis: kontrybutorzy, naukowcy, fundatorzy compute i firmy (zgłoś use case). Wpisz się i zobacz, kto już dołączył.",
 };
 

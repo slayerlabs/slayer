@@ -62,16 +62,16 @@ export async function writeRecords(records) {
 async function sendVerification(to, name, link) {
   const key = process.env.RESEND_API_KEY;
   if (!key) return false; // ponytail: bez klucza zapisujemy 'pending', mail dośle się gdy domena gotowa
-  const from = process.env.RESEND_FROM || "Slayer Labs <zgoda@fabryka.ai>";
+  const from = process.env.RESEND_FROM || "Fabryka AI Labs <zgoda@fabryka.ai>";
   const res = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: { Authorization: `Bearer ${key}`, "content-type": "application/json" },
     body: JSON.stringify({
       from,
       to,
-      subject: "Potwierdź zgodę — Slayer Labs",
+      subject: "Potwierdź zgodę — Fabryka AI Labs",
       html: `<p>Cześć${name ? " " + name : ""},</p>
-<p>Aby potwierdzić zgodę na publikację Twojego wizerunku i danych osobowych w sekcji „Zespół" na stronie Slayer Labs, kliknij poniższy link:</p>
+<p>Aby potwierdzić zgodę na publikację Twojego wizerunku i danych osobowych w sekcji „Zespół" na stronie Fabryka AI Labs, kliknij poniższy link:</p>
 <p><a href="${link}">Potwierdzam zgodę</a></p>
 <p>Jeśli to nie Ty wypełniłeś/aś formularz, zignoruj tę wiadomość — nic nie zostanie opublikowane.</p>`,
     }),

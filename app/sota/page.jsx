@@ -1,7 +1,7 @@
 import SotaComments from "./comments";
 
 export const metadata = {
-  title: "SOTA roadmap 2026 + komentarze | Slayer",
+  title: "SOTA roadmap 2026 + komentarze | Fabryka AI",
   description:
     "Publiczny plan zbudowania poprawnego polskiego modelu SOTA: domkniecie macierzy benchmarkow, dane, SFT, RLVR, regression gates i komentarze spolecznosci.",
 };
@@ -246,7 +246,7 @@ export default function SotaRoadmap() {
           <div className="note" style={{ margin: "0 0 18px" }}>
             <p>
               <b>Przewaga strukturalna:</b> startujemy z Qwen3.5-27B (mocna baza). Wiedze i rozumowanie
-              juz niesie baza, wiec budzet idzie w polska specjalizacje: LLMzSzL Slayer v3 <b>66.8</b>.
+              juz niesie baza, wiec budzet idzie w polska specjalizacje: LLMzSzL Fabryka AI v3 <b>66.8</b>.
             </p>
           </div>
           <div className="principles">

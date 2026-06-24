@@ -1,10 +1,10 @@
 export const metadata = {
-  title: "Slayer / LEM — otwarte laboratorium polskiej AI",
+  title: "Fabryka AI — otwarte laboratorium polskiej AI",
   description:
     "Open lab dla polskiej inteligencji: jawna receptura, held-out ewaluacja, lineage danych i koszt wpisany w wynik. Publikujemy artefakty, nie obietnice.",
 };
 
-// ponytail: design imported verbatim from Claude Design (Slayer-LEM open lab) as inline-styled HTML;
+// ponytail: design imported verbatim from Claude Design (Fabryka AI-LEM open lab) as inline-styled HTML;
 // rendered via dangerouslySetInnerHTML to avoid hand-porting 53KB of inline styles to JSX. Edit the
 // source design + re-sync to change it. Global Nav/Footer are hidden on "/" (see Nav/Footer).
 
@@ -25,7 +25,7 @@ const html = `<div style="min-height: 100vh; background: #eceef6; color: #2a2b38
     <div style="max-width: 1120px; margin: 0 auto; padding: 18px 40px; display: flex; align-items: center; justify-content: space-between;">
       <a href="/" style="display: flex; align-items: center; gap: 11px; text-decoration: none;">
         <span style="width: 10px; height: 10px; border-radius: 50%; background: #ef8a6e; display: inline-block; animation: lemPulse 2.4s ease-in-out infinite;"></span>
-        <span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 18px; letter-spacing: -.01em;"><span style="color: #d56a4d;">Slayer</span> <span style="color: #b9bccd;">/</span> <span style="color: #5a63c0;">LEM</span></span>
+        <span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 18px; letter-spacing: -.01em;"><span style="color: #d56a4d;">Fabryka</span> <span style="color: #5a63c0;">AI</span></span>
       </a>
       <div style="display: flex; align-items: center; gap: 26px; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #6a6f86;">
         <a href="/rules">protokół</a><a href="/eksperymenty">księga pomiarów</a><a href="/drabina">drabina</a><a href="/benchmarks">artefakty</a>

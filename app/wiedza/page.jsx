@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "Wiedza — wstrzykiwanie polskiego długiego ogona (synthetic CPT) | Slayer",
+  title: "Wiedza — wstrzykiwanie polskiego długiego ogona (synthetic CPT) | Fabryka AI",
   description:
     "Program badawczy: ile wiedzy o Polsce można wstrzyknąć w model syntetycznym CPT i za ile. Fermi-rachunek jądra wiedzy, probe długiego ogona, koszt vs pokrycie, hipotezy z falsyfikatorami.",
 };

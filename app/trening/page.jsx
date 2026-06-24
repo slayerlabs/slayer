@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "Trening — metody fine-tuningu (SOTA 2026) | Slayer",
+  title: "Trening — metody fine-tuningu (SOTA 2026) | Fabryka AI",
   description: "Metody fine-tuningu i alignmentu: SFT/QLoRA, DPO, ORPO, SimPO, KTO, GRPO/RLVR, merging — lineage SOTA 2026, pod niski budżet.",
 };
 
