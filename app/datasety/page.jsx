@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "Datasety — ewaluacja i trening | Fabryka AI",
+  title: "Datasety — ewaluacja i trening | Slayer",
   description:
     "Zbiory danych: publiczne benchmarki ewaluacyjne (held-out) i niezależne korpusy treningowe (prawo, urzędy). Z licencjami i linkami HuggingFace.",
 };

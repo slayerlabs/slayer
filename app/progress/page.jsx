@@ -3,7 +3,7 @@ import CptProgress from "./cpt";
 import CptHistory from "./history";
 
 export const metadata = {
-  title: "Pomiar na żywo | Fabryka AI",
+  title: "Pomiar na żywo | Slayer",
   description: "Podgląd na żywo: postęp korpusu CPT do 2B tokenów oraz autonomiczna kolejka benchmarków na simp.",
 };
 
@@ -21,11 +21,11 @@ const css = `
     .steps{display:grid;gap:8px}
     .step{display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:6px;background:rgba(255,255,255,.025);border:1px solid var(--line2)}
     .step .ic{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:.74rem;font-weight:700;flex:none;font-family:var(--mono)}
-    .step.done .ic{background:var(--acc);color:var(--acc-ink)}.step.running .ic{border:2px solid var(--acc);color:var(--acc);animation:sp 1.2s linear infinite}.step.queued .ic{background:var(--panel2);color:var(--dim)}.step.fail .ic{background:#d56a4d;color:var(--ink)}
+    .step.done .ic{background:var(--acc);color:var(--acc-ink)}.step.running .ic{border:2px solid var(--acc);color:var(--acc);animation:sp 1.2s linear infinite}.step.queued .ic{background:var(--panel2);color:var(--dim)}.step.fail .ic{background:#C1121F;color:var(--ink)}
     @keyframes sp{to{transform:rotate(360deg)}}
     .step .nm{font-weight:400}.step .st{margin-left:auto;font-family:var(--mono);font-size:.74rem;color:var(--dim)}.step.done .st{color:var(--acc)}
     .scoreline{display:flex;align-items:baseline;justify-content:center;gap:14px;font-family:var(--mono);font-weight:600;font-size:2.4rem;margin:6px 0}
-    .scoreline .b{color:var(--acc)}.scoreline .q{color:#9aa3b2}.scoreline .d{color:var(--dim);font-weight:400}
+    .scoreline .b{color:var(--acc)}.scoreline .q{color:#8A8A8A}.scoreline .d{color:var(--dim);font-weight:400}
     h1{font-family:var(--serif);font-weight:400;font-size:clamp(1.9rem,4.4vw,2.8rem);letter-spacing:-.015em;margin:10px 0 0}
     .cpt-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:18px}
     .cpt-head h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.8rem,3.6vw,2.5rem);letter-spacing:-.015em;margin:8px 0 0;color:var(--ink)}

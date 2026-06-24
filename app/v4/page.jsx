@@ -1,9 +1,9 @@
 import V4Comments from "./comments";
 
 export const metadata = {
-  title: "V4 plan — autopsja regresji i bezpieczny harness | Fabryka AI",
+  title: "V4 plan — autopsja regresji i bezpieczny harness | Slayer",
   description:
-    "Plan Fabryka AI V4 po regresji CDSC-E: autopsja, likelihood eval, adapter scale sweep, regression gates, replay mix i komentarze do planu.",
+    "Plan Slayer V4 po regresji CDSC-E: autopsja, likelihood eval, adapter scale sweep, regression gates, replay mix i komentarze do planu.",
 };
 
 const css = `
@@ -14,13 +14,13 @@ const css = `
   .metric{border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:16px}
   .metric .k{font-family:var(--mono);font-size:.68rem;letter-spacing:.11em;text-transform:uppercase;color:var(--dim)}
   .metric .v{display:block;margin-top:8px;font-family:var(--serif);font-size:2rem;line-height:1;color:var(--ink)}
-  .metric .v.bad{color:#d56a4d}.metric .v.good{color:var(--good)}
+  .metric .v.bad{color:#C1121F}.metric .v.good{color:var(--good)}
   .metric .d{display:block;margin-top:8px;color:var(--mut);font-size:.9rem}
   .dist{display:grid;gap:10px}
   .dist-row{display:grid;grid-template-columns:86px 1fr 54px;gap:12px;align-items:center;font-family:var(--mono);font-size:.78rem;color:var(--mut)}
   .dist-row b{color:var(--ink);font-weight:500}
   .dist-row i{display:block;height:8px;border-radius:99px;background:var(--acc)}
-  .dist-row.neu i{background:var(--blue)}.dist-row.con i{background:#d56a4d}
+  .dist-row.neu i{background:var(--blue)}.dist-row.con i{background:#C1121F}
   .flow{display:grid;gap:12px;margin-top:12px}
   .step{display:grid;grid-template-columns:76px 1fr;gap:18px;padding:16px 0;border-top:1px solid var(--line2)}
   .step:first-child{border-top:0}
@@ -40,7 +40,7 @@ const css = `
   select:focus{outline:none;border-color:var(--acc);box-shadow:0 0 0 3px var(--acc-soft)}
   .hp{position:absolute;left:-10000px;width:1px;height:1px;opacity:0}
   .form-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-  .form-msg{font-size:.88rem;color:var(--dim)}.form-msg.err{color:#d56a4d}
+  .form-msg{font-size:.88rem;color:var(--dim)}.form-msg.err{color:#C1121F}
   .comment-list{display:grid;gap:12px;margin-top:16px}
   .comment{border:1px solid var(--line2);border-radius:8px;background:rgba(255,255,255,.025);padding:14px 16px}
   .comment-top{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-family:var(--mono);font-size:.7rem;color:var(--dim);letter-spacing:.05em;text-transform:uppercase}

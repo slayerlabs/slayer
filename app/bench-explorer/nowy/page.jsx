@@ -1,8 +1,8 @@
 import SubmitForm from "./form";
 
 export const metadata = {
-  title: "Zgłoś benchmark | Fabryka AI",
-  description: "Formularz zgłaszania nowego benchmarku do katalogu Fabryka AI — walidacja, podgląd JSON i gotowy pull request na GitHubie.",
+  title: "Zgłoś benchmark | Slayer",
+  description: "Formularz zgłaszania nowego benchmarku do katalogu Slayer — walidacja, podgląd JSON i gotowy pull request na GitHubie.",
 };
 
 const css = `

@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "Kierunki modelu | Fabryka AI",
+  title: "Kierunki modelu | Slayer",
   description:
     "Lista kierunków dla modelu: prawniczy, medyczny, agentowy, administracja, RAG, edukacyjny i więcej. Gdzie polski model ma realny moat.",
 };
@@ -12,7 +12,7 @@ export default function Kierunki() {
       <style>{css}</style>
       <section className="phero"><div className="inner">
         <span className="kick">pomysły do decyzji</span>
-        <h1>Jakim modelem <em>ma być</em> Fabryka AI?</h1>
+        <h1>Jakim modelem <em>ma być</em> Slayer?</h1>
         <p>Polski model 11–14B wygrywa tam, gdzie ma <strong style={{ color: "var(--txt)" }}>moat</strong>: polskie dane, których nie ma globalna konkurencja. Ocena moatu jest wstępna — weryfikujemy ją pomiarem na <a href="/leaderboard">leaderboardzie</a>.</p>
       </div></section>
 

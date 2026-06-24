@@ -1,7 +1,7 @@
 export const metadata = {
-  title: "Drabina — od obserwatora do core teamu | Fabryka AI",
+  title: "Drabina — od obserwatora do core teamu | Slayer",
   description:
-    "Drabina społeczności Fabryka AI: 7 poziomów statusu, odpowiedzialności i dowodów pracy. Awans za artefakty, nie za gadanie. Lejek: Discord → starter task → Contributor → Builder → Fellow → Maintainer → Core.",
+    "Drabina społeczności Slayer: 7 poziomów statusu, odpowiedzialności i dowodów pracy. Awans za artefakty, nie za gadanie. Lejek: Discord → starter task → Contributor → Builder → Fellow → Maintainer → Core.",
 };
 
 const css = `

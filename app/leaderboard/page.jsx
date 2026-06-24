@@ -2,7 +2,7 @@ import LeaderboardLive from "./live";
 import PolNativeBoard from "./polnative";
 
 export const metadata = {
-  title: "Leaderboard — Qwen3.5-9B | Fabryka AI",
+  title: "Leaderboard — Qwen3.5-9B | Slayer",
   description: "Wyniki na żywo: Qwen3.5-9B na 10 benchmarkach. Autonomiczna kolejka, czysty pomiar.",
 };
 
@@ -13,7 +13,7 @@ const css = `
     .board{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:clamp(16px,5vw,48px);margin:24px 0;padding:24px clamp(16px,4vw,32px);border:1px solid var(--line);border-radius:10px;background:linear-gradient(180deg,var(--panel),var(--bg2))}
     .team{text-align:center}.team .tg{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}.team .nm{font-weight:500;font-size:clamp(1rem,2.2vw,1.4rem);margin-top:5px}
     .cnt{display:flex;align-items:baseline;gap:14px;font-family:var(--mono);font-weight:600;font-size:clamp(2.6rem,9vw,4.4rem);line-height:1}
-    .cnt .b{color:var(--acc)}.cnt .q{color:#9aa3b2}.cnt .d{color:var(--dim);font-weight:400}
+    .cnt .b{color:var(--acc)}.cnt .q{color:var(--mut)}.cnt .d{color:var(--dim);font-weight:400}
     .bfoot{grid-column:1/-1;border-top:1px solid var(--line2);margin-top:16px;padding-top:14px;text-align:center;font-family:var(--mono);font-size:.78rem;color:var(--mut)}.bfoot b{color:var(--acc)}
     @media(max-width:760px){.board{grid-template-columns:1fr;gap:16px}}
 `;

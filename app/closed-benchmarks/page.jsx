@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "Benchmarki zamknięte | Fabryka AI",
+  title: "Benchmarki zamknięte | Slayer",
   description:
     "Benchmarki z niepublicznymi zbiorami testowymi — EQ-Bench, CPTUB, PLCC. Nie mierzymy ich, bo nie da się ich odtworzyć ani zweryfikować na otwartych danych.",
 };

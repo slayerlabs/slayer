@@ -307,10 +307,17 @@ const html = `<div id="top" style="background:#0F0F10;color:#F2F1EC;font-family:
         </div>
         <div style="display:flex;gap:48px;flex-wrap:wrap;font-family:'Space Mono';font-size:12px;letter-spacing:0.08em;">
           <div style="display:flex;flex-direction:column;gap:9px;">
-            <span style="color:#5C5C5C;font-size:10px;letter-spacing:0.2em;margin-bottom:3px;">LAB</span>
-            <a href="#misja" class="flink" style="text-decoration:none;color:#A6A5A0;">Misja</a>
-            <a href="#wizja" class="flink" style="text-decoration:none;color:#A6A5A0;">Wizja</a>
-            <a href="#otwartosc" class="flink" style="text-decoration:none;color:#A6A5A0;">Otwartość</a>
+            <span style="color:#5C5C5C;font-size:10px;letter-spacing:0.2em;margin-bottom:3px;">PROTOKÓŁ</span>
+            <a href="/benchmarks" class="flink" style="text-decoration:none;color:#A6A5A0;">protokoły</a>
+            <a href="/rules" class="flink" style="text-decoration:none;color:#A6A5A0;">zasady</a>
+            <a href="/drabina" class="flink" style="text-decoration:none;color:#A6A5A0;">drabina</a>
+            <a href="/roadmap" class="flink" style="text-decoration:none;color:#A6A5A0;">harmonogram</a>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:9px;">
+            <span style="color:#5C5C5C;font-size:10px;letter-spacing:0.2em;margin-bottom:3px;">POMIARY · LUDZIE</span>
+            <a href="/leaderboard" class="flink" style="text-decoration:none;color:#A6A5A0;">pomiary</a>
+            <a href="/team" class="flink" style="text-decoration:none;color:#A6A5A0;">zespół</a>
+            <a href="/zespol" class="flink" style="text-decoration:none;color:#A6A5A0;">wejście</a>
           </div>
           <div style="display:flex;flex-direction:column;gap:9px;">
             <span style="color:#5C5C5C;font-size:10px;letter-spacing:0.2em;margin-bottom:3px;">OPEN</span>
@@ -319,12 +326,12 @@ const html = `<div id="top" style="background:#0F0F10;color:#F2F1EC;font-family:
             <a href="${DISCORD}" target="_blank" rel="noopener" class="flink" style="text-decoration:none;color:#A6A5A0;">Discord</a>
           </div>
           <div style="display:flex;flex-direction:column;gap:9px;">
-            <span style="color:#5C5C5C;font-size:10px;letter-spacing:0.2em;margin-bottom:3px;">LEGAL</span>
-            <a href="/regulamin" class="flink" style="text-decoration:none;color:#A6A5A0;">Regulamin</a>
-            <a href="/polityka-prywatnosci" class="flink" style="text-decoration:none;color:#A6A5A0;">Prywatność</a>
-            <a href="/zgoda" class="flink" style="text-decoration:none;color:#A6A5A0;">Zgoda RODO</a>
-            <a href="/regulamin-discord" class="flink" style="text-decoration:none;color:#A6A5A0;">Regulamin Discord</a>
-            <a href="/wspolpraca" class="flink" style="text-decoration:none;color:#A6A5A0;">Współpraca</a>
+            <span style="color:#5C5C5C;font-size:10px;letter-spacing:0.2em;margin-bottom:3px;">DOKUMENTY</span>
+            <a href="/regulamin" class="flink" style="text-decoration:none;color:#A6A5A0;">regulamin</a>
+            <a href="/regulamin-discord" class="flink" style="text-decoration:none;color:#A6A5A0;">regulamin Discord</a>
+            <a href="/wspolpraca" class="flink" style="text-decoration:none;color:#A6A5A0;">współpraca</a>
+            <a href="/zgoda" class="flink" style="text-decoration:none;color:#A6A5A0;">zgoda RODO</a>
+            <a href="/polityka-prywatnosci" class="flink" style="text-decoration:none;color:#A6A5A0;">prywatność</a>
           </div>
         </div>
       </div>

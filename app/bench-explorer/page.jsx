@@ -1,8 +1,8 @@
 import Explorer from "./explorer";
 
 export const metadata = {
-  title: "Benchmarki — przeglądarka i zgłoszenia | Fabryka AI",
-  description: "Przeglądarka benchmarków Fabryka AI: filtrowanie po typie zadania, kategorii, metryce, modelu i tagach. Eksport CSV, zgłaszanie nowych benchmarków przez PR.",
+  title: "Benchmarki — przeglądarka i zgłoszenia | Slayer",
+  description: "Przeglądarka benchmarków Slayer: filtrowanie po typie zadania, kategorii, metryce, modelu i tagach. Eksport CSV, zgłaszanie nowych benchmarków przez PR.",
 };
 
 const css = `

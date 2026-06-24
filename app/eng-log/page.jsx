@@ -1,9 +1,9 @@
 import { POSTS, AUTHOR, entryNo } from "./posts";
 
 export const metadata = {
-  title: "Engineering log | Fabryka AI",
+  title: "Engineering log | Slayer",
   description:
-    "Dziennik inżynierski Fabryki AI: surowe notatki z treningu, recon cudzych receptur, decyzje i wpadki. Pisane na bieżąco, bez wygładzania.",
+    "Dziennik inżynierski Slayera: surowe notatki z treningu, recon cudzych receptur, decyzje i wpadki. Pisane na bieżąco, bez wygładzania.",
 };
 
 const css = `
@@ -36,7 +36,7 @@ export default function EngLog() {
       <div className="inner">
         <div className="elog-mast">
           <div className="elog-row">
-            <span className="id">FABRYKA AI PROTOCOL · ENGINEERING LOG</span>
+            <span className="id">SLAYER PROTOCOL · ENGINEERING LOG</span>
             <span>WPISÓW: {String(POSTS.length).padStart(3, "0")}</span>
           </div>
           <hr className="elog-rule" />

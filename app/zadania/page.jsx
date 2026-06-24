@@ -3,7 +3,7 @@ import path from "node:path";
 import Board from "./board";
 
 export const metadata = {
-  title: "Zadania — od początkującego do zaawansowanego | Fabryka AI",
+  title: "Zadania — od początkującego do zaawansowanego | Slayer",
   description: "Zadania dla kontrybutorów: od prostych (odpal benchmark, czyść dane) po zaawansowane (GRPO/RLVR, trening odmowy, tokenizer PL).",
 };
 

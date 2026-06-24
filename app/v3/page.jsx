@@ -1,7 +1,7 @@
 export const metadata = {
-  title: "v3 — propozycja miksu danych (czysta linia) | Fabryka AI",
+  title: "v3 — propozycja miksu danych (czysta linia) | Slayer",
   description:
-    "Fabryka AI v3: czysty miks SFT (zero train/test splitów benchmarków), program wiedzy synthetic CPT i plan DPO. Skład, proporcje, provenance i bramki jakości — wszystko audytowalne.",
+    "Slayer v3: czysty miks SFT (zero train/test splitów benchmarków), program wiedzy synthetic CPT i plan DPO. Skład, proporcje, provenance i bramki jakości — wszystko audytowalne.",
 };
 
 const css = `
@@ -39,14 +39,14 @@ export default function V3() {
       <section className="sec tight"><div className="inner">
         <div className="ghead"><h2>1 · Miks SFT</h2><span className="c">train_v3.jsonl · 2 239 przykładów · seed 42 · stan 2026-06-11</span></div>
         <div className="mlegend">
-          <span><span className="sw" style={{ background: "#5a63c0" }}></span>destylacja własna 46%</span>
-          <span><span className="sw" style={{ background: "#ef8a6e" }}></span>distill verified 17%</span>
+          <span><span className="sw" style={{ background: "#2979FF" }}></span>destylacja własna 46%</span>
+          <span><span className="sw" style={{ background: "#C1121F" }}></span>distill verified 17%</span>
           <span><span className="sw" style={{ background: "#74a37a" }}></span>human PL 15%</span>
           <span><span className="sw" style={{ background: "#7e9eb0" }}></span>EN retention 22%</span>
         </div>
         <div className="mixbar">
-          <div style={{ width: "45.6%", background: "#5a63c0" }}>1022</div>
-          <div style={{ width: "16.7%", background: "#ef8a6e" }}>374</div>
+          <div style={{ width: "45.6%", background: "#2979FF" }}>1022</div>
+          <div style={{ width: "16.7%", background: "#C1121F" }}>374</div>
           <div style={{ width: "15.4%", background: "#74a37a" }}>344</div>
           <div style={{ width: "22.3%", background: "#7e9eb0" }}>499</div>
         </div>

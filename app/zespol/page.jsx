@@ -1,7 +1,7 @@
 import Join from "./join";
 
 export const metadata = {
-  title: "Dołącz — zespół, fundatorzy, firmy, naukowcy | Fabryka AI",
+  title: "Dołącz — zespół, fundatorzy, firmy, naukowcy | Slayer",
   description: "Publiczny zapis: kontrybutorzy, naukowcy, fundatorzy compute i firmy (zgłoś use case). Wpisz się i zobacz, kto już dołączył.",
 };
 
@@ -14,7 +14,7 @@ const css = `
     .roles label{display:inline-flex;align-items:center;gap:7px;font-weight:400;margin:0;padding:7px 12px;border:1px solid var(--line);border-radius:99px;background:var(--panel);cursor:pointer;font-size:.9rem}
     .roles input{accent-color:var(--acc)}
     .hp{position:absolute;left:-9999px;opacity:0}
-    .msg{font-size:.9rem;font-weight:500;min-height:1.2em}.msg.ok{color:var(--good)}.msg.err{color:#d56a4d}
+    .msg{font-size:.9rem;font-weight:500;min-height:1.2em}.msg.ok{color:var(--good)}.msg.err{color:#C1121F}
     .person{padding:13px 0;border-top:1px solid var(--line2)}.person:first-of-type{border-top:0}
     .person .pn{font-weight:600}.person .pr{display:flex;flex-wrap:wrap;gap:5px;margin:5px 0}.person .pa{color:var(--mut);font-size:.88rem}.person .pd{float:right;color:var(--dim);font-family:var(--mono);font-size:.72rem}
     .cnt{color:var(--acc);font-family:var(--mono)}

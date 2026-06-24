@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "Wiedza — wstrzykiwanie polskiego długiego ogona (synthetic CPT) | Fabryka AI",
+  title: "Wiedza — wstrzykiwanie polskiego długiego ogona (synthetic CPT) | Slayer",
   description:
     "Program badawczy: ile wiedzy o Polsce można wstrzyknąć w model syntetycznym CPT i za ile. Fermi-rachunek jądra wiedzy, probe długiego ogona, koszt vs pokrycie, hipotezy z falsyfikatorami.",
 };
@@ -11,11 +11,11 @@ const css = `
     .figbox svg{width:100%;height:auto;display:block}
     .figbox .src{font-family:var(--mono);font-size:.68rem;color:var(--dim);margin-top:10px}
     svg text{font-family:"IBM Plex Mono",monospace}
-    .axis{stroke:rgba(90,99,192,.20);stroke-width:1}
-    .gridl{stroke:rgba(90,99,192,.07);stroke-width:1}
-    .lbl{fill:#5c5f72;font-size:11px}
-    .lblb{fill:#9396ad;font-size:11.5px}
-    .val{fill:#5a63c0;font-size:12px;font-weight:600}
+    .axis{stroke:rgba(242,241,236,.14);stroke-width:1}
+    .gridl{stroke:rgba(242,241,236,.07);stroke-width:1}
+    .lbl{fill:#A6A5A0;font-size:11px}
+    .lblb{fill:#8A8A8A;font-size:11.5px}
+    .val{fill:#2979FF;font-size:12px;font-weight:600}
     .hyp{display:grid;grid-template-columns:92px 1fr auto;gap:clamp(12px,2.5vw,28px);padding:clamp(18px,2.6vw,26px) clamp(16px,2.6vw,28px);border-top:1px solid var(--line2);align-items:start}
     .hyp:first-child{border-top:0}
     .hyp .no{font-family:var(--serif);font-style:italic;font-size:clamp(1.7rem,3vw,2.3rem);color:var(--acc);line-height:1;opacity:.85}
@@ -25,7 +25,7 @@ const css = `
     .hyp .fals b{color:var(--amber);font-weight:500}
     .st{font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:99px;white-space:nowrap}
     .st.ok{color:var(--good);border:1px solid rgba(116,163,122,.4);background:rgba(116,163,122,.08)}
-    .st.part{color:var(--amber);border:1px solid rgba(90,99,192,.4);background:var(--acc-soft)}
+    .st.part{color:var(--amber);border:1px solid rgba(41,121,255,.4);background:var(--acc-soft)}
     .st.open{color:var(--dim);border:1px solid var(--line)}
     @media(max-width:640px){.hyp{grid-template-columns:1fr}.hyp .no{font-size:1.5rem}}
     .pyr td{font-size:.92rem}
@@ -77,17 +77,17 @@ export default function Wiedza() {
             <text className="lblb" x="265" y="285" textAnchor="middle">polonica · fakty lokalne (n=38)</text>
             <text className="lblb" x="595" y="285" textAnchor="middle">wiedza ogólna (n=33)</text>
             {/* polonica: q9 18.4, q27 15.8  (skala: 1% = 4.6px) */}
-            <rect x="235" y="165.36" width="60" height="84.64" fill="#7e9eb0" />
+            <rect x="235" y="165.36" width="60" height="84.64" fill="#2979FF" />
             <text className="val" x="265" y="157" textAnchor="middle">18.4</text>
             <text className="lbl" x="265" y="264" textAnchor="middle">Qwen 9B</text>
-            <rect x="310" y="177.32" width="60" height="72.68" fill="#74a37a" />
+            <rect x="310" y="177.32" width="60" height="72.68" fill="#5b9e7e" />
             <text className="val" x="340" y="169" textAnchor="middle">15.8</text>
             <text className="lbl" x="340" y="264" textAnchor="middle">Qwen 27B</text>
             {/* ogólne: 30.3 / 33.3 */}
-            <rect x="565" y="110.62" width="60" height="139.38" fill="#7e9eb0" />
+            <rect x="565" y="110.62" width="60" height="139.38" fill="#2979FF" />
             <text className="val" x="595" y="102" textAnchor="middle">30.3</text>
             <text className="lbl" x="595" y="264" textAnchor="middle">Qwen 9B</text>
-            <rect x="640" y="96.82" width="60" height="153.18" fill="#74a37a" />
+            <rect x="640" y="96.82" width="60" height="153.18" fill="#5b9e7e" />
             <text className="val" x="670" y="89" textAnchor="middle">33.3</text>
             <text className="lbl" x="670" y="264" textAnchor="middle">Qwen 27B</text>
           </svg>
@@ -117,18 +117,18 @@ export default function Wiedza() {
             <text className="lbl" x="540" y="276" textAnchor="middle">$1.5k</text>
             <text className="lbl" x="665" y="276" textAnchor="middle">$3.5k</text>
             {/* krzywa log-liniowa (hipoteza H1) */}
-            <path d="M150,252 C 240,244 270,222 295,212 C 420,164 470,140 540,110 C 600,84 640,44 665,24" fill="none" stroke="#5a63c0" strokeWidth="2.5" strokeDasharray="1 0" />
+            <path d="M150,252 C 240,244 270,222 295,212 C 420,164 470,140 540,110 C 600,84 640,44 665,24" fill="none" stroke="#2979FF" strokeWidth="2.5" strokeDasharray="1 0" />
             {/* punkty */}
-            <circle cx="150" cy="252" r="6" fill="#74a37a" />
+            <circle cx="150" cy="252" r="6" fill="#5b9e7e" />
             <text className="val" x="150" y="236" textAnchor="middle">10M tok</text>
             <text className="lbl" x="150" y="222" textAnchor="middle">~3% · MAMY</text>
-            <circle cx="295" cy="212" r="6" fill="#5a63c0" />
+            <circle cx="295" cy="212" r="6" fill="#2979FF" />
             <text className="val" x="295" y="194" textAnchor="middle">50M</text>
             <text className="lbl" x="295" y="180" textAnchor="middle">10–30%</text>
-            <circle cx="540" cy="110" r="6" fill="#5a63c0" />
+            <circle cx="540" cy="110" r="6" fill="#2979FF" />
             <text className="val" x="540" y="93" textAnchor="middle">2B</text>
             <text className="lbl" x="540" y="79" textAnchor="middle">~50%</text>
-            <circle cx="665" cy="24" r="6" fill="#7e9eb0" />
+            <circle cx="665" cy="24" r="6" fill="#2979FF" />
             <text className="val" x="640" y="40" textAnchor="end">5B tok</text>
             <text className="lbl" x="640" y="54" textAnchor="end">~100% jądra</text>
           </svg>

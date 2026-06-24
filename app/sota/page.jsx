@@ -1,7 +1,7 @@
 import SotaComments from "./comments";
 
 export const metadata = {
-  title: "SOTA roadmap 2026 + komentarze | Fabryka AI",
+  title: "SOTA roadmap 2026 + komentarze | Slayer",
   description:
     "Publiczny plan zbudowania poprawnego polskiego modelu SOTA: domkniecie macierzy benchmarkow, dane, SFT, RLVR, regression gates i komentarze spolecznosci.",
 };
@@ -17,7 +17,7 @@ const css = `
   .phase{display:grid;grid-template-columns:128px 1fr;gap:22px;padding:22px 24px;border-top:1px solid var(--line2)}
   .phase:first-child{border-top:0}
   .phase .when{font-family:var(--mono);font-size:.76rem;color:var(--mut)}
-  .phase .status{display:inline-block;margin-top:7px;font-family:var(--mono);font-size:.66rem;padding:2px 8px;border-radius:99px;color:var(--acc);background:var(--acc-soft);border:1px solid rgba(90,99,192,.28)}
+  .phase .status{display:inline-block;margin-top:7px;font-family:var(--mono);font-size:.66rem;padding:2px 8px;border-radius:99px;color:var(--acc);background:var(--acc-soft);border:1px solid rgba(41,121,255,.28)}
   .phase h3{margin:0 0 6px;font-size:1.18rem;color:var(--ink)}
   .phase p{margin:0;color:var(--mut)}
   .phase ul{margin:12px 0 0;padding-left:18px;color:var(--mut)}
@@ -28,8 +28,8 @@ const css = `
   .mcell{border:1px solid var(--line2);border-radius:8px;background:rgba(255,255,255,.025);padding:14px}
   .mcell b{display:block;color:var(--ink);font-size:.98rem}
   .mcell span{display:block;margin-top:4px;font-family:var(--mono);font-size:.72rem;color:var(--dim)}
-  .mcell.todo{border-color:rgba(239,138,110,.32)}
-  .mcell.todo span{color:#d56a4d}
+  .mcell.todo{border-color:rgba(193,18,31,.32)}
+  .mcell.todo span{color:#C1121F}
   .principles{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
   @media(max-width:820px){.principles{grid-template-columns:1fr}}
   .principle{border-top:1px solid var(--line2);padding-top:15px;color:var(--mut)}
@@ -42,7 +42,7 @@ const css = `
   select:focus{outline:none;border-color:var(--acc);box-shadow:0 0 0 3px var(--acc-soft)}
   .hp{position:absolute;left:-10000px;width:1px;height:1px;opacity:0}
   .form-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-  .form-msg{font-size:.88rem;color:var(--dim)}.form-msg.err{color:#d56a4d}
+  .form-msg{font-size:.88rem;color:var(--dim)}.form-msg.err{color:#C1121F}
   .comment-list{display:grid;gap:12px;margin-top:16px}
   .comment{border:1px solid var(--line2);border-radius:8px;background:rgba(255,255,255,.025);padding:14px 16px}
   .comment-top{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-family:var(--mono);font-size:.7rem;color:var(--dim);letter-spacing:.05em;text-transform:uppercase}
@@ -246,7 +246,7 @@ export default function SotaRoadmap() {
           <div className="note" style={{ margin: "0 0 18px" }}>
             <p>
               <b>Przewaga strukturalna:</b> startujemy z Qwen3.5-27B (mocna baza). Wiedze i rozumowanie
-              juz niesie baza, wiec budzet idzie w polska specjalizacje: LLMzSzL Fabryka AI v3 <b>66.8</b>.
+              juz niesie baza, wiec budzet idzie w polska specjalizacje: LLMzSzL Slayer v3 <b>66.8</b>.
             </p>
           </div>
           <div className="principles">

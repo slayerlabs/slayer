@@ -1,7 +1,7 @@
 import StyleExamples from "./examples";
 
 export const metadata = {
-  title: "Styl: co base Qwen robi źle po polsku · Fabryka AI",
+  title: "Styl: co base Qwen robi źle po polsku · Slayer",
   description:
     "Ręczny przegląd odpowiedzi base Qwen3.5-27B po polsku: rażące błędy gramatyczne (Hipoza, Bezpośrednie sprzedaż, samodzielną rozwiązywanie), kalki, liczenie w dolarach, szablon. Fine-tuned v1 obok. Bez regexu, przejrzane ręcznie.",
 };
@@ -16,7 +16,7 @@ const css = `
     .legend{display:flex;flex-wrap:wrap;gap:9px 16px;margin:24px 0 4px;font-family:var(--mono);font-size:.76rem;color:var(--mut);align-items:center}
     .legend .lg{display:inline-flex;align-items:center;gap:7px}
     .legend .sw{width:13px;height:13px;border-radius:3px;display:inline-block}
-    .sw.err{background:#ef8a6e}.sw.tmpl{background:#eef0fb}.sw.calq{background:#bcd6e8}.sw.ph{background:#fbe9e3}.sw.good{background:#bfe0bf}
+    .sw.err{background:#C1121F}.sw.tmpl{background:rgba(41,121,255,.10)}.sw.calq{background:rgba(41,121,255,.20)}.sw.ph{background:rgba(193,18,31,.10)}.sw.good{background:var(--good)}
     .sd{width:min(1080px,100%);margin:0 auto;padding:8px clamp(18px,5vw,72px) 40px}
     .ex{border:1px solid var(--line);border-radius:13px;background:var(--panel);box-shadow:0 10px 30px rgba(0,0,0,.28);margin:22px 0;overflow:hidden}
     .ex-task{padding:14px clamp(16px,3vw,24px);background:rgba(255,255,255,.035);border-bottom:1px solid var(--line);font-size:.95rem;color:var(--ink)}
@@ -33,17 +33,17 @@ const css = `
     .col-b.ep{font-family:var(--serif);font-size:1rem;line-height:1.6;color:var(--ink)}
     .col-b .muted{color:var(--dim);font-style:italic}
     mark{background:none;color:inherit;padding:.5px 2px;border-radius:2px}
-    mark.h-tmpl{background:#eef0fb;color:#4a52a8}
-    mark.h-calq{background:#bcd6e8;color:#234e63}
-    mark.h-ph{background:#fbe9e3;color:#c0573b}
-    mark.h-err{background:#fbe9e3;color:#c0573b;border-bottom:2px solid #d56a4d;font-weight:500}
-    mark.h-good{background:#cfe6cf;color:#2f6b3f}
+    mark.h-tmpl{background:rgba(41,121,255,.10);color:#2979FF}
+    mark.h-calq{background:rgba(41,121,255,.20);color:#2979FF}
+    mark.h-ph{background:rgba(193,18,31,.10);color:#C1121F}
+    mark.h-err{background:rgba(193,18,31,.10);color:#C1121F;border-bottom:2px solid #C1121F;font-weight:500}
+    mark.h-good{background:rgba(91,158,126,.18);color:var(--good)}
     .errs{border-top:1px solid var(--line);padding:13px clamp(16px,3vw,24px);background:rgba(255,255,255,.015)}
     .errs-h{font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);margin-bottom:9px}
     .errs ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:7px}
     .errs li{display:flex;gap:9px;font-size:.85rem;line-height:1.5;color:var(--mut)}
     .errs .dot{flex:0 0 auto;width:9px;height:9px;border-radius:50%;margin-top:6px}
-    .dot.k-err{background:#d56a4d}.dot.k-tmpl{background:#5a63c0}.dot.k-calq{background:#5a8fb0}.dot.k-ph{background:#ef8a6e}
+    .dot.k-err{background:#C1121F}.dot.k-tmpl{background:#2979FF}.dot.k-calq{background:#2979FF}.dot.k-ph{background:#C1121F}
     .errs code{background:rgba(255,255,255,.06);padding:1px 6px;border-radius:4px;font-size:.82rem;color:var(--ink);overflow-wrap:anywhere;white-space:normal}
     .wniosek{width:min(1080px,100%);margin:0 auto 64px;padding:0 clamp(18px,5vw,72px)}
     .wniosek .box{border-left:3px solid var(--acc);background:var(--panel);border-radius:0 10px 10px 0;padding:20px 24px;color:var(--mut);font-size:.98rem;line-height:1.6}

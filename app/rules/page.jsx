@@ -1,6 +1,6 @@
 export const metadata = {
-  title: "Zasady projektu | Fabryka AI",
-  description: "Zasady organizacyjne Fabryka AI: autorstwo Kacper Wikieł, początkowy model BDFL, reguły decyzji i udział kontrybutorów.",
+  title: "Zasady projektu | Slayer",
+  description: "Zasady organizacyjne Slayer: autorstwo Kacper Wikieł, początkowy model BDFL, reguły decyzji i udział kontrybutorów.",
 };
 
 const css = `
@@ -26,28 +26,28 @@ export default function Rules() {
       <section className="phero"><div className="inner">
         <span className="kick">zasady · zarządzanie · autorstwo</span>
         <h1>Zasady <em>projektu</em></h1>
-        <p>Fabryka AI zaczyna jako otwarty warsztat badawczy: publikujemy metody, pomiary i część artefaktów tak, by społeczność mogła je weryfikować i rozwijać. Otwartość dotyczy standardu pracy badawczej, nie deklaracji nonprofit. Fabryka AI może w przyszłości działać jako organizacja komercyjna, jeśli będzie to najlepszy sposób finansowania compute, utrzymania zespołu i wdrażania polskich modeli w praktyce.</p>
+        <p>Slayer zaczyna jako otwarty warsztat badawczy: publikujemy metody, pomiary i część artefaktów tak, by społeczność mogła je weryfikować i rozwijać. Otwartość dotyczy standardu pracy badawczej, nie deklaracji nonprofit. Slayer może w przyszłości działać jako organizacja komercyjna, jeśli będzie to najlepszy sposób finansowania compute, utrzymania zespołu i wdrażania polskich modeli w praktyce.</p>
       </div></section>
 
       <section className="sec tight"><div className="inner rulegrid">
         <div className="rulebox">
           <span className="kick">autorstwo</span>
-          <h2>Fabryka AI jest projektem autorstwa Kacpra Wikieła.</h2>
-          <p><b>Kacper Wikieł</b> jest inicjatorem, autorem kierunku i osobą odpowiedzialną za początkową strukturę projektu: zakres badań, standard publikacji, ton marki, priorytety techniczne i decyzje o tym, co trafia do oficjalnego Fabryki AI.</p>
+          <h2>Slayer jest projektem autorstwa Kacpra Wikieła.</h2>
+          <p><b>Kacper Wikieł</b> jest inicjatorem, autorem kierunku i osobą odpowiedzialną za początkową strukturę projektu: zakres badań, standard publikacji, ton marki, priorytety techniczne i decyzje o tym, co trafia do oficjalnego Slayera.</p>
           <p>Kontrybucje są mile widziane, ale oficjalna linia projektu musi pozostać spójna: dobry smak, twardy pomiar, jawny koszt i brak benchmaxxingu. Wkład społeczności nie wyklucza przyszłej struktury for-profit.</p>
         </div>
 
         <div className="rulebox">
           <span className="kick">struktura początkowa</span>
           <h2>Benevolent Dictator For Life.</h2>
-          <p>Początkowy model organizacyjny Fabryki AI to <b>BDFL</b>, czyli <b>Benevolent Dictator For Life</b> — model znany z wczesnej historii Pythona. W praktyce oznacza to, że Kacper Wikieł ma ostatnie słowo w sprawach kierunku, jakości, publikacji, nazwy, marki i konfliktów decyzyjnych.</p>
-          <p>To nie jest zamknięcie projektu. To mechanizm utrzymania spójności, dopóki Fabryka AI nie ma dojrzałego governance, stałych maintainerów i jasnych procesów rozstrzygania sporów.</p>
+          <p>Początkowy model organizacyjny Slayera to <b>BDFL</b>, czyli <b>Benevolent Dictator For Life</b> — model znany z wczesnej historii Pythona. W praktyce oznacza to, że Kacper Wikieł ma ostatnie słowo w sprawach kierunku, jakości, publikacji, nazwy, marki i konfliktów decyzyjnych.</p>
+          <p>To nie jest zamknięcie projektu. To mechanizm utrzymania spójności, dopóki Slayer nie ma dojrzałego governance, stałych maintainerów i jasnych procesów rozstrzygania sporów.</p>
         </div>
 
         <div className="rulebox">
           <span className="kick">własność · equity</span>
           <h2>Dziś 100% u założyciela.</h2>
-          <p>Obecnie <b>Kacper Wikieł posiada 100% projektu</b>. To stan startowy, nie docelowy — w miarę jak Fabryka AI dojrzewa, własność będzie się otwierać dla osób, które realnie go budują.</p>
+          <p>Obecnie <b>Kacper Wikieł posiada 100% projektu</b>. To stan startowy, nie docelowy — w miarę jak Slayer dojrzewa, własność będzie się otwierać dla osób, które realnie go budują.</p>
           <p>Przewidujemy, że ścieżka <b>core membera</b> będzie wiązać się z <b>vested equity</b> (udziałami nabywanymi w czasie, za dowożoną pracę i odpowiedzialność). Pojawią się też prawdopodobnie <b>inwestorzy</b> — finansowanie compute i zespołu wymaga kapitału. Szczegóły (struktura spółki, vesting, cap table) domkniemy, gdy będą realne, i opiszemy je tutaj — bez obietnic bez pokrycia.</p>
         </div>
       </div></section>
@@ -55,7 +55,7 @@ export default function Rules() {
       <section className="sec tight alt"><div className="inner">
         <div className="ghead"><h2>Reguły pracy</h2><span className="c">obowiązują od startu</span></div>
         <div className="rulelist">
-          <div className="ruleitem"><div className="no">01</div><div><h3>Jedna oficjalna linia</h3><p>Każdy może eksperymentować, forkować i proponować zmiany. Oficjalny Fabryka AI zachowuje jednak jedną linię decyzyjną i jedną odpowiedzialność redakcyjną.</p></div></div>
+          <div className="ruleitem"><div className="no">01</div><div><h3>Jedna oficjalna linia</h3><p>Każdy może eksperymentować, forkować i proponować zmiany. Oficjalny Slayer zachowuje jednak jedną linię decyzyjną i jedną odpowiedzialność redakcyjną.</p></div></div>
           <div className="ruleitem"><div className="no">02</div><div><h3>Merit, nie hałas</h3><p>Decyzje techniczne zapadają na podstawie artefaktów: kodu, danych, pomiarów, kosztu, replikowalności i jakości odpowiedzi. Sama opinia nie wystarcza.</p></div></div>
           <div className="ruleitem"><div className="no">03</div><div><h3>Wkład daje głos</h3><p>Realni kontrybutorzy mają wpływ na plan działania i priorytety. Wpływ rośnie z odpowiedzialnością za dowożone rzeczy, a nie z deklaracjami.</p></div></div>
           <div className="ruleitem"><div className="no">04</div><div><h3>Spory domykamy</h3><p>Jeśli dyskusja nie prowadzi do decyzji, BDFL domyka temat. Celem jest ruch projektu, nie nieskończona debata.</p></div></div>

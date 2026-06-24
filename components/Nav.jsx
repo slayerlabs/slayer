@@ -66,7 +66,7 @@ export default function Nav() {
     <header className="nav">
       <a className="brand" href="/" onClick={close}>
         <span className="bdot" />
-        <span><span style={{ color: "#d56a4d" }}>Fabryka</span> <span style={{ color: "#5a63c0" }}>AI</span></span>
+        <span><span style={{ color: "#C1121F" }}>Fabryka</span> <span style={{ color: "#2979FF" }}>AI</span></span>
       </a>
       <button
         className="navtoggle"

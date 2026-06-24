@@ -6,7 +6,7 @@ export const metadata = {
 
 const css = `
   .legalgrid{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:18px;align-items:start}
-  .legalcard{border:1px solid var(--line);border-radius:var(--rad);background:#fff;padding:24px;box-shadow:0 14px 38px rgba(35,36,48,.07)}
+  .legalcard{border:1px solid var(--line);border-radius:var(--rad);background:#121215;padding:24px;box-shadow:0 14px 38px rgba(0,0,0,.45)}
   .legalcard h2{margin:0 0 10px;font-family:var(--display);font-size:1.35rem;font-weight:600;letter-spacing:-.01em;color:var(--ink)}
   .legalcard h3{margin:22px 0 8px;font-size:1rem;color:var(--ink)}
   .legalcard p,.legalcard li{color:var(--mut);font-size:.98rem;line-height:1.65}

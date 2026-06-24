@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 const META = {
   qwen27b: { name: "Qwen3.5-27B", tag: "nasza baza", params: "27B" },
   qwen27b_local: { name: "Qwen3.5-27B", tag: "nasza baza", params: "27B" },
-  slayer: { name: "Fabryka AI-27B v3", tag: "nasz model", params: "27B" },
-  slayer_v3: { name: "Fabryka AI-27B v3", tag: "nasz model", params: "27B" },
+  slayer: { name: "Slayer-27B v3", tag: "nasz model", params: "27B" },
+  slayer_v3: { name: "Slayer-27B v3", tag: "nasz model", params: "27B" },
   qwen9b: { name: "Qwen3.5-9B", tag: "", params: "9B" },
 };
 const meta = (k) => META[k] || { name: k, tag: "", params: "—" };
@@ -62,7 +62,7 @@ export default function PolNativeBoard() {
       <div className="pnb">
         {!d && <div style={{ padding: 36, textAlign: "center" }} className="muted mono">wczytuję…</div>}
         {rows.map((r, i) => {
-          const color = r.k.startsWith("slayer") ? "var(--good)" : i === 0 ? "var(--acc)" : "#9aa3b2";
+          const color = r.k.startsWith("slayer") ? "var(--good)" : i === 0 ? "var(--acc)" : "#8A8A8A";
           return (
             <div className={"pnb-row" + (i === 0 ? " lead" : "") + (r.k.startsWith("slayer") ? " slay" : "")} key={r.k}>
               <div>

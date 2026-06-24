@@ -11,7 +11,7 @@ export async function generateMetadata({ params }) {
   const post = POSTS.find((p) => p.slug === slug);
   if (!post) return {};
   return {
-    title: `${post.title} | Engineering log | Fabryka AI`,
+    title: `${post.title} | Engineering log | Slayer`,
     description: post.lead,
     authors: [{ name: AUTHOR }],
   };
@@ -65,7 +65,7 @@ export default async function Post({ params }) {
 
         <div className="stamp">
           <div className="stamp-row">
-            <span className="id">FABRYKA AI PROTOCOL · ENGINEERING LOG</span>
+            <span className="id">SLAYER PROTOCOL · ENGINEERING LOG</span>
             <span>WPIS {no}</span>
           </div>
           <hr className="stamp-rule" />
@@ -80,10 +80,10 @@ export default async function Post({ params }) {
           <h1>{post.title}</h1>
           <p className="lead">{post.lead}</p>
           <div className="body"><MdLite src={post.body} /></div>
-          <div className="eof">KONIEC WPISU · LOG {no} · FABRYKA AI PROTOCOL</div>
+          <div className="eof">KONIEC WPISU · LOG {no} · SLAYER PROTOCOL</div>
           <div className="sig">
             <div className="name">— {post.author || AUTHOR}</div>
-            <div className="role">FABRYKA AI LAB · {post.date}</div>
+            <div className="role">SLAYER LAB · {post.date}</div>
           </div>
         </article>
       </div>

@@ -1,7 +1,7 @@
 import { ScoreBoard, StartingFive } from "./live";
 
 export const metadata = {
-  title: "Benchmarki — metodologia | Fabryka AI",
+  title: "Benchmarki — metodologia | Slayer",
   description:
     "Metodologia pomiaru: piątka startowa (LLMzSzŁ, PES, PoQuAD, Belebele, FLORES) + kontrola regresji EN. Publiczne, deterministyczne, liczone czysto — bez benchmaxxingu.",
 };
