@@ -2,7 +2,7 @@
 """Generic MCQ benchmark via ollama. Accuracy = decisive metric. Aggregates only
 (per-category accuracy COUNTS; no per-item inspection). Idempotent: skips if a
 result for (bench, seed) already exists. Usage: bench_mcq.py <bench> [N] [seed]
-benches: llmzszl belebele belebele_en pes include mmlu arc
+benches: llmzszl belebele belebele_en pes lek include mmlu arc
 """
 import json, re, sys, time, random, csv, urllib.request, os, glob
 from collections import defaultdict
@@ -65,6 +65,19 @@ def load_pes(n, seed):
                               "cat": r.get("specialization", "?"), "noptions": 5})
     return sample_strat(items, n, seed)
 
+def load_lek(n, seed):
+    from datasets import load_dataset
+    ds = load_dataset("amu-cai/medical-exams-LEK-PL-2008-2024", split="train")
+    L2I = {c: i for i, c in enumerate("ABCDE")}
+    items = []
+    for r in ds:
+        lab = (r.get("answer") or "").strip().upper()
+        q = r.get("question_w_options")
+        if lab in L2I and q and q.strip():
+            items.append({"q": q, "options": None, "gold": L2I[lab],
+                          "cat": r.get("edition", "?"), "noptions": 5})
+    return sample_strat(items, n, seed)
+
 def load_include(n, seed):
     from datasets import load_dataset
     ds = load_dataset("CohereForAI/include-base-44", "Polish", split="test")
@@ -97,7 +110,7 @@ def load_arc(n, seed):
 
 BENCHES = {
     "llmzszl": (load_llmzszl, "pl"), "belebele": (load_belebele, "pl"),
-    "belebele_en": (load_belebele_en, "en"), "pes": (load_pes, "pl"),
+    "belebele_en": (load_belebele_en, "en"), "pes": (load_pes, "pl"), "lek": (load_lek, "pl"),
     "include": (load_include, "pl"), "mmlu": (load_mmlu, "en"), "arc": (load_arc, "en"),
 }
 

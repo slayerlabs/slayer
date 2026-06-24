@@ -22,6 +22,17 @@
     "kategoria": "eval-pl-core"
   },
   {
+    "id": "lek",
+    "nazwa": "LEK (medyczny)",
+    "opis": "lekarski egzamin końcowy · medycyna",
+    "rozmiar": "4 312",
+    "licencja": "publiczny",
+    "link": "https://huggingface.co/datasets/amu-cai/medical-exams-LEK-PL-2008-2024",
+    "tagi": ["eval", "pl", "mcq", "medycyna"],
+    "status": "publiczny",
+    "kategoria": "eval-pl-core"
+  },
+  {
     "id": "poquad",
     "nazwa": "PoQuAD",
     "opis": "SQuAD 2.0, natywnie PL, no-answer",
