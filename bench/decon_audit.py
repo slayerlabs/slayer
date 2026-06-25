@@ -43,6 +43,7 @@ EVAL_SOURCES = [
     "slayer-data/mcq_heldout.jsonl",
     "slayer-data/mcq_test.jsonl",
     "slayer-data/style/holdout_v1.jsonl",
+    "slayer-data/plgen/prompts_v1.jsonl",  # PL-GEN held-out prompty (eval_only; Track B je produkuje — do tego czasu BRAK i pomijane)
 ]
 LLMZSZL_FALLBACK = "slayer-data/llmzszl_R_eval.jsonl"
 EXCL_HASHES_F = "slayer-data/knowledge/probe_v1.excluded_hashes.txt"

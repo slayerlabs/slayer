@@ -7,4 +7,12 @@ dependencies = [
     "datasets>=5.0.0",
     "huggingface-hub>=1.19.0",
     "sacrebleu>=2.6.0",
+    # PL-GEN benchmark harness, wydzielony do osobnego repo (kod publiczny; dane
+    # held-out w prywatnym kwiscion/plgen-data, wskazywane przez $PLGEN_DATA).
+    "plgen @ git+https://github.com/kwiscion/plgen.git",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.0",
 ]
