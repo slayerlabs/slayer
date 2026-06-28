@@ -182,15 +182,15 @@ def main():
         for s in r["samples"]:
             print(f"    linia {s['line']} [{s['type']}] score={s['score']}")
         results.append(r)
-        if (a.strip or a.strip_diacritics) and any(
-                should_strip(raw, fold, a.strip, a.strip_diacritics) for _, raw, fold in rows):
+        strip_flags = [should_strip(raw, fold, a.strip, a.strip_diacritics)
+                       for _, raw, fold in rows]
+        if (a.strip or a.strip_diacritics) and any(strip_flags):
             clean = p.rsplit(".jsonl", 1)[0] + ".clean.jsonl"
             with open(clean, "w", encoding="utf-8") as f:
-                for ln, raw_hit, fold_hit in rows:
-                    if not should_strip(raw_hit, fold_hit, a.strip, a.strip_diacritics):
+                for (ln, _, _), strip in zip(rows, strip_flags):
+                    if not strip:
                         f.write(ln + "\n")
-            kept = sum(1 for _, raw_hit, fold_hit in rows
-                       if not should_strip(raw_hit, fold_hit, a.strip, a.strip_diacritics))
+            kept = sum(1 for s in strip_flags if not s)
             print(f"    -> czysty plik: {clean} ({kept}/{r['records']})")
 
     report = {"ts": time.strftime("%Y-%m-%dT%H:%M:%S"), "tool": "decon_neardup",

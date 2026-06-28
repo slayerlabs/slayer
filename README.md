@@ -50,6 +50,8 @@ Nasza teza „super tanio + epsilon": **startujemy z Qwen3.5-9B** (bije Bielika 
 
 Wymagania: [ollama](https://ollama.com), Python 3.10+. `pip install -e .` (lub `uv sync`).
 
+Wyniki benchmarków trafiają do `~/bench_results` (lub `export BENCH_OUT=/ścieżka/do/wyników`).
+
 ```bash
 ollama pull qwen3.5:9b
 ollama pull hf.co/speakleash/Bielik-11B-v3.0-Instruct-GGUF:Q4_K_M

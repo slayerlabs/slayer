@@ -6,11 +6,12 @@ SQuAD 2.0 style scoring:
   - unanswerable: correct iff model abstains ("Brak odpowiedzi w tekście")
 Deterministic 100-question sample (seed=42), identical for both models.
 """
-import json, re, sys, time, random, urllib.request
+import json, re, sys, time, random, os, urllib.request
 from collections import Counter
 from huggingface_hub import hf_hub_download
 
 OLLAMA = "http://127.0.0.1:11434/api/chat"
+OUT = os.environ.get("BENCH_OUT", os.path.expanduser("~/bench_results"))
 N = 100
 SEED = 42
 ABSTAIN = "Brak odpowiedzi w tekście"
@@ -129,7 +130,8 @@ def main():
         results.append(res)
         print(json.dumps({k: v for k, v in res.items() if k != "rows"}, ensure_ascii=False, indent=2), flush=True)
         print(flush=True)
-    json.dump(results, open("/home/kacper/poquad_results.json", "w"), ensure_ascii=False, indent=2)
+    os.makedirs(OUT, exist_ok=True)
+    json.dump(results, open(os.path.join(OUT, "poquad_results.json"), "w"), ensure_ascii=False, indent=2)
     print("\n================ PODSUMOWANIE (PoQuAD, n=100) ================")
     print(f"{'Model':<28}{'EM':>7}{'F1':>7}{'odp.F1':>9}{'abst.acc':>10}{'czas':>8}")
     fmt = lambda v, w: format(v, f">{w}") if v is not None else format("-", f">{w}")

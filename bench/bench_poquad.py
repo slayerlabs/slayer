@@ -2,7 +2,7 @@
 """PoQuAD via ollama + LLM-judge (decisive). Usage: bench_poquad.py [N] [seed]
 Phase 1: inference (Bielik, Qwen3.5-9B). Phase 2: judge each answerable answer
 for semantic correctness with an ollama judge model (JUDGE_TAG). Also keeps SQuAD-F1
-as a subcategory. Writes /home/kacper/bench_results/poquad.json
+as a subcategory. Writes $BENCH_OUT/poquad_n{N}_s{seed}.json (default ~/bench_results).
 """
 import json, re, sys, time, random, os, urllib.request
 from collections import Counter
@@ -10,7 +10,7 @@ from _bench_common import winner_margin
 from huggingface_hub import hf_hub_download
 
 OLLAMA = "http://127.0.0.1:11434/api/chat"
-OUT = "/home/kacper/bench_results"
+OUT = os.environ.get("BENCH_OUT", os.path.expanduser("~/bench_results"))
 N = int(sys.argv[1]) if len(sys.argv) > 1 else 1000
 SEED = int(sys.argv[2]) if len(sys.argv) > 2 else 42
 ABSTAIN = "Brak odpowiedzi w tekście"
