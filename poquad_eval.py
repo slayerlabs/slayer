@@ -102,12 +102,12 @@ def score(model, sample):
         if (i+1) % 10 == 0:
             print(f"  [{model}] {i+1}/{N}  ({time.time()-t0:.0f}s)", flush=True)
     n = len(sample)
-    overall_em = (has_em + no_ok) / n * 100
-    overall_f1 = (has_f1 + no_ok) / n * 100
+    overall_em = (has_em + no_ok) / n * 100 if n else None
+    overall_f1 = (has_f1 + no_ok) / n * 100 if n else None
     return {
         "model": model, "n": n,
-        "overall_EM": round(overall_em, 1),
-        "overall_F1": round(overall_f1, 1),
+        "overall_EM": round(overall_em, 1) if overall_em is not None else None,
+        "overall_F1": round(overall_f1, 1) if overall_f1 is not None else None,
         "answerable_n": has_n,
         "answerable_EM": round(has_em/has_n*100, 1) if has_n else None,
         "answerable_F1": round(has_f1/has_n*100, 1) if has_n else None,
@@ -132,9 +132,10 @@ def main():
     json.dump(results, open("/home/kacper/poquad_results.json", "w"), ensure_ascii=False, indent=2)
     print("\n================ PODSUMOWANIE (PoQuAD, n=100) ================")
     print(f"{'Model':<28}{'EM':>7}{'F1':>7}{'odp.F1':>9}{'abst.acc':>10}{'czas':>8}")
+    fmt = lambda v, w: format(v, f">{w}") if v is not None else format("-", f">{w}")
     for r in results:
-        print(f"{r['display_name']:<28}{r['overall_EM']:>7}{r['overall_F1']:>7}"
-              f"{r['answerable_F1']:>9}{r['unanswerable_abstain_acc']:>10}{r['secs']:>7.0f}s")
+        print(f"{r['display_name']:<28}{fmt(r['overall_EM'], 7)}{fmt(r['overall_F1'], 7)}"
+              f"{fmt(r['answerable_F1'], 9)}{fmt(r['unanswerable_abstain_acc'], 10)}{r['secs']:>7.0f}s")
 
 if __name__ == "__main__":
     main()
