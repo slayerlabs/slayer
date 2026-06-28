@@ -2,7 +2,8 @@
 """PoQuAD via ollama + LLM-judge (decisive). Usage: bench_poquad.py [N] [seed]
 Phase 1: inference (Bielik, Qwen3.5-9B). Phase 2: judge each answerable answer
 for semantic correctness with an ollama judge model (JUDGE_TAG). Also keeps SQuAD-F1
-as a subcategory. Writes $BENCH_OUT/poquad_n{N}_s{seed}.json (default ~/bench_results).
+as a subcategory. Writes $BENCH_OUT/poquad_n<n>_s<seed>.json where n = drawn sample
+size (min of CLI N and dataset size; default ~/bench_results).
 """
 import json, re, sys, time, random, os, urllib.request
 from collections import Counter
@@ -73,9 +74,10 @@ def judge(q, golds, pred):
     return toks[-1] == "TAK" if toks else out.strip().startswith("T")
 
 def main():
-    if os.path.exists(f"{OUT}/poquad_n{N}_s{SEED}.json"):
-        print(f"[poquad] SKIP — n{N} s{SEED} już jest", flush=True); return
     smp = sample()
+    out_file = os.path.join(OUT, f"poquad_n{len(smp)}_s{SEED}.json")
+    if os.path.exists(out_file):
+        print(f"[poquad] SKIP — n{len(smp)} s{SEED} już jest", flush=True); return
     nimp = sum(x["impossible"] for x in smp)
     print(f"[poquad] n={len(smp)} ({len(smp)-nimp} odp + {nimp} nieodp) seed={SEED} judge={JUDGE_TAG}", flush=True)
     raw = {}
@@ -119,7 +121,7 @@ def main():
                "n": len(smp), "seed": SEED, "date": os.environ.get("RUN_DATE", ""),
                "models": results, **winner_margin(results, "judged_accuracy")}
     os.makedirs(OUT, exist_ok=True)
-    json.dump(payload, open(f"{OUT}/poquad_n{len(smp)}_s{SEED}.json", "w"), ensure_ascii=False, indent=2)
+    json.dump(payload, open(out_file, "w"), ensure_ascii=False, indent=2)
     print(f"[poquad] winner={payload.get('winner','-')} +{payload.get('margin','-')}", flush=True)
 
 if __name__ == "__main__":
