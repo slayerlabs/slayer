@@ -3,7 +3,7 @@
 Run after each job so partial results are always viewable. Partial-safe."""
 import json, os, glob, datetime
 
-OUT = "/home/kacper/bench_results"
+OUT = os.environ.get("BENCH_OUT", os.path.expanduser("~/bench_results"))
 NAMES = ["Bielik-11B-v3.0-Instruct", "Qwen3.5-9B"]
 SHORT = {"Bielik-11B-v3.0-Instruct": "Bielik-11B-v3", "Qwen3.5-9B": "Qwen3.5-9B"}
 PRIMARY = {"poquad": "judged_accuracy", "llmzszl": "accuracy", "belebele": "accuracy",

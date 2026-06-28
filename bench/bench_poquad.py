@@ -2,7 +2,8 @@
 """PoQuAD via ollama + LLM-judge (decisive). Usage: bench_poquad.py [N] [seed]
 Phase 1: inference (Bielik, Qwen3.5-9B). Phase 2: judge each answerable answer
 for semantic correctness with an ollama judge model (JUDGE_TAG). Also keeps SQuAD-F1
-as a subcategory. Writes /home/kacper/bench_results/poquad.json
+as a subcategory. Writes $BENCH_OUT/poquad_n<n>_s<seed>.json where n = drawn sample
+size (min of CLI N and dataset size; default ~/bench_results).
 """
 import json, re, sys, time, random, os, urllib.request
 from collections import Counter
@@ -10,7 +11,7 @@ from _bench_common import winner_margin
 from huggingface_hub import hf_hub_download
 
 OLLAMA = "http://127.0.0.1:11434/api/chat"
-OUT = "/home/kacper/bench_results"
+OUT = os.environ.get("BENCH_OUT", os.path.expanduser("~/bench_results"))
 N = int(sys.argv[1]) if len(sys.argv) > 1 else 1000
 SEED = int(sys.argv[2]) if len(sys.argv) > 2 else 42
 ABSTAIN = "Brak odpowiedzi w tekście"
@@ -73,9 +74,10 @@ def judge(q, golds, pred):
     return toks[-1] == "TAK" if toks else out.strip().startswith("T")
 
 def main():
-    if os.path.exists(f"{OUT}/poquad_n{N}_s{SEED}.json"):
-        print(f"[poquad] SKIP — n{N} s{SEED} już jest", flush=True); return
     smp = sample()
+    out_file = os.path.join(OUT, f"poquad_n{len(smp)}_s{SEED}.json")
+    if os.path.exists(out_file):
+        print(f"[poquad] SKIP — n{len(smp)} s{SEED} już jest", flush=True); return
     nimp = sum(x["impossible"] for x in smp)
     print(f"[poquad] n={len(smp)} ({len(smp)-nimp} odp + {nimp} nieodp) seed={SEED} judge={JUDGE_TAG}", flush=True)
     raw = {}
@@ -119,7 +121,7 @@ def main():
                "n": len(smp), "seed": SEED, "date": os.environ.get("RUN_DATE", ""),
                "models": results, **winner_margin(results, "judged_accuracy")}
     os.makedirs(OUT, exist_ok=True)
-    json.dump(payload, open(f"{OUT}/poquad_n{len(smp)}_s{SEED}.json", "w"), ensure_ascii=False, indent=2)
+    json.dump(payload, open(out_file, "w"), ensure_ascii=False, indent=2)
     print(f"[poquad] winner={payload.get('winner','-')} +{payload.get('margin','-')}", flush=True)
 
 if __name__ == "__main__":

@@ -6,9 +6,10 @@ For each answerable question the judge decides TAK/NIE: czy odpowiedz modelu jes
 merytorycznie poprawna wzgledem zlotej odpowiedzi (niezaleznie od formy/odmiany).
 Unanswerable: correct iff model abstained (already flagged). Output: single accuracy.
 """
-import json, re, urllib.request, time
+import json, re, os, urllib.request, time
 
 JUDGE = "http://127.0.0.1:8088/v1/chat/completions"
+OUT = os.environ.get("BENCH_OUT", os.path.expanduser("~/bench_results"))
 JUDGE_MODEL = "qwen3.5-35b-a3b"
 
 def strip_think(s):
@@ -48,7 +49,7 @@ def judge(question, golds, pred):
             time.sleep(2)
 
 def main():
-    d = json.load(open("/home/kacper/poquad_results.json"))
+    d = json.load(open(os.path.join(OUT, "poquad_results.json")))
     summary = []
     for r in d:
         name = r["display_name"]
@@ -78,7 +79,8 @@ def main():
              "unanswerable_abstain": no_ok, "unanswerable_n": no_n}
         summary.append(s)
         print(json.dumps(s, ensure_ascii=False), flush=True)
-    json.dump(summary, open("/home/kacper/poquad_judged.json", "w"), ensure_ascii=False, indent=2)
+    os.makedirs(OUT, exist_ok=True)
+    json.dump(summary, open(os.path.join(OUT, "poquad_judged.json"), "w"), ensure_ascii=False, indent=2)
     print("\n===== DECISIVE (LLM-judge, n=100) =====")
     print(f"{'Model':<28}{'acc':>8}{'odp.acc':>10}{'abst.':>8}")
     fmt = lambda v, w: format(v, f">{w}") if v is not None else format("-", f">{w}")
