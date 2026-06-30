@@ -10,7 +10,7 @@ from _bench_common import winner_margin
 from huggingface_hub import hf_hub_download
 
 OLLAMA = "http://127.0.0.1:11434/api/chat"
-OUT = "/home/kacper/bench_results"
+OUT = os.environ.get("BENCH_OUT", os.path.expanduser("~/bench_results"))
 N = int(sys.argv[1]) if len(sys.argv) > 1 else 300
 SEED = int(sys.argv[2]) if len(sys.argv) > 2 else 42
 TOKEN = os.environ.get("HF_TOKEN")

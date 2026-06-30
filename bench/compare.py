@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """Czyste porównanie per-kategoria: gdzie Bielik bije Qwena (i odwrotnie).
 Tylko agregaty accuracy per kategoria ze zbioru — żadnej inspekcji itemów.
-Czyta /home/kacper/bench_results/*.json (najwiekszy run per benchmark)."""
+Czyta $BENCH_OUT/*.json (domyslnie ~/bench_results; najwiekszy run per benchmark)."""
 import json, glob, os
 from collections import defaultdict
 
-BR = "/home/kacper/bench_results"
+BR = os.environ.get("BENCH_OUT", os.path.expanduser("~/bench_results"))
 NB, NQ = "Bielik-11B-v3.0-Instruct", "Qwen3.5-9B"
 LABEL = {"llmzszl": "LLMzSzŁ (domeny)", "pes": "PES (specjalizacje)", "belebele": "Belebele", "poquad": "PoQuAD"}
 
