@@ -175,7 +175,7 @@ def main():
         flag = f" | PUSTE: {empty} (artefakt harnessu!)" if empty else ""
         print(f"[{name}] acc: {acc}{flag}")
 
-    os.makedirs("results", exist_ok=True)
+    os.makedirs(os.path.dirname(OUT), exist_ok=True)
     json.dump({"probe": PROBE_F, "n": len(probe), "seed": a.seed, "judge": JUDGE,
                "note": "probe z korpusu CPT; doki QA z exclusion list NIE moga wejsc do treningu",
                "results": results}, open(OUT, "w"), ensure_ascii=False, indent=2)
