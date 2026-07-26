@@ -1,14 +1,15 @@
 import { NextResponse } from "next/server";
-import { list, put } from "@vercel/blob";
+import { get, put } from "@vercel/blob";
 import { promises as fs } from "fs";
 import path from "path";
 import crypto from "crypto";
+import legalContent from "../../../legal/generated/legal-content.json";
 
 export const dynamic = "force-dynamic";
 
 const BLOB_PATH = "slayer/zgody.json";
 const LOCAL_PATH = path.join(process.cwd(), ".data", "zgody.json");
-const CONSENT_VERSION = "wizerunek-rodo-v1";
+const CONSENT_VERSION = legalContent.documents["/zgoda"].version;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function clean(value, max) {
@@ -30,21 +31,27 @@ async function writeLocal(records) {
 }
 
 async function readBlob() {
-  if (!process.env.BLOB_READ_WRITE_TOKEN) return null;
-  const found = await list({ prefix: BLOB_PATH, limit: 1 });
-  const blob = found.blobs.find((item) => item.pathname === BLOB_PATH);
-  if (!blob) return [];
-  const res = await fetch(`${blob.url}?t=${Date.now()}`, { cache: "no-store" });
-  if (!res.ok) return [];
-  const data = await res.json();
+  const token = process.env.CONSENT_BLOB_READ_WRITE_TOKEN;
+  if (!token) return null;
+  const result = await get(BLOB_PATH, {
+    access: "private",
+    token,
+    useCache: false,
+  });
+  if (!result || !result.stream) return [];
+  const data = await new Response(result.stream).json();
   return Array.isArray(data.records) ? data.records : [];
 }
 
 async function writeBlob(records) {
+  const token = process.env.CONSENT_BLOB_READ_WRITE_TOKEN;
+  if (!token) throw new Error("Consent storage is not configured");
   await put(BLOB_PATH, JSON.stringify({ records }, null, 2), {
-    access: "public",
+    access: "private",
+    token,
     contentType: "application/json",
     allowOverwrite: true,
+    cacheControlMaxAge: 60,
   });
 }
 
@@ -55,7 +62,7 @@ export async function readRecords() {
 }
 
 export async function writeRecords(records) {
-  if (process.env.BLOB_READ_WRITE_TOKEN) return writeBlob(records);
+  if (process.env.CONSENT_BLOB_READ_WRITE_TOKEN) return writeBlob(records);
   return writeLocal(records);
 }
 
@@ -80,6 +87,16 @@ async function sendVerification(to, name, link) {
 }
 
 export async function POST(req) {
+  if (
+    process.env.VERCEL &&
+    (!process.env.RESEND_API_KEY || !process.env.CONSENT_BLOB_READ_WRITE_TOKEN)
+  ) {
+    return NextResponse.json(
+      { error: "Formularz jest chwilowo niedostępny. Napisz na k.wikiel@gmail.com." },
+      { status: 503 },
+    );
+  }
+
   const input = await req.json().catch(() => ({}));
   if (input.website) return NextResponse.json({ ok: true }); // honeypot
 
@@ -100,7 +117,6 @@ export async function POST(req) {
   }
 
   const token = crypto.randomBytes(24).toString("hex");
-  const ip = req.headers.get("x-forwarded-for")?.split(",")[0].trim() || "";
   const record = {
     id: existing?.id || crypto.randomUUID(),
     name,
@@ -110,8 +126,6 @@ export async function POST(req) {
     consentVersion: CONSENT_VERSION,
     createdAt: existing?.createdAt || new Date().toISOString(),
     confirmedAt: null,
-    ip,
-    userAgent: clean(req.headers.get("user-agent"), 300),
   };
 
   const next = [record, ...records.filter((r) => r.email !== email)];

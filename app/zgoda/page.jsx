@@ -1,25 +1,24 @@
+import LegalDocument, { getLegalDocument } from "../../components/LegalDocument";
 import ZgodaForm from "./form";
 
-export const metadata = {
-  title: "Zgoda na publikację wizerunku | Fabryka AI",
-  description:
-    "Formularz zgody RODO na publikację wizerunku i danych osobowych w sekcji Zespół na stronie Fabryka AI. Potwierdzenie przez e-mail (double opt-in).",
-};
+export const metadata = { title: "Zgoda na publikację wizerunku | Fabryka AI" };
 
-export default function ZgodaPage() {
+export default function Page() {
+  const document = getLegalDocument("/zgoda");
+  const consentReady =
+    !process.env.VERCEL ||
+    Boolean(process.env.RESEND_API_KEY && process.env.CONSENT_BLOB_READ_WRITE_TOKEN);
+
   return (
-    <section className="sec tight">
-      <div className="inner" style={{ maxWidth: 720 }}>
-        <span className="kick">RODO · wizerunek · double opt-in</span>
-        <h1>Zgoda na publikację wizerunku</h1>
-        <p className="note" style={{ margin: "12px 0 22px" }}>
-          Aby Twoje zdjęcie i dane mogły pojawić się w sekcji „Zespół", potrzebujemy
-          Twojej zgody. Po wysłaniu formularza dostaniesz e-mail z linkiem
-          potwierdzającym — zgoda jest ważna dopiero po jego kliknięciu. Zgodę możesz
-          wycofać w każdej chwili, pisząc na nasz adres kontaktowy.
+    <LegalDocument documentPath="/zgoda">
+      {consentReady ? (
+        <ZgodaForm consentLabel={document.form_label} />
+      ) : (
+        <p className="note">
+          Formularz jest chwilowo niedostępny. Prośbę można przesłać na{" "}
+          <a className="acc" href="mailto:k.wikiel@gmail.com">k.wikiel@gmail.com</a>.
         </p>
-        <ZgodaForm />
-      </div>
-    </section>
+      )}
+    </LegalDocument>
   );
 }
