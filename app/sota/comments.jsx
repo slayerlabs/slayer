@@ -23,6 +23,7 @@ export default function SotaComments() {
   const [website, setWebsite] = useState("");
   const [status, setStatus] = useState("idle");
   const [error, setError] = useState("");
+  const [accepted, setAccepted] = useState(false);
 
   async function load() {
     const res = await fetch("/api/sota-comments", { cache: "no-store" });
@@ -42,7 +43,7 @@ export default function SotaComments() {
     const res = await fetch("/api/sota-comments", {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify({ author, type, body, website }),
+      body: JSON.stringify({ author, type, body, website, accepted, termsVersion: "1.0.0" }),
     });
     const data = await res.json().catch(() => ({}));
     if (!res.ok) {
@@ -53,6 +54,7 @@ export default function SotaComments() {
     if (data.comment) {
       setComments((current) => [data.comment, ...current]);
       setBody("");
+      setAccepted(false);
       setStatus("saved");
       window.setTimeout(() => setStatus("idle"), 1800);
     } else {
@@ -108,9 +110,13 @@ export default function SotaComments() {
             required
           />
         </div>
+        <label className="field" style={{ flexDirection: "row", gap: ".6rem", alignItems: "flex-start" }}>
+          <input type="checkbox" checked={accepted} onChange={(e) => setAccepted(e.target.checked)} required style={{ width: "auto", marginTop: ".25rem" }} />
+          <span>Proszę o publiczną publikację komentarza na zasadach <a href="/zasady-zgloszen">Zasad zgłoszeń</a>. Znam <a href="/polityka-prywatnosci">Politykę prywatności</a>.</span>
+        </label>
         <div className="form-foot">
           <span className={error ? "form-msg err" : "form-msg"}>
-            {error || "Komentarze sa publiczne. Najbardziej przydatne sa konkretne braki w macierzy, danych i gate'ach."}
+            {error || "Komentarz i handle będą publiczne. Usunięcie: k.wikiel@gmail.com."}
           </span>
           <button className="btn btn-p" type="submit" disabled={status === "saving"}>
             {status === "saving" ? "zapis..." : status === "saved" ? "zapisano" : "dodaj komentarz"}

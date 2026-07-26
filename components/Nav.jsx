@@ -53,6 +53,7 @@ const GROUPS = [
       ["/regulamin-labu", "regulamin laboratorium"],
       ["/regulamin-discord", "regulamin Discord"],
       ["/wspolpraca", "zasady współpracy"],
+      ["/zasady-zgloszen", "zasady zgłoszeń"],
       ["/polityka-prywatnosci", "polityka prywatności"],
     ],
   },

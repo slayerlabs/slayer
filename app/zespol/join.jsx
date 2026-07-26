@@ -12,6 +12,7 @@ export default function Join() {
   const [checked, setChecked] = useState({});
   const [msg, setMsg] = useState({ cls: "msg", text: "" });
   const [sending, setSending] = useState(false);
+  const [publicationAccepted, setPublicationAccepted] = useState(false);
   const formTitleRef = useRef(null);
   const nameRef = useRef(null);
   const contactRef = useRef(null);
@@ -45,8 +46,8 @@ export default function Join() {
     e.preventDefault();
     const name = nameRef.current.value.trim();
     const contact = contactRef.current.value.trim();
-    if (!name || !contact) {
-      setMsg({ cls: "msg err", text: "Podaj imię i kontakt." });
+    if (!name || !contact || !publicationAccepted) {
+      setMsg({ cls: "msg err", text: "Podaj imię i kontakt oraz potwierdź publikację." });
       return;
     }
     const payload = {
@@ -55,6 +56,9 @@ export default function Join() {
       about: aboutRef.current.value.trim(),
       website: hpRef.current.value,
       roles: ROLES.filter((r) => checked[r]),
+      publicationAccepted: true,
+      termsVersion: "1.0.0",
+      privacyVersion: "1.2.0",
     };
     setSending(true);
     setMsg({ cls: "msg", text: "Wysyłam…" });
@@ -65,6 +69,7 @@ export default function Join() {
           setMsg({ cls: "msg ok", text: "Dodano. Dzięki." });
           formRef.current.reset();
           setChecked({});
+          setPublicationAccepted(false);
           load();
         } else {
           setMsg({ cls: "msg err", text: j.error || "Coś poszło nie tak." });
@@ -102,9 +107,18 @@ export default function Join() {
               </div></div>
             <div className="field"><label htmlFor="contact">Kontakt <span className="opt">(Discord / e-mail / GitHub — prywatny)</span></label><input type="text" id="contact" ref={contactRef} maxLength={120} required placeholder="np. discord: kasia#1234" /></div>
             <div className="field"><label htmlFor="about">Co oferujesz / zastosowanie <span className="opt">(opcjonalnie, publiczne)</span></label><textarea id="about" ref={aboutRef} maxLength={400} placeholder="np. robię evale w lm-eval-harness; albo: firma prawnicza, use case: analiza umów"></textarea></div>
+            <label className="field" style={{ flexDirection: "row", gap: ".6rem", alignItems: "flex-start" }}>
+              <input type="checkbox" checked={publicationAccepted} onChange={(e) => setPublicationAccepted(e.target.checked)} required style={{ width: "auto", marginTop: ".25rem" }} />
+              <span>
+                Proszę o publiczne pokazanie podanej nazwy, ról i opisu. Kontakt
+                pozostaje prywatny. Zapoznałem(-am) się z{" "}
+                <a href="/zasady-zgloszen">Zasadami zgłoszeń</a> i{" "}
+                <a href="/polityka-prywatnosci">Polityką prywatności</a>.
+              </span>
+            </label>
             <button className="btn btn-p" type="submit" disabled={sending}>Dołącz publicznie</button>
             <div className={msg.cls}>{msg.text}</div>
-            <p className="muted" style={{ fontSize: ".84rem", margin: 0 }}>Publicznie pokażemy imię, role i opis. Kontakt trafia tylko do organizatora.</p>
+            <p className="muted" style={{ fontSize: ".84rem", margin: 0 }}>Administratorem jest Kacper Wikiel. Zmiana lub usunięcie wpisu: <a href="mailto:k.wikiel@gmail.com">k.wikiel@gmail.com</a>.</p>
           </form>
         </div>
         <div>

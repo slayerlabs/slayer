@@ -11,7 +11,6 @@ export const metadata = {
 // Global Nav/Footer are hidden on "/" (see Nav/Footer). Re-sync the source design to change it.
 
 const lemCss = `
-  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap');
   html,body{margin:0;padding:0;background:#0F0F10;}
   ::selection{background:#C1121F;color:#F2F1EC;}
   @keyframes marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
@@ -126,7 +125,7 @@ const html = `<div id="top" style="background:#0F0F10;color:#F2F1EC;font-family:
       Dajemy ludziom to, czego w pojedynkę zdobyć się nie da.
     </h2>
     <p style="font-family:'Inter';font-size:clamp(16px,1.5vw,18px);line-height:1.65;color:#C4C3BD;max-width:64ch;margin:0 0 56px;">
-      Moc obliczeniową, mentoring, materiały i wsparcie — także prawne. Dzięki temu każdy, kto chce, może realnie trenować, testować i wdrażać modele AI. Także osoba, która zaczyna od zera.
+      Moc obliczeniową, mentoring, materiały oraz wsparcie merytoryczne i organizacyjne. Dzięki temu uczestnicy mogą realnie trenować, testować i wdrażać modele AI — także jeśli zaczynają od zera. Zakres i dostępność opisują zasady laboratorium.
     </p>
 
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1px;background:rgba(242,241,236,0.14);border:1px solid rgba(242,241,236,0.14);">
@@ -217,7 +216,7 @@ const html = `<div id="top" style="background:#0F0F10;color:#F2F1EC;font-family:
         <div style="display:flex;gap:12px;flex-wrap:wrap;font-family:'Space Mono';font-size:12px;letter-spacing:0.06em;">
           <span style="border:1px solid rgba(242,241,236,0.24);padding:8px 14px;color:#F2F1EC;">GitHub</span>
           <span style="border:1px solid rgba(242,241,236,0.24);padding:8px 14px;color:#F2F1EC;">Hugging Face</span>
-          <span style="border:1px solid rgba(242,241,236,0.24);padding:8px 14px;color:#F2F1EC;">Apache-2.0</span>
+          <span style="border:1px solid rgba(242,241,236,0.24);padding:8px 14px;color:#F2F1EC;">MIT</span>
         </div>
       </div>
       <div style="border:1px solid rgba(242,241,236,0.2);background:#08080A;font-family:'Space Mono';font-size:13px;line-height:1.85;">
@@ -259,8 +258,8 @@ const html = `<div id="top" style="background:#0F0F10;color:#F2F1EC;font-family:
         </div>
         <div style="border-top:2px solid #2979FF;padding-top:18px;">
           <div style="font-family:'Space Mono';font-size:11px;letter-spacing:0.16em;color:#2979FF;margin-bottom:10px;">STEP_02</div>
-          <h3 style="font-family:'Space Grotesk';font-weight:600;font-size:18px;margin:0 0 8px;color:#F2F1EC;">Dostajesz opiekuna</h3>
-          <p style="font-family:'Inter';font-size:14px;line-height:1.55;color:#A6A5A0;margin:0;">Materiały, mentoring i dostęp do compute. Idziesz tak daleko, jak chcesz.</p>
+          <h3 style="font-family:'Space Grotesk';font-weight:600;font-size:18px;margin:0 0 8px;color:#F2F1EC;">Możesz wejść do programu</h3>
+          <p style="font-family:'Inter';font-size:14px;line-height:1.55;color:#A6A5A0;margin:0;">Po przyjęciu zakres materiałów, mentoringu i compute zależy od naboru oraz dostępnych zasobów.</p>
         </div>
         <div style="border-top:2px solid #C1121F;padding-top:18px;">
           <div style="font-family:'Space Mono';font-size:11px;letter-spacing:0.16em;color:#C1121F;margin-bottom:10px;">STEP_03</div>
@@ -270,7 +269,7 @@ const html = `<div id="top" style="background:#0F0F10;color:#F2F1EC;font-family:
       </div>
       <div style="border:1px solid rgba(193,18,31,0.5);background:rgba(193,18,31,0.06);padding:22px 26px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;">
         <span style="font-family:'Space Mono';font-size:11px;letter-spacing:0.16em;color:#C1121F;flex-shrink:0;">◆ STYPENDIA</span>
-        <p style="font-family:'Inter';font-size:15px;line-height:1.5;color:#C4C3BD;margin:0;">Połowę miejsc rezerwujemy na stypendia — dla studentów, licealistów i osób w trudniejszej sytuacji życiowej.</p>
+        <p style="font-family:'Inter';font-size:15px;line-height:1.5;color:#C4C3BD;margin:0;">W wybranych naborach tworzymy pulę miejsc stypendialnych dla studentów, licealistów i osób w trudniejszej sytuacji życiowej. Liczbę miejsc i warunki podajemy osobno dla każdego naboru.</p>
       </div>
     </div>
   </section>
@@ -328,6 +327,7 @@ const html = `<div id="top" style="background:#0F0F10;color:#F2F1EC;font-family:
           <div style="display:flex;flex-direction:column;gap:9px;">
             <span style="color:#5C5C5C;font-size:10px;letter-spacing:0.2em;margin-bottom:3px;">DOKUMENTY</span>
             <a href="/regulamin" class="flink" style="text-decoration:none;color:#A6A5A0;">regulamin</a>
+            <a href="/regulamin-labu" class="flink" style="text-decoration:none;color:#A6A5A0;">regulamin laboratorium</a>
             <a href="/regulamin-discord" class="flink" style="text-decoration:none;color:#A6A5A0;">regulamin Discord</a>
             <a href="/wspolpraca" class="flink" style="text-decoration:none;color:#A6A5A0;">współpraca</a>
             <a href="/zgoda" class="flink" style="text-decoration:none;color:#A6A5A0;">zgoda RODO</a>
