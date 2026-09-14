@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-12",
+  "updated": "2026-06-22",
   "comment": "Macierz benchmarki x modele. Sekcje rozdzielone PER PROTOKÓŁ — liczb między sekcjami nie wolno porównywać (likelihood != generacja != harness KLEJ). Tylko agregaty. Pole official_for = do jakiego claimu publicznego wolno używać tej sekcji; jeden oficjalny numer na claim, otagowany trybem.",
   "sections": [
     {
@@ -183,6 +183,245 @@
         }
       ],
       "note": "Cel CPT v3 na polonica: > 28.9 na fakty lokalne. Szczegóły programu: /wiedza."
+    },
+    {
+      "title": "PL-GEN — długi tekst: LanguageTool + sędzia (DeepSeek)",
+      "official_for": "bledy-jezykowe-pl",
+      "protocol": "free-generation PL (pełny zbiór 193, 1 seed s42; 3 ziarna TODO → SLA-15); Layer A = self-hosted LanguageTool (erikvl87/languagetool:6.5) błędy/100tok per bucket (dolne ograniczenie, niski recall); Layer B = ślepy sędzia DeepSeek-V4-Pro (guided, temp 0), panel_score 0-100 + naturalność 1-5. Sub-score'y OSOBNE — nie uśredniać między warstwami ani z innymi sekcjami. IJA N/A przy 1 sędzim.",
+      "cols": [
+        "Bielik-11B-v3",
+        "Gemma-4-31B-it",
+        "Qwen3.5-27B (instr)",
+        "Qwen3.6-27B"
+      ],
+      "rows": [
+        {
+          "name": "LT morfoskładnia (bł./100tok, ↓)",
+          "vals": [
+            0.06,
+            0.05,
+            0.08,
+            0.11
+          ]
+        },
+        {
+          "name": "LT ortografia (bł./100tok, ↓)",
+          "vals": [
+            0.72,
+            0.93,
+            0.87,
+            1.48
+          ]
+        },
+        {
+          "name": "LT styl (bł./100tok, ↓)",
+          "vals": [
+            0.02,
+            0.03,
+            0.03,
+            0.03
+          ]
+        },
+        {
+          "name": "Sędziowie panel (pass-rate 0-100, ↑)",
+          "vals": [
+            47.2,
+            49.4,
+            29.9,
+            19.3
+          ]
+        },
+        {
+          "name": "Sędziowie naturalność 1-5",
+          "vals": [
+            3.88,
+            4.08,
+            3.32,
+            2.96
+          ]
+        },
+        {
+          "name": "LT aspekt morfoskładnia (bł./100tok, ↓)",
+          "vals": [
+            0.13,
+            0.0,
+            0.08,
+            0.13
+          ]
+        },
+        {
+          "name": "LT kalki/AI-style morfoskładnia (bł./100tok, ↓)",
+          "vals": [
+            0.02,
+            0.06,
+            0.05,
+            0.15
+          ]
+        },
+        {
+          "name": "LT liczebniki morfoskładnia (bł./100tok, ↓)",
+          "vals": [
+            0.09,
+            0.06,
+            0.05,
+            0.18
+          ]
+        },
+        {
+          "name": "LT ortografia morfoskładnia (bł./100tok, ↓)",
+          "vals": [
+            0.06,
+            0.03,
+            0.11,
+            0.11
+          ]
+        },
+        {
+          "name": "LT rejestr morfoskładnia (bł./100tok, ↓)",
+          "vals": [
+            0.06,
+            0.08,
+            0.11,
+            0.07
+          ]
+        },
+        {
+          "name": "LT rekcja morfoskładnia (bł./100tok, ↓)",
+          "vals": [
+            0.05,
+            0.03,
+            0.0,
+            0.15
+          ]
+        },
+        {
+          "name": "LT toponimy morfoskładnia (bł./100tok, ↓)",
+          "vals": [
+            0.09,
+            0.12,
+            0.11,
+            0.02
+          ]
+        },
+        {
+          "name": "LT wołacz morfoskładnia (bł./100tok, ↓)",
+          "vals": [
+            0.07,
+            0.05,
+            0.04,
+            0.07
+          ]
+        },
+        {
+          "name": "LT zaimki morfoskładnia (bł./100tok, ↓)",
+          "vals": [
+            0.03,
+            0.01,
+            0.14,
+            0.05
+          ]
+        },
+        {
+          "name": "LT zgoda długodystansowa morfoskładnia (bł./100tok, ↓)",
+          "vals": [
+            0.02,
+            0.07,
+            0.12,
+            0.17
+          ]
+        },
+        {
+          "name": "Sędziowie aspekt (0-100, ↑)",
+          "vals": [
+            40.0,
+            44.7,
+            29.4,
+            30.0
+          ]
+        },
+        {
+          "name": "Sędziowie kalki/AI-style (0-100, ↑)",
+          "vals": [
+            42.5,
+            31.6,
+            25.0,
+            17.5
+          ]
+        },
+        {
+          "name": "Sędziowie liczebniki (0-100, ↑)",
+          "vals": [
+            50.0,
+            47.2,
+            20.6,
+            8.3
+          ]
+        },
+        {
+          "name": "Sędziowie ortografia (0-100, ↑)",
+          "vals": [
+            70.6,
+            65.4,
+            23.5,
+            23.5
+          ]
+        },
+        {
+          "name": "Sędziowie rejestr (0-100, ↑)",
+          "vals": [
+            52.9,
+            44.4,
+            23.3,
+            22.2
+          ]
+        },
+        {
+          "name": "Sędziowie rekcja (0-100, ↑)",
+          "vals": [
+            57.9,
+            67.5,
+            52.8,
+            42.1
+          ]
+        },
+        {
+          "name": "Sędziowie toponimy (0-100, ↑)",
+          "vals": [
+            50.0,
+            66.7,
+            44.4,
+            16.7
+          ]
+        },
+        {
+          "name": "Sędziowie wołacz (0-100, ↑)",
+          "vals": [
+            26.9,
+            37.5,
+            21.9,
+            6.7
+          ]
+        },
+        {
+          "name": "Sędziowie zaimki (0-100, ↑)",
+          "vals": [
+            41.7,
+            50.0,
+            26.3,
+            13.2
+          ]
+        },
+        {
+          "name": "Sędziowie zgoda długodystansowa (0-100, ↑)",
+          "vals": [
+            35.3,
+            39.5,
+            29.4,
+            8.8
+          ]
+        }
+      ],
+      "note": "Layer A (LT, ↓ lepiej) i Layer B (sędzia, ↑ lepiej) to ODDZIELNE osie — złote pole dashboardu liczy max w wierszu, więc dla wierszy LT (↓) ignoruj podświetlenie. Pełny zbiór 193 promptów, 1 seed (s42); 3 ziarna TODO. eval_only."
     }
   ]
 }
