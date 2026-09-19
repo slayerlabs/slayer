@@ -28,7 +28,7 @@ const css = `
 
 const LEVELS = [
   {
-    no: "01", name: "Lurker", cel: "obserwuje, czyta, uczy się języka projektu",
+    no: "01", name: "Observer", cel: "obserwuje, czyta, uczy się języka projektu",
     dostajesz: ["publiczne kanały i weekly updates", "roadmapę i reading listę", "dostęp do demo, modeli i leaderboardów"],
     oczekiwanie: ["zero presji", "czytaj, reaguj, zadawaj pytania"],
     dalejLabel: "dalej, gdy",
