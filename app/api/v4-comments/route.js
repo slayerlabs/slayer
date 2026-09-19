@@ -85,6 +85,10 @@ export async function POST(req) {
   const type = cleanText(input.type, 40) || "uwaga";
   const body = cleanBody(input.body);
 
+  if (input.accepted !== true || input.termsVersion !== "1.0.0") {
+    return NextResponse.json({ error: "Potwierdź zasady publikacji." }, { status: 400 });
+  }
+
   if (body.length < 8) {
     return NextResponse.json({ error: "Komentarz jest za krótki." }, { status: 400 });
   }
@@ -95,6 +99,8 @@ export async function POST(req) {
     type,
     body,
     createdAt: new Date().toISOString(),
+    termsVersion: "1.0.0",
+    publicationAcceptedAt: new Date().toISOString(),
   };
 
   const comments = [comment, ...(await readComments())].slice(0, MAX_COMMENTS);

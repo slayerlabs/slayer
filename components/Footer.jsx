@@ -12,8 +12,10 @@ export default function Footer() {
         <a href="/rules">zasady</a> · <a href="/drabina">drabina</a> ·{" "}
         <a href="/roadmap">harmonogram</a> ·{" "}
         <a href="/team">zespół</a> · <a href="/zespol">wejście</a> ·{" "}
-        <a href="/regulamin">regulamin</a> · <a href="/regulamin-discord">discord</a> ·{" "}
-        <a href="/wspolpraca">współpraca</a> · <a href="/zgoda">zgoda</a> ·{" "}
+        <a href="/regulamin">regulamin kursu</a> · <a href="/regulamin-labu">regulamin laboratorium</a> ·{" "}
+        <a href="/regulamin-discord">discord</a> ·{" "}
+        <a href="/wspolpraca">współpraca</a> · <a href="/zasady-zgloszen">zgłoszenia</a> ·{" "}
+        <a href="/zgoda">zgoda</a> ·{" "}
         <a href="/polityka-prywatnosci">prywatność</a>
       </span>
     </footer>

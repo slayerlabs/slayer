@@ -50,8 +50,10 @@ const GROUPS = [
     label: "dokumenty",
     links: [
       ["/regulamin", "regulamin kursu"],
+      ["/regulamin-labu", "regulamin laboratorium"],
       ["/regulamin-discord", "regulamin Discord"],
       ["/wspolpraca", "zasady współpracy"],
+      ["/zasady-zgloszen", "zasady zgłoszeń"],
       ["/polityka-prywatnosci", "polityka prywatności"],
     ],
   },
@@ -61,7 +63,6 @@ export default function Nav() {
   const pathname = (usePathname() || "/").replace(/\/+$/, "") || "/";
   const [open, setOpen] = useState(false);
   const close = () => setOpen(false);
-  const isActive = (href) => pathname === href || pathname.startsWith(href + "/");
   if (pathname === "/") return null; // ponytail: landing page (LEM) ships its own nav
   return (
     <header className="nav">
@@ -81,13 +82,13 @@ export default function Nav() {
       </button>
       <nav className={open ? "nlinks open" : "nlinks"}>
         {GROUPS.map((g) => {
-          const active = g.links.some(([href]) => isActive(href));
+          const active = g.links.some(([href]) => href === pathname);
           return (
             <div className={active ? "navgroup active" : "navgroup"} key={g.label}>
               <span className="navtop">{g.label}</span>
               <div className="navmenu">
                 {g.links.map(([href, label]) => (
-                  <a key={href} className={isActive(href) ? "active" : ""} href={href} onClick={close}>
+                  <a key={href} className={pathname === href ? "active" : ""} href={href} onClick={close}>
                     {label}
                   </a>
                 ))}

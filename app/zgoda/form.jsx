@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-export default function ZgodaForm() {
+export default function ZgodaForm({ consentLabel }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [consent, setConsent] = useState(false);
@@ -90,12 +90,7 @@ export default function ZgodaForm() {
           style={{ width: "auto", marginTop: "0.25rem" }}
           required
         />
-        <span>
-          Wyrażam zgodę na publikację mojego wizerunku oraz danych (imię i nazwisko,
-          opis, biografia) w sekcji „Zespół" na stronie Fabryka AI, zgodnie z art. 6
-          ust. 1 lit. a RODO i art. 81 ustawy o prawie autorskim. Zgodę mogę wycofać
-          w każdej chwili.
-        </span>
+        <span>{consentLabel}</span>
       </label>
       <div className="form-foot">
         <span className={error ? "form-msg err" : "form-msg"}>

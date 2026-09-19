@@ -3,8 +3,6 @@
    Single source of truth. Edit here → every page updates.
    Dark SLAYER AI LAB theme.
    ============================================================ */
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&family=Space+Mono:wght@400;700&display=swap');
-
 :root{
   --bg:#0F0F10; --bg2:#0A0A0C; --panel:#121215; --panel2:#161619;
   --ink:#F2F1EC; --txt:#C4C3BD; --mut:#A6A5A0; --dim:#8A8A8A;
@@ -12,10 +10,10 @@
   --acc:#2979FF; --acc-d:#2979FF; --acc-soft:rgba(41,121,255,.12); --acc-ink:#F2F1EC;
   --red:#C1121F;
   --good:#5b9e7e; --blue:#2979FF; --violet:#2979FF; --amber:#2979FF;
-  --sans:"Inter",ui-sans-serif,system-ui,-apple-system,sans-serif;
-  --serif:"Newsreader",Georgia,"Times New Roman",serif;
-  --display:"Space Grotesk",ui-sans-serif,system-ui,-apple-system,sans-serif;
-  --mono:"Space Mono",ui-monospace,Menlo,monospace;
+  --sans:var(--font-inter),ui-sans-serif,system-ui,-apple-system,sans-serif;
+  --serif:var(--font-serif),Georgia,"Times New Roman",serif;
+  --display:var(--font-display),ui-sans-serif,system-ui,-apple-system,sans-serif;
+  --mono:var(--font-mono),ui-monospace,Menlo,monospace;
   --rad:10px; --max:1140px;
 }
 *{box-sizing:border-box}
