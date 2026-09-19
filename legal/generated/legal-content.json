@@ -1,0 +1,189 @@
+{
+  "schema_version": 1,
+  "product": "slayer",
+  "source_repository": "kwikiel/fabryka-legal",
+  "source_digest": "sha256:c828c7c9453e54e2b24fdac48323b6c3464a056f4e4d3ccd79f0b14a1bc17a88",
+  "documents": {
+    "/wspolpraca": {
+      "id": "slayer.contribution-terms",
+      "title": "Zasady współpracy i wkładu open-source",
+      "type": "terms",
+      "product": "slayer",
+      "jurisdiction": "PL",
+      "language": "pl",
+      "status": "effective",
+      "version": "1.1.0",
+      "effective_date": "2026-07-26",
+      "review_by": "2026-10-26",
+      "owner": "Fabryka AI",
+      "public_path": "/wspolpraca",
+      "supersedes": null,
+      "legal_basis": [
+        "kodeks cywilny",
+        "kodeks pracy",
+        "prawo autorskie"
+      ],
+      "source_path": "products/slayer/documents/contribution-terms.pl.md",
+      "checksum": "sha256:8b95b56199e7e56908e1b315bbec99f2f0d1c918f9e127b911ad58857260ae60",
+      "body_html": "<h2>1. Projekt i prowadzący</h2>\n<p>Zasady publikuje <strong>Kacper Wikiel</strong>, Aleja Jerzego Waszyngtona 12/14 lok. 40,\n03-910 Warszawa, NIP 9522079063, REGON 542074504, pod marką Fabryka AI.</p>\n<p>Kod głównego repozytorium Slayer jest udostępniany na MIT. Modele, wagi,\ndatasety i materiały mogą mieć inne licencje wskazane przy artefakcie. MIT nie\nrozszerza się na nie automatycznie.</p>\n<h2>2. Dobrowolność i brak zatrudnienia</h2>\n<p>Udział jest dobrowolny i z inicjatywy współtwórcy. Nie ma obowiązku aktywności,\ndostępności, godzin, miejsca ani rezultatu. Udział można zakończyć bez\nkonsekwencji.</p>\n<p>Wkład nie tworzy umowy o pracę, zlecenia, dzieła ani podporządkowania. Nie ma\npoleceń służbowych, czasu pracy ani obowiązku osobistego świadczenia.</p>\n<p>O charakterze relacji decyduje rzeczywisty sposób wykonywania, a nie nazwa.\nProwadzący nie wyznacza godzin, miejsca, obowiązkowych dyżurów ani\njednostronnie egzekwowanych terminów. Zadania są propozycjami. Regularne,\npodporządkowane lub odpłatne prace wymagają wcześniej osobnej umowy.</p>\n<p>Koordynatorzy stosują publiczny Standard zarządzania społecznością Slayer.\nUczestnik sam wybiera zadanie i sposób działania, może odrzucić sugestię,\nporzucić zadanie albo odejść bez uzasadnienia i sankcji. Spotkania są\nopcjonalne, a review dotyczy jakości artefaktu względem jawnych kryteriów, nie\ndyspozycyjności lub posłuszeństwa.</p>\n<p>Nieodpłatny community track nie służy wykonywaniu zamówień klientów ani stałej\ndziałalności operacyjnej Fabryka AI. Jeżeli pojawią się regularne obowiązki,\nharmonogram, bieżące kierownictwo, odpłatność albo indywidualnie zamówiony\nrezultat, dalsza praca zostaje wstrzymana do czasu kwalifikacji i zawarcia\nwłaściwej umowy.</p>\n<h2>3. Brak wynagrodzenia i praw właścicielskich</h2>\n<p>Wkład społecznościowy jest nieodpłatny. Nie daje wynagrodzenia ani zwrotu\nkosztów, chyba że strony zawrą osobną umowę.</p>\n<p>Udział, wkład, rola, staż, wpływ na decyzje lub nazwa „core member” nie dają\nudziałów, akcji, opcji, prawa do zysku ani roszczenia o ich przyznanie.</p>\n<h2>4. Autorstwo i licencja</h2>\n<p>Współtwórca pozostaje autorem i zachowuje prawa autorskie. Świadomie wysyłając\nwkład, udostępnia go na licencji wskazanej dla konkretnego repozytorium,\ndatasetu lub miejsca przyjmującego wkład (inbound=outbound). Dla głównego\nrepozytorium Slayer jest to MIT. Informacja o licencji musi być dostępna przed\nwysłaniem.</p>\n<p>Współtwórca oświadcza, że ma prawo wnieść wkład i nie narusza praw osób\ntrzecich. Przy umyślnej nieprawdziwości lub rażącym niedbalstwie odpowiada na\nzasadach ogólnych za udokumentowaną bezpośrednią szkodę i uzasadnione koszty\nobrony. Musi zostać niezwłocznie poinformowany o roszczeniu i mieć możliwość\nudziału w obronie.</p>\n<p>Przeniesienie praw, licencja wyłączna lub licencja szersza niż właściwa otwarta\nlicencja wymagają osobnej podpisanej umowy. Commit, checkbox i wiadomość na\nczacie nie przenoszą praw.</p>\n<h2>5. Oznaczanie i zasady społeczności</h2>\n<p>Autorstwo jest widoczne w historii repozytorium lub notach. Autor wybiera nazwę\nlub pseudonim. Obowiązuje Regulamin Discorda i Polityka prywatności.</p>\n<h2>6. Współpraca odpłatna</h2>\n<p>Bounty, płatne zlecenie, kontrakt lub zwrot kosztów istnieją tylko po osobnym\nuzgodnieniu i zawarciu właściwej umowy. Sam status w społeczności nie jest\nofertą ani obietnicą takiej współpracy.</p>\n<p>Co najmniej raz na kwartał Prowadzący przegląda aktywne relacje według karty\nprzeglądu community. Uczestnik może zgłosić rozjazd między tym dokumentem a\npraktyką na <a href=\"mailto:k.wikiel@gmail.com\">k.wikiel@gmail.com</a> bez negatywnych konsekwencji.</p>\n"
+    },
+    "/regulamin": {
+      "id": "slayer.course-terms",
+      "title": "Regulamin kursu AI from scratch",
+      "type": "terms",
+      "product": "slayer",
+      "jurisdiction": "PL",
+      "language": "pl",
+      "status": "effective",
+      "version": "1.0.1",
+      "effective_date": "2026-07-26",
+      "review_by": "2026-10-26",
+      "owner": "Fabryka AI",
+      "public_path": "/regulamin",
+      "supersedes": null,
+      "legal_basis": [
+        "ustawa o prawach konsumenta",
+        "kodeks cywilny",
+        "RODO"
+      ],
+      "source_path": "products/slayer/documents/course-terms.pl.md",
+      "checksum": "sha256:834ba6f97cc154aae6178588792aae8923d65e373d9745270935e3a90c642886",
+      "body_html": "<h2>1. Sprzedawca i zakres regulaminu</h2>\n<p>Sprzedawcą i organizatorem kursu jest <strong>Kacper Wikiel</strong>, prowadzący\njednoosobową działalność gospodarczą pod marką Fabryka AI, adres: Aleja\nJerzego Waszyngtona 12/14 lok. 40, 03-910 Warszawa, NIP 9522079063,\nREGON 542074504, e-mail: <a href=\"mailto:k.wikiel@gmail.com\">k.wikiel@gmail.com</a>, dalej „Organizator”.</p>\n<p>Regulamin określa zasady zakupu i uczestnictwa w kursie „AI from scratch”.\nKurs ma charakter edukacyjny i dotyczy praktycznej budowy oraz trenowania\nsystemów AI.</p>\n<h2>2. Dostęp, funkcjonalność i wymagania</h2>\n<ul>\n<li>dostęp obejmuje materiały, aktualizacje i kanały komunikacji wskazane w ofercie;</li>\n<li>dostęp jest osobisty, chyba że strony uzgodnią inaczej na piśmie;</li>\n<li>wymagane są: aktualna przeglądarka, stabilny internet i aktywny e-mail;</li>\n<li>funkcje społecznościowe wymagają konta Discord spełniającego wymogi wieku;</li>\n<li>materiały mogą obejmować tekst, kod, transmisje, nagrania i pliki;</li>\n<li>czas dostępu, harmonogram, język i zakres wsparcia są podawane przed zakupem.</li>\n</ul>\n<p>Organizator może zmienić kolejność lub formę materiałów wyłącznie z ważnej\nprzyczyny: zmiany technologii, prawa lub bezpieczeństwa albo potrzeby poprawy\nbłędu lub aktualności. Zmiana nie może obniżyć uzgodnionej funkcjonalności,\ndostępności ani jakości. O istotnej zmianie konsument jest informowany z\nwyprzedzeniem na trwałym nośniku i zachowuje prawa ustawowe.</p>\n<h2>3. Cena, płatność i faktury</h2>\n<p>Cena pokazana przed zamówieniem jest ceną łączną w złotych i obejmuje należne\npodatki, w tym VAT, jeżeli ma zastosowanie. Metoda płatności i ewentualne\ndodatkowe koszty są pokazywane przed zamówieniem. Faktura jest wystawiana na\ndane przekazane przez kupującego.</p>\n<h2>4. Zwrot i odstąpienie</h2>\n<p>Uczestnik może otrzymać zwrot opłaty w ciągu <strong>30 dni od zakupu bez podawania\nprzyczyny</strong>. Wystarczy wiadomość na <a href=\"mailto:k.wikiel@gmail.com\">k.wikiel@gmail.com</a>. Zwrot jest wykonywany\ntą samą metodą płatności, której użył konsument, chyba że konsument wyraźnie\nzgodzi się na inną metodę niewiążącą się dla niego z żadnymi kosztami.</p>\n<p>Gwarancja 30 dni jest dodatkowa i nie ogranicza ustawowego prawa odstąpienia.\nUtrata prawa odstąpienia przy dostarczaniu treści cyfrowej przed końcem terminu\nmoże nastąpić tylko po wyraźnej uprzedniej zgodzie konsumenta, przyjęciu do\nwiadomości skutku oraz przekazaniu potwierdzenia umowy.</p>\n<h3>Wzór formularza odstąpienia</h3>\n<p>Formularz należy wypełnić i odesłać tylko w przypadku zamiaru odstąpienia od\numowy:</p>\n<blockquote>\n<p>Adresat: Kacper Wikiel, Aleja Jerzego Waszyngtona 12/14 lok. 40,\n03-910 Warszawa, e-mail: <a href=\"mailto:k.wikiel@gmail.com\">k.wikiel@gmail.com</a>.</p>\n<p>Ja/My (<em>) niniejszym informuję/informujemy (</em>) o moim/naszym odstąpieniu od\numowy o dostarczanie kursu „AI from scratch”.</p>\n<p>Data zawarcia umowy: [data].</p>\n<p>Imię i nazwisko konsumenta(-ów): [dane].</p>\n<p>Adres konsumenta(-ów): [adres].</p>\n<p>Podpis konsumenta(-ów), wyłącznie jeżeli formularz jest przesyłany w wersji\npapierowej: [podpis].</p>\n<p>Data: [data].</p>\n<p>(*) Niepotrzebne skreślić.</p>\n</blockquote>\n<p>Skorzystanie z wzoru nie jest obowiązkowe.</p>\n<h2>5. Materiały i społeczność</h2>\n<p>Materiały są przeznaczone do własnej nauki. Nie wolno publikować pełnych\nmateriałów, nagrań, linków dostępowych ani prywatnych fragmentów społeczności\nbez zgody. Wiedza, własne notatki i samodzielnie stworzony kod mogą być\nwykorzystywane w innych projektach z poszanowaniem praw osób trzecich.</p>\n<p>Na Discordzie obowiązuje odrębny regulamin. Przy poważnym naruszeniu dostęp do\nspołeczności może zostać ograniczony natychmiast; w typowych sytuacjach problem\njest wcześniej wyjaśniany.</p>\n<h2>6. Zgodność treści cyfrowej i reklamacje</h2>\n<p>Organizator dostarcza kurs zgodny z umową i zapewnia aktualizacje, w tym\nbezpieczeństwa, wymagane do zachowania zgodności przez okres dostarczania.</p>\n<p>Reklamacje dotyczące dostępu, wad lub niezgodności można składać na\n<a href=\"mailto:k.wikiel@gmail.com\">k.wikiel@gmail.com</a>. Warto podać dane zakupu, opis problemu i oczekiwane\nrozwiązanie. Odpowiedź jest udzielana w ciągu 14 dni. Uprawnienia konsumenta,\nw tym doprowadzenie treści do zgodności, obniżenie ceny lub odstąpienie,\nwynikają z rozdziału 5b ustawy o prawach konsumenta.</p>\n<h2>7. Odpowiedzialność</h2>\n<p>Kurs nie gwarantuje określonego wyniku biznesowego, zawodowego ani finansowego.\nUczestnik odpowiada za sposób wykorzystania wiedzy i narzędzi. Regulamin nie\nogranicza odpowiedzialności, której nie można wyłączyć przepisami.</p>\n<h2>8. Prawo, spory i dane</h2>\n<p>Stosuje się prawo polskie z zachowaniem bezwzględnie obowiązującej ochrony\nkonsumenta w państwie jego zwykłego pobytu. Spory rozstrzyga sąd właściwy według\nustawy. Konsument może korzystać z rzecznika konsumentów i właściwego podmiotu\nADR. Po odrzuceniu reklamacji otrzyma informację o właściwym podmiocie ADR oraz\nstanowisku Organizatora co do udziału w postępowaniu.</p>\n<p>Dane osobowe są przetwarzane zgodnie z Polityką prywatności.</p>\n<h2>9. Zmiany</h2>\n<p>Zmiany nie naruszają praw nabytych. Istotne zmiany są przekazywane na trwałym\nnośniku przed wejściem w życie.</p>\n"
+    },
+    "/regulamin-discord": {
+      "id": "slayer.discord-rules",
+      "title": "Regulamin serwera Discord",
+      "type": "terms",
+      "product": "slayer",
+      "jurisdiction": "PL",
+      "language": "pl",
+      "status": "effective",
+      "version": "1.1.0",
+      "effective_date": "2026-07-26",
+      "review_by": "2026-10-26",
+      "owner": "Fabryka AI",
+      "public_path": "/regulamin-discord",
+      "supersedes": null,
+      "legal_basis": [
+        "RODO",
+        "prawo autorskie",
+        "kodeks cywilny"
+      ],
+      "source_path": "products/slayer/documents/discord-rules.pl.md",
+      "checksum": "sha256:c0b938ceefe6e8b534e35d4ee8e46a1be7276a8830c2a4bba2548df2f39c1bc0",
+      "body_html": "<h2>1. Serwer i operator</h2>\n<p>Serwer prowadzi <strong>Kacper Wikiel</strong>, Aleja Jerzego Waszyngtona 12/14 lok. 40,\n03-910 Warszawa, NIP 9522079063, REGON 542074504, pod marką Fabryka AI.\nSerwer służy społeczności Slayer i uczestnikom kursu. Wejście oznacza\nakceptację tego regulaminu oraz zasad Discorda.</p>\n<h2>2. Wiek</h2>\n<p>Użytkownik musi spełniać minimalny wiek wymagany przez Discord w swoim kraju.\nDla osób mieszkających w Polsce jest to <strong>16 lat</strong>. Niepełnoletni korzysta za\nzgodą rodzica lub opiekuna w zakresie wymaganym przez warunki Discorda.</p>\n<p>Samo wejście na Discord nie uprawnia osoby poniżej 18 lat do aktywnych zadań\nlaboratorium, prywatnych danych, compute, publikacji wizerunku ani świadczeń.\nTe funkcje wymagają wcześniejszego potwierdzenia opiekuna zgodnie z Regulaminem\nlaboratorium. Moderator nie prosi małoletniego o dokument tożsamości na kanale\npublicznym.</p>\n<h2>3. Komunikacja i zakazy</h2>\n<ul>\n<li>komunikuj się rzeczowo i na temat kanału;</li>\n<li>nie publikuj hejtu, gróźb, mowy nienawiści ani ataków;</li>\n<li>nie spamuj, nie flooduj i nie wykonuj masowych pingów;</li>\n<li>nie podszywaj się pod innych, moderację ani operatora;</li>\n<li>nie ujawniaj cudzych danych bez podstawy.</li>\n</ul>\n<p>Zakazane są treści bezprawne, pornografia i treści szkodzące małoletnim,\nmalware, phishing, oszustwa, nieuzgodniona reklama, naruszanie praw autorskich,\nboty bez zgody oraz obchodzenie moderacji.</p>\n<h2>4. Moderacja</h2>\n<p>Moderacja może zastosować ostrzeżenie, wyciszenie, usunięcie treści, kick lub\nban zależnie od wagi naruszenia. Poważne naruszenie może skutkować reakcją bez\nostrzeżenia. Od decyzji można odwołać się na <a href=\"mailto:k.wikiel@gmail.com\">k.wikiel@gmail.com</a>.</p>\n<h2>5. Treści użytkowników i trening AI</h2>\n<p>Użytkownik odpowiada za publikowane treści i potwierdza, że ma prawo je\nudostępnić. Moderacja może usuwać treści naruszające prawo lub zasady.</p>\n<p><strong>Zwykłe wiadomości, rozmowy, pytania, reakcje i komentarze służą komunikacji.\nIch publikacja nie oznacza zgody na użycie jako danych treningowych, w\ndatasetach ani modelach.</strong> Użytkownik udziela tylko niewyłącznej, nieodpłatnej\nlicencji niezbędnej do wyświetlania, przechowywania, moderowania i technicznego\nudostępniania treści w ramach serwera.</p>\n<p>Kod, dokumentacja, dataset lub inny materiał może zostać wkładem do projektu\nlub modelu tylko po świadomym przekazaniu przez repozytorium, formularz albo\nkanał wyraźnie oznaczony do takich wkładów, po pokazaniu celu i licencji.\nObowiązują wtedy Zasady współpracy, licencja danego repozytorium lub osobna\numowa. Brak sprzeciwu, obecność na serwerze i zwykła wiadomość nie stanowią\nzgody na trening AI.</p>\n<h2>6. Dane i kurs</h2>\n<p>Nick, identyfikator, role, wiadomości, reakcje i aktywność mogą być\nprzechowywane przez Discord i widoczne zgodnie z ustawieniami. Przetwarzanie po\nstronie operatora opisuje Polityka prywatności. Discord działa także na\nwłasnych zasadach.</p>\n<p>Uczestnika kursu obowiązuje również Regulamin kursu; uczestnika laboratorium —\nRegulamin laboratorium.</p>\n<h2>7. Zmiany i kontakt</h2>\n<p>Kontakt: moderacja serwera lub <a href=\"mailto:k.wikiel@gmail.com\">k.wikiel@gmail.com</a>. Istotne zmiany są\npublikowane z wyprzedzeniem; aktualna wersja jest dostępna pod publicznym URL.</p>\n"
+    },
+    "/rules": {
+      "id": "slayer.governance",
+      "title": "Zasady projektu Slayer",
+      "type": "governance",
+      "product": "slayer",
+      "jurisdiction": "PL",
+      "language": "pl",
+      "status": "effective",
+      "version": "1.0.1",
+      "effective_date": "2026-07-26",
+      "review_by": "2027-01-26",
+      "owner": "Kacper Wikiel",
+      "public_path": "/rules",
+      "supersedes": null,
+      "legal_basis": [
+        "kodeks cywilny"
+      ],
+      "source_path": "products/slayer/documents/governance.pl.md",
+      "checksum": "sha256:d50597f17082e1473c7be2f3712abc10ceacb999bee89501328c1d8b7aabb0a8",
+      "body_html": "<h2>Autorstwo i kierunek</h2>\n<p>Autorem i inicjatorem Slayer jest <strong>Kacper Wikiel</strong>. Odpowiada za kierunek\nbadań, standard publikacji, markę, priorytety techniczne i oficjalną linię\nprojektu.</p>\n<p>Kontrybucje są mile widziane, ale oficjalna linia pozostaje spójna: twardy\npomiar, jawny koszt, replikowalność i brak benchmaxxingu.</p>\n<h2>BDFL i finalny głos</h2>\n<p>Model organizacyjny to BDFL — Benevolent Dictator For Life. Kacper Wikiel ma\nostatnie słowo w sprawach kierunku, jakości, publikacji, nazwy, marki i\nkonfliktów decyzyjnych.</p>\n<p>Governance, maintainerzy i formalne procesy mogą rozszerzać delegowane decyzje\ni odpowiedzialność, ale nie odbierają założycielowi ostatecznej kompetencji w\ntych sprawach.</p>\n<h2>Brak praw właścicielskich</h2>\n<p>Kacper Wikiel kontroluje markę Slayer, oficjalne kanały, infrastrukturę oraz\ndecyzje redakcyjne projektu. Każdy autor zachowuje prawa do swojego wkładu i\nudziela licencji zgodnej z Zasadami współpracy; ten dokument nie przenosi praw\nautorskich współtwórców.</p>\n<p>Udział w społeczności, wkład, rola kontrybutora, maintainera lub core membera,\nstaż i wpływ na decyzje nie dają udziałów, akcji, opcji, prawa do zysku ani\nroszczenia o ich przyznanie.</p>\n<p>Ten dokument nie jest ofertą, przyrzeczeniem, programem motywacyjnym ani\nzobowiązaniem do przyznania praw właścicielskich. Takie prawo może powstać\nwyłącznie z osobnej, indywidualnej umowy podpisanej przez uprawnione strony.</p>\n<h2>Reguły pracy</h2>\n<ol>\n<li>Każdy może eksperymentować, forkować i proponować; oficjalny Slayer ma jedną\nlinię i odpowiedzialność redakcyjną.</li>\n<li>Decyzje techniczne opierają się na kodzie, danych, pomiarach, kosztach,\nreplikowalności i jakości.</li>\n<li>Realny wkład daje wpływ operacyjny, nie prawa majątkowe.</li>\n<li>Gdy dyskusja nie prowadzi do decyzji, BDFL ją domyka.</li>\n<li>Formalne role i procesy mogą dojrzewać; finalny głos założyciela pozostaje.</li>\n</ol>\n"
+    },
+    "/zgoda": {
+      "id": "slayer.image-consent",
+      "title": "Zgoda na publikację wizerunku i danych zespołu",
+      "type": "consent",
+      "product": "slayer",
+      "jurisdiction": "PL",
+      "language": "pl",
+      "status": "effective",
+      "version": "1.1.0",
+      "effective_date": "2026-07-26",
+      "review_by": "2026-10-26",
+      "owner": "Fabryka AI",
+      "public_path": "/zgoda",
+      "supersedes": null,
+      "legal_basis": [
+        "art. 6 ust. 1 lit. a RODO",
+        "art. 81 ustawy o prawie autorskim"
+      ],
+      "form_label": "Wyrażam zgodę na publikację mojego wizerunku oraz danych (imię i nazwisko, opis specjalizacji i biografia zawodowa) przez administratora Kacper Wikiel wyłącznie w sekcji „Zespół” strony Slayer pod domeną slayer.fabryka.ai. Zgodę mogę wycofać w każdej chwili.",
+      "source_path": "products/slayer/documents/image-consent.pl.md",
+      "checksum": "sha256:17e19f477fa840f3f1a5e635a1026917d67b6cce2cb070222d8b463650fccd6f",
+      "body_html": "<h2>Administrator i cel</h2>\n<p>Administratorem jest <strong>Kacper Wikiel</strong>, Aleja Jerzego Waszyngtona 12/14\nlok. 40, 03-910 Warszawa, NIP 9522079063, REGON 542074504,\ne-mail: <a href=\"mailto:k.wikiel@gmail.com\">k.wikiel@gmail.com</a>.</p>\n<p>Zgoda obejmuje publikację wizerunku oraz imienia i nazwiska, opisu specjalizacji\ni biografii zawodowej wyłącznie w sekcji „Zespół” strony Slayer pod domeną\n<code>slayer.fabryka.ai</code>. Publikacja w mediach społecznościowych, reklamie, materiałach\nprasowych albo innych kanałach wymaga odrębnej zgody wskazującej dany kanał.</p>\n<h2>Treść zgody</h2>\n<p>Wyrażam dobrowolną zgodę na:</p>\n<ol>\n<li>rozpowszechnianie mojego wizerunku na podstawie art. 81 ust. 1 ustawy o\nprawie autorskim;</li>\n<li>przetwarzanie wymienionych danych na podstawie art. 6 ust. 1 lit. a RODO\nw opisanym celu.</li>\n</ol>\n<p>Brak zgody nie rodzi negatywnych konsekwencji. Zgodę można cofnąć w każdej\nchwili na adres Administratora. Cofnięcie nie wpływa na zgodność wcześniejszego\nprzetwarzania.</p>\n<p>Dane i wizerunek są publikowane do cofnięcia zgody, końca celu albo odejścia z\nzespołu. Publikacja jest wtedy usuwana bez zbędnej zwłoki. Dowód udzielenia\nzgody może być przechowywany do 3 lat w celu obrony roszczeń.</p>\n<p>Osobie przysługują prawa opisane w Polityce prywatności, w tym skarga do Prezesa\nUODO.</p>\n<p>Zgoda elektroniczna staje się aktywna dopiero po potwierdzeniu linku wysłanego\nna podany adres e-mail (double opt-in).</p>\n"
+    },
+    "/regulamin-labu": {
+      "id": "slayer.lab-terms",
+      "title": "Regulamin laboratorium Slayer",
+      "type": "terms",
+      "product": "slayer",
+      "jurisdiction": "PL",
+      "language": "pl",
+      "status": "effective",
+      "version": "1.2.0",
+      "effective_date": "2026-07-26",
+      "review_by": "2026-10-26",
+      "owner": "Fabryka AI",
+      "public_path": "/regulamin-labu",
+      "supersedes": null,
+      "legal_basis": [
+        "kodeks cywilny",
+        "RODO",
+        "prawo autorskie"
+      ],
+      "source_path": "products/slayer/documents/lab-terms.pl.md",
+      "checksum": "sha256:d9c88af7879616ef43bfb927dcaf66fac377fc035520176627de1185938b0296",
+      "body_html": "<h2>1. Prowadzący i charakter laboratorium</h2>\n<p>Laboratorium prowadzi <strong>Kacper Wikiel</strong>, Aleja Jerzego Waszyngtona 12/14\nlok. 40, 03-910 Warszawa, NIP 9522079063, REGON 542074504, działający pod\nmarką Fabryka AI, dalej „Prowadzący”. Kontakt: <a href=\"mailto:k.wikiel@gmail.com\">k.wikiel@gmail.com</a>.</p>\n<p>Slayer jest laboratorium badawczo-edukacyjnym i społecznością projektową. Może\nudostępniać zadania badawcze, materiały, mentoring, komunikację i ograniczone\nzasoby obliczeniowe. Strona nie gwarantuje przyjęcia, stałego mentora, liczby\ngodzin GPU, finansowania ani określonego rezultatu.</p>\n<p>Udział społecznościowy jest dobrowolny i podlega Zasadom współpracy. Odpłatne\nprace, zamówione rezultaty i regularne obowiązki wymagają osobnej umowy.\nMaintainerzy i mentorzy stosują Standard zarządzania społecznością Slayer.</p>\n<h2>2. Nabór i dostęp</h2>\n<ul>\n<li>nabór może być otwarty, okresowy albo trwać do wyczerpania zasobów;</li>\n<li>kryteria mogą obejmować zgodność celu, bezpieczeństwo, wykonalność, jakość\nwcześniejszego wkładu i budżet compute;</li>\n<li>zgłoszenie nie daje prawa do przyjęcia, mentoringu, compute, stypendium ani\npłatnej współpracy;</li>\n<li>role i uprawnienia są osobiste.</li>\n</ul>\n<p>Użytkownik Discorda musi spełniać wymagania wieku. Osoba poniżej 18 lat nie\notrzymuje dostępu do aktywnych zadań, prywatnych danych, compute, publikacji\nwizerunku, stypendium ani innego świadczenia, dopóki Prowadzący nie zweryfikuje\nzgody rodzica lub opiekuna na konkretny zakres udziału. Brak zgody nie powoduje\ninnych negatywnych konsekwencji i nie ogranicza dostępu do publicznych\nmateriałów.</p>\n<h2>3. Compute i infrastruktura</h2>\n<p>Dostęp do GPU, serwerów, modeli, danych i kluczy jest przyznawany w oznaczonym\ncelu, na określony czas i w limicie przekazanym uczestnikowi. Prowadzący może\nstosować kolejki, limity kosztu, przerwy techniczne i priorytety oraz zatrzymać\nzadanie zagrażające bezpieczeństwu, przekraczające budżet lub zasady.</p>\n<p>Zabronione są:</p>\n<ul>\n<li>kryptomining, odsprzedaż zasobów i użycie poza zaakceptowanym projektem;</li>\n<li>malware, phishing, nieautoryzowane skanowanie, ataki i obchodzenie zabezpieczeń;</li>\n<li>dane osobowe, poufne lub chronione bez podstawy i zabezpieczeń;</li>\n<li>dane, kod lub modele używane z naruszeniem licencji lub praw osób trzecich;</li>\n<li>udostępnianie kont, tokenów, kluczy lub prywatnych datasetów.</li>\n</ul>\n<p>Incydent, utrata klucza, podejrzenie wycieku lub nieoczekiwany koszt muszą być\nzgłoszone niezwłocznie. Środowisko może zostać zabezpieczone lub usunięte po\nzakończeniu dostępu; uczestnik eksportuje dozwolone rezultaty w terminie.</p>\n<h2>4. Mentoring</h2>\n<p>Mentoring ma charakter edukacyjny i merytoryczny. Nie jest usługą prawną,\npodatkową, inwestycyjną ani medyczną i nie gwarantuje zatrudnienia,\nfinansowania, publikacji ani wyniku. Zakres zależy od naboru i dostępności.</p>\n<h2>5. Stypendia i świadczenia</h2>\n<p>Stypendium, grant, kredyty compute, zwrot kosztów lub inne świadczenie istnieje\ntylko po ogłoszeniu osobnego naboru, który określa liczbę miejsc, kryteria,\nwartość, okres, wybór, obowiązki i przesłanki zakończenia. Informacje ogólne nie\nsą przyrzeczeniem publicznym ani ofertą. Udział, rola lub wkład nie tworzą prawa\ndo świadczenia.</p>\n<p>Przyznanie jest potwierdzane na trwałym nośniku albo umową. Zmiana zasad nie\nnarusza świadczeń przyznanych na oznaczony okres, chyba że ich warunki stanowią\ninaczej lub doszło do poważnego naruszenia.</p>\n<h2>6. Rezultaty i licencje</h2>\n<p>Kod głównego repozytorium Slayer jest na licencji MIT. Modele, wagi, datasety\ni zewnętrzne artefakty mogą mieć inne licencje wskazane przy zasobie.</p>\n<p>Zwykłe rozmowy na Discordzie nie są danymi treningowymi. Kod, dane lub\ndokumentacja trafiają do projektu lub modelu wyłącznie przez świadome\nzgłoszenie na warunkach pokazanych przed przekazaniem.</p>\n<h2>7. Moderacja i zakończenie udziału</h2>\n<p>Uczestnik może zrezygnować w każdej chwili bez uzasadnienia i sankcji. Dostęp\nmoże zostać ograniczony lub zakończony z powodu naruszenia prawa lub zasad,\nzagrożenia bezpieczeństwa, wyczerpania zasobów, końca projektu albo trwałej\nniezgodności działań z jego celem. Nieużywane role i kosztowny dostęp mogą\nwygasnąć administracyjnie, ale brak aktywności nie jest naruszeniem ani\npodstawą negatywnej oceny. Jeżeli nie jest potrzebna reakcja natychmiastowa,\nuczestnik otrzymuje przyczynę i możliwość wyjaśnień. Przysługuje odwołanie na\nadres kontaktowy.</p>\n<p>Natychmiastowe odcięcie jest możliwe przy zagrożeniu bezpieczeństwa, oszustwie,\nprzemocy, bezprawnym użyciu danych, naruszeniu poufności lub ryzyku kosztów.</p>\n<h2>8. Odpowiedzialność, dane i zmiany</h2>\n<p>Uczestnik odpowiada za własny kod, dane, polecenia i użycie wyników. Prowadzący\nnie gwarantuje nieprzerwanego działania ani przydatności wyników. Nie wyłącza\nto odpowiedzialności, której nie można wyłączyć ustawą.</p>\n<p>Dane są przetwarzane zgodnie z Polityką prywatności. Istotne zmiany zasad są\npublikowane z wyprzedzeniem i nie działają wstecz wobec indywidualnie\nprzyznanych świadczeń.</p>\n"
+    },
+    "/polityka-prywatnosci": {
+      "id": "slayer.privacy-notice",
+      "title": "Polityka prywatności Fabryka AI i Slayer",
+      "type": "privacy_notice",
+      "product": "slayer",
+      "jurisdiction": "PL",
+      "language": "pl",
+      "status": "effective",
+      "version": "1.2.0",
+      "effective_date": "2026-07-26",
+      "review_by": "2026-10-26",
+      "owner": "Fabryka AI",
+      "public_path": "/polityka-prywatnosci",
+      "supersedes": null,
+      "legal_basis": [
+        "RODO",
+        "ustawa o ochronie danych osobowych"
+      ],
+      "source_path": "products/slayer/documents/privacy-notice.pl.md",
+      "checksum": "sha256:a016750e545058379a402dd7dd82dcbfa98b957bd4920de65a80829f9ef43fc3",
+      "body_html": "<h2>1. Administrator</h2>\n<p>Administratorem jest <strong>Kacper Wikiel</strong>, prowadzący jednoosobową działalność\ngospodarczą pod marką Fabryka AI, Aleja Jerzego Waszyngtona 12/14 lok. 40,\n03-910 Warszawa, NIP 9522079063, REGON 542074504.</p>\n<p>Kontakt w sprawach danych: <strong><a href=\"mailto:k.wikiel@gmail.com\">k.wikiel@gmail.com</a></strong>.</p>\n<h2>2. Kategorie danych</h2>\n<p>Możemy przetwarzać:</p>\n<ul>\n<li>imię, e-mail, nick i identyfikator Discord;</li>\n<li>zakup, płatność, fakturę, zwrot i status dostępu;</li>\n<li>zgłoszenie do laboratorium lub stypendium, informacje o projekcie,\nkwalifikacjach, roli, mentoringu i compute;</li>\n<li>korespondencję i treści na kanałach społeczności;</li>\n<li>publiczne komentarze, profile zgłoszeniowe, role, opisy i daty publikacji;</li>\n<li>logi techniczne potrzebne do działania i bezpieczeństwa;</li>\n<li>imię, wizerunek, opis i biografię przy publikacji zespołu za zgodą.</li>\n</ul>\n<h2>3. Cele i podstawy</h2>\n<p>Dane są używane w celu:</p>\n<ul>\n<li>zawarcia i wykonania umowy o kurs lub dostęp;</li>\n<li>naboru do laboratorium lub stypendium na żądanie kandydata;</li>\n<li>przydziału mentoringu i compute oraz ich bezpieczeństwa;</li>\n<li>płatności, zwrotów, reklamacji, podatków i rachunkowości;</li>\n<li>komunikacji, moderacji, przeciwdziałania nadużyciom i obrony roszczeń;</li>\n<li>obsługi żądanej publikacji profilu lub komentarza, jego moderacji i usunięcia;</li>\n<li>publikacji wizerunku i danych zespołu na podstawie zgody.</li>\n</ul>\n<p>Podstawami są odpowiednio: wykonanie umowy lub działania przedumowne, obowiązek\nprawny, prawnie uzasadniony interes Administratora albo zgoda.</p>\n<h2>4. Discord</h2>\n<p>Discord może przechowywać nick, identyfikator, role, wiadomości, reakcje i\naktywność oraz udostępniać je uczestnikom zgodnie z ustawieniami kanału.</p>\n<p>Zwykłe rozmowy nie są wykorzystywane przez Administratora jako dane treningowe.\nMateriał trafia do datasetu lub modelu tylko po świadomym przekazaniu przez\noznaczony proces z informacją o celu i licencji.</p>\n<p>Po zasadnym wniosku usuwamy dane pod naszą kontrolą. Usunięcie treści\nutrzymywanych przez Discord może wymagać jego narzędzi prywatności.</p>\n<h2>5. Odbiorcy</h2>\n<ul>\n<li>Discord Netherlands B.V. i Discord Inc. — komunikacja społecznościowa;</li>\n<li>Vercel Inc. — hosting, prywatny storage formularza i zagregowana analityka;</li>\n<li>Resend Inc. — wiadomości potwierdzające zgodę;</li>\n<li>infrastruktura API <code>rocky.fabryka.ai</code> kontrolowana przez Administratora —\nprzyjmowanie zgłoszeń do społeczności;</li>\n<li>The Constant Company, LLC (Vultr) — infrastruktura serwera Rocky w USA;</li>\n<li>GitHub Inc. — obsługa dobrowolnych zgłoszeń i wkładów kierowanych do\npublicznego repozytorium;</li>\n<li>operator płatności pokazany przed płatnością i dostawcy księgowości;</li>\n<li>dostawca poczty elektronicznej.</li>\n</ul>\n<p>Odbiorcy działają jako procesorzy lub odrębni administratorzy zależnie od\nusługi i otrzymują wyłącznie niezbędne dane.</p>\n<h2>6. Transfer poza EOG</h2>\n<p>Discord, Vercel, Resend lub ich podwykonawcy mogą przetwarzać dane poza EOG.\nTransfer opiera się na decyzji Komisji Europejskiej o odpowiednim stopniu\nochrony, w tym EU-US Data Privacy Framework, jeżeli odbiorca jest nim objęty,\nalbo na standardowych klauzulach umownych i wymaganych zabezpieczeniach.\nInformację o mechanizmie konkretnego dostawcy można uzyskać od Administratora.</p>\n<h2>7. Retencja</h2>\n<ul>\n<li>umowa i dostęp: czas umowy i okres roszczeń, co do zasady 3 lata;</li>\n<li>podatki i rachunkowość: okres ustawowy, co do zasady 5 lat liczony od końca\nwłaściwego roku;</li>\n<li>nieprzyjęte zgłoszenia do labu lub stypendium: 6 miesięcy od końca naboru,\nchyba że kandydat zgodzi się na kolejny nabór;</li>\n<li>prywatny kontakt podany przy publicznym profilu: do 12 miesięcy od zgłoszenia,\nchyba że trwa aktywna komunikacja lub jest potrzebny do obsługi żądania;</li>\n<li>publiczny profil lub komentarz: do usunięcia przez autora, końca celu albo\nmaksymalnie 24 miesięcy od ostatniej aktywności; po tym terminie wpis podlega\nprzeglądowi, anonimizacji lub usunięciu;</li>\n<li>korespondencja i dane społecznościowe pod kontrolą Administratora: czas\nuczestnictwa i do 12 miesięcy później, chyba że są potrzebne przy incydencie\nlub roszczeniu;</li>\n<li>logi techniczne: co do zasady 30 dni, dłużej przy incydencie;</li>\n<li>wizerunek i dane zespołu: do cofnięcia zgody, końca celu lub odejścia;\ndowód zgody może być zachowany do 3 lat.</li>\n</ul>\n<h2>8. Analityka i cookies</h2>\n<p>Vercel Web Analytics mierzy zagregowany ruch bez zewnętrznych cookies, bez\nprzypisywania danych do konkretnej osoby lub IP; identyfikator sesji jest\nusuwany po 24 godzinach. Mechanizmy niezbędne służą działaniu i bezpieczeństwu.\nInne technologie wymagające zgody nie zostaną uruchomione przed jej uzyskaniem.</p>\n<p>Fonty strony są dostarczane lokalnie wraz z aplikacją; wejście na stronę nie\npowinno powodować pobrania fontów z serwerów Google.</p>\n<h2>9. Prawa</h2>\n<p>Osobie przysługuje — zależnie od podstawy — dostęp, kopia, sprostowanie,\nusunięcie, ograniczenie, przeniesienie, sprzeciw i cofnięcie zgody bez wpływu na\nwcześniejsze przetwarzanie. Przysługuje też skarga do Prezesa UODO.</p>\n<p>Wniosek można wysłać na <a href=\"mailto:k.wikiel@gmail.com\">k.wikiel@gmail.com</a>. Administrator odpowiada bez zbędnej\nzwłoki i może poprosić o dane potrzebne do potwierdzenia tożsamości.</p>\n<h2>10. Zmiany</h2>\n<p>Istotne zmiany polityki są publikowane przed wejściem w życie. Aktualna wersja\njest dostępna pod stałym publicznym adresem.</p>\n"
+    },
+    "/zasady-zgloszen": {
+      "id": "slayer.website-submissions",
+      "title": "Zasady zgłoszeń i treści publikowanych na stronie",
+      "type": "terms",
+      "product": "slayer",
+      "jurisdiction": "PL",
+      "language": "pl",
+      "status": "effective",
+      "version": "1.0.0",
+      "effective_date": "2026-07-26",
+      "review_by": "2026-10-26",
+      "owner": "Fabryka AI",
+      "public_path": "/zasady-zgloszen",
+      "supersedes": null,
+      "legal_basis": [
+        "kodeks cywilny",
+        "prawo autorskie",
+        "Akt o usługach cyfrowych"
+      ],
+      "source_path": "products/slayer/documents/website-submissions-terms.pl.md",
+      "checksum": "sha256:4020da852cfe0e802ec74d5d956db0876b1fc54ffbd0fc3059d72d8cc01c3c45",
+      "body_html": "<h2>1. Operator i zakres</h2>\n<p>Formularze i publiczne treści prowadzi <strong>Kacper Wikiel</strong>, Aleja Jerzego\nWaszyngtona 12/14 lok. 40, 03-910 Warszawa, NIP 9522079063,\nREGON 542074504, e-mail: <a href=\"mailto:k.wikiel@gmail.com\">k.wikiel@gmail.com</a>, pod marką Fabryka AI.</p>\n<p>Zasady dotyczą komentarzy, publicznych profili zgłoszeniowych, opisów,\npropozycji benchmarków i podobnych treści przekazywanych przez stronę Slayer.\nNie dotyczą zwykłych rozmów na Discordzie ani wkładów do repozytorium, które\nmają odrębne zasady.</p>\n<h2>2. Świadoma publikacja</h2>\n<p>Przed wysłaniem formularz pokazuje, które pola będą publiczne. Dane kontaktowe\noznaczone jako prywatne nie są publikowane. Użytkownik może użyć pseudonimu,\njeżeli dany proces nie wymaga identyfikacji.</p>\n<p>Wysyłając treść do publicznego formularza, użytkownik prosi o jej publikację i\npotwierdza, że:</p>\n<ul>\n<li>ma prawo ją przekazać;</li>\n<li>nie zawiera ona cudzych danych osobowych, tajemnic ani materiałów bezprawnych;</li>\n<li>rozumie, które elementy będą widoczne publicznie;</li>\n<li>zapoznał się z Polityką prywatności i tymi zasadami.</li>\n</ul>\n<h2>3. Licencja potrzebna do działania strony</h2>\n<p>Autor zachowuje prawa do treści. Udziela Operatorowi niewyłącznej, nieodpłatnej\nlicencji na czas publikacji, z prawem do technicznego utrwalania,\nzwielokrotniania w pamięci serwerów, publicznego udostępniania w internecie\noraz koniecznego formatowania treści na stronie Slayer.</p>\n<p>Licencja obejmuje wyłącznie pola eksploatacji potrzebne do przyjęcia,\nmoderowania, wyświetlania, archiwizacji dowodu publikacji i wykonywania kopii\nbezpieczeństwa. Nie obejmuje wykorzystania treści jako danych treningowych,\nelementu datasetu, odpłatnej publikacji ani udzielania sublicencji poza\ndostawcami technicznymi działającymi na rzecz Operatora.</p>\n<h2>4. Moderacja</h2>\n<p>Operator może odmówić publikacji, oznaczyć, skrócić wyłącznie oczywisty spam\nlub usunąć treść, jeżeli:</p>\n<ul>\n<li>narusza prawo, prawa osób trzecich lub te zasady;</li>\n<li>zawiera dane prywatne, złośliwy kod, spam lub reklamę;</li>\n<li>podszywa się pod inną osobę albo wprowadza w błąd co do autorstwa;</li>\n<li>jest poza tematem formularza lub uniemożliwia działanie usługi.</li>\n</ul>\n<p>Merytoryczna krytyka projektu nie jest podstawą usunięcia. Jeżeli to możliwe,\nużytkownik otrzymuje krótką przyczynę decyzji.</p>\n<h2>5. Zgłoszenie bezprawnej treści i odwołanie</h2>\n<p>Zgłoszenie należy wysłać na <strong><a href=\"mailto:k.wikiel@gmail.com\">k.wikiel@gmail.com</a></strong> z:</p>\n<ul>\n<li>dokładnym URL i opisem treści;</li>\n<li>wyjaśnieniem, dlaczego treść ma być bezprawna lub naruszać prawa;</li>\n<li>danymi kontaktowymi zgłaszającego, z wyjątkiem przypadków, w których prawo\npozwala na zgłoszenie bez ich podania;</li>\n<li>oświadczeniem o działaniu w dobrej wierze.</li>\n</ul>\n<p>Operator potwierdza przyjęcie, rozpatruje zgłoszenie bez zbędnej zwłoki i\ninformuje o decyzji, o ile posiada dane kontaktowe. Autor może odwołać się tym\nsamym kanałem.</p>\n<h2>6. Usunięcie własnej treści</h2>\n<p>Autor może poprosić o usunięcie albo anonimizację własnego profilu lub\nkomentarza, podając wystarczające dane do odnalezienia wpisu i potwierdzenia\nuprawnienia. Operator usuwa publiczną treść bez zbędnej zwłoki, chyba że jej\nzachowanie jest wymagane prawem lub niezbędne do obrony roszczeń.</p>\n<p>Kopie techniczne mogą zniknąć później zgodnie z cyklem kopii bezpieczeństwa.\nDowód żądania i wykonania może zostać zachowany przez okres roszczeń.</p>\n<h2>7. Dane i zmiany</h2>\n<p>Zasady przetwarzania, odbiorcy, transfery, retencja i prawa osoby są opisane w\nPolityce prywatności. Zwykłe zgłoszenia na stronie nie są wykorzystywane do\ntreningu modeli.</p>\n<p>Istotne zmiany tych zasad nie działają wstecz wobec licencji już zakończonej\nprzez usunięcie treści.</p>\n"
+    }
+  }
+}
