@@ -4,7 +4,7 @@ No dependency on the queue internals; safe to run on a loop every ~20s."""
 import json, re, os, time, glob
 from datetime import datetime
 
-BR = "/home/kacper/bench_results"
+BR = os.environ.get("BENCH_OUT", os.path.expanduser("~/bench_results"))
 LOG = f"{BR}/queue.log"
 TS = re.compile(r"^(\d{4}-\d\d-\d\d \d\d:\d\d:\d\d)\s")
 NB, NQ = "Bielik-11B-v3.0-Instruct", "Qwen3.5-9B"

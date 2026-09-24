@@ -4,7 +4,7 @@
 Accuracy is the decisive metric. Stratified sample by exam 'type' (seed 42).
 Subcategory breakdown per exam type. Usage: python3 llmzszl_eval.py [N]
 """
-import json, re, sys, time, random, urllib.request
+import json, re, sys, os, time, random, urllib.request
 from collections import defaultdict
 from huggingface_hub import hf_hub_download
 
@@ -106,7 +106,9 @@ def main():
         res = score(tag, sample); res["display_name"] = name
         results.append(res)
         print(json.dumps(res, ensure_ascii=False, indent=2), flush=True)
-    json.dump(results, open("/home/kacper/llmzszl_results.json", "w"), ensure_ascii=False, indent=2)
+    out_dir = os.environ.get("BENCH_OUT", os.path.expanduser("~/bench_results"))
+    os.makedirs(out_dir, exist_ok=True)
+    json.dump(results, open(os.path.join(out_dir, "llmzszl_results.json"), "w"), ensure_ascii=False, indent=2)
     print("\n===== LLMzSzŁ (MCQ, decisive accuracy) =====")
     print(f"{'Model':<28}{'accuracy':>10}{'unparsed':>10}{'czas':>8}")
     for r in results:

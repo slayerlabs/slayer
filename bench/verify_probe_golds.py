@@ -36,7 +36,7 @@ if not KEY:
 
 PROBE_F = "slayer-data/knowledge/probe_v1.jsonl"
 SRC_F = "slayer-data/knowledge/sources/wiki_pl_focus.jsonl"
-OUT = "results/probe_golds_verification.json"
+OUT = "public/results/probe_golds_verification.json"
 
 SYS = ("Weryfikujesz pytanie testowe. Dostajesz ŹRÓDŁO (fragmenty artykułu), PYTANIE i GOLD "
        "(wzorcową odpowiedź). Oceń: 'ok' = gold poprawnie odpowiada na pytanie i wynika ze źródła; "
@@ -111,7 +111,7 @@ def main():
               "ambiguous": ambiguous, "pct_bad_gold": pct_bad,
               "bad_line_indices": sorted(bad_lines),
               "decision_rule": "<10% zlych => sonda zostaje z raportem bledu; >=10% => przebudowa"}
-    os.makedirs("results", exist_ok=True)
+    os.makedirs(os.path.dirname(OUT), exist_ok=True)
     json.dump(report, open(OUT, "w"), ensure_ascii=False, indent=2)
     print(f"[golds] werdykty: {dict(verdicts)} | niejednoznaczne: {ambiguous} | "
           f"złe goldy: {pct_bad}% -> {OUT}", flush=True)
