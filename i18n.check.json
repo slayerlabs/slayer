@@ -1,0 +1,6 @@
+{
+  "dictionaries": {
+    "pl": ["messages/pl.json"],
+    "en": ["messages/en.json"]
+  }
+}
