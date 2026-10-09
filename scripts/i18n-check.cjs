@@ -9,9 +9,9 @@
  *   - dot-nested keys with lowerCamelCase segments (stable identifiers),
  *   - ICU plural shapes carry the CLDR categories the locale needs
  *     (pl: one/few/many/other, en: one/other).
- * Zero runtime dependencies. Reads <cwd>/i18n.check.json; a missing config or
- * absent dictionary files means "not checked yet" (exit 0) so E1-E3 can land
- * dictionaries without a red CI.
+ * Zero runtime dependencies. Reads <cwd>/i18n.check.json; a missing config means
+ * "no check" (exit 0). If SOME locales have dictionaries and others do not,
+ * that is a failure — the tool exists to catch drift the moment it appears.
  */
 
 const fs = require('fs');
@@ -19,6 +19,9 @@ const path = require('path');
 
 const CONFIG_FILE = 'i18n.check.json';
 const PLURAL_CATEGORIES = { pl: ['one', 'few', 'many', 'other'], en: ['one', 'other'] };
+const KEY_SEGMENT = /^[a-z][A-Za-z0-9]*$/;
+const ICU_PLURAL = /\{\s*[a-zA-Z0-9_]+,\s*plural\b/;
+const ICU_CATEGORY = /\b(one|few|many|other|=\d+)\s*\{/g;
 
 function readConfig() {
   const file = path.join(process.cwd(), CONFIG_FILE);
@@ -29,38 +32,79 @@ function readConfig() {
   return JSON.parse(fs.readFileSync(file, 'utf8'));
 }
 
+function globToRegex(pattern) {
+  const base = pattern.split('*')[0];
+  const dir = base.includes('/') ? base.slice(0, base.lastIndexOf('/')) : '.';
+  const suffix = pattern.slice(base.lastIndexOf('*'));
+  const rx = new RegExp('^' + pattern.replace(/[.+^${}()|[\]\\]/g, '\\$&').replace(/\*/g, '[^/]*') + '$');
+  return { dir, suffix, rx };
+}
+
 function expand(pattern) {
-  if (!pattern.includes('*')) return [pattern];
-  const dir = pattern.includes('/') ? pattern.slice(0, pattern.lastIndexOf('/')) : '.';
-  const prefix = pattern.slice(pattern.lastIndexOf('/') + 1).split('*')[0];
+  const { dir, rx } = globToRegex(pattern);
   if (!fs.existsSync(dir)) return [];
-  return fs.readdirSync(dir).filter((f) => f.endsWith('.json') && f.startsWith(prefix));
+  return fs
+    .readdirSync(dir)
+    .filter((f) => {
+      const rel = dir === '.' ? f : `${dir}/${f}`;
+      return f.endsWith('.json') && f !== CONFIG_FILE && rx.test(rel);
+    })
+    .map((f) => path.join(process.cwd(), dir, f))
+    .sort();
 }
 
 function flatten(obj, prefix, out) {
   for (const [k, v] of Object.entries(obj)) {
     const key = prefix ? `${prefix}.${k}` : k;
-    if (v && typeof v === 'object' && !Array.isArray(v)) flatten(v, key, out);
-    else out[key] = v;
+    if (v && typeof v === 'object' && !Array.isArray(v) && Object.keys(v).length > 0) {
+      flatten(v, key, out);
+    } else {
+      out[key] = v;
+    }
   }
   return out;
 }
 
-function loadLocale(files) {
+function load(files, locale) {
   const merged = {};
+  const resolved = [];
   for (const f of files) {
-    if (!fs.existsSync(path.join(process.cwd(), f))) return null;
-    Object.assign(merged, JSON.parse(fs.readFileSync(path.join(process.cwd(), f), 'utf8')));
+    if (f.includes('*')) {
+      const hits = expand(f);
+      if (hits.length === 0) {
+        console.error(`i18n-check: FAILED\n  - ${locale}: pattern "${f}" matched no dictionary files`);
+        process.exit(1);
+      }
+      resolved.push(...hits);
+    } else {
+      const p = path.join(process.cwd(), f);
+      if (!fs.existsSync(p)) {
+        console.error(`i18n-check: FAILED\n  - ${locale}: dictionary file "${f}" does not exist`);
+        process.exit(1);
+      }
+      resolved.push(p);
+    }
+  }
+  for (const p of [...new Set(resolved)].sort()) {
+    let parsed;
+    try {
+      parsed = JSON.parse(fs.readFileSync(p, 'utf8'));
+    } catch (e) {
+      console.error(`i18n-check: FAILED\n  - cannot parse ${path.relative(process.cwd(), p)}: ${e.message}`);
+      process.exit(1);
+    }
+    Object.assign(merged, parsed);
   }
   return flatten(merged, '', {});
 }
 
 function icuErrors(value, key, locale) {
   const out = [];
-  if (typeof value !== 'string' || !/{(?:[a-zA-Z0-9_]+),\s*(?:plural|select)/.test(value)) return out;
+  if (typeof value !== 'string') return out;
+  const unquoted = value.replace(/'[^']*'/g, '');
+  if (!ICU_PLURAL.test(unquoted)) return out;
   const categories = PLURAL_CATEGORIES[locale];
-  if (!categories) return out;
-  const present = [...value.matchAll(/\b(?:one|few|many|other|=\d+)\s*\{/g)].map((m) => m[0].trim().split(/\s/)[0]);
+  const present = [...unquoted.matchAll(ICU_CATEGORY)].map((m) => m[1]);
   for (const c of categories) {
     if (!present.includes(c)) out.push(`key "${key}" (${locale}): ICU plural misses category "${c}"`);
   }
@@ -71,30 +115,34 @@ function main() {
   const config = readConfig();
   if (!config) return;
   const dictionaries = config.dictionaries || {};
-  const locales = Object.keys(dictionaries);
+  const locales = Object.keys(dictionaries).filter(Boolean);
   if (locales.length < 2) {
-    console.error(`i18n-check: ${CONFIG_FILE} needs at least two locales; got [${locales.join(', ')}]`);
+    console.error(`i18n-check: FAILED\n  - ${CONFIG_FILE} needs at least two locales; got [${locales.join(', ')}]`);
+    process.exit(1);
+  }
+  const unsupported = locales.filter((l) => !(l in PLURAL_CATEGORIES));
+  if (unsupported.length) {
+    console.error(`i18n-check: FAILED\n  - unsupported locales (no CLDR category table): ${unsupported.join(', ')}`);
     process.exit(1);
   }
 
   const flat = {};
-  let missing = 0;
+  let present = 0;
   for (const loc of locales) {
-    const files = dictionaries[loc].map((p) => path.join(process.cwd(), p));
-    let found = [];
-    for (const f of files) {
-      if (f.includes('*')) found = found.concat(expand(f));
-      else if (fs.existsSync(f)) found.push(f);
-    }
-    if (found.length === 0) { missing += 1; continue; }
-    const merged = {};
-    for (const f of found) Object.assign(merged, JSON.parse(fs.readFileSync(f, 'utf8')));
-    flat[loc] = flatten(merged, '', {});
+    const files = Array.isArray(dictionaries[loc]) ? dictionaries[loc] : [dictionaries[loc]];
+    if (files.length === 0) continue;
+    flat[loc] = load(files, loc);
+    present += 1;
   }
 
-  if (missing > 0) {
-    console.log(`i18n-check: dictionary files not present yet (${missing} locale set(s) missing) — skipping; E1-E3 adds them.`);
+  if (present === 0) {
+    console.log('i18n-check: no dictionaries present yet — skipping; E1-E3 adds them.');
     return;
+  }
+  const missingLocales = locales.filter((l) => !(l in flat));
+  if (missingLocales.length) {
+    console.error(`i18n-check: FAILED\n  - locales without any dictionary: ${missingLocales.join(', ')}`);
+    process.exit(1);
   }
 
   const base = locales[0];
@@ -109,7 +157,7 @@ function main() {
   }
   for (const loc of locales) {
     for (const [key, value] of Object.entries(flat[loc])) {
-      if (key.split('.').some((s) => !/^[a-z][A-Za-z0-9]*$/.test(s))) {
+      if (key.split('.').some((s) => !KEY_SEGMENT.test(s))) {
         errors.push(`${loc}: key "${key}" violates lowerCamelCase dot-nested format`);
       }
       errors.push(...icuErrors(value, key, loc));
