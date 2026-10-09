@@ -65,27 +65,26 @@ function flatten(obj, prefix, out) {
   return out;
 }
 
-function load(files, locale) {
-  const merged = {};
-  const resolved = [];
-  for (const f of files) {
+function resolveLocale(entries, locale) {
+  const found = [];
+  const missing = [];
+  for (const f of entries) {
     if (f.includes('*')) {
       const hits = expand(f);
-      if (hits.length === 0) {
-        console.error(`i18n-check: FAILED\n  - ${locale}: pattern "${f}" matched no dictionary files`);
-        process.exit(1);
-      }
-      resolved.push(...hits);
+      if (hits.length === 0) missing.push(`pattern "${f}"`);
+      else found.push(...hits);
     } else {
       const p = path.join(process.cwd(), f);
-      if (!fs.existsSync(p)) {
-        console.error(`i18n-check: FAILED\n  - ${locale}: dictionary file "${f}" does not exist`);
-        process.exit(1);
-      }
-      resolved.push(p);
+      if (fs.existsSync(p)) found.push(p);
+      else missing.push(`file "${f}"`);
     }
   }
-  for (const p of [...new Set(resolved)].sort()) {
+  return { found: [...new Set(found)].sort(), missing };
+}
+
+function parseAll(files) {
+  const merged = {};
+  for (const p of files) {
     let parsed;
     try {
       parsed = JSON.parse(fs.readFileSync(p, 'utf8'));
@@ -127,22 +126,34 @@ function main() {
   }
 
   const flat = {};
-  let present = 0;
+  const resolved = {};
+  let totalFound = 0;
   for (const loc of locales) {
-    const files = Array.isArray(dictionaries[loc]) ? dictionaries[loc] : [dictionaries[loc]];
-    if (files.length === 0) continue;
-    flat[loc] = load(files, loc);
-    present += 1;
+    const entries = Array.isArray(dictionaries[loc]) ? dictionaries[loc] : [dictionaries[loc]];
+    if (entries.length === 0) continue;
+    const r = resolveLocale(entries, loc);
+    resolved[loc] = r;
+    totalFound += r.found.length;
   }
 
-  if (present === 0) {
+  if (totalFound === 0) {
     console.log('i18n-check: no dictionaries present yet — skipping; E1-E3 adds them.');
     return;
   }
-  const missingLocales = locales.filter((l) => !(l in flat));
-  if (missingLocales.length) {
-    console.error(`i18n-check: FAILED\n  - locales without any dictionary: ${missingLocales.join(', ')}`);
+  const problems = [];
+  for (const loc of locales) {
+    const r = resolved[loc];
+    if (!r) continue;
+    if (r.found.length === 0) problems.push(`${loc}: no dictionary (${r.missing.join(', ')})`);
+    else if (r.missing.length) problems.push(`${loc}: missing declared files: ${r.missing.join(', ')}`);
+  }
+  if (problems.length) {
+    console.error('i18n-check: FAILED');
+    for (const p of problems) console.error(`  - ${p}`);
     process.exit(1);
+  }
+  for (const loc of locales) {
+    if (resolved[loc]) flat[loc] = parseAll(resolved[loc].found);
   }
 
   const base = locales[0];
