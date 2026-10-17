@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 """PolNative — generator leaderboardu (LEADERBOARD.md, natywny dla GitHuba).
 
-Jedno źródło prawdy: results/polnative_v1.json (agregaty per model, akumulowane
+Jedno źródło prawdy: public/results/polnative_v1.json (agregaty per model, akumulowane
 przez polnative_eval.py). Renderuje ranking + macierz per domena + legendę.
 Reprodukowalny: po każdym nowym runie odpal ponownie.
 
 Tylko agregaty — itemy i odpowiedzi pozostają prywatne (eval_only, anti-leak).
 
 Usage:
-  python3 bench/polnative_leaderboard.py [--in results/polnative_v1.json]
+  python3 bench/polnative_leaderboard.py [--in public/results/polnative_v1.json]
                                          [--out LEADERBOARD.md] [--date 2026-06-13]
 """
 import argparse
@@ -39,12 +39,16 @@ def dlabel(d):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--in", dest="inp", default="results/polnative_v1.json")
+    ap.add_argument("--in", dest="inp", default="public/results/polnative_v1.json")
     ap.add_argument("--out", default="LEADERBOARD.md")
     ap.add_argument("--date", default=datetime.date.today().isoformat())
     a = ap.parse_args()
 
-    d = json.load(open(a.inp, encoding="utf-8"))
+    try:
+        d = json.load(open(a.inp, encoding="utf-8"))
+    except FileNotFoundError:
+        raise SystemExit(f"[polnative-leaderboard] brak {a.inp} - najpierw uruchom "
+                         f"polnative_eval.py (zapisuje do public/results/polnative_v1.json).")
     models = d["results"]
     n = d.get("n", "—")
     judge = d.get("judge", "—")
