@@ -1,0 +1,11 @@
+# Punkt startowy hiperparametrow pod RTX 3090 (24GB), baza ~9B w 4-bit.
+model: Qwen/Qwen3-8B        # podmien na Qwen3.5-9B gdy dostepna
+epochs: 2.0
+batch_size: 1
+grad_accum: 16              # efektywny batch 16
+lr: 1.0e-4
+max_seq_len: 2048
+lora_r: 16
+lora_alpha: 32
+# Przy 9B w nf4 + grad checkpointing + paged_adamw_8bit miesci sie w 24GB.
+# Jak OOM: zmniejsz max_seq_len do 1536 albo lora_r do 8.
