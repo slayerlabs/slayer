@@ -6,7 +6,7 @@ import { useState } from "react";
 // are the demo fallback shown until that file exists. No write-back: "weź na
 // siebie" routes to Discord, where a maintainer assigns the issue in Linear.
 
-const DISCORD_URL = "https://discord.gg/HnTkVR4c5T";
+const DISCORD_URL = "https://discord.gg/jQ3kZ7JK6M";
 
 const PEOPLE = {
   me:    { id: "me",    nick: "marcin.k", initials: "MK", color: "#C15F3C", rung: 1, rungLabel: "Kontrybutor" },

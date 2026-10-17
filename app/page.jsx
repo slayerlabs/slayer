@@ -26,7 +26,7 @@ const lemCss = `
   .flink:hover{color:#F2F1EC;}
 `;
 
-const DISCORD = "https://discord.gg/HnTkVR4c5T";
+const DISCORD = "https://discord.gg/jQ3kZ7JK6M";
 const GITHUB = "https://github.com/slayerlabs";
 const HF = "https://huggingface.co/SlayerLab";
 
