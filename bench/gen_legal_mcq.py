@@ -21,7 +21,9 @@ Każde pytanie przechodzi filtry (pierwszy niespełniony = powód odrzucenia):
 Zaakceptowane mają też `checks.closed_book_*`: Basal bez przepisu. Trafienie z wysoką pewnością =
 pytanie łatwe / wiedza z pamięci — sygnał do filtrowania trudności (np. pod RLVR), nie filtr.
 
-Poprawna odpowiedź jest przestawiana na pozycję (i mod 3), więc litery są zbalansowane.
+Poprawna odpowiedź jest przestawiana na pozycję (i mod 3), więc litery są zbalansowane. Teacher
+dostaje docelową długość poprawnej (najkrótsza/średnia/najdłuższa wg (i div 3) mod 3), żeby długość
+nie zdradzała klucza; rebalans `length` to siatka bezpieczeństwa.
 Artykuły cytowane przez benchmarki z `--exclude-year` (domyślnie 2026, ukryta część) są pomijane.
 `legal_basis` pochodzi z jednostki źródłowej, nie od modelu.
 
@@ -79,7 +81,8 @@ z małej litery, dwie pierwsze kończą się przecinkiem, ostatnia kropką;
 - dokładnie 3 opcje i dokładnie jedna zgodna z przepisem docelowym; dystraktory wiarygodne \
 (np. inny organ, inny termin, inna większość, inna kompetencja), ale sprzeczne z przepisem;
 - poprawną odpowiedź sformułuj własnymi słowami (parafraza zachowująca dokładny sens) — NIE \
-kopiuj w opcjach fragmentów przepisu; dystraktory pisz tym samym stylem i o podobnej długości;
+kopiuj w opcjach fragmentów przepisu; dystraktory pisz tym samym stylem;
+- DŁUGOŚĆ: poprawna odpowiedź ma być {length_rank} z trzech opcji (liczone w znakach) — długość nie może zdradzać odpowiedzi; dłuższe opcje uzupełnij wiarygodnym szczegółem, krótsze skróć;
 - bez opcji typu "wszystkie powyższe", "żadna z powyższych", "A i B";
 - pytanie musi dać się rozstrzygnąć samym przepisem docelowym;
 - "cytat" to dosłowny fragment przepisu docelowego (znak w znak), który rozstrzyga odpowiedź.
@@ -225,7 +228,17 @@ def teacher_prompt(unit: GenUnit) -> str:
     return (f"Przykłady stylu (z innych aktów):\n{STYLE_EXAMPLES}\n\n"
             f"CAŁY ARTYKUŁ (kontekst):\n{unit.article_text}\n\n"
             f"PRZEPIS DOCELOWY ({unit.cite}):\n{unit.text}\n\n"
-            + TEACHER_RULES.format(prefix=unit.prefix))
+            + TEACHER_RULES.format(prefix=unit.prefix, length_rank=length_rank(unit.index)))
+
+
+LENGTH_RANKS = ("najkrótszą", "środkową pod względem długości — jeden dystraktor wyraźnie od niej "
+                "dłuższy, drugi wyraźnie krótszy", "najdłuższą")
+
+
+def length_rank(index: int) -> str:
+    """Docelowa długość poprawnej: po 1/3 jednostek; (index // 3) nie koreluje z pozycją
+    litery (index % 3)."""
+    return LENGTH_RANKS[(index // 3) % 3]
 
 
 def ask_teacher(unit: GenUnit, cfg: Config) -> str:

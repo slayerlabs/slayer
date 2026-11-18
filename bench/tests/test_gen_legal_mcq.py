@@ -142,6 +142,13 @@ def test_dedup_accepted_moves_near_duplicates() -> None:
     assert "zaakceptowane: 1 (50.0%)" in stats and "| dup | 1 |" in stats
 
 
+def test_length_rank_is_balanced_and_independent_of_letter() -> None:
+    pairs = {(i % 3, g.length_rank(i)) for i in range(9)}
+    assert len(pairs) == 9  # każda litera z każdą docelową długością
+    unit = g.GenUnit(**{**_unit().__dict__, "index": 6})
+    assert "poprawna odpowiedź ma być najdłuższą" in g.teacher_prompt(unit)
+
+
 def test_balance_length_drops_largest_advantage_first() -> None:
     def rec(i: int, correct: str) -> dict:
         return {"id": f"u{i}", "question": "q", "options": [correct + ",", "bbbb,", "cccc."],
