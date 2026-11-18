@@ -12,6 +12,11 @@ Każde pytanie przechodzi filtry (pierwszy niespełniony = powód odrzucenia):
   qwen      — Qwen3.5-27B (OpenRouter) potwierdza, że klucz jest jedyną poprawną (kalibracja:
               0/389 przepuszczonych złych kluczy).
   dup       — końcowy dedup wśród zaakceptowanych (ten sam próg Jaccarda).
+  length    — końcowy rebalans: jeśli poprawna jest najdłuższą opcją w więcej niż
+              `--longest-max` pytań (domyślnie 1/3 = losowo; egzaminy aplikacyjne: 29%), odrzuca
+              te o największej przewadze długości poprawnej nad najdłuższym dystraktorem.
+              Parafraza wydłuża poprawną (k.c.: 46% najdłuższa), a sztywny próg przekrzywiałby
+              rozkład w drugą stronę na aktach, gdzie biasu nie ma.
 
 Zaakceptowane mają też `checks.closed_book_*`: Basal bez przepisu. Trafienie z wysoką pewnością =
 pytanie łatwe / wiedza z pamięci — sygnał do filtrowania trudności (np. pod RLVR), nie filtr.
@@ -24,7 +29,8 @@ Wynik w OUT/: accepted.jsonl, rejected.jsonl (z powodem), STATS.md. Wznawialne p
 
 Usage:
   gen_legal_mcq.py --units U.jsonl --bench kssip=K.jsonl --bench aplikacje=A.jsonl --out DIR \
-      [--limit N] [--exclude-year 2026] [--conf 0.9] [--jaccard 0.5] [--env-file .env]
+      [--limit N] [--exclude-year 2026] [--conf 0.9] [--jaccard 0.5] [--longest-max 0.333]
+      [--env-file .env]
 """
 
 import argparse
@@ -404,16 +410,44 @@ def dedup_accepted(out_dir: str, threshold: float) -> tuple[int, int]:
     return len(keep), len(dups)
 
 
+def length_ratio(rec: dict) -> float:
+    """Długość poprawnej / najdłuższy dystraktor (bez końcowej interpunkcji)."""
+    opts = [o.rstrip(",.") for o in rec["options"]]
+    correct = opts.pop(rec["answer_idx"])
+    return len(correct) / max(max(len(o) for o in opts), 1)
+
+
+def balance_length(out_dir: str, longest_max: float) -> tuple[int, int]:
+    """Ogranicza udział pytań z najdłuższą poprawną do `longest_max`; nadmiar -> rejected."""
+    path = os.path.join(out_dir, "accepted.jsonl")
+    recs = _read_jsonl(path)
+    longest = sorted((r for r in recs if length_ratio(r) > 1), key=length_ratio, reverse=True)
+    # najmniejsze d takie, że (L - d) / (n - d) <= longest_max
+    n, total_long, drop = len(recs), len(longest), 0
+    while total_long - drop > longest_max * (n - drop) and drop < total_long:
+        drop += 1
+    dropped = {id(r) for r in longest[:drop]}
+    keep = [r for r in recs if id(r) not in dropped]
+    with open(path, "w", encoding="utf-8") as f:
+        f.writelines(json.dumps(r, ensure_ascii=False) + "\n" for r in keep)
+    with open(os.path.join(out_dir, "rejected.jsonl"), "a", encoding="utf-8") as f:
+        f.writelines(json.dumps({**r, "rejected": f"length: poprawna najdłuższa x{length_ratio(r):.2f}"},
+                                ensure_ascii=False) + "\n" for r in longest[:drop])
+    return len(keep), drop
+
+
 def stats(out_dir: str) -> str:
     acc = _read_jsonl(os.path.join(out_dir, "accepted.jsonl"))
     rej = _read_jsonl(os.path.join(out_dir, "rejected.jsonl"))
     total = len(acc) + len(rej)
     reasons = Counter(r["rejected"].split(":")[0] for r in rej)
     letters = Counter(r["answer"] for r in acc)
+    longest = sum(length_ratio(r) > 1 for r in acc)
     lines = ["# gen_legal_mcq — statystyki", "",
              f"- jednostek przetworzonych: {total}",
              f"- zaakceptowane: {len(acc)} ({len(acc) / max(total, 1) * 100:.1f}%)",
              f"- litery A/B/C: {letters['A']}/{letters['B']}/{letters['C']}",
+             f"- poprawna najdłuższą opcją: {longest} ({longest / max(len(acc), 1) * 100:.1f}%)",
              "", "| powód odrzucenia | liczba |", "|---|---|"]
     lines += [f"| {k} | {v} |" for k, v in reasons.most_common()]
     return "\n".join(lines) + "\n"
@@ -458,6 +492,8 @@ def _args() -> argparse.Namespace:
     ap.add_argument("--conf", type=float, default=0.9)
     ap.add_argument("--jaccard", type=float, default=0.5)
     ap.add_argument("--teacher", default=TEACHER)
+    ap.add_argument("--longest-max", type=float, default=1 / 3,
+                    help="maks. udział pytań z najdłuższą poprawną opcją (rebalans)")
     ap.add_argument("--env-file")
     return ap.parse_args()
 
@@ -485,6 +521,8 @@ def main() -> None:
               file=sys.stderr)
     kept, dups = dedup_accepted(a.out, a.jaccard)
     print(f"dedup: zostaje {kept}, duplikatów {dups}")
+    kept, longer = balance_length(a.out, a.longest_max)
+    print(f"rebalans długości: zostaje {kept}, odrzuconych {longer}")
     text = stats(a.out)
     with open(os.path.join(a.out, "STATS.md"), "w", encoding="utf-8") as f:
         f.write(text)

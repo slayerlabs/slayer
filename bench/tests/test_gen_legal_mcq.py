@@ -131,7 +131,8 @@ def test_pipeline_accepts_and_rejects() -> None:
 
 
 def test_dedup_accepted_moves_near_duplicates() -> None:
-    rec = {"id": "a", "question": GOOD["pytanie"], "options": GOOD["opcje"], "answer": "A"}
+    rec = {"id": "a", "question": GOOD["pytanie"], "options": GOOD["opcje"], "answer": "A",
+           "answer_idx": 0}
     with tempfile.TemporaryDirectory() as d:
         with open(os.path.join(d, "accepted.jsonl"), "w", encoding="utf-8") as f:
             for i in range(2):
@@ -139,6 +140,22 @@ def test_dedup_accepted_moves_near_duplicates() -> None:
         assert g.dedup_accepted(d, 0.5) == (1, 1)
         stats = g.stats(d)
     assert "zaakceptowane: 1 (50.0%)" in stats and "| dup | 1 |" in stats
+
+
+def test_balance_length_drops_largest_advantage_first() -> None:
+    def rec(i: int, correct: str) -> dict:
+        return {"id": f"u{i}", "question": "q", "options": [correct + ",", "bbbb,", "cccc."],
+                "answer": "A", "answer_idx": 0}
+    recs = [rec(0, "a" * 12), rec(1, "a" * 6), rec(2, "a" * 5), rec(3, "aa"), rec(4, "aaa")]
+    assert g.length_ratio(recs[0]) == 3.0 and g.length_ratio(recs[3]) == 0.5
+    with tempfile.TemporaryDirectory() as d:
+        with open(os.path.join(d, "accepted.jsonl"), "w", encoding="utf-8") as f:
+            f.writelines(json.dumps(r) + "\n" for r in recs)
+        assert g.balance_length(d, 1 / 3) == (3, 2)  # 3/5 najdłuższe -> 1/3
+        kept = [r["id"] for r in g._read_jsonl(os.path.join(d, "accepted.jsonl"))]
+        assert kept == ["u2", "u3", "u4"]
+        assert g.balance_length(d, 1 / 3) == (3, 0)  # idempotentne
+        assert "poprawna najdłuższą opcją: 1 (33.3%)" in g.stats(d)
 
 
 if __name__ == "__main__":
