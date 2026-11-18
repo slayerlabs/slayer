@@ -30,6 +30,7 @@ Usage:
 import argparse
 import json
 import os
+import random
 import re
 import sys
 import threading
@@ -65,12 +66,14 @@ STYLE_EXAMPLES = (
 )
 TEACHER_SYS = ("Jesteś autorem testów na egzaminy wstępne na aplikacje prawnicze i do KSSiP. "
                "Układasz pytania jednokrotnego wyboru wyłącznie na podstawie podanego przepisu "
-               "Konstytucji RP. Zwracasz wyłącznie JSON.")
-TEACHER_RULES = f"""Ułóż jedno pytanie o PRZEPIS DOCELOWY. Zasady:
-- pytanie zaczyna się od "{PREFIX}" i kończy dwukropkiem; opcje są dokończeniem zdania, \
+               "prawa. Zwracasz wyłącznie JSON.")
+TEACHER_RULES = """Ułóż jedno pytanie o PRZEPIS DOCELOWY. Zasady:
+- pytanie zaczyna się od "{prefix}" i kończy dwukropkiem; opcje są dokończeniem zdania, \
 z małej litery, dwie pierwsze kończą się przecinkiem, ostatnia kropką;
 - dokładnie 3 opcje i dokładnie jedna zgodna z przepisem docelowym; dystraktory wiarygodne \
 (np. inny organ, inny termin, inna większość, inna kompetencja), ale sprzeczne z przepisem;
+- poprawną odpowiedź sformułuj własnymi słowami (parafraza zachowująca dokładny sens) — NIE \
+kopiuj w opcjach fragmentów przepisu; dystraktory pisz tym samym stylem i o podobnej długości;
 - bez opcji typu "wszystkie powyższe", "żadna z powyższych", "A i B";
 - pytanie musi dać się rozstrzygnąć samym przepisem docelowym;
 - "cytat" to dosłowny fragment przepisu docelowego (znak w znak), który rozstrzyga odpowiedź.
@@ -98,9 +101,44 @@ class GenUnit:
     article_text: str
     eli: str
     state: str
+    prefix: str = PREFIX
+    source: str = "konstytucja-rp (pl.wikisource, ELI-checked)"
 
 
 # ---------- jednostki ----------
+
+
+def load_code_units(path: str, exclude_bases: set[str]) -> list[GenUnit]:
+    """Jednostki z build_code_units.py (kodeksy); pomija artykuły o wykluczonym numerze bazowym."""
+    with open(path, encoding="utf-8") as f:
+        rows = [json.loads(line) for line in f if line.strip()]
+    rows = [r for r in rows if _base(r["article"]) not in exclude_bases]
+    return [GenUnit(id=r["id"], index=i, cite=r["cite"], text=r["text"],
+                    article_text=r["article_text"], eli=r["eli"], state=r["state"],
+                    prefix=r["prefix"], source=f"{r['act']} tekst jednolity {r['eli']} "
+                    "(api.sejm.gov.pl/eli, PDF)") for i, r in enumerate(rows)]
+
+
+def _base(article: str) -> str:
+    """Numer bazowy artykułu: `449¹` -> `449`, `577a` -> `577a`."""
+    return re.match(r"\d+[a-z]?", article).group()
+
+
+def excluded_code_articles(bench_rows: list[dict], year: int, act: str) -> set[str]:
+    """Numery bazowe artykułów `act` cytowanych w benchmarkach z danego roku (nadmiarowo:
+    cały wpis legal_basis z tym aktem, wszystkie `art. N` w nim)."""
+    act_re = re.compile(r"(?<![\w.])" + re.escape(act) + r"(?![a-z])")
+    out = set()
+    for r in bench_rows:
+        lb = r.get("legal_basis") or ""
+        if r.get("year") == year and act_re.search(lb):
+            out |= set(re.findall(r"art\.\s*(\d+[a-z]?)", lb))
+    return out
+
+
+def is_code_units(path: str) -> bool:
+    with open(path, encoding="utf-8") as f:
+        return "article_text" in json.loads(f.readline())
 
 def generation_units(units_path: str, exclude_articles: set[int]) -> list[GenUnit]:
     """Artykuły bez ustępów + ustępy (z punktami), poza wykluczonymi artykułami."""
@@ -139,7 +177,7 @@ def excluded_articles(units_path: str, bench_rows: list[dict], year: int) -> set
 # ---------- podobieństwo ----------
 
 def _norm(text: str) -> str:
-    text = re.sub(r"zgodnie z konstytucj\w+ (rp|rzeczypospolitej polskiej),?", " ", text.lower())
+    text = re.sub(r"zgodnie z [^,]{3,90},", " ", text.lower())
     return re.sub(r"[^\w]+", " ", text).strip()
 
 
@@ -180,7 +218,8 @@ def mcq_text(question: str, options: list[str] | tuple[str, ...]) -> str:
 def teacher_prompt(unit: GenUnit) -> str:
     return (f"Przykłady stylu (z innych aktów):\n{STYLE_EXAMPLES}\n\n"
             f"CAŁY ARTYKUŁ (kontekst):\n{unit.article_text}\n\n"
-            f"PRZEPIS DOCELOWY ({unit.cite}):\n{unit.text}\n\n{TEACHER_RULES}")
+            f"PRZEPIS DOCELOWY ({unit.cite}):\n{unit.text}\n\n"
+            + TEACHER_RULES.format(prefix=unit.prefix))
 
 
 def ask_teacher(unit: GenUnit, cfg: Config) -> str:
@@ -295,7 +334,7 @@ def accepted_record(unit: GenUnit, item: Item, q: dict, checks: dict) -> dict:
     return {"id": unit.id, "question": item.question, "options": list(item.options),
             "answer": "ABC"[item.answer], "answer_idx": item.answer,
             "legal_basis": unit.cite, "quote": q["cytat"].strip(), "eli": unit.eli,
-            "legal_state": unit.state, "source": "konstytucja-rp (pl.wikisource, ELI-checked)",
+            "legal_state": unit.state, "source": unit.source,
             "generator": {"script": "bench/gen_legal_mcq.py", "teacher": teacher,
                           "solver": "basal-2.0-max", "verifier": "qwen/qwen3.5-27b"},
             "checks": checks}
@@ -387,12 +426,34 @@ def _read_jsonl(path: str) -> list[dict]:
         return [json.loads(line) for line in f if line.strip()]
 
 
+def select_units(path: str, bench_rows: list[dict], year: int) -> tuple[list[GenUnit], set]:
+    """Jednostki do generacji minus artykuły cytowane w benchmarkach z roku `year`."""
+    if not is_code_units(path):
+        excl = excluded_articles(path, bench_rows, year)
+        return generation_units(path, excl), excl
+    with open(path, encoding="utf-8") as f:
+        act = json.loads(f.readline())["act"]
+    excl = excluded_code_articles(bench_rows, year, act)
+    valid = {_base(r) for r in _code_articles(path)}
+    # Klucze egzaminów spłaszczają indeks górny ("art. 2233" = art. 223³): numer spoza aktu
+    # mapujemy na najdłuższy istniejący prefiks (223) i wykluczamy cały artykuł bazowy.
+    excl = {n if n in valid else next((n[:k] for k in (-1, -2) if n[:k] in valid), n)
+            for n in excl}
+    return load_code_units(path, excl), excl
+
+
+def _code_articles(path: str) -> list[str]:
+    with open(path, encoding="utf-8") as f:
+        return [json.loads(line)["article"] for line in f if line.strip()]
+
+
 def _args() -> argparse.Namespace:
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     ap.add_argument("--units", required=True)
     ap.add_argument("--bench", action="append", required=True, help="NAME=path.jsonl")
     ap.add_argument("--out", required=True)
     ap.add_argument("--limit", type=int, default=0, help="tylko pierwsze N jednostek (pilot)")
+    ap.add_argument("--sample", type=int, default=0, help="losowe N jednostek (seed 2026)")
     ap.add_argument("--exclude-year", type=int, default=2026)
     ap.add_argument("--conf", type=float, default=0.9)
     ap.add_argument("--jaccard", type=float, default=0.5)
@@ -405,9 +466,11 @@ def main() -> None:
     a = _args()
     load_env_file(a.env_file)
     bench_rows = _read_benches(a.bench)
-    excl = excluded_articles(a.units, bench_rows, a.exclude_year)
-    units = generation_units(a.units, excl)
+    units, excl = select_units(a.units, bench_rows, a.exclude_year)
     units = units[: a.limit] if a.limit else units
+    if a.sample:
+        units = sorted(random.Random(2026).sample(units, min(a.sample, len(units))),
+                       key=lambda u: u.index)
     print(f"wykluczone artykuły ({a.exclude_year}): {sorted(excl)}; jednostek: {len(units)}")
     os.makedirs(a.out, exist_ok=True)
     pipe = Pipeline(Config(a.conf, a.jaccard, a.teacher),
