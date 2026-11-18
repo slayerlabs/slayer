@@ -81,10 +81,16 @@ def test_quote_must_be_verbatim() -> None:
     assert not g.quote_ok({**GOOD, "cytat": "Narodu"}, _unit())  # za krótki
 
 
-def test_place_answer_moves_correct_option() -> None:
+def test_place_answer_moves_correct_option_and_fixes_punctuation() -> None:
     for target in range(3):
         opts, ans = g.place_answer(GOOD, target)
-        assert ans == target and opts[target] == "Narodu," and len(opts) == 3
+        assert ans == target and opts[target].rstrip(",.") == "Narodu" and len(opts) == 3
+        assert [o[-1] for o in opts] == [",", ",", "."]
+
+
+def test_exam_punctuation() -> None:
+    assert g.exam_punctuation(["a.", "b", "c ,"]) == ["a,", "b,", "c."]
+    assert g.exam_punctuation(["art. 103-107", "x;", "y"]) == ["art. 103-107,", "x,", "y."]
 
 
 def test_similarity_index() -> None:
@@ -113,6 +119,7 @@ def test_pipeline_accepts_and_rejects() -> None:
     unit = _unit()  # index 4 -> poprawna na pozycji 4 % 3 = 1 (B)
     ok = _pipe(Verdict("B", 0.95, ""), Verdict("TAK", None, ""), GOOD).process(unit)
     assert "rejected" not in ok and ok["answer"] == "B" and ok["options"][1] == "Narodu,"
+    assert ok["options"][2].endswith(".")
     assert ok["legal_basis"] == unit.cite and ok["checks"]["basal_conf"] == 0.95
     low = _pipe(Verdict("B", 0.5, ""), Verdict("TAK", None, ""), GOOD).process(unit)
     assert low["rejected"].startswith("basal")

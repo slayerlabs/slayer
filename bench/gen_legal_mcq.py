@@ -232,12 +232,18 @@ def quote_ok(q: dict, unit: GenUnit) -> bool:
         _squash(quote) in _squash(unit.text)
 
 
+def exam_punctuation(opts: list[str]) -> list[str]:
+    """Styl arkuszy: dwie pierwsze opcje kończą się przecinkiem, ostatnia kropką."""
+    bare = [re.sub(r"[\s,.;]+$", "", o.strip()) for o in opts]
+    return [o + ("." if i == len(bare) - 1 else ",") for i, o in enumerate(bare)]
+
+
 def place_answer(q: dict, target: int) -> tuple[list[str], int]:
     """Przestawia poprawną opcję na pozycję `target`, dystraktory w dotychczasowej kolejności."""
     opts = [o.strip() for o in q["opcje"]]
     correct = opts.pop(q["poprawna"])
     opts.insert(target, correct)
-    return opts, target
+    return exam_punctuation(opts), target
 
 
 # ---------- przebieg jednej jednostki ----------
