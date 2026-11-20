@@ -130,6 +130,40 @@ def test_pipeline_accepts_and_rejects() -> None:
     assert bad_q["rejected"].startswith("quote")
 
 
+class _FakeDistractor:
+    def __init__(self, value: str | None) -> None:
+        self.value, self.seen = value, []
+
+    def ask(self, item: object) -> str | None:
+        self.seen.append(item)
+        return self.value
+
+
+def test_distractor_filter_rejects_tak_and_empty_and_keeps_nie() -> None:
+    unit = _unit()
+    verdicts = (Verdict("B", 0.95, ""), Verdict("TAK", None, ""))
+    for value, rejected in (("NIE", None), ("TAK", "distractor: druga prawdziwa opcja"),
+                            (None, "distractor: brak odpowiedzi")):
+        pipe = _pipe(*verdicts, GOOD)
+        pipe.distractor = _FakeDistractor(value)
+        rec = pipe.process(unit)
+        assert rec.get("rejected") == rejected
+        assert rec.get("checks", rec).get("distractor") == value
+    assert rec["candidate"] == GOOD
+    kept = _pipe(*verdicts, GOOD)
+    kept.distractor = _FakeDistractor("NIE")
+    assert kept.process(unit)["generator"]["distractor_check"] is True
+    assert _pipe(*verdicts, GOOD).process(unit)["generator"]["distractor_check"] is False
+
+
+def test_distractor_prompt_names_key_and_other_options() -> None:
+    item = g.Item(id="x", source="gen", year=0, question="Pytanie:", options=("a,", "b,", "c."),
+                  answer=1, context="Art. 4.\nTreść.")
+    text = g.distractor_prompt(item)
+    assert "Klucz: B." in text and "pozostałych opcji (A, C)" in text
+    assert text.startswith("Przepis (cały artykuł):\nArt. 4.") and text.endswith("TAK albo NIE.")
+
+
 def test_dedup_accepted_moves_near_duplicates() -> None:
     rec = {"id": "a", "question": GOOD["pytanie"], "options": GOOD["opcje"], "answer": "A",
            "answer_idx": 0}

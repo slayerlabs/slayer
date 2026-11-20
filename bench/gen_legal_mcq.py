@@ -11,6 +11,11 @@ Każde pytanie przechodzi filtry (pierwszy niespełniony = powód odrzucenia):
               z pewnością >= progu (kalibracja: 99.7% trafności przy 0.9).
   qwen      — Qwen3.5-27B (OpenRouter) potwierdza, że klucz jest jedyną poprawną (kalibracja:
               0/389 przepuszczonych złych kluczy).
+  distractor — Qwen3.5-27B Z ROZUMOWANIEM: czy któryś dystraktor jest RÓWNIEŻ prawdziwy w świetle
+              całego artykułu, innych przepisów aktu lub ogólnych zasad? TAK albo brak odpowiedzi
+              (rozumowanie nie zmieściło się w limicie) = odrzucenie. Test na 255 pytaniach k.c.:
+              3/3 znanych dwuznacznych, 0 fałszywych alarmów, ~6% pustych, ~$0.0045/pytanie.
+              Wariant bez rozumowania nie wykrył żadnego (0/255). Wyłączenie: --no-distractor-check.
   dup       — końcowy dedup wśród zaakceptowanych (ten sam próg Jaccarda).
   length    — końcowy rebalans: jeśli poprawna jest najdłuższą opcją w więcej niż
               `--longest-max` pytań (domyślnie 1/3 = losowo; egzaminy aplikacyjne: 29%), odrzuca
@@ -53,7 +58,9 @@ from judge_calibration import (
     ChatJudge,
     FatalApiError,
     Item,
+    letters,
     load_env_file,
+    parse_value,
     post_json,
 )
 from legal_cites import Cite, coverage, load_units
@@ -304,6 +311,38 @@ def place_answer(q: dict, target: int) -> tuple[list[str], int]:
     return exam_punctuation(opts), target
 
 
+# ---------- filtr dystraktorów ----------
+
+DISTRACTOR_SYS = ("Jesteś recenzentem testów na egzaminy prawnicze. Sprawdzasz, czy pytanie "
+                  "jednokrotnego wyboru nie ma więcej niż jednej poprawnej odpowiedzi.")
+
+
+def distractor_prompt(item: Item) -> str:
+    opts = "\n".join(f"{c}. {o}" for c, o in zip(letters(item), item.options, strict=True))
+    key = letters(item)[item.answer]
+    others = ", ".join(c for c in letters(item) if c != key)
+    return (f"Przepis (cały artykuł):\n{item.context}\n\nPytanie: {item.question}\n{opts}\n\n"
+            f"Klucz: {key}.\nCzy którakolwiek z pozostałych opcji ({others}) jest RÓWNIEŻ "
+            "prawdziwa — w świetle całego artykułu, innych przepisów tego samego aktu lub ogólnych "
+            "zasad prawa? Pytanie dotyczy wyłącznie aktu wskazanego na początku pytania. "
+            "Odpowiedz TAK albo NIE.")
+
+
+class DistractorJudge:
+    """Qwen z rozumowaniem: 'TAK' = drugi prawdziwy dystraktor, None = brak odpowiedzi."""
+
+    def __init__(self, key: str, model: str = "qwen/qwen3.5-27b", max_tokens: int = 4000) -> None:
+        self.key, self.model, self.max_tokens = key, model, max_tokens
+
+    def ask(self, item: Item) -> str | None:
+        body = {"model": self.model, "temperature": 0, "max_tokens": self.max_tokens,
+                "reasoning": {"enabled": True},
+                "messages": [{"role": "system", "content": DISTRACTOR_SYS},
+                             {"role": "user", "content": distractor_prompt(item)}]}
+        msg = post_json(f"{OPENROUTER}/chat/completions", self.key, body)["choices"][0]["message"]
+        return parse_value(msg.get("content") or "", "verify", "")
+
+
 # ---------- przebieg jednej jednostki ----------
 
 @dataclass
@@ -314,6 +353,7 @@ class Pipeline:
     bench: SimilarityIndex
     basal: BasalJudge
     qwen: ChatJudge
+    distractor: DistractorJudge | None = None
 
     def process(self, unit: GenUnit) -> dict:
         raw = ask_teacher(unit, self.cfg)
@@ -341,6 +381,12 @@ class Pipeline:
         checks["qwen_verify"] = v.value
         if v.value != "TAK":
             return {**base, "rejected": "qwen: odrzucił klucz", "candidate": q, **checks}
+        if self.distractor is not None:
+            d = self.distractor.ask(item)
+            checks["distractor"] = d
+            if d != "NIE":
+                why = "druga prawdziwa opcja" if d == "TAK" else "brak odpowiedzi"
+                return {**base, "rejected": f"distractor: {why}", "candidate": q, **checks}
         closed = self.basal.ask(item, "closed")  # sygnał trudności, nie filtr
         checks["closed_book_correct"] = closed.value == "ABC"[item.answer]
         checks["closed_book_conf"] = round(closed.confidence or 0, 4)
@@ -355,7 +401,8 @@ def accepted_record(unit: GenUnit, item: Item, q: dict, checks: dict) -> dict:
             "legal_basis": unit.cite, "quote": q["cytat"].strip(), "eli": unit.eli,
             "legal_state": unit.state, "source": unit.source,
             "generator": {"script": "bench/gen_legal_mcq.py", "teacher": teacher,
-                          "solver": "basal-2.0-max", "verifier": "qwen/qwen3.5-27b"},
+                          "solver": "basal-2.0-max", "verifier": "qwen/qwen3.5-27b",
+                          "distractor_check": "distractor" in checks},
             "checks": checks}
 
 
@@ -507,6 +554,8 @@ def _args() -> argparse.Namespace:
     ap.add_argument("--teacher", default=TEACHER)
     ap.add_argument("--longest-max", type=float, default=1 / 3,
                     help="maks. udział pytań z najdłuższą poprawną opcją (rebalans)")
+    ap.add_argument("--no-distractor-check", action="store_true",
+                    help="pomiń filtr dystraktorów (Qwen z rozumowaniem, ~3x koszt generacji)")
     ap.add_argument("--env-file")
     return ap.parse_args()
 
@@ -526,7 +575,9 @@ def main() -> None:
                     SimilarityIndex([mcq_text(r["question"], r["options"]) for r in bench_rows]),
                     BasalJudge(os.environ["FABRYKA_API_KEY"]),
                     ChatJudge(OPENROUTER, os.environ["OPENROUTER_API_KEY"], "qwen/qwen3.5-27b",
-                              {"reasoning": {"enabled": False}}))
+                              {"reasoning": {"enabled": False}}),
+                    None if a.no_distractor_check
+                    else DistractorJudge(os.environ["OPENROUTER_API_KEY"]))
     try:
         run(pipe, units, a.out)
     except FatalApiError as e:
